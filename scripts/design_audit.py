@@ -26,12 +26,33 @@ def main() -> int:
         long_lines = [i + 1 for i, line in enumerate(lines) if len(line) > 500]
         if long_lines:
             errors.append("README.md has lines over 500 chars: " + ", ".join(map(str, long_lines[:10])))
-        for required in ["<picture>", "## Start Here", "## Skill Map", "## Validation", "## Design Standard"]:
+        for required in [
+            "assets/hero-cinematic.png",
+            "assets/skill-os-infographic.png",
+            "## What This Skill Does",
+            "## Operating System At A Glance",
+            "## Start Here",
+            "## Skill Map",
+            "## Validation",
+            "## Design Standard",
+        ]:
             if required not in text:
                 errors.append(f"README.md missing `{required}`")
 
     if not (root / "docs" / "frontend-redesign.md").exists():
         errors.append("missing docs/frontend-redesign.md")
+
+    hero = root / "assets" / "hero-cinematic.png"
+    if not hero.exists():
+        errors.append("missing asset: assets/hero-cinematic.png")
+    elif hero.stat().st_size < 100_000:
+        errors.append("assets/hero-cinematic.png appears too small for a real hero image")
+
+    infographic = root / "assets" / "skill-os-infographic.png"
+    if not infographic.exists():
+        errors.append("missing asset: assets/skill-os-infographic.png")
+    elif infographic.stat().st_size < 100_000:
+        errors.append("assets/skill-os-infographic.png appears too small for a real infographic image")
 
     for rel in ["assets/hero-dark.svg", "assets/hero-light.svg", "assets/skill-map.svg"]:
         path = root / rel

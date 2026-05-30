@@ -8,8 +8,8 @@ tags:
   - video-generation
   - seedance-20
 metadata:
-  version: "5.3.0"
-  updated: "2026-05-08"
+  version: "5.4.1"
+  updated: "2026-05-30"
   parent: "seedance-20"
   author: "Iamemily2050 (@iamemily2050)"
   repository: "https://github.com/Emily2040/seedance-2.0"
@@ -38,7 +38,7 @@ Use `Subject + Action + Scene + Camera + Lighting/Style + Audio + Constraints`. 
 
 ## Mode Gate
 
-Choose the mode before drafting. **T2V** needs subject, action, scene, camera, light, style, and constraints because nothing is visible yet. **I2V** starts from `[Image1]` and adds only motion, time, camera, lighting transition, audio, and preservation. **V2V** should map `[Video1]` to a role such as camera move, action rhythm, blocking, or atmosphere rather than accidentally transferring identity. **R2V** must list every reference role and state what must not transfer.
+Choose the mode before drafting. **T2V** needs subject, action, scene, camera, light, style, and constraints because nothing is visible yet. **I2V** starts from `[Image1]` and adds only motion, time, camera, lighting transition, audio, and preservation. **V2V** should map `[Video1]` to a role such as camera move, action rhythm, blocking, or atmosphere rather than accidentally transferring identity. **R2V** must list every reference role and state what must not transfer. **FLF2V** uses `[Image1]` as first frame and `[Image2]` as last frame, then describes only the continuous transition.
 
 | Mode | Drafting priority | Common mistake | Repair |
 |---|---|---|---|
@@ -46,6 +46,7 @@ Choose the mode before drafting. **T2V** needs subject, action, scene, camera, l
 | I2V | Preserve visible identity; add motion. | Re-describing the image until the product or face drifts. | Say `preserve [Image1] exactly`; add only dynamic changes. |
 | V2V | Transfer motion, camera, or timing. | Copying unauthorized likeness or scene details. | Use owned/licensed/authorized references and restrict transfer role. |
 | R2V | Assign separate roles to each asset. | One reference asked to control identity, pose, scene, and style. | Split roles or prioritize the most important role. |
+| FLF2V | Move from first frame to last frame. | Treating the last frame as vague mood instead of endpoint. | State `[Image2]` is the final visual target. |
 
 ## Prompt Build Process
 

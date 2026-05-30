@@ -27,7 +27,7 @@
   <circle cx="970" cy="80" r="180" fill="#7c3aed" opacity="0.25" filter="url(#soft)"/>
   <circle cx="1050" cy="360" r="160" fill="#06b6d4" opacity="0.16" filter="url(#soft)"/>
   <path d="M0 372 C190 320 310 410 500 365 C720 312 820 235 1200 290" fill="none" stroke="#38bdf8" opacity="0.18" stroke-width="2"/>
-  <text x="70" y="92" class="small">v5.3.0 · validated agent-skill system</text>
+  <text x="70" y="92" class="small">v5.4.1 · research-backed skill system</text>
   <text x="70" y="178" class="title">Seedance 2.0</text>
   <text x="70" y="248" class="title">Skill OS</text>
   <text x="74" y="306" class="subtitle">Intent-first quad-modal AI filmmaking</text>
@@ -38,7 +38,7 @@
   <text x="728" y="166" class="muted">23 modular skills</text>
   <text x="728" y="212" class="muted">14 reference files</text>
   <text x="728" y="258" class="muted">14 eval cases</text>
-  <text x="728" y="304" class="muted">API status dated 2026-05-08</text>
+  <text x="728" y="304" class="muted">API status dated 2026-05-30</text>
   <text x="728" y="350" class="muted">README + SVG frontend audited</text>
   <rect x="950" y="112" width="36" height="36" rx="10" fill="#22d3ee" opacity="0.9"/>
   <rect x="950" y="158" width="36" height="36" rx="10" fill="#a78bfa" opacity="0.9"/>

@@ -109,3 +109,21 @@ Use these examples as patterns, not fixed scripts. Preserve reference tags exact
 **Mode:** I2V. **Why it works:** compact Chinese phrasing keeps preservation and motion clear.
 
 `[Image1]为产品参考，严格保持logo、标签、瓶身形状和颜色不变。镜头缓慢推进到标签特写；左侧暖光扫过玻璃，水珠沿瓶身下滑，背景保持暗色静止。声音：轻微环境声，结尾一声清脆玻璃音。`
+
+## Chinese First/Last Frame
+
+**Mode:** FLF2V. **Why it works:** each image has one role and the prompt describes only the transition.
+
+`@图1为首帧，@图2为尾帧。保持同一原创角色、服装和房间布局，角色从椅子上缓慢站起，走到窗边并停在尾帧姿势。动作连续自然，不跳切，不改变脸部、衣服或房间结构。镜头固定中景，仅轻微推镜。声音：安静室内环境声。`
+
+## Russian I2V Product Preservation
+
+**Mode:** I2V. **Why it works:** Russian wording keeps the product lock and only changes light and environment motion.
+
+`[Image1] как первый кадр и референс продукта; сохранить логотип, этикетку, форму, цвет и крышку без изменений. Меняются только свет и небольшое движение среды: теплый источник слева медленно проходит по стеклу, капли соединяются и стекают вниз. Камера: фиксированный средний план с очень медленным наездом к этикетке. Звук: тихий фон, легкий стеклянный щелчок в конце.`
+
+## Russian Reference Role Map
+
+**Mode:** R2V. **Why it works:** image, video, and audio references are separated into safe roles.
+
+`[Image1] задает оригинального персонажа и костюм. [Video1] задает только ритм бокового сопровождения камеры; не копировать людей, место, бренды или узнаваемую сцену. [Audio1] задает только темп и настроение. Персонаж идет по мокрой вечерней улице, останавливается под фонарем и оборачивается. Камера: плавное боковое сопровождение, затем фиксированный средний план. Звук: дождь, шаги, без музыки.`

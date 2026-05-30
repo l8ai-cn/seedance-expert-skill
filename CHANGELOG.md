@@ -2,6 +2,47 @@
 
 All notable changes to this project are documented here.
 
+## [5.4.1] — 2026-05-30
+
+### Added
+
+- Added `assets/skill-os-infographic.png` and a README section explaining the skill operating-system lanes.
+- Added `references/agent-compatibility.md` for Codex/Agent Skills packaging, progressive disclosure, and install caveats.
+- Added May 30 source records for Volcengine's May 29 model-list/tutorial updates, the Volcengine API-service ecosystem article, Agent Skills docs, and recent audio-video eval benchmark vocabulary.
+
+### Changed
+
+- Refreshed the dated research snapshot to `research-2026-05-30.md` and the source data file to `sources.seedance-2026-05-30.json`.
+- Tightened README installation wording so local skill paths are treated as client-specific targets, not universal install guarantees.
+- Updated validation scripts and design checks to enforce the new infographic, agent compatibility reference, v5.4.1 metadata, and May 30 source data.
+
+### Fixed
+
+- Kept FLF2V wording explicitly partner/surface-specific unless a current first-party API page exposes that exact workflow name.
+- Added a stronger BytePlus caveat: do not quote Seedance 2.0 BytePlus pricing or model IDs from JavaScript-rendered pages without live official verification.
+
+## [5.4.0] — 2026-05-27
+
+### Added
+
+- Added a generated cinematic README hero image at `assets/hero-cinematic.png`.
+- Added dated research and source layers, later carried forward as `research-2026-05-30.md`, plus `platform-surface-matrix.md`, `model-name-map.md`, `first-last-frame-guide.md`, `field-observed-tips.md`, and `community-source-methodology.md`.
+- Added structured source and community-pattern data files under `data/`.
+- Added source freshness and vocabulary schema validators.
+- Added eval cases for model-name accuracy, source freshness, first/last-frame workflow, Chinese/Russian role binding, unsafe bypass refusal, and community corpus safety.
+
+### Changed
+
+- Refreshed `api-status.md` and `source-registry.md` to 2026-05-27 source boundaries.
+- Expanded active Chinese and Russian vocabulary references with role binding, first/last-frame, camera, lighting, audio, editing, constraint, and safety terms.
+- Updated prompt, pipeline, recipe, filter, and multilingual skills to route into the new research and FLF2V references.
+- Updated CI and release validation to run six checks instead of four.
+
+### Fixed
+
+- Prevented ambiguous `Seedance 2.0 Pro` naming from being treated as the official Seedance video-model name.
+- Made public prompt-corpus mining safety-first: extract structures and vocabulary, not unsafe raw examples.
+
 ## [5.3.0] — 2026-05-08
 
 ### Fixed

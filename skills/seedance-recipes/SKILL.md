@@ -9,8 +9,8 @@ tags:
   - recipes
   - seedance-20
 metadata:
-  version: "5.3.0"
-  updated: "2026-05-08"
+  version: "5.4.1"
+  updated: "2026-05-30"
   parent: "seedance-20"
   author: "Iamemily2050 (@iamemily2050)"
   repository: "https://github.com/Emily2040/seedance-2.0"
@@ -35,6 +35,7 @@ Use recipes as starting patterns, not rigid prompt templates. Pick the recipe th
 | Commercial | Brand-safe polish and function. | `problem/use/result beat + precise product constraint + clean light` |
 | Animation | Original characters and stylized motion. | `medium + shape language + palette + elastic or weighted motion` |
 | VFX | Transformations, particles, weather, energy. | `source + material behavior + interaction + dissipation endpoint` |
+| First/last frame | In-between transitions, product state changes, character pose targets. | `first frame + last frame + continuous transition + identity locks` |
 
 ## Prompt Skeletons
 
@@ -44,11 +45,13 @@ Use recipes as starting patterns, not rigid prompt templates. Pick the recipe th
 
 **Reference Motion:** `[Video1] provides only [camera/action/timing] reference; do not transfer identity, costume, logo, or environment. New subject: [authorized/original subject]. [Action and endpoint].`
 
+**First/Last Frame:** `[Image1] is the first frame. [Image2] is the last frame. Preserve [identity/product/scene anchors]. Generate a continuous transition from [start state] to [end state]. Camera: [locked or one controlled move]. Sound: [ambient/SFX].`
+
 **Animation:** `Original [character archetype] [action] in [environment]. Style: [medium, line quality, texture, palette]. Motion: [rhythm]. Camera and sound: [simple support].`
 
 ## Selection Rule
 
-If a user gives many goals, choose the recipe that protects the most fragile requirement. Product identity beats camera spectacle; lip-sync beats large head motion; character consistency beats complex choreography; safety and authorization beat style mimicry.
+If a user gives many goals, choose the recipe that protects the most fragile requirement. Product identity beats camera spectacle; lip-sync beats large head motion; character consistency beats complex choreography; first/last-frame target accuracy beats extra style changes; safety and authorization beat style mimicry.
 
 ## Output Contract
 

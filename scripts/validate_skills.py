@@ -19,6 +19,13 @@ EXPECTED_SKILLS = [
 REQUIRED_REFERENCES = [
     "references/api-status.md",
     "references/source-registry.md",
+    "references/research-2026-05-30.md",
+    "references/agent-compatibility.md",
+    "references/platform-surface-matrix.md",
+    "references/model-name-map.md",
+    "references/first-last-frame-guide.md",
+    "references/field-observed-tips.md",
+    "references/community-source-methodology.md",
     "references/platform-constraints.md",
     "references/quick-ref.md",
     "references/audio-guide.md",
@@ -49,8 +56,14 @@ REQUIRED_FILES = [
     "scripts/content_audit.py",
     "scripts/eval_schema_check.py",
     "scripts/design_audit.py",
+    "scripts/source_registry_check.py",
+    "scripts/vocab_schema_check.py",
     ".github/workflows/validate-skills.yml",
     "evals/evals.json",
+    "data/sources.seedance-2026-05-30.json",
+    "data/community-patterns.seedance-2026-05-30.json",
+    "assets/hero-cinematic.png",
+    "assets/skill-os-infographic.png",
     "assets/hero-dark.svg",
     "assets/hero-light.svg",
     "assets/skill-map.svg",
@@ -135,8 +148,8 @@ def validate_skill(path: Path, root: Path, errors: list[str], warnings: list[str
         if metadata_value(frontmatter, "parent") != "seedance-20":
             errors.append(f"{rel}: missing metadata.parent: seedance-20")
 
-    if metadata_value(frontmatter, "version") != "5.3.0":
-        errors.append(f"{rel}: metadata.version must be 5.3.0")
+    if metadata_value(frontmatter, "version") != "5.4.1":
+        errors.append(f"{rel}: metadata.version must be 5.4.1")
 
     description = value_for(frontmatter, "description") or ""
     if not description.startswith("This skill should be used when"):
@@ -194,7 +207,14 @@ def main() -> int:
         except Exception as exc:
             errors.append(f"evals/evals.json parse error: {exc}")
 
-    for rel in ["scripts/validate_skills.py", "scripts/content_audit.py", "scripts/eval_schema_check.py", "scripts/design_audit.py"]:
+    for rel in [
+        "scripts/validate_skills.py",
+        "scripts/content_audit.py",
+        "scripts/eval_schema_check.py",
+        "scripts/design_audit.py",
+        "scripts/source_registry_check.py",
+        "scripts/vocab_schema_check.py",
+    ]:
         path = root / rel
         if path.exists():
             line_count = len(path.read_text(encoding="utf-8").splitlines())
@@ -213,7 +233,7 @@ def main() -> int:
             print(f"- {error}")
         return 1
 
-    print(f"Validated root plus {len(EXPECTED_SKILLS)} sub-skills and required v5.3 files.")
+    print(f"Validated root plus {len(EXPECTED_SKILLS)} sub-skills and required v5.4.1 files.")
     return 0
 
 

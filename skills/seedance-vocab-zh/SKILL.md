@@ -8,8 +8,8 @@ tags:
   - vocabulary
   - seedance-20
 metadata:
-  version: "5.3.0"
-  updated: "2026-05-08"
+  version: "5.4.1"
+  updated: "2026-05-30"
   parent: "seedance-20"
   author: "Iamemily2050 (@iamemily2050)"
   repository: "https://github.com/Emily2040/seedance-2.0"
@@ -20,11 +20,13 @@ metadata:
 
 # seedance-vocab-zh
 
-Use Chinese vocabulary when the user asks for Chinese prompts, Mandarin cinematic wording, or maximum compactness. Chinese prompt wording is often efficient, but it must still preserve mode, reference tags, action, camera, lighting, audio, and constraints.
+Use Chinese vocabulary when the user asks for Chinese prompts, Mandarin cinematic wording, role binding, first/last-frame workflow, or maximum compactness. Chinese prompt wording is often efficient, but it must still preserve mode, reference tags, action, camera, lighting, audio, and constraints.
 
 ## Usage Rule
 
 Do not translate reference tags. Keep `[Image1]`, `[Video1]`, and `[Audio1]` unchanged. Use short production phrases instead of abstract adjectives.
+
+Load `[ref:vocab/zh]` for dense role-binding, first/last-frame, camera, lighting, audio, edit/extend, constraint, and safety vocabulary.
 
 | Function | Chinese wording |
 |---|---|
@@ -32,6 +34,7 @@ Do not translate reference tags. Keep `[Image1]`, `[Video1]`, and `[Audio1]` unc
 | Lighting | `侧逆光`, `柔和窗光`, `暖色实用灯`, `冷色月光`, `轮廓光`, `体积光` |
 | Motion | `慢慢转身`, `快速掠过画面`, `水珠沿表面下滑`, `薄雾贴地扩散` |
 | Audio | `安静环境声`, `一句短对白`, `轻微金属声`, `无配乐`, `脚步声卡点` |
+| First/last frame | `@图1 为首帧`, `@图2 为尾帧`, `自然过渡到尾帧`, `中间动作连续，不跳切` |
 | Constraints | `严格保持logo、标签、形状和颜色不变` |
 
 ## Compact Pattern

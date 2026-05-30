@@ -5,7 +5,7 @@ license: MIT
 user-invocable: true
 tags: [seedance]
 metadata:
-  version: "5.3.0"
+  version: "5.4.1"
 ---
 
 # seedance-20

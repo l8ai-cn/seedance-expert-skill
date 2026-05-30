@@ -9,8 +9,8 @@ tags:
   - integration
   - seedance-20
 metadata:
-  version: "5.3.0"
-  updated: "2026-05-08"
+  version: "5.4.1"
+  updated: "2026-05-30"
   parent: "seedance-20"
   author: "Iamemily2050 (@iamemily2050)"
   repository: "https://github.com/Emily2040/seedance-2.0"
@@ -25,14 +25,16 @@ Use this for operational workflows, APIs, web surfaces, post-production, and int
 
 ## Status Rule
 
-Always load `[ref:api-status]` for current API and platform claims. Do not rely on old release-status memory.
+Always load `[ref:api-status]` for current API and platform claims. Load `[ref:model-name-map]` when a user says Pro, Fast, V2, or a wrapper model ID. Do not rely on old release-status memory.
 
 ## Workflow Split
 
 1. Web workflow: Dreamina/Jimeng surface, references, prompt, output review.
 2. API workflow: BytePlus/ModelArk docs, model ID, auth, file handling, task creation, task retrieval.
 3. Post workflow: stitching, audio cleanup, captions, color, upscale, delivery.
-4. Community workflow: ComfyUI or unofficial nodes must be labeled community/unverified unless sourced.
+4. First/last-frame workflow: map first frame, last frame, transition action, identity locks, and ending target.
+5. Community workflow: ComfyUI or unofficial nodes must be labeled community/unverified unless sourced.
+6. Corpus-mining workflow: classify sources before reuse; extract structure and vocabulary, not unsafe raw prompts.
 
 ## Output Contract
 

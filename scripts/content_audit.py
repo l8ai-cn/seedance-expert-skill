@@ -21,6 +21,14 @@ RISK_PHRASES = {
     "rhythm clone": "copyright-sensitive clone wording",
     "performance clone": "copyright-sensitive clone wording",
     "dance performance clone": "copyright-sensitive clone wording",
+    "绕过审核": "Chinese filter-bypass wording",
+    "绕过安全": "Chinese safety-bypass wording",
+    "名人换脸": "Chinese celebrity face-swap wording",
+    "复制真人脸": "Chinese real-person cloning wording",
+    "обойти фильтр": "Russian filter-bypass wording",
+    "обход фильтра": "Russian filter-bypass wording",
+    "клонировать лицо": "Russian face-cloning wording",
+    "голос знаменитости": "Russian celebrity voice wording",
 }
 
 IGNORE_PREFIXES = [

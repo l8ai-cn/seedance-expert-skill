@@ -25,6 +25,13 @@ REQUIRED_IDS = {
     "troubleshoot_camera_chaos",
     "vague_idea_interview",
     "zh_compression",
+    "model_name_accuracy",
+    "source_freshness_gate",
+    "first_last_frame_workflow",
+    "zh_role_binding_multimodal",
+    "ru_role_binding_multimodal",
+    "unsafe_bypass_refusal",
+    "community_corpus_safety",
 }
 
 

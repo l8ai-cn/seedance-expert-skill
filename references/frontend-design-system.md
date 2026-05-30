@@ -23,3 +23,4 @@ This repository has no application frontend. The user-facing frontend is the Git
 - No line longer than 500 characters.
 - Tables should have real newlines.
 - Every major section should answer a user decision: what is it, where do I start, what skills exist, how do I validate, what changed.
+- Bitmap hero art should contain no embedded text, logos, or watermarks; keep real project text in Markdown for accessibility.

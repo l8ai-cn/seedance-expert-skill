@@ -1,0 +1,47 @@
+{
+  "schema_version": "seedance-community-patterns.v1",
+  "generated_at": "2026-05-30",
+  "source": "external-awesome-seedance-2-prompts local checkout plus open web community guides; May 30 pass rechecked for structure, not raw prompt import",
+  "usage_rule": "Mine structure, vocabulary, timing syntax, and constraints only. Do not copy unsafe or IP-sensitive prompts into active examples.",
+  "labels": [
+    "safe-example-candidate",
+    "safe-structure-only",
+    "ip-risk",
+    "real-person-risk",
+    "brand-risk",
+    "violence-risk",
+    "low-quality"
+  ],
+  "patterns": [
+    {
+      "id": "timed-15s-three-beat",
+      "label": "safe-structure-only",
+      "features": ["0-5s / 5-10s / 10-15s timing blocks", "shot-specific camera", "action endpoint per beat"],
+      "safe_use": "Use as a format for original scenes."
+    },
+    {
+      "id": "strict-i2v-preservation",
+      "label": "safe-example-candidate",
+      "features": ["preserve logo/label/shape/color", "only light and environment change", "locked or slow camera"],
+      "safe_use": "Use for product images owned or authorized by the user."
+    },
+    {
+      "id": "reference-role-map",
+      "label": "safe-example-candidate",
+      "features": ["image identity", "video camera rhythm", "audio tempo", "explicit no identity transfer"],
+      "safe_use": "Use in R2V templates and multilingual examples."
+    },
+    {
+      "id": "negative-constraint-block",
+      "label": "safe-structure-only",
+      "features": ["no text", "no watermark", "no subtitles", "no logo redesign", "no identity change"],
+      "safe_use": "Convert into positive constraints where possible."
+    },
+    {
+      "id": "protected-style-name",
+      "label": "ip-risk",
+      "features": ["named studio", "named franchise", "named public figure"],
+      "safe_use": "Rewrite into medium, palette, texture, composition, and motion descriptors."
+    }
+  ]
+}

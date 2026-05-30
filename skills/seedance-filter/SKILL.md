@@ -8,8 +8,8 @@ tags:
   - safe-rewrite
   - seedance-20
 metadata:
-  version: "5.3.0"
-  updated: "2026-05-08"
+  version: "5.4.1"
+  updated: "2026-05-30"
   parent: "seedance-20"
   author: "Iamemily2050 (@iamemily2050)"
   repository: "https://github.com/Emily2040/seedance-2.0"
@@ -44,6 +44,8 @@ Use this when a prompt is blocked, degraded, likely to trigger moderation, or ne
 ## Boundary Rule
 
 If the user's request is unsafe, refuse or redirect to a safe alternative. If it is safe but poorly worded, repair the wording. When uncertain, state the risk class and offer a conservative prompt that keeps the non-harmful scene function.
+
+Do not provide filter-bypass, evasion, or hidden-word tactics. The safe path is to clarify production intent, remove unsafe identity or harm elements, and rewrite into an original authorized scene.
 
 Load `[ref:filter-vocab]` for safer substitutions.
 
