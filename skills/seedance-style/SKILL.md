@@ -10,7 +10,7 @@ tags:
   - seedance-20
 metadata:
   version: "5.4.5"
-  updated: "2026-05-30"
+  updated: "2026-06-11"
   parent: "seedance-20"
   author: "Iamemily2050 (@iamemily2050)"
   repository: "https://github.com/Emily2040/seedance-2.0"
@@ -42,6 +42,8 @@ Separate style into layers instead of one broad label: **medium** (live action, 
 ## Hybrid Style Rule
 
 If the user asks for a hybrid, assign each style to a layer: `live-action product photography with illustrated UI overlays` is clearer than mixing many named influences. Keep character design, environment, lighting, and VFX in compatible registers.
+
+Load `[ref:2d-anime-grammar]` when the style is 2D, anime, or cel-based — it covers layer grammar, burst-versus-held motion, impact frames, smears, rostrum-camera language, and the no-lens rule for stylized work.
 
 ## Output Contract
 

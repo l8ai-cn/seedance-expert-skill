@@ -16,7 +16,7 @@
 | Physics [official claim] | physical verbs & consequences, not pose adjectives |
 | Slow motion [official] | Standard tier; on the single key action |
 | Transformation [field] | endpoint states + the persisting carrier; hard cases → FLF decomposition |
-| 2D/anime [field] | medium grammar: cel over painted bg, sakuga vs held frames, impact frames/speed lines/smears; no lens/DOF talk |
+| 2D/anime [field] | medium grammar: cel over painted bg, sakuga vs held frames, impact frames/speed lines/smears; no lens/DOF talk — full grammar in `[ref:2d-anime-grammar]` |
 | Formats & `auto` [official] | 21:9 for cinema; `auto` sizes duration to complexity |
 | Multilingual [official/field] | zh anchors for texture/mood; keep reference tags exact |
 
