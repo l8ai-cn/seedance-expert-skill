@@ -9,7 +9,7 @@ tags:
   - seedance-20
 metadata:
   version: "5.4.5"
-  updated: "2026-05-30"
+  updated: "2026-06-10"
   parent: "seedance-20"
   author: "Iamemily2050 (@iamemily2050)"
   repository: "https://github.com/Emily2040/seedance-2.0"
@@ -19,6 +19,10 @@ metadata:
 ---
 
 # seedance-filter
+
+## Boundary — read before anything else
+
+This skill repairs **false positives only**: benign production content blocked or degraded by over-broad filtering (medical, historical, athletic, fictional-original contexts). It works by **clarifying legitimate context in plain language** — never by disguising intent. It does not rephrase genuinely prohibited content: anything risky involving minors, real-person likeness without rights, sexual or graphic or illegal material. If the underlying request is prohibited, refuse plainly and offer a legitimate alternative only where one exists.
 
 Use this when a prompt is blocked, degraded, likely to trigger moderation, or needs a safer rewrite without losing creative intent. This skill does not help evade safety systems. It rewrites risky surface wording into professional, non-graphic production language and preserves the safe creative core.
 

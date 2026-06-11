@@ -163,7 +163,7 @@ The README now includes a committed visual set rather than a single generic hero
 |---|---|
 | [`seedance-copyright`](skills/seedance-copyright/SKILL.md) | Protected IP, public figures, real people, brands, logos, songs, or exact scenes appear. |
 | [`seedance-antislop`](skills/seedance-antislop/SKILL.md) | Prompt language is generic, bloated, or filled with empty quality boosters. |
-| [`seedance-filter`](skills/seedance-filter/SKILL.md) | A prompt is blocked, degraded, or likely to trigger a content filter. |
+| [`seedance-filter`](skills/seedance-filter/SKILL.md) | A benign prompt is blocked or degraded by over-broad filtering. Repairs false positives by clarifying legitimate production context, never by hiding intent. |
 
 ### Multilingual Vocabulary
 
