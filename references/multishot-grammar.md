@@ -12,8 +12,10 @@ Shots cost seconds. Plan ≈4–6s per shot: two shots want ~10s, three want 12�
 - **Standard tier [field].** Official fal docs give fast endpoints the same schema and multi-shot support, but field reports say fast tiers do not reliably honor multi-shot (or slow-motion or dolly moves) on the first try.
 - **10–15s or `auto` [official].** Multi-shot below ~10s starves the beats.
 
-## Timestamps: secondary, never the skeleton [official]
+## Timestamps: secondary on Western surfaces, primary on Chinese surfaces [official + field]
 Prefer `Shot N:` labels as the structure — clear and portable across surfaces. fal's reference-to-video docs additionally accept timestamp pacing phrases ("At 5 seconds…", "Cut scene to…"); use them sparingly as *hints inside* a labeled shot, never as bracketed `[0-6s]` blocks replacing the labels.
+
+Surface exception [field]: on Dreamina/Jimeng, Chinese community practice structures longer prompts (over ~8s) with a bracketed timeline as the primary skeleton — `【时间轴】0-3s: … / 3-6s: … / 6-10s: …` — each segment carrying its own 画面/镜头/音效 (frame, camera, sound). Match the convention of the active surface; do not mix both skeletons in one prompt.
 
 ## Dialogue & audio placement [official + field]
 A spoken line goes inside the shot where the speaker is on-screen, written naturally in quotes; keep lines short. Name each shot's specific sounds — they anchor the audio pass. Audio is generated per call, not across calls: multi-block pieces get their unifying score in post.
@@ -32,3 +34,4 @@ For an unbroken take, say so: "single continuous take, no cuts" — otherwise a 
 | Renders as one continuous take | clearer `Shot N:` labels · reduce to two shots · Standard tier |
 | A shot's action skipped/compressed | fewer shots · raise duration / `auto` · one action per shot |
 | Cut lands mid-action | end each shot's sentence on the completed beat; let the next shot open the new one |
+| Atmosphere breaks between shots | declare the persisting effect once for the whole piece: "thin mist throughout, every shot" (全程薄雾) |

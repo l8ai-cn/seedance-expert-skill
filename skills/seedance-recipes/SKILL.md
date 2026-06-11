@@ -39,6 +39,9 @@ Load `[ref:genre-guides]` for genre patterns, `[ref:examples-by-mode]` when the 
 | VFX | Transformations, particles, weather, energy. | `source + material behavior + interaction + dissipation endpoint` |
 | First/last frame | In-between transitions, product state changes, character pose targets. | `first frame + last frame + continuous transition + identity locks` |
 | Commercial campaign | 6/10/15/30s variants, vertical/social cutdowns, textless/localized masters. | `hook + product proof + end state + cutdown matrix + delivery notes` |
+| Short drama (短剧) | Fast-cut vertical mini-drama beats: setup, reversal, cliffhanger. | `two or three labeled shots + one emotional reversal + held reaction close + cut on the sting` |
+| Talking head (口播) | Presenter, explainer, livestream-style pitch to camera. | `locked medium close-up + short quoted lines + minimal head motion + caption-safe framing + room tone` |
+| Home / space tour | Walkthrough of a room, venue, or property. | `single continuous take + steady forward path + light changes per zone + ambient sound only` |
 
 ## Prompt Skeletons
 

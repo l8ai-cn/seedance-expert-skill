@@ -22,4 +22,4 @@
 
 ## Design AROUND these
 
-≤15s/call; audio not continuous across calls → score in post [official] · on-screen text → post [official] · negation summons — exclude compositionally [field] · tiny detail (distant faces, hands, logos) degrades [field] · facial micro-acting weakest — stage emotion in body/staging, ration CUs [heuristic] · identity drift after ~4–5 chained gens — re-anchor original refs [field] · Fast tier: no reliable multi-shot/slow-mo/dolly [field] · seed = stabilizer, not lock [official].
+≤15s/call; audio not continuous across calls → score in post [official] · on-screen text → post [official] · negation summons — exclude compositionally [field] · tiny detail (distant faces, hands, logos) degrades [field] · facial micro-acting weakest — stage emotion in body/staging, ration CUs [heuristic] · identity drift after ~4–5 chained gens — re-anchor original refs [field] · character↔prop physics fragile in multi-person shots — keep contact simple or off-screen, use the three-tier action hierarchy [field] · Fast tier: no reliable multi-shot/slow-mo/dolly [field] · seed = stabilizer, not lock [official].

@@ -45,6 +45,20 @@ If the user asks for a hybrid, assign each style to a layer: `live-action produc
 
 Load `[ref:2d-anime-grammar]` when the style is 2D, anime, or cel-based — it covers layer grammar, burst-versus-held motion, impact frames, smears, rostrum-camera language, and the no-lens rule for stylized work.
 
+## Source-Look Lock
+
+Field-observed from Chinese practice: realism styles stabilize when the prompt names the capture source and embraces its artifacts instead of fighting them. Classify the intended look, then lock its signature flaws deliberately:
+
+| Source look | Lock its artifacts |
+|---|---|
+| Phone-shot daily / UGC | `vertical handheld phone footage, slight grip sway, auto-exposure shifts, ambient room sound` |
+| Livestream | `fixed webcam framing, flat ring light, mild compression, real-time caption pacing` |
+| Security / dashcam | `locked high-angle camera, timestamp burn-in feel, low-light noise, no camera response to events` |
+| Vintage film | `grainy film texture, gate weave, halation around highlights, era-correct contrast` |
+| Studio commercial | `controlled reflections, clean background, polished material detail, zero handheld motion` |
+
+The flaw vocabulary is the style: faux-UGC that looks too clean reads as fake twice over.
+
 ## Output Contract
 
 Return a safe style descriptor, any protected-name rewrite, and one integrated prompt sentence.

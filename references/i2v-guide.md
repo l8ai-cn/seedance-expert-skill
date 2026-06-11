@@ -8,6 +8,13 @@ Prompt only what the image cannot show. A still image already contains subject i
 
 `[Image1] is the reference; preserve [identity/product/scene] exactly. Only [motion] changes. Camera: [one move]. Lighting: [source or transition]. Sound: [cue]. Constraint: [what must not change].`
 
+## Two I2V Modes
+
+Field-observed from Chinese practice; decide the mode before writing.
+
+- **Hold mode** (the image is the moment): distribute three or four natural micro-actions across the clip - a blink, a breath, hair drift, a slow gaze shift - and lock everything else with a double statement, positive plus negative: `she stays seated by the window; she does not stand, turn, or leave frame`. No camera move, or one slow push-in at most.
+- **React mode** (something happens to the subject): expand one emotion into sub-beats with real time to land - `she registers the sound, her eyes widen, color rises in her face over two to three seconds`. Rushed emotions read as glitches; give the key beat at least two seconds. If the image is clearly mid-scene rather than a natural opening frame, anchor the start explicitly: `the clip begins exactly at this moment`.
+
 ## Preservation Language
 
 Use precise locks for fragile anchors: `preserve face identity`, `preserve logo and label`, `preserve bottle shape and cap geometry`, `preserve outfit and hairstyle`, `preserve room layout`. Do not lock everything if the scene needs natural motion; lock only what must remain stable.

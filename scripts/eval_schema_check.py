@@ -65,6 +65,7 @@ REQUIRED_IDS = {
     "no_background_plain_interview",
     "english_slop_and_filter_vocab",
     "multilingual_slop_decomposition",
+    "multi_person_action_hierarchy",
 }
 
 

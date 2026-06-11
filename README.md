@@ -15,7 +15,7 @@ An agent operating system for Seedance 2.0 filmmaking — text, image, video, an
 [![Version](https://img.shields.io/badge/version-5.4.7-E2A75E?style=flat-square&labelColor=14110B)](#changelog)
 [![Sub-skills](https://img.shields.io/badge/sub--skills-24-4A4438?style=flat-square&labelColor=14110B)](#skill-map)
 [![References](https://img.shields.io/badge/references-45-4A4438?style=flat-square&labelColor=14110B)](#reference-library)
-[![Evals](https://img.shields.io/badge/evals-58-4A4438?style=flat-square&labelColor=14110B)](#validation)
+[![Evals](https://img.shields.io/badge/evals-59-4A4438?style=flat-square&labelColor=14110B)](#validation)
 [![License](https://img.shields.io/badge/license-MIT-4A4438?style=flat-square&labelColor=14110B)](LICENSE)
 
 [Start here](#start-here) · [Skill map](#skill-map) · [Reference library](#reference-library) · [Visual gallery](#visual-gallery) · [Install](#install)

@@ -905,6 +905,22 @@
         "seedance-vocab-zh",
         "seedance-antislop"
       ]
+    },
+    {
+      "id": "multi_person_action_hierarchy",
+      "prompt": "Three friends at a dinner table react to big news; make sure nobody glitches.",
+      "expected_output": "A multi-person prompt built on the three-tier action hierarchy: everyone gets persistent micro-motion, exactly one person gets one time-windowed focused response, large actions and character-to-prop contact are explicitly excluded or simplified.",
+      "assertions": [
+        "assigns every visible person an action from exactly one tier",
+        "gives only one character a focused response with an explicit time window",
+        "explicitly excludes large actions (standing, walking, turning, object pickup) by default",
+        "keeps character-to-prop physics simple or off-screen"
+      ],
+      "failure_mode": "bundled group actions ('they all react') or prop interactions in a multi-person shot",
+      "skills_expected_to_activate": [
+        "seedance-characters",
+        "seedance-motion"
+      ]
     }
   ]
 }

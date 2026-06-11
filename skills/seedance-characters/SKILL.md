@@ -42,6 +42,14 @@ Assign each character a stable tag: `Character A`, `Character B`, `[Image1] subj
 
 Assign actions separately: `Character A lowers the envelope; Character B remains in the doorway`. Do not write `they argue dramatically` when the model must decide who moves. If contact occurs, describe the contact point and endpoint. For crowd scenes, identify the hero subject and keep background motion simple.
 
+## Three-Tier Action Hierarchy
+
+Field-observed from Chinese production practice; the strongest known stabilizer for multi-person scenes. Give every visible person an action from exactly one tier:
+
+1. **Persistent micro-motion** - breathing, blinks, slight shoulder movement, hair drift, drifting gaze. Continuous, no gaps; this is the default tier for everyone who is not the focus.
+2. **One focused response** - a single person gets one small reaction with an explicit time window: `Character B's lip corner lifts and she holds a half-second glance`.
+3. **Large actions - prohibited by default.** In multi-person shots, explicitly exclude standing, walking, turning, posture changes, and object pickup unless one of them is the shot's single beat. Character-to-prop physics (lifting a glass, passing an object) is fragile with multiple people on screen - keep contact simple or move it off-screen.
+
 ## Hand and Face Stability
 
 Hands and faces degrade under complex choreography. Keep hands visible but simple, avoid rapid finger actions, avoid face-touching during dialogue, and lock the camera for lip-sync or portrait preservation. Use props to show emotion when facial precision is fragile.
