@@ -1,48 +1,76 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="480" viewBox="0 0 1200 480" role="img" aria-labelledby="title desc">
-  <title>Seedance 2.0 Skill OS hero</title>
-  <desc>A dark cinematic dashboard showing the Seedance 2.0 intent-first filmmaking workflow.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-labelledby="title desc">
+  <title>Seedance 2.0 Skill OS</title>
+  <desc>Editorial masthead on warm black: serif Seedance 2.0 Skill OS wordmark with monospace specification labels, a 21:9 viewfinder frame with timecode, and film sprocket details.</desc>
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#020617"/>
-      <stop offset="0.55" stop-color="#111827"/>
-      <stop offset="1" stop-color="#312e81"/>
-    </linearGradient>
-    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#22d3ee"/>
-      <stop offset="0.45" stop-color="#a78bfa"/>
-      <stop offset="1" stop-color="#f472b6"/>
-    </linearGradient>
-    <filter id="soft"><feGaussianBlur stdDeviation="18"/></filter>
     <style>
-      .small{font:500 22px ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;fill:#cbd5e1}
-      .title{font:800 76px ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;fill:#f8fafc;letter-spacing:-2px}
-      .subtitle{font:500 28px ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;fill:#e2e8f0}
-      .label{font:700 18px ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;fill:#f8fafc}
-      .muted{font:500 15px ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;fill:#94a3b8}
-      .card{fill:#0f172a;stroke:#334155;stroke-width:1.5;rx:22}
-      .line{stroke:url(#accent);stroke-width:4;stroke-linecap:round}
+      .display{font:400 88px Georgia,'Times New Roman',Times,serif;fill:#EDE6D6;letter-spacing:-1px}
+      .display-i{font:italic 400 88px Georgia,'Times New Roman',Times,serif;fill:#EDE6D6;letter-spacing:-1px}
+      .eyebrow{font:500 15px ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,monospace;fill:#E2A75E;letter-spacing:5px}
+      .spec{font:500 14px ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,monospace;fill:#9A917D;letter-spacing:3px}
+      .spec-bright{font:500 14px ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,monospace;fill:#EDE6D6;letter-spacing:3px}
+      .tiny{font:500 12px ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,monospace;fill:#9A917D;letter-spacing:2px}
+      .tiny-amber{font:500 12px ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,monospace;fill:#E2A75E;letter-spacing:2px}
+      .hair{stroke:#2E2A22;stroke-width:1}
+      .mark{stroke:#E2A75E;stroke-width:2;fill:none}
+      .wave{stroke:#9A917D;stroke-width:1.5}
     </style>
   </defs>
-  <rect width="1200" height="480" fill="url(#bg)"/>
-  <circle cx="970" cy="80" r="180" fill="#7c3aed" opacity="0.25" filter="url(#soft)"/>
-  <circle cx="1050" cy="360" r="160" fill="#06b6d4" opacity="0.16" filter="url(#soft)"/>
-  <path d="M0 372 C190 320 310 410 500 365 C720 312 820 235 1200 290" fill="none" stroke="#38bdf8" opacity="0.18" stroke-width="2"/>
-  <text x="70" y="92" class="small">v5.4.1 · research-backed skill system</text>
-  <text x="70" y="178" class="title">Seedance 2.0</text>
-  <text x="70" y="248" class="title">Skill OS</text>
-  <text x="74" y="306" class="subtitle">Intent-first quad-modal AI filmmaking</text>
-  <line x1="74" y1="342" x2="520" y2="342" class="line"/>
-  <text x="74" y="386" class="small">Prompt → References → Guardrails → Output</text>
-  <rect x="690" y="72" width="390" height="330" class="card"/>
-  <text x="728" y="120" class="label">System snapshot</text>
-  <text x="728" y="166" class="muted">23 modular skills</text>
-  <text x="728" y="212" class="muted">14 reference files</text>
-  <text x="728" y="258" class="muted">14 eval cases</text>
-  <text x="728" y="304" class="muted">API status dated 2026-05-30</text>
-  <text x="728" y="350" class="muted">README + SVG frontend audited</text>
-  <rect x="950" y="112" width="36" height="36" rx="10" fill="#22d3ee" opacity="0.9"/>
-  <rect x="950" y="158" width="36" height="36" rx="10" fill="#a78bfa" opacity="0.9"/>
-  <rect x="950" y="204" width="36" height="36" rx="10" fill="#f472b6" opacity="0.9"/>
-  <rect x="950" y="250" width="36" height="36" rx="10" fill="#22c55e" opacity="0.9"/>
-  <rect x="950" y="296" width="36" height="36" rx="10" fill="#f59e0b" opacity="0.9"/>
+
+  <rect width="1200" height="420" fill="#100E0A"/>
+
+  <g fill="#1F1B14">
+    <rect x="84" y="16" width="22" height="14" rx="3"/><rect x="148" y="16" width="22" height="14" rx="3"/>
+    <rect x="212" y="16" width="22" height="14" rx="3"/><rect x="276" y="16" width="22" height="14" rx="3"/>
+    <rect x="340" y="16" width="22" height="14" rx="3"/><rect x="404" y="16" width="22" height="14" rx="3"/>
+    <rect x="468" y="16" width="22" height="14" rx="3"/><rect x="532" y="16" width="22" height="14" rx="3"/>
+    <rect x="596" y="16" width="22" height="14" rx="3"/><rect x="660" y="16" width="22" height="14" rx="3"/>
+    <rect x="724" y="16" width="22" height="14" rx="3"/><rect x="788" y="16" width="22" height="14" rx="3"/>
+    <rect x="852" y="16" width="22" height="14" rx="3"/><rect x="916" y="16" width="22" height="14" rx="3"/>
+    <rect x="980" y="16" width="22" height="14" rx="3"/><rect x="1044" y="16" width="22" height="14" rx="3"/>
+  </g>
+  <line x1="72" y1="46" x2="1128" y2="46" class="hair"/>
+
+  <text x="74" y="118" class="eyebrow">INTENT-FIRST AI FILMMAKING</text>
+  <text x="70" y="208" class="display">Seedance 2.0</text>
+  <text x="70" y="298" class="display-i">Skill OS<tspan fill="#E2A75E">.</tspan></text>
+  <text x="74" y="344" class="spec">DIRECT THE MODEL — DO NOT MICRO-MANAGE THE FRAME</text>
+
+  <g>
+    <path class="mark" d="M790 96 h28 M790 96 v24"/>
+    <path class="mark" d="M1128 96 h-28 M1128 96 v24"/>
+    <path class="mark" d="M790 268 h28 M790 268 v-24"/>
+    <path class="mark" d="M1128 268 h-28 M1128 268 v-24"/>
+    <line x1="959" y1="172" x2="959" y2="192" stroke="#9A917D" stroke-width="1"/>
+    <line x1="949" y1="182" x2="969" y2="182" stroke="#9A917D" stroke-width="1"/>
+    <text x="838" y="86" class="tiny-amber">REC</text>
+    <circle cx="824" cy="81" r="4" fill="#E2A75E"/>
+    <text x="1058" y="86" class="tiny">21:9</text>
+    <text x="790" y="292" class="tiny">SHOT 1 / 3</text>
+    <text x="1014" y="292" class="tiny">00:00:15:00</text>
+  </g>
+
+  <g class="wave">
+    <line x1="790" y1="322" x2="790" y2="334"/><line x1="800" y1="318" x2="800" y2="338"/>
+    <line x1="810" y1="324" x2="810" y2="332"/><line x1="820" y1="314" x2="820" y2="342"/>
+    <line x1="830" y1="320" x2="830" y2="336"/><line x1="840" y1="326" x2="840" y2="330"/>
+    <line x1="850" y1="316" x2="850" y2="340"/><line x1="860" y1="322" x2="860" y2="334"/>
+    <line x1="870" y1="312" x2="870" y2="344"/><line x1="880" y1="324" x2="880" y2="332"/>
+    <line x1="890" y1="318" x2="890" y2="338"/><line x1="900" y1="326" x2="900" y2="330"/>
+    <line x1="910" y1="320" x2="910" y2="336"/><line x1="920" y1="314" x2="920" y2="342"/>
+    <line x1="930" y1="324" x2="930" y2="332"/><line x1="940" y1="318" x2="940" y2="338"/>
+    <line x1="950" y1="322" x2="950" y2="334"/><line x1="960" y1="316" x2="960" y2="340"/>
+    <line x1="970" y1="326" x2="970" y2="330"/><line x1="980" y1="320" x2="980" y2="336"/>
+    <line x1="990" y1="324" x2="990" y2="332"/><line x1="1000" y1="312" x2="1000" y2="344"/>
+    <line x1="1010" y1="322" x2="1010" y2="334"/><line x1="1020" y1="318" x2="1020" y2="338"/>
+    <line x1="1030" y1="326" x2="1030" y2="330"/><line x1="1040" y1="320" x2="1040" y2="336"/>
+    <line x1="1050" y1="316" x2="1050" y2="340"/><line x1="1060" y1="324" x2="1060" y2="332"/>
+    <line x1="1070" y1="320" x2="1070" y2="336"/><line x1="1080" y1="326" x2="1080" y2="330"/>
+    <line x1="1090" y1="318" x2="1090" y2="338"/><line x1="1100" y1="322" x2="1100" y2="334"/>
+    <line x1="1110" y1="324" x2="1110" y2="332"/><line x1="1120" y1="320" x2="1120" y2="336"/>
+  </g>
+  <text x="790" y="366" class="tiny">NATIVE AUDIO</text>
+
+  <line x1="72" y1="382" x2="1128" y2="382" class="hair"/>
+  <text x="74" y="406" class="spec-bright">ROUTE · VERIFY · DIRECT · DELIVER</text>
+  <text x="868" y="406" class="spec">T2V · I2V · V2V · R2V · FLF2V</text>
 </svg>

@@ -101,6 +101,11 @@ def main() -> int:
             "multilingual-community-examples.md",
             "## Validation",
             "## Design Standard",
+            "<picture>",
+            "prefers-color-scheme",
+            "assets/hero-dark.svg",
+            "assets/hero-light.svg",
+            "assets/skill-map.svg",
         ]:
             if required not in text:
                 errors.append(f"README.md missing `{required}`")
@@ -142,6 +147,10 @@ def main() -> int:
             errors.append(f"{rel} missing accessible title/desc")
         if re.search(r"<script|href=[\"\']https?://|xlink:href=[\"\']https?://", svg, re.I):
             errors.append(f"{rel} must not include scripts or external resources")
+        if "linearGradient" in svg or "feGaussianBlur" in svg:
+            errors.append(f"{rel} must follow the editorial standard: no gradients or blur filters")
+        if "Georgia" not in svg or "ui-monospace" not in svg:
+            errors.append(f"{rel} missing the editorial serif/monospace type stacks")
 
     if errors:
         print("Design audit errors:")

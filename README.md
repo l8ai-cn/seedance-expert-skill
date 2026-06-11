@@ -1,16 +1,26 @@
-![Seedance 2.0 Skill OS cinematic command-center hero: brief, references, prompt, post, QC, subtitles, audio waveform, and shot cards](assets/hero-command-center.png)
+<div align="center">
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/hero-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/hero-light.svg">
+  <img alt="Seedance 2.0 Skill OS — intent-first AI filmmaking. Route, verify, direct, deliver." src="assets/hero-dark.svg" width="100%">
+</picture>
 
 # Seedance 2.0 Skill OS
 
-**Intent-first AI filmmaking for Seedance 2.0.**
+**Direct the model. Don't micro-manage the frame.**
 
-Text-to-video · Image-to-video · Video-to-video · Reference-to-video · Audio-aware prompting · Copyright-safe rewrites · Agent Skills
+An agent operating system for Seedance 2.0 filmmaking — text, image, video, and reference to video<br>with native audio, IP-safe rewrites, and source-dated platform facts in six languages.
 
-[![Version](https://img.shields.io/badge/version-5.4.7-111827?labelColor=0f172a)](#changelog)
-[![Skills](https://img.shields.io/badge/sub--skills-24-0ea5e9?labelColor=0f172a)](#skill-map)
-[![References](https://img.shields.io/badge/references-45-8b5cf6?labelColor=0f172a)](#reference-library)
-[![Evals](https://img.shields.io/badge/evals-58-22c55e?labelColor=0f172a)](#validation)
-[![License](https://img.shields.io/badge/license-MIT-f59e0b?labelColor=0f172a)](LICENSE)
+[![Version](https://img.shields.io/badge/version-5.4.7-E2A75E?style=flat-square&labelColor=14110B)](#changelog)
+[![Sub-skills](https://img.shields.io/badge/sub--skills-24-4A4438?style=flat-square&labelColor=14110B)](#skill-map)
+[![References](https://img.shields.io/badge/references-45-4A4438?style=flat-square&labelColor=14110B)](#reference-library)
+[![Evals](https://img.shields.io/badge/evals-58-4A4438?style=flat-square&labelColor=14110B)](#validation)
+[![License](https://img.shields.io/badge/license-MIT-4A4438?style=flat-square&labelColor=14110B)](LICENSE)
+
+[Start here](#start-here) · [Skill map](#skill-map) · [Reference library](#reference-library) · [Visual gallery](#visual-gallery) · [Install](#install)
+
+</div>
 
 Author: [Iamemily2050 (@iamemily2050)](https://github.com/Emily2040) · [Instagram](https://instagram.com/iamemily2050) · [X](https://x.com/iamemily2050) · [Website](https://iamemily2050.com)
 
@@ -101,9 +111,9 @@ The v5.4 release line adds a dated research layer for safer data mining and plat
 
 ## Operating System At A Glance
 
-![Seedance 2.0 Skill OS infographic: source registry, prompt router, multimodal references, safety gates, and eval loop](assets/skill-os-infographic.png)
+![Seedance 2.0 Skill OS operating diagram: seven gates feed the seedance-20 root, which routes to the core pipeline, governance, and multilingual vocabulary clusters, backed by the reference library and validators](assets/skill-map.svg)
 
-The operating-system map stays simple for GitHub readability; the visual gallery below adds the text-rich professional infographics. Together they represent the six lanes this package keeps separate:
+The diagram is the contract: every request passes the gates, the root routes it, and the validators hold the line. Six lanes stay separate by design:
 
 - Research sources: dated official, academic, platform, and community evidence.
 - Production spine: brief, shot list, continuity, post handoff, localization, and delivery/QC.
@@ -114,7 +124,7 @@ The operating-system map stays simple for GitHub readability; the visual gallery
 
 ## Visual Gallery
 
-The README now includes a committed visual set rather than a single generic hero. These generated bitmap assets are paired with searchable Markdown so the images can be cinematic while the repo remains auditable.
+Concept art for the system, generated and curated. Every image is paired with searchable alt text so the gallery stays auditable; the README's working visuals above are hand-built vector assets that follow the design standard.
 
 ### Hero Shots
 
@@ -134,9 +144,13 @@ The README now includes a committed visual set rather than a single generic hero
 
 ![Professional QC stack infographic: picture, color, audio, text, rights, metadata](assets/infographic-professional-qc-stack.png)
 
-## Skill Map
+### Operating-System Art
+
+![Seedance 2.0 Skill OS infographic: source registry, prompt router, multimodal references, safety gates, and eval loop](assets/skill-os-infographic.png)
 
 ![Seedance 2.0 cinematic skill map: modular skill clusters around an AI filmmaking director console](assets/skill-map-cinematic.png)
+
+## Skill Map
 
 ### Core Pipeline
 
@@ -276,7 +290,11 @@ The CI workflow runs the same checks on push and pull request.
 
 ## Design Standard
 
-The v5.4.5 front page uses multiple generated cinematic bitmap hero shots, text-rich infographics, a generated operating-system infographic, a generated cinematic skill-map infographic, and the cleaned v5.2 information architecture. The README should stay readable in GitHub mobile, dark mode, and narrow widths. SVG assets must include `<title>` and `<desc>` elements, use internal CSS only, and avoid external fonts or scripts. See [`docs/frontend-redesign.md`](docs/frontend-redesign.md).
+The front page follows an editorial design system rather than default AI styling: warm ink and paper themes, a serif display face paired with monospace specification labels, a single amber accent, and fine-line film motifs — no gradients, no glow.
+
+The masthead and operating diagram are hand-built theme-aware SVGs (`assets/hero-dark.svg`, `assets/hero-light.svg`, `assets/skill-map.svg`) served through a `prefers-color-scheme` picture element; generated bitmap art lives only in the curated visual gallery, including the text-rich infographics.
+
+The README must stay readable in GitHub mobile, dark mode, and narrow widths. SVG assets must include `<title>` and `<desc>` elements, use internal CSS only, and avoid external fonts, scripts, or resources. Tokens and rules live in [`references/frontend-design-system.md`](references/frontend-design-system.md) and [`docs/frontend-redesign.md`](docs/frontend-redesign.md).
 
 ## Changelog
 
