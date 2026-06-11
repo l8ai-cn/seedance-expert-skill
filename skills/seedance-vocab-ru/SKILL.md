@@ -41,6 +41,10 @@ Load `[ref:vocab/ru]` for dense role-binding, first/last-frame, camera, lighting
 
 `[Image1] — референс; сохранить лицо/форму продукта/логотип точно без изменений. Меняются только [движение/свет/камера]. Камера: [одно движение]. Звук: [аудио-сигнал].`
 
+## De-Slop Rule
+
+When the prompt leans on `кинематографичный`, `эпичный`, `атмосферный`, `потрясающий`, or `высокое качество`, load the Slop Traps table in `references/vocab/ru.md` and decompose each into the physical elements that produce it - движение камеры, источник света, материал, звук.
+
 ## Output Contract
 
 Return Russian prompt wording, optional English gloss when useful, and unchanged reference tags.

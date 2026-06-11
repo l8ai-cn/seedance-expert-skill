@@ -34,15 +34,26 @@ Every major phrase should be visible to a camera, measurable by a light meter, a
 | dynamic | What moves, how fast, and where does it end? | `fast lateral track ending on the hero label` |
 | professional | What production setup? | `clean commercial tabletop, controlled reflection, no clutter` |
 
+## The Six Slop Classes
+
+Classify before rewriting - each class has a different repair:
+
+1. **Empty evaluators** (`cinematic, epic, stunning`) - convert each to the one observable detail that earns it.
+2. **Borrowed image-model tokens** (`8K, masterpiece, trending on ArtStation`) - delete; quality and resolution are settings, not prose.
+3. **Tag salad** (comma keyword dumps ported from image prompting) - rewrite as shooting-brief prose: one sentence per element, with an action and a time axis.
+4. **Negation slop** (`no blur, no artifacts, no extra fingers`) - negation summons; describe what IS there instead, and keep negation only in the constraint slot.
+5. **Adjective stacking** (three synonyms for one quality) - pick the single detail that matters.
+6. **Feel-suffix words** (`电影感, 雰囲気のある, 감성적인, atmosférico, атмосферный, vibey`) - name the physical cause of the feeling; every language file in `references/vocab/` has a Slop Traps table for its own community's empty words.
+
 ## Rewrite Pass
 
-First, underline all superlatives and vague style labels. Second, decide whether each word should become camera, light, motion, material, sound, or constraint language. Third, reduce duplicates. Fourth, keep the prompt within the character budget and preserve reference tags.
+First, underline all superlatives and vague style labels and classify each by slop class. Second, decide whether each word should become camera, light, motion, material, sound, or constraint language. Third, reduce duplicates. Fourth, keep the prompt within the character budget and preserve reference tags.
 
 ## Do Not Over-Correct
 
 Do not remove useful genre language when it is paired with concrete direction. `Noir hallway with hard venetian-blind shadows` is useful; `dramatic cinematic noir vibes` is not. Keep terms that communicate medium, era, palette, or lens behavior.
 
-Load `[ref:anti-slop-lexicon]` for the extended replacement table, and `[skill:seedance-vocab-en]` with `references/vocab/en.md` for the full function-organized English precision vocabulary, slop traps, and filter-trip repairs.
+Load `[ref:anti-slop-lexicon]` for the slop-class taxonomy and extended replacement table, and `[skill:seedance-vocab-en]` with `references/vocab/en.md` for the full function-organized English precision vocabulary. For non-English prompts, load the matching vocab file's Slop Traps table (`references/vocab/zh.md`, `ja.md`, `ko.md`, `es.md`, `ru.md`) - each language community has its own empty-quality words and decompositions.
 
 ## Output Contract
 

@@ -889,6 +889,22 @@
         "seedance-vocab-en",
         "seedance-antislop"
       ]
+    },
+    {
+      "id": "multilingual_slop_decomposition",
+      "prompt": "把这个提示词改好：\"超高清8K电影感大片，氛围感拉满，高级感画面，震撼史诗级运镜，[Image1]为参考。\"",
+      "expected_output": "De-slopped Chinese prompt: every feel-word (电影感, 氛围感, 高级感) decomposed into the physical elements that produce it (景别, 运镜, 光源, 材质, 色彩, 空气), resolution tokens deleted, one concrete camera move named, and [Image1] preserved literally.",
+      "assertions": [
+        "decomposes 电影感/氛围感/高级感 into physical elements instead of keeping or translating them",
+        "deletes resolution and quality tokens (超高清, 8K, 史诗级, 大片)",
+        "names one concrete camera move with an endpoint",
+        "preserves the [Image1] reference tag exactly"
+      ],
+      "failure_mode": "feel-words kept, translated, or replaced with English slop equivalents",
+      "skills_expected_to_activate": [
+        "seedance-vocab-zh",
+        "seedance-antislop"
+      ]
     }
   ]
 }

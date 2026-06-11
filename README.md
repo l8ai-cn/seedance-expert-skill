@@ -7,9 +7,9 @@
 Text-to-video · Image-to-video · Video-to-video · Reference-to-video · Audio-aware prompting · Copyright-safe rewrites · Agent Skills
 
 [![Version](https://img.shields.io/badge/version-5.4.6-111827?labelColor=0f172a)](#changelog)
-[![Skills](https://img.shields.io/badge/sub--skills-23-0ea5e9?labelColor=0f172a)](#skill-map)
-[![References](https://img.shields.io/badge/references-40-8b5cf6?labelColor=0f172a)](#reference-library)
-[![Evals](https://img.shields.io/badge/evals-52-22c55e?labelColor=0f172a)](#validation)
+[![Skills](https://img.shields.io/badge/sub--skills-24-0ea5e9?labelColor=0f172a)](#skill-map)
+[![References](https://img.shields.io/badge/references-45-8b5cf6?labelColor=0f172a)](#reference-library)
+[![Evals](https://img.shields.io/badge/evals-58-22c55e?labelColor=0f172a)](#validation)
 [![License](https://img.shields.io/badge/license-MIT-f59e0b?labelColor=0f172a)](LICENSE)
 
 Author: [Iamemily2050 (@iamemily2050)](https://github.com/Emily2040) · [Instagram](https://instagram.com/iamemily2050) · [X](https://x.com/iamemily2050) · [Website](https://iamemily2050.com)
@@ -34,7 +34,7 @@ This skill package turns Seedance 2.0 work into a repeatable assistant workflow:
 - Writes full or compressed prompts for T2V, I2V, V2V, R2V, FLF2V, edit, extend, audio-aware, and first/last-frame workflows.
 - Separates every reference asset by role: identity, environment, motion, camera rhythm, audio tempo, style, or endpoint.
 - Keeps model and platform claims source-dated so API, pricing, region, quota, and model-ID details are not guessed.
-- Provides deeper multilingual cinematic vocabulary in Chinese, Japanese, Korean, Spanish, and Russian, including role binding, first/last-frame phrasing, edit/extend wording, safety wording, and audio cues.
+- Provides deeper multilingual cinematic vocabulary in English, Chinese, Japanese, Korean, Spanish, and Russian, including role binding, first/last-frame phrasing, edit/extend wording, safety wording, and audio cues.
 - Adds original community-informed examples for Chinese-English, Russian-English, Japanese-English, Korean-English, and Spanish-English prompt structures.
 - Adds professional filmmaker workflows for treatment-to-shot-list planning, shot contracts, continuity ledgers, ACES/color handoff, audio post, subtitles/localization, aspect-ratio variants, campaign cutdowns, delivery/QC, and client review packets.
 - Handles safe false-positive repairs by clarifying benign production context, not by hiding unsafe intent.
@@ -82,7 +82,7 @@ For these requests, the skill should not stop at a single prompt. It should retu
 
 Seedance platform behavior changes quickly. Before making factual claims about API availability, face or portrait authorization, upload limits, pricing, regional availability, or model names, load [`references/api-status.md`](references/api-status.md) and check its `last_verified` date.
 
-As of 2026-05-30, public official sources describe Seedance 2.0 as supporting text, image, audio, and video inputs. Official launch and model-card material says references can include up to 9 images, 3 video clips, and 3 audio clips.
+As of 2026-06-11, public official sources describe Seedance 2.0 as supporting text, image, audio, and video inputs. Official launch and model-card material says references can include up to 9 images, 3 video clips, and 3 audio clips.
 
 Volcengine's May 29 docs keep `doubao-seedance-2-0-260128` and `doubao-seedance-2-0-fast-260128` visible as current Ark model IDs and document first/last-frame role usage on that surface. Runway documents `seedance2` with 5-15 second duration and optional image, video, and audio references.
 

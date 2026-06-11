@@ -38,6 +38,10 @@ Prefer concise production Japanese over literal translation. Keep the structure 
 
 `[Image1]を参照として、被写体の顔/商品形状/ロゴを正確に維持する。変化は[動き/光/カメラ]のみ。カメラ：[一つの動き]。音：[音声指示]。`
 
+## De-Slop Rule
+
+When the prompt leans on `映画のような`, `エモい`, `雰囲気のある`, `壮大な`, or `高画質`, load the Slop Traps table in `references/vocab/ja.md` and decompose each into the physical elements that produce it - 動作動詞＋速度＋視点, 光源＋方向＋挙動.
+
 ## Output Contract
 
 Return Japanese prompt wording, optional English gloss when useful, and unchanged reference tags.

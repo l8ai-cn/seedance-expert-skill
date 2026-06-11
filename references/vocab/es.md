@@ -62,3 +62,22 @@ Use this reference for Spanish Seedance prompt wording, role binding, and compac
 ## Multimodal Template
 
 `[Image1] fija el personaje original. [Video1] solo controla el movimiento de cámara; no copiar persona, lugar ni marca. [Audio1] solo marca tempo y ambiente.`
+
+## Slop Traps
+
+Consenso de la comunidad: los adjetivos de calidad abstractos desestabilizan la generación porque el modelo no sabe qué elemento enfatizar. Convierte cada palabra-sensación en los elementos físicos que la producen (verbo de cámara + velocidad + punto de vista, fuente de luz + dirección + comportamiento).
+
+| Muletilla | Escribe en su lugar |
+|---|---|
+| `cinematográfico` | escala de plano, movimiento de cámara, fuente de luz y etalonaje: `plano general amplio, travelling lento, sol bajo, tonos teal y naranja` |
+| `épico` | escala física: tamaño de la multitud, distancia del objetivo, altura de la estructura |
+| `impresionante / asombroso` | el único contraste o revelación visible que lo justifica |
+| `hermoso / precioso` | color, textura, material, comportamiento de la luz |
+| `obra maestra / alta calidad / 8K` | eliminar; la calidad no se pide y la resolución es un ajuste |
+| `espectacular` | el momento concreto: qué se mueve, qué se revela |
+| `dramático` | bloqueo, sombra, silencio o presión de cámara |
+| `mágico` | comportamiento de partículas, fuente del brillo, trayectoria |
+| `de ensueño` (solo) | qué lo hace onírico: `bruma fina, luz volumétrica, flotación lenta` |
+| `dinámico` | el movimiento concreto, su velocidad y su punto final |
+| `con mucha atmósfera` | los elementos físicos: `niebla fina, reflejos en el suelo mojado, ambiente bajo` |
+| `profesional` | iluminación controlada del producto, fondo limpio, cámara estable |

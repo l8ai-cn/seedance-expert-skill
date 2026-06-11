@@ -10,7 +10,7 @@ ALLOWED_FUNCTIONS = {
     "Role", "FirstLastFrame", "Camera", "Shot", "Lens", "Lighting", "Motion",
     "VFX", "Audio", "Text", "Editing", "Constraint", "Constraints", "Safety",
 }
-STRICT_REQUIRED_FUNCTIONS = {"Role", "FirstLastFrame", "Camera", "Audio", "Constraint", "Safety"}
+STRICT_REQUIRED_FUNCTIONS = {"Role", "FirstLastFrame", "Camera", "Audio", "Text", "Editing", "Constraint", "Safety"}
 PROTECTED_TERMS = ["Studio Ghibli", "Ghibli", "Spider-Man", "Disney", "Marvel"]
 
 
@@ -51,6 +51,8 @@ def main() -> int:
             errors.append(f"{rel}: missing reference-tag preservation note")
         if "| Function |" not in text:
             errors.append(f"{rel}: missing Function vocabulary table")
+        if "## Slop Traps" not in text:
+            errors.append(f"{rel}: missing Slop Traps section (language-specific empty-quality words)")
 
         rows = table_rows(text)
         min_rows = 40

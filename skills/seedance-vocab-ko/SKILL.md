@@ -38,6 +38,10 @@ Translate the production intention rather than every English word. Keep the Kore
 
 `[Image1]은 참조 이미지이며 얼굴/제품 형태/로고를 정확히 유지한다. 변화는 [동작/조명/카메라]만 적용한다. 카메라: [한 가지 움직임]. 사운드: [음향 지시].`
 
+## De-Slop Rule
+
+When the prompt leans on `영화같은`, `감성적인`, `분위기 있는`, `웅장한`, or `고퀄리티`, load the Slop Traps table in `references/vocab/ko.md` and decompose each into the physical elements that produce it - 카메라 동사+속도+시점, 광원+방향+행동.
+
 ## Output Contract
 
 Return Korean prompt wording, optional English gloss when useful, and unchanged reference tags.

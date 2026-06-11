@@ -41,6 +41,10 @@ Load `[ref:vocab/zh]` for dense role-binding, first/last-frame, camera, lighting
 
 `[Image1]为参考，严格保持[主体/产品/脸部/标志]不变；仅加入[动作/光线/镜头变化]。镜头：[一个动作]。声音：[音效或环境声]。`
 
+## De-Slop Rule
+
+When the prompt leans on `电影感`, `氛围感`, `高级感`, `大片感`, or bare `质感`, load the Slop Traps table in `references/vocab/zh.md` and decompose each into the physical elements that produce it - 材质, 光线, 色彩, 空气.
+
 ## Output Contract
 
 Return concise Chinese prompt text, optional English gloss when useful, and preserve reference tags exactly.

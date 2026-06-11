@@ -38,6 +38,10 @@ Translate production meaning, not word-for-word English. Keep the prompt concret
 
 `[Image1] es la referencia; mantener identidad, color y forma sin cambios. Solo cambia [movimiento/luz/cámara]. Cámara: [un movimiento]. Sonido: [señal].`
 
+## De-Slop Rule
+
+When the prompt leans on `cinematográfico`, `épico`, `impresionante`, `mágico`, or `de alta calidad`, load the Slop Traps table in `references/vocab/es.md` and decompose each into the physical elements that produce it - movimiento de cámara, fuente de luz, material, sonido.
+
 ## Output Contract
 
 Return Spanish prompt wording, optional English gloss when useful, and unchanged reference tags.
