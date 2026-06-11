@@ -11,11 +11,14 @@ from pathlib import Path
 SKILL_NAME = "seedance-20"
 IGNORE_NAMES = {
     ".git",
+    ".github",
     ".pytest_cache",
     ".seedance_backups",
     "__pycache__",
+    "docs",
+    "V5_2_APPLY_MANIFEST.md",
 }
-IGNORE_PATTERNS = ["*.pyc", "*.pyo", "*.tmp", "*.log"]
+IGNORE_PATTERNS = ["*.pyc", "*.pyo", "*.tmp", "*.log", "*.png", "*.jpg", "*.jpeg", "*.psd"]
 
 
 def default_skills_dir() -> Path:
@@ -34,6 +37,15 @@ def ignore_runtime_noise(_src: str, names: list[str]) -> set[str]:
         if any(fnmatch.fnmatch(name, pattern) for pattern in IGNORE_PATTERNS):
             ignored.add(name)
     return ignored
+
+
+def payload_size(path: Path) -> str:
+    total = float(sum(item.stat().st_size for item in path.rglob("*") if item.is_file()))
+    for unit in ["B", "KB", "MB", "GB"]:
+        if total < 1024 or unit == "GB":
+            return f"{total:.1f} {unit}"
+        total /= 1024
+    return f"{total:.1f} GB"
 
 
 def assert_safe_destination(destination: Path, skills_dir: Path) -> None:
@@ -76,6 +88,7 @@ def main() -> int:
     shutil.copytree(repo_root, destination, ignore=ignore_runtime_noise)
 
     print(f"Installed {SKILL_NAME} to {destination}")
+    print(f"Installed payload size: {payload_size(destination)}")
     print("Restart Codex to pick up new skills.")
     return 0
 
