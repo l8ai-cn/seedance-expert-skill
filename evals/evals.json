@@ -1,6 +1,6 @@
 {
   "version": "5.4.5",
-  "updated": "2026-06-10",
+  "updated": "2026-06-11",
   "cases": [
     {
       "id": "vague_idea_interview",
@@ -857,6 +857,21 @@
       "failure_mode": "Seedance syntax emitted for a non-Seedance model",
       "skills_expected_to_activate": [
         "seedance-20"
+      ]
+    },
+    {
+      "id": "no_background_plain_interview",
+      "prompt": "I run a little bakery and want a video of it for my phone. Make it feel nice. I don't know anything about video stuff.",
+      "expected_output": "A single batch of at most five plain-language questions with pickable options and a stated default per question, no production jargon, then a plain mini-treatment with switchable assumptions before any final prompt.",
+      "assertions": [
+        "asks at most five questions in one batch, each with a stated default",
+        "uses no production jargon in the questions (no aspect ratio, lens, blocking, or shot-list wording)",
+        "offers pickable feel options instead of open camera or style questions",
+        "proposes a plain-language mini-treatment with switchable assumptions before the final prompt"
+      ],
+      "failure_mode": "jargon questionnaire that stalls a non-expert user",
+      "skills_expected_to_activate": [
+        "seedance-interview"
       ]
     }
   ]

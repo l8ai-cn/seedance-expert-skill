@@ -1,6 +1,6 @@
 ---
 name: seedance-interview
-description: "This skill should be used when the user has a vague Seedance 2.0 video idea and asks for creative guidance, story development, scene planning, a director interview, or help turning an undeveloped concept into a production-ready prompt."
+description: "This skill should be used when the user has a vague Seedance 2.0 video idea and asks for creative guidance, story development, scene planning, a director interview, or help turning an undeveloped concept into a production-ready prompt, especially when the user has no film or storytelling background."
 license: MIT
 user-invocable: true
 tags:
@@ -10,7 +10,7 @@ tags:
   - seedance-20
 metadata:
   version: "5.4.5"
-  updated: "2026-05-30"
+  updated: "2026-06-11"
   parent: "seedance-20"
   author: "Iamemily2050 (@iamemily2050)"
   repository: "https://github.com/Emily2040/seedance-2.0"
@@ -21,18 +21,66 @@ metadata:
 
 # seedance-interview
 
-Use this as the full director interview when the user has a rough idea rather than a ready scene.
+Use this as the full director interview when the user has a rough idea rather than a ready scene. Default assumption: the user has no cinematography, videography, or storytelling background. They describe everyday life; this skill makes the film decisions. Quality bar: every question must be answerable by someone who has never heard the words "shot," "aspect ratio," or "blocking."
+
+## Question Quality Rules
+
+1. Ask in pictures, not parameters. Offer two to four vivid options the user can pick by feel: `Should this feel like a movie scene, a real moment caught on a phone, a polished ad, or a cartoon?` Never: `What camera style and aspect ratio?`
+2. One batch, never an interrogation: at most five numbered questions in a single message so the user can answer everything in one reply. Follow up only when an answer creates a real fork.
+3. Every question ships with a default. End it with `(not sure? I'll go with [default] - it works well)`. "I don't know" is always a valid answer; it simply selects the default and never stalls the interview.
+4. One question, one decision. Never bundle two asks into one sentence, and never ask anything whose answer would not change the prompt.
+5. Keep their words. If the user says "swooshy," say "swooshy" back - and translate it into camera language silently, inside the brief.
+6. Expert detect: if the user speaks production language fluently (shot list, lens, deliverables, LUT, coverage) or works for an agency or production, drop plain mode, load `[ref:pro-filmmaking-standards]`, and run the professional intake instead.
+
+## The Five Plain Questions
+
+Each plain question secretly decides a production parameter the user never has to know about. Skip every question the idea already answers.
+
+| # | Ask (plain) | Secretly decides | Default if unsure |
+|---|---|---|---|
+| 1 | Who or what is the star of this video - one person, pet, product, or place? | subject anchor | the most concrete noun in their idea |
+| 2 | What happens? What is different at the end compared to the start? | action beat, duration | one simple action with a visible ending |
+| 3 | Where does it happen, and what time of day? | scene, light source | the most natural place for the action, late warm daylight |
+| 4 | What should someone feel watching it - excited, calm, moved, amused, amazed, or tense? | camera, light, sound, pace | calm and warm |
+| 5 | Where will people watch it - phone apps like TikTok/Reels (tall screen), or YouTube/TV (wide screen)? | aspect ratio, pacing | tall 9:16 |
+
+When relevant, add: `Do you have photos, clips, or sound of the real [subject]? Real material keeps the video looking like yours.` Map anything they provide to reference roles via `[ref:reference-workflow]`.
+
+## Feeling-to-Film Translation
+
+Translate everyday answers into production language inside the brief - never out loud as a quiz.
+
+| User says | Brief writes |
+|---|---|
+| epic, cinematic, movie-like | wide establishing frame, one slow push-in, low warm sun, rising score |
+| cozy, warm, nice | close framing, soft window light, gentle motion, quiet room tone |
+| funny | locked camera, deadpan timing, one absurd visible beat, dry single SFX |
+| like an ad, professional, clean | controlled hero light on the subject, tidy background, one polished camera move |
+| sad, emotional, moving | stillness, a little distance, cool soft light, sparse sound |
+| creepy, tense | slow camera, shadow and doorways, off-screen sound, held silence |
+| cute | camera low at subject height, bright soft light, small bouncy motions |
+| dreamy | drifting camera, haze and glow, slow motion on a single beat |
+
+## Propose, Then Adjust
+
+After one round of answers - or zero rounds, if the idea is already rich - stop asking and show:
+
+1. A mini-treatment: two or three plain sentences describing the finished video exactly as a viewer would see it. No production vocabulary.
+2. The assumptions made, each with a one-word switch: `I assumed warm late-afternoon light - say "night" and I'll relight it.`
+3. The production brief beneath, in full director language.
+
+Reacting to a draft is easier than answering questions: a non-expert says "yes, but slower" far more readily than they specify pacing. Treat their reaction as the second interview round.
 
 ## Process
 
 1. Build a safe draft premise immediately from the user input.
-2. Ask only the missing questions that materially affect the prompt: subject, action, reference assets, camera feel, emotional direction, duration, and risk constraints.
+2. Run the Five Plain Questions in one batch, skipping every question the idea already answers.
 3. Identify the genre path: product, lifestyle, drama, music video, landscape, commercial, animation, UGC, or experimental.
 4. If the user is a filmmaker, agency, producer, editor, localization team, or client-review owner, load `[ref:pro-filmmaking-standards]` and collect deliverables, territory, aspect ratio, approval owner, rights, and post/delivery needs.
-5. End with a concise creative brief and route to `[skill:seedance-prompt]`, `[skill:seedance-prompt-short]`, or `[skill:seedance-pipeline]`.
+5. Propose the mini-treatment with switchable assumptions, adjust on reaction, end with a concise creative brief, and route to `[skill:seedance-prompt]`, `[skill:seedance-prompt-short]`, or `[skill:seedance-pipeline]`.
 
 ## Output Contract
 
-Return: concept summary, production phase, reference asset request, core scene, mood, camera intent, sound intent, safety/rights notes, deliverables if known, and next prompt path.
+Return: mini-treatment in plain language, assumptions with one-word switches, concept summary, production phase, reference asset request, core scene, mood, camera intent, sound intent, safety/rights notes, deliverables if known, and next prompt path.
 
 Do not ask a long questionnaire when the user already supplied enough information to write the prompt.

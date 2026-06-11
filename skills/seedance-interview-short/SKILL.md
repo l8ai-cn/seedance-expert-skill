@@ -10,7 +10,7 @@ tags:
   - seedance-20
 metadata:
   version: "5.4.5"
-  updated: "2026-05-30"
+  updated: "2026-06-11"
   parent: "seedance-20"
   author: "Iamemily2050 (@iamemily2050)"
   repository: "https://github.com/Emily2040/seedance-2.0"
@@ -25,13 +25,13 @@ Use this when speed matters more than exhaustive creative discovery. The goal is
 
 ## Process
 
-Ask at most three questions, and only ask them if the answer materially changes the prompt. Prioritize:
+Ask at most three questions, and only ask them if the answer materially changes the prompt. Assume no film background: ask in everyday words, give pickable options, and attach a default so "I don't know" never stalls the brief. Prioritize:
 
-1. What is the subject doing, and what changes by the final frame?
-2. What should it feel like: product polish, drama, comedy, realism, animation, action, or atmosphere?
-3. Are there image, video, or audio references, and what should each one control?
+1. What happens in the video, and what is different at the end? `(not sure? I'll pick one simple action with a visible ending)`
+2. What should it feel like - pick one: polished ad, movie drama, funny, real-life phone clip, cartoon, or moody atmosphere? `(not sure? I'll go calm and warm)`
+3. Do you have photos, clips, or sound of the real thing - and should each one keep the look, the motion, or the sound? `(none is fine)`
 
-If the user already supplied enough information, do not ask. Produce a brief immediately.
+If the user already supplied enough information, do not ask. Produce a brief immediately. If the user speaks production language fluently, drop the plain phrasing and ask in director terms.
 
 ## Compact Brief Pattern
 
