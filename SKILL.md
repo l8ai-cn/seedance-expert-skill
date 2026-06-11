@@ -21,12 +21,13 @@ Seedance 2.0 operating loop for agent-directed video work. Use this root skill t
 
    Mode availability is surface-specific: edit and extend exist on Dreamina and Ark routes; fal has no extend endpoint - chain image-to-video from the previous clip's last frame instead.
 
-5. Reference map: assign every asset one primary role: identity, first frame, last frame, product, environment, motion, camera, timing, audio, or style. State what must not transfer.
-6. Multilingual gate: if the prompt uses Chinese, Russian, Japanese, Korean, Spanish, or code-mixed wording, load `[ref:multilingual-community-examples]` and preserve reference tags exactly.
-7. Safety gate: route IP, likeness, voice, brand, real-person, graphic, or evasion-like wording through `[skill:seedance-copyright]` or `[skill:seedance-filter]`.
-8. Prompt build: route to `[skill:seedance-interview]`, `[skill:seedance-prompt]`, `[skill:seedance-prompt-short]`, or a domain skill for camera, motion, audio, characters, VFX, style, recipes, or pipeline.
-9. Quality pass: run anti-slop, check one visible beat, one primary camera move, physical light, sound intent, continuity anchors, constraints, delivery caveats, and source-date caveats.
-10. Repair loop: if output fails, diagnose root cause before adding adjectives; use `[skill:seedance-troubleshoot]`.
+5. Capability check: when planning any shot, mode, or budget, load `[ref:capability-map]` to design into model strengths and around known limits before drafting.
+6. Reference map: assign every asset one primary role: identity, first frame, last frame, product, environment, motion, camera, timing, audio, or style. State what must not transfer.
+7. Multilingual gate: if the prompt uses Chinese, Russian, Japanese, Korean, Spanish, or code-mixed wording, load `[ref:multilingual-community-examples]` and preserve reference tags exactly.
+8. Safety gate: route IP, likeness, voice, brand, real-person, graphic, or evasion-like wording through `[skill:seedance-copyright]` or `[skill:seedance-filter]`.
+9. Prompt build: route to `[skill:seedance-interview]`, `[skill:seedance-prompt]`, `[skill:seedance-prompt-short]`, or a domain skill for camera, motion, audio, characters, VFX, style, recipes, or pipeline.
+10. Quality pass: run anti-slop, check one visible beat, one primary camera move, physical light, sound intent, continuity anchors, constraints, delivery caveats, and source-date caveats.
+11. Repair loop: if output fails, diagnose root cause before adding adjectives; use `[skill:seedance-troubleshoot]`.
 
 ## Load Map
 
@@ -34,6 +35,7 @@ Seedance 2.0 operating loop for agent-directed video work. Use this root skill t
 |---|---|
 | Vague idea or missing brief | `[skill:seedance-interview]` or `[skill:seedance-interview-short]` |
 | Production prompt | `[skill:seedance-prompt]`, `[ref:quick-ref]`, `[ref:prompt-examples]` |
+| Planning any shot, mode, or budget | `[ref:capability-map]` |
 | Professional film, commercial, campaign, or delivery workflow | `[ref:pro-filmmaking-standards]`, `[ref:shot-list-continuity]`, `[ref:delivery-qc]` |
 | Compact prompt or Chinese compression | `[skill:seedance-prompt-short]`, language vocab reference |
 | Camera, lens, blocking, shot contract | `[skill:seedance-camera]`, `[ref:cinematography-shot-language]` |
