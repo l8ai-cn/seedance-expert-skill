@@ -8,8 +8,8 @@ tags:
   - chinese-prompt
   - seedance-20
 metadata:
-  version: "5.4.5"
-  updated: "2026-05-30"
+  version: "5.4.6"
+  updated: "2026-06-11"
   parent: "seedance-20"
   author: "Iamemily2050 (@iamemily2050)"
   repository: "https://github.com/Emily2040/seedance-2.0"

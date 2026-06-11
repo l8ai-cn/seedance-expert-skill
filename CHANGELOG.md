@@ -2,6 +2,24 @@
 
 All notable changes to this project are documented here.
 
+## [5.4.6] — 2026-06-11
+
+### Added
+
+- Added the capability-extraction reference layer: `capability-map.md` (design into model strengths, around known limits), `multishot-grammar.md` (shot labels, the shots-times-seconds budget, cut grammar inside one generation), `2d-anime-grammar.md` (cel/anime medium grammar with the no-lens rule), and `allocation-model.md` (where one generation spends its fidelity budget).
+- Added a dated fal surface section to `api-status.md` with per-endpoint params (t2v/i2v/r2v), reference limits, pricing caveats, the 480p/720p-vs-1080p documentation conflict, seed semantics, and reference-to-video-first continuation guidance, plus fal rows in `platform-surface-matrix.md` and `model-name-map.md` and fal routing in the root skill.
+- Added technique deepenings: motion transfer in `reference-workflow.md`, audio-as-clock in `audio-guide.md`, the transformation method with persisting carrier in `first-last-frame-guide.md`, and physics-forward prompting in `seedance-motion`.
+- Added four eval cases: fal platform-spec verification, prohibited-request plain refusal, wrong-model craft-only routing, and the plain-language no-background interview (56 cases total).
+
+### Changed
+
+- Rewrote the root skill description with plain-language triggers, the full surface list including fal, and explicit non-triggers.
+- Added operating-loop capability and allocation checks, surface-specific mode-availability gating, and Load Map rows for the new references.
+- Redesigned `seedance-interview` and `seedance-interview-short` for users with no film background: pickable plain-language questions with stated defaults, feeling-to-film translation, expert detection, and a propose-then-adjust mini-treatment flow.
+- Added an explicit false-positive-only boundary to `seedance-filter` and reframed its README one-liner to "repairs false positives, never by hiding intent."
+- Hardened `scripts/install_codex_skill.py` to exclude image assets, docs, and CI config from installed payloads and to print the installed payload size (~594 KB instead of ~19 MB).
+- Bumped active skill metadata, validator expectations, and eval metadata to v5.4.6.
+
 ## [5.4.5] — 2026-05-30
 
 ### Added

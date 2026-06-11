@@ -117,7 +117,7 @@ def main() -> int:
     else:
         doc_text = redesign_doc.read_text(encoding="utf-8").lower()
         if "text-rich infographics" not in doc_text or "infographic-cdn-delivery-map.png" not in doc_text:
-            errors.append("docs/frontend-redesign.md missing v5.4.5 text-rich gallery guidance")
+            errors.append("docs/frontend-redesign.md missing text-rich gallery guidance")
 
     design_system = root / "references" / "frontend-design-system.md"
     if not design_system.exists():

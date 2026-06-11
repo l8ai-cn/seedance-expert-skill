@@ -6,7 +6,7 @@
 
 Text-to-video · Image-to-video · Video-to-video · Reference-to-video · Audio-aware prompting · Copyright-safe rewrites · Agent Skills
 
-[![Version](https://img.shields.io/badge/version-5.4.5-111827?labelColor=0f172a)](#changelog)
+[![Version](https://img.shields.io/badge/version-5.4.6-111827?labelColor=0f172a)](#changelog)
 [![Skills](https://img.shields.io/badge/sub--skills-23-0ea5e9?labelColor=0f172a)](#skill-map)
 [![References](https://img.shields.io/badge/references-40-8b5cf6?labelColor=0f172a)](#reference-library)
 [![Evals](https://img.shields.io/badge/evals-52-22c55e?labelColor=0f172a)](#validation)
@@ -16,7 +16,7 @@ Author: [Iamemily2050 (@iamemily2050)](https://github.com/Emily2040) · [Instagr
 
 Platform context: [ByteDance Seedance 2.0](https://seed.bytedance.com/en/seedance2_0) · Dreamina · Jimeng · Doubao · [Volcengine Ark](https://www.volcengine.com/docs/82379/2291680?lang=zh) · [BytePlus ModelArk](https://docs.byteplus.com/en/docs/ModelArk/2291680) · [Runway Seedance 2](https://docs.dev.runwayml.com/guides/seedance/) · fal
 
-Updated: **2026-05-30** · **v5.4.5 visual stress-test gallery and professional infographic expansion**
+Updated: **2026-06-11** · **v5.4.6 capability-extraction layer, fal surface, and plain-language interview**
 
 ---
 
@@ -275,7 +275,7 @@ The v5.4.5 front page uses multiple generated cinematic bitmap hero shots, text-
 
 ## Changelog
 
-See [`CHANGELOG.md`](CHANGELOG.md). Current release: **v5.4.5**.
+See [`CHANGELOG.md`](CHANGELOG.md). Current release: **v5.4.6**.
 
 ## License
 
