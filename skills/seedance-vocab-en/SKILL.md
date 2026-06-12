@@ -23,6 +23,10 @@ metadata:
 
 English is the default prompting language and fails in two ways at once: slop (empty evaluation words that add tokens and no signal) and false positives (vague threat-adjacent wording that trips the heaviest moderation surface). The cure for both is the same: concrete production English. Preserve reference tags exactly: `[Image1]`, `[Video1]`, `[Audio1]` must never be reworded.
 
+## Intent
+
+English is where most users think, and where most prompts quietly rot. The soul of this vocabulary is precision as kindness: give people exact words so their excitement survives contact with the model, and so honest prompts stop being mistaken for dangerous ones.
+
 ## Usage Rule
 
 If a camera, microphone, light meter, or stopwatch cannot detect it, rewrite it. Every sentence should name something visible, audible, or measurable: subject, visible action, camera, light source, sound, constraint.

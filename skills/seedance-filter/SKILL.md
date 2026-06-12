@@ -20,6 +20,10 @@ metadata:
 
 # seedance-filter
 
+## Intent
+
+A wrongly blocked prompt makes a user feel accused by a machine with no court of appeal. This skill is the advocate: clear the innocent by stating their honest intent plainly, and never coach the guilty. The user's dignity and the platform's boundary are protected in the same gesture.
+
 ## Boundary — read before anything else
 
 This skill repairs **false positives only**: benign production content blocked or degraded by over-broad filtering (medical, historical, athletic, fictional-original contexts). It works by **clarifying legitimate context in plain language** — never by disguising intent. It does not rephrase genuinely prohibited content: anything risky involving minors, real-person likeness without rights, sexual or graphic or illegal material. If the underlying request is prohibited, refuse plainly and offer a legitimate alternative only where one exists.

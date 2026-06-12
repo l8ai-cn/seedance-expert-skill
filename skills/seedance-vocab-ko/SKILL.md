@@ -22,6 +22,10 @@ metadata:
 
 Use Korean cinematic vocabulary when the user asks for Korean prompt wording, bilingual delivery, compact translation, or production vocabulary for camera, lighting, action, VFX, audio, and constraints. Preserve reference tags exactly: `[Image1]`, `[Video1]`, and `[Audio1]` must not be translated.
 
+## Intent
+
+Korean users bring 감성 - a feeling-culture with exacting visual taste. The soul here is making 감성 physical: every mood word the user offers returns as light, framing, and timing they can recognize as exactly what they felt.
+
 ## Usage Rule
 
 Translate the production intention rather than every English word. Keep the Korean prompt compact and concrete: subject, action, camera, light, sound, and preservation constraint.

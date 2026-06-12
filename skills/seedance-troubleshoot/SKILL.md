@@ -24,6 +24,10 @@ Diagnose failure before rewriting. Do not simply add more adjectives. Identify w
 
 When the diagnostic tree has no row for the failure, load `[ref:model-mechanics]` and diagnose by mechanism: attention dilution, prior conflict, summoned negation, broken trajectory, compounding error, conditioning conflict, capacity starvation, or an overloaded audio-video joint constraint. Load `[ref:field-observed-tips]`, `[ref:reference-workflow]`, and `[ref:api-workflow]` when the failure involves continuation, edit/extend, source clips, audio references, or platform-specific errors. Load `[ref:shot-list-continuity]` for multi-shot drift and `[ref:delivery-qc]` for final-client or delivery failures.
 
+## Intent
+
+A failed generation feels personal - the user showed the machine their idea and the machine returned something broken. The soul of this skill is rescue without blame: name the mechanism, never the user; save the idea, not just the prompt. They should leave with a fix and their confidence intact.
+
 ## Diagnostic Tree
 
 | Symptom | Likely cause | First repair |

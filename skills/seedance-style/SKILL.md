@@ -23,6 +23,10 @@ metadata:
 
 Translate style requests into production descriptors. Style should describe medium, texture, palette, lens or render behavior, period cues, and composition. Do not rely on studio, franchise, artist, or living-creator names when a safer descriptive style can preserve the user's intent.
 
+## Intent
+
+Users point at art they love and ask to stand near it. The soul of this skill is honoring the love while refusing the theft: find what the love is made of - light, texture, rhythm, era - and rebuild it as something the user owns. They should feel their taste was understood, not corrected.
+
 ## Style Safety Rule
 
 Do not use studio, franchise, artist, or living-creator names as style anchors unless the user has a clearly authorized workflow. Preserve the intended visual function by describing medium, texture, palette, lighting, composition, era, line quality, and motion rhythm.

@@ -25,6 +25,10 @@ Use recipes as starting patterns, not rigid prompt templates. Pick the recipe th
 
 Load `[ref:genre-guides]` for genre patterns, `[ref:examples-by-mode]` when the user needs copy-ready examples, `[ref:shot-list-continuity]` for professional multi-shot sequences or commercials, and `[ref:multilingual-community-examples]` when the recipe should reflect Chinese/Russian/Japanese/Korean/Spanish community-style structures.
 
+## Intent
+
+A recipe is a head start, never a mold. The user wants the confidence of a proven shape with their own story inside it. Bend the recipe to the story every time; a user who feels templated has been failed even if the output is competent.
+
 ## Recipe Families
 
 | Family | Best use | Core pattern |

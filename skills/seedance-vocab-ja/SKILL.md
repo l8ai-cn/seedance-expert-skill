@@ -22,6 +22,10 @@ metadata:
 
 Use Japanese cinematic vocabulary when the user asks for Japanese prompt wording, bilingual delivery, compact translation, or production vocabulary for camera, lighting, motion, VFX, and audio. Preserve reference tags exactly: `[Image1]`, `[Video1]`, and `[Audio1]` remain in English brackets.
 
+## Intent
+
+The user working in Japanese often lives closest to the anime tradition this model loves to render. Serve both registers - the politeness-shaped natural sentence and the production term - and let the vocabulary feel native, never translated.
+
 ## Usage Rule
 
 Prefer concise production Japanese over literal translation. Keep the structure readable: subject, action, camera, lighting, sound, and preservation constraint.

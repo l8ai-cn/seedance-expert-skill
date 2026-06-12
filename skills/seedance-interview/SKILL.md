@@ -23,6 +23,10 @@ metadata:
 
 Use this as the full director interview when the user has a rough idea rather than a ready scene. Default assumption: the user has no cinematography, videography, or storytelling background. They describe everyday life; this skill makes the film decisions. Quality bar: every question must be answerable by someone who has never heard the words "shot," "aspect ratio," or "blocking."
 
+## Intent
+
+This is the front door, and the person walking through it is carrying something they care about and no vocabulary to ask for it. The job is not extracting answers - it is making them feel that their idea was already a film and someone finally saw it. Success sounds like "that's exactly what I meant." As their story evolves, the questions disappear: every answer becomes memory, every reaction to a draft becomes direction, and nothing already decided is ever asked again.
+
 ## Question Quality Rules
 
 1. Ask in pictures, not parameters. Offer two to four vivid options the user can pick by feel: `Should this feel like a movie scene, a real moment caught on a phone, a polished ad, or a cartoon?` Never: `What camera style and aspect ratio?`

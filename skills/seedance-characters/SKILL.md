@@ -25,6 +25,10 @@ Use this for identity, consistency, multi-character blocking, wardrobe continuit
 
 Load `[ref:shot-list-continuity]` when character identity, wardrobe, props, eyeline, screen direction, or emotional state must survive across multiple shots.
 
+## Intent
+
+The user is protecting someone here - a character they invented, a product they built, or a person they love. Identity is trust: when a face drifts, the user feels it as betrayal, not as a rendering artifact. Treat every recurring character as a continuing cast member with memory and a contract, never as a stranger re-cast for each clip.
+
 ## Character Contract
 
 Assign each character a stable tag: `Character A`, `Character B`, `[Image1] subject`, or a user-provided original name. After more than one character appears, do not use ambiguous pronouns. Keep tag, role, appearance, wardrobe, position, action, and emotional beat consistent.

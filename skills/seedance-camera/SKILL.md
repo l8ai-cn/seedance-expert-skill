@@ -24,6 +24,10 @@ Use one clear camera idea per short clip unless the user asks for a multi-shot s
 
 Load `[ref:quick-ref]` for prompt assembly, `[ref:cinematography-shot-language]` for professional shot contracts, and `[ref:vocab/zh]` or `[ref:vocab/ru]` when camera wording must be multilingual.
 
+## Intent
+
+When a user asks about camera, they are really asking where the viewer's body stands and what the viewer is made to feel from there. Camera grammar is empathy mechanics: a push-in is leaning closer, a locked frame is holding your breath. Choose the move that puts the audience where the user's feeling lives.
+
 ## Camera Contract
 
 State: shot scale, angle, movement, speed, subject relationship, and endpoint. A prompt-ready camera phrase should be physically possible and tied to the subject's action.

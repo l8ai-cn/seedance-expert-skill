@@ -25,6 +25,10 @@ Use physical verbs and consequences. Motion should be observable on screen, time
 
 Load `[ref:reference-workflow]` for video-motion references, `[ref:shot-list-continuity]` for action handoffs across shots, and `[ref:examples-by-mode]` for safe edit, extend, and R2V patterns.
 
+## Intent
+
+Motion is the verb of the user's story - the thing they came to see HAPPEN. The soul here is consequence: motion that begins, lands, and changes something feels lived; motion that loops feels generated. Every action carries the story one beat forward, or it doesn't belong in the clip.
+
 ## Motion Contract
 
 State: actor/object, action, force level, timing, physical consequence, continuity requirement, and endpoint.

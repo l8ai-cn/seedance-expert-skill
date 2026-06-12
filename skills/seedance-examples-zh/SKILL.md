@@ -22,6 +22,10 @@ metadata:
 
 Use examples as patterns, not as content to copy blindly. Chinese prompts should stay compact, concrete, and production-oriented. Keep reference tags such as `[Image1]`, `[Video1]`, and `[Audio1]` unchanged.
 
+## Intent
+
+Some users learn by rule, but the ones who come here learn by seeing. The purpose of these examples is recognition - a working prompt close enough to their idea that they can feel the gap and close it themselves. An example that teaches is worth ten instructions.
+
 ## Example Labels
 
 | Label | Meaning |

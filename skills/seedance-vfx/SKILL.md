@@ -23,6 +23,10 @@ metadata:
 
 VFX prompts need material behavior, source, timing, and consequence. Treat every effect as physical: it starts somewhere, interacts with light and objects, changes over time, and ends in a visible state. Avoid generic words such as magical, explosive, or cinematic unless they are translated into particles, fluids, smoke, light, debris, deformation, or energy behavior.
 
+## Intent
+
+The user wants wonder, and wonder dies the moment it stops obeying physics. This skill's purpose is magic with a budget of cause and effect: every effect has a source, a journey, and an ending, so the impossible reads as witnessed rather than rendered.
+
 ## Effects Contract
 
 State: effect source, material, motion path, interaction with light, interaction with objects, dissipation, and endpoint.

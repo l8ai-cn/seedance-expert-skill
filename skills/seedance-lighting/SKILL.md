@@ -24,6 +24,10 @@ Lighting should describe physical sources and transitions, not abstract beauty. 
 
 Load `[ref:color-pipeline-aces]` when the user asks for ACES, HDR/SDR, show look, grade, LUT, CDL, product color, or professional color handoff.
 
+## Intent
+
+When users say mood words, they are almost always asking for light. This skill's purpose is to take "cozy," "lonely," or "electric" and answer with a sun, a lamp, or a window - because that is where feeling physically lives in a frame. Give them their emotion back as a light source they can point to.
+
 ## Lighting Contract
 
 State: key source, direction, color temperature, atmosphere, shadow behavior, reflective behavior, and any transition.

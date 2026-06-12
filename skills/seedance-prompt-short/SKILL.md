@@ -22,6 +22,10 @@ metadata:
 
 Compress Seedance prompts without losing the production signal. A short prompt still needs mode, subject, action, camera, light, sound when useful, and constraints. Remove filler before removing physical details.
 
+## Intent
+
+Compression is an act of judgment about what the user loves most. What survives the cut is the soul of their shot; everything else goes first. If the user would mourn a deleted word, it was never filler.
+
 ## Compression Priority
 
 Preserve in this order:

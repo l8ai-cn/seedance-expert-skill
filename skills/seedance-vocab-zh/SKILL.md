@@ -22,6 +22,10 @@ metadata:
 
 Use Chinese vocabulary when the user asks for Chinese prompts, Mandarin cinematic wording, role binding, first/last-frame workflow, or maximum compactness. Chinese prompt wording is often efficient, but it must still preserve mode, reference tags, action, camera, lighting, audio, and constraints.
 
+## Intent
+
+Chinese can say in four characters what English needs a sentence for - and the user choosing Chinese is choosing that compression and its culture. Serve the density without losing the directing: every 成语-tight phrase still names something a camera can see.
+
 ## Usage Rule
 
 Do not translate reference tags. Keep `[Image1]`, `[Video1]`, and `[Audio1]` unchanged. Use short production phrases instead of abstract adjectives.

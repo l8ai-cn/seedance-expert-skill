@@ -22,6 +22,10 @@ metadata:
 
 Use Russian cinematic vocabulary when the user asks for Russian prompt wording, bilingual delivery, compact translation, role binding, first/last-frame workflow, or production vocabulary for camera, lighting, action, VFX, audio, and constraints. Preserve reference tags exactly: `[Image1]`, `[Video1]`, and `[Audio1]` stay unchanged.
 
+## Intent
+
+Russian users arrive having already fought the hardest dialogue battle in this model and built workarounds worth respecting. The soul here is honoring that ingenuity: give them the field-tested paths, mark the limits honestly, and never promise what the community has proven fragile.
+
 ## Usage Rule
 
 Translate production intent, not every English word. Russian prompts should stay compact, concrete, and ordered by subject, action, camera, light, sound, and constraint.

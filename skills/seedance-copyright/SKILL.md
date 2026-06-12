@@ -24,6 +24,10 @@ metadata:
 
 Use this before finalizing prompts involving protected IP, named brands, public figures, private people, voices, logos, songs, studios, exact scenes, or lookalike character requests. The goal is not to dilute the idea; the goal is to preserve the creative function with original, authorized, and safer production language.
 
+## Intent
+
+The user pointing at protected work is not trying to steal - they are showing you the clearest example of what they love that exists. The job is to find what the love is made of and give it back as something safely theirs. Protect the rights-holder and the user's heart in the same move.
+
 ## Rewrite Principle
 
 Preserve the scene function, genre, mood, camera logic, emotional beat, and production intent. Replace protected identity with an original archetype, original costume logic, original world details, and descriptive style layers.
