@@ -46,6 +46,6 @@ The repository does not currently contain a standalone web app. The public front
 - Inspect every generated text image; reject garbled words, ugly typography, poor contrast, or placeholder-looking panels before commit.
 - Keep equivalent Markdown explanation beside every text-rich image so the repo remains accessible and searchable.
 
-## v5.4.7 Editorial Redesign
+## v5.4.8 Editorial Redesign
 
 The masthead moved from generated bitmap art to a hand-built editorial system: serif display over monospace specification labels, warm ink/paper themes with a single amber accent, film sprocket and viewfinder line work, and zero gradients. `assets/hero-dark.svg` and `assets/hero-light.svg` are served through a `prefers-color-scheme` picture element so the hero matches the viewer's GitHub theme; `assets/skill-map.svg` was rebuilt as a specification diagram (gates -> root -> clusters -> reference library -> validation). Badges were unified to flat-square ink/amber. Generated bitmaps - the hero shots and text-rich infographics, including assets/infographic-cdn-delivery-map.png - remain in the curated Visual Gallery with searchable alt text, plus the operating-system art relocated from the body. Tokens live in `references/frontend-design-system.md`.

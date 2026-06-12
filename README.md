@@ -44,6 +44,8 @@ This skill package turns Seedance 2.0 work into a repeatable assistant workflow:
 - Writes full or compressed prompts for T2V, I2V, V2V, R2V, FLF2V, edit, extend, audio-aware, and first/last-frame workflows.
 - Separates every reference asset by role: identity, environment, motion, camera rhythm, audio tempo, style, or endpoint.
 - Keeps model and platform claims source-dated so API, pricing, region, quota, and model-ID details are not guessed.
+- Plans into model strengths before drafting: a capability map, a fidelity-allocation model, and a working model of the generator's mechanics that explains why every rule works.
+- Runs the shoot like a producer after generation: five-verdict take triage, one-variable retakes, attempt budgets, and cost-aware drafting.
 - Provides deeper multilingual cinematic vocabulary in English, Chinese, Japanese, Korean, Spanish, and Russian, including role binding, first/last-frame phrasing, edit/extend wording, safety wording, and audio cues.
 - Adds original community-informed examples for Chinese-English, Russian-English, Japanese-English, Korean-English, and Spanish-English prompt structures.
 - Adds professional filmmaker workflows for treatment-to-shot-list planning, shot contracts, continuity ledgers, ACES/color handoff, audio post, subtitles/localization, aspect-ratio variants, campaign cutdowns, delivery/QC, and client review packets.
@@ -78,7 +80,9 @@ For these requests, the skill should not stop at a single prompt. It should retu
 | “Make it short and strong.” | [`seedance-prompt-short`](skills/seedance-prompt-short/SKILL.md) | A compressed 30–100 word prompt. |
 | “I have an image/video/audio reference.” | [`reference-workflow`](references/reference-workflow.md) | A role map for every reference asset. |
 | “Use this as first frame and that as final frame.” | [`first-last-frame-guide`](references/first-last-frame-guide.md) | A continuous transition with endpoint locks. |
+| “The take is 80% right - regenerate or keep?” | [`retake-protocol`](references/retake-protocol.md) | A triage verdict, the one-variable retake, and an attempt budget. |
 | “It failed or looks bad.” | [`seedance-troubleshoot`](skills/seedance-troubleshoot/SKILL.md) | A root-cause diagnosis and repaired prompt. |
+| “Why did that happen?” | [`model-mechanics`](references/model-mechanics.md) | The mechanism behind the failure and the lever that works with it. |
 | “This uses a character, brand, celebrity, or real person.” | [`seedance-copyright`](skills/seedance-copyright/SKILL.md) | A safer rewrite preserving the creative function. |
 | “I need this for a film, client, campaign, or delivery.” | [`pro-filmmaking-standards`](references/pro-filmmaking-standards.md) | A professional workflow plan, role-specific artifact, and prompt path. |
 | “Turn this treatment into shots.” | [`shot-list-continuity`](references/shot-list-continuity.md) | Shot list, continuity ledger, and prompt batch structure. |
@@ -236,6 +240,7 @@ Concept art for the system, generated and curated. Every image is paired with se
 | [`json-schema.md`](references/json-schema.md) | Structured prompt wrapper for pipelines. |
 | [`eval-rubric.md`](references/eval-rubric.md) | How to judge eval outputs. |
 | [`progressive-disclosure.md`](references/progressive-disclosure.md) | Root, sub-skill, and reference boundaries. |
+| [`vocab/en.md`](references/vocab/en.md) | English precision vocabulary, slop traps, and filter-trip repairs. |
 | [`vocab/zh.md`](references/vocab/zh.md) | Chinese cinematic vocabulary for compact prompts. |
 | [`vocab/ja.md`](references/vocab/ja.md) | Japanese cinematic vocabulary for compact prompts. |
 | [`vocab/ko.md`](references/vocab/ko.md) | Korean cinematic vocabulary for compact prompts. |
