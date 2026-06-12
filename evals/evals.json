@@ -950,8 +950,7 @@
       ],
       "failure_mode": "reflexive regeneration of a keepable take, or multi-variable retakes",
       "skills_expected_to_activate": [
-        "seedance-troubleshoot",
-        "seedance-pipeline"
+        "seedance-troubleshoot"
       ]
     }
   ]
