@@ -1,7 +1,7 @@
 # Seedance 2.0 API and Platform Status
 
-last_verified: 2026-06-11
-confidence: public-source snapshot as of the verification date; per-section dates apply where noted (fal section re-verified 2026-06-11, earlier surface sections verified 2026-05-30); not a guarantee of access, pricing, model IDs, upload limits, authorization behavior, or regional availability on every surface
+last_verified: 2026-06-13
+confidence: public-source snapshot as of the verification date; per-section dates apply where noted (overseas-API status and Replicate recorded 2026-06-13, fal section re-verified 2026-06-11, earlier surface sections verified 2026-05-30); not a guarantee of access, pricing, model IDs, upload limits, authorization behavior, or regional availability on every surface
 
 ## Confirmed From Public Sources
 
@@ -22,6 +22,14 @@ confidence: public-source snapshot as of the verification date; per-section date
 - Runway's official Seedance 2 API guide documents model `seedance2`, 5-15 second duration, image/video/audio references, upload handling through `runway://`, audio-combination rules, and SDK-type lag for `referenceAudio`.
 - Partner workflow docs such as ComfyUI expose T2V, R2V, and FLF2V workflow vocabulary, but those docs are surface-specific.
 - Recent AV-generation benchmark papers, including AVBench and VABench, are useful for eval vocabulary around audio-video consistency, but they are not Seedance platform-access sources.
+
+## Overseas API Status — Copyright Suspension *(recorded 2026-06-13)*
+
+Authoritative reporting (Variety and CNBC, Feb–Mar 2026) documents that after Seedance 2.0's China launch on 2026-02-12, Disney, Warner Bros., Paramount, Netflix, and the Motion Picture Association sent ByteDance cease-and-desist letters over alleged IP infringement, and ByteDance **suspended the planned overseas API rollout (~2026-03-15)** pending resolution and added safeguards. What this means for guidance:
+
+- Treat overseas/global Seedance 2.0 API access as **contested and volatile**, not guaranteed-available. Verify live access, region, and rights posture before relying on any surface.
+- Third-party surfaces (fal, Atlas Cloud, Replicate, and others) have shown live Seedance 2.0 endpoints at various dates; that does not establish stable official global availability — access has shifted and may shift again. Recheck immediately before production.
+- The dispute makes the repo's standing rule operational, not hypothetical: never reproduce protected characters, scenes, or real-person likenesses — that exact behavior triggered the suspension.
 
 ## fal — Authorized Provider, Global *(added 2026-06-10; fields, resolution, and pricing re-verified 2026-06-11)*
 
@@ -83,6 +91,9 @@ Real-person face, portrait, and voice workflows require authorization, legal/eth
 
 - https://seed.bytedance.com/en/seedance2_0
 - https://seed.bytedance.com/en/blog/seedance-2-0-official-launch
+- https://replicate.com/bytedance/seedance-2.0
+- https://variety.com/2026/film/news/paramount-disney-bytedance-cease-and-desist-seedance-ai-infringement-ip-1236663663/
+- https://www.cnbc.com/2026/02/16/bytedance-safegaurds-seedance-ai-copyright-disney-mpa-netflix-paramount-sony-universal.html
 - https://arxiv.org/abs/2604.14148
 - https://www.volcengine.com/docs/82379/1330310?redirect=1&lang=zh
 - https://www.volcengine.com/docs/82379/1520757?lang=zh
