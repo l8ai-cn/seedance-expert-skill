@@ -31,6 +31,20 @@ Authoritative reporting (Variety and CNBC, Feb–Mar 2026) documents that after 
 - Third-party surfaces (fal, Atlas Cloud, Replicate, and others) have shown live Seedance 2.0 endpoints at various dates; that does not establish stable official global availability — access has shifted and may shift again. Recheck immediately before production.
 - The dispute makes the repo's standing rule operational, not hypothetical: never reproduce protected characters, scenes, or real-person likenesses — that exact behavior triggered the suspension.
 
+## Platform Safeguards — Now Live *(recorded 2026-06-14)*
+
+Authoritative reporting (SCMP, CNBC, The Next Web, Feb–Apr 2026) documents safeguards ByteDance added to Seedance 2.0 in response to the dispute. These are no longer hypothetical — treat them as current platform behavior on official surfaces, and design prompts to work *with* them:
+
+- **Real-face input blocking:** generation from images or videos containing real human faces is restricted (anti-deepfake). Do not assume a real-person reference will be accepted; route likeness work through `[skill:seedance-copyright]`.
+- **Copyrighted-character blocking:** generation of recognizable protected characters (e.g. Shrek, SpongeBob, Darth Vader) is blocked. This is enforcement, not just policy — `[skill:seedance-filter]`'s original-character rewrites are the working path.
+- **Visible watermark + C2PA Content Credentials** on output, and **invisible watermarking** with proactive IP monitoring (ByteDance states it can identify and act on model output even after it is shared or altered).
+
+Implication for the skill: false-positive repair and IP-safe rewriting are not optional polish — they are how a prompt clears live guardrails. Surface-specific behavior still varies; verify on the active surface.
+
+## Resolution — Model vs Surface *(recorded 2026-06-14)*
+
+Primary sources (the arXiv model card and the ByteDance Seed page) state Seedance 2.0's **native output resolution is 480p/720p**. Higher resolutions are **surface-specific, not a model-native guarantee**: fal caps at 720p; Volcengine/Ark (Pro), BytePlus, Atlas Cloud, Runway, and WaveSpeed expose **1080p**. Treat 480p/720p as the baseline capability and any 1080p/“2K” claim as a per-surface feature to verify at call time — never as a universal model spec.
+
 ## fal — Authorized Provider, Global *(added 2026-06-10; fields, resolution, and pricing re-verified 2026-06-11)*
 
 **Endpoints:** `text-to-video`, `image-to-video` (start image + optional `end_image_url` for A→B), `reference-to-video` — each with a `/fast` tier.

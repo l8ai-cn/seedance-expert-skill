@@ -23,3 +23,7 @@
 ## Design AROUND these
 
 ≤15s/call; audio not continuous across calls → score in post [official] · on-screen text → post [official] · negation summons — exclude compositionally [field] · tiny detail (distant faces, hands, logos) degrades [field] · facial micro-acting weakest — stage emotion in body/staging, ration CUs [heuristic] · identity drift after ~4–5 chained gens — re-anchor original refs [field] · character↔prop physics fragile in multi-person shots — keep contact simple or off-screen, use the three-tier action hierarchy [field] · Fast tier: no reliable multi-shot/slow-mo/dolly [field] · seed = stabilizer, not lock [official].
+
+## Competitive Context *(2026-06-14)*
+
+Native audio is no longer a Seedance-unique differentiator — as of mid-2026 Veo 3.1, Sora 2, Kling 3.0, Runway Gen-4.5, Hailuo 2.3, and Vidu Q3 all ship it [tech-press]. Lead with what is still distinctive in combination — single-pass multimodal references (text+image+video+audio together), multi-shot from one prompt, and multilingual lip-sync — rather than selling native audio as a headline. The official native resolution is 480p/720p; 1080p is surface-specific (see `api-status.md`).
