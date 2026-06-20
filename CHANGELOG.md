@@ -14,7 +14,7 @@ Current active release: **6.0.1**. Older entries below are preserved as release 
 
 ### Fixed
 
-- Kept Runway coverage on stable Models, API Changelog, and help links, and documented that the Seedance-specific guide path can be visible in indexed content while direct live HTTP checks return 404.
+- Restored the Runway Seedance-specific API guide as a primary source alongside stable Models, API Changelog, Inputs, and help links, with a checker caveat for raw HTTP status inconsistencies.
 
 ## [6.0.1] — 2026-06-20
 

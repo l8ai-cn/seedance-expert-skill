@@ -19,7 +19,7 @@ confidence: public-source snapshot as of the verification date; per-section date
 - Volcengine's pricing page was observed updated on 2026-05-28. Quote Volcengine prices only with surface, date, currency, model/resolution/duration context, and a recheck warning. Keep the stronger no-quote caveat for JavaScript-rendered BytePlus pages that are not live-verified.
 - A Volcengine developer-community article says Seedance 2.0 API service is online and mentions portrait/copyright safety standards, face verification, portrait authorization, virtual portrait assets, and BytePlus overseas API service. Treat this as official ecosystem/news evidence, not the API contract.
 - Public BytePlus pages may be JavaScript-rendered in static fetches. Do not quote Seedance 2.0 BytePlus pricing or model IDs from such pages without live official verification.
-- Runway's official Models, API Changelog, and help pages list Seedance 2.0/Seedance 2.0 Fast on the Runway surface. The older Seedance-specific guide path can appear in indexed/browser content, but direct live HTTP checks returned 404 on 2026-06-20, so do not treat that path as a stable primary link until it returns a successful status.
+- Runway's official Seedance 2 guide and stable Models, API Changelog, Inputs, and help pages list Seedance 2.0/Seedance 2.0 Fast on the Runway surface. The Seedance-specific guide documents `seedance2` examples and reference-field caveats; if a raw HTTP checker reports 404, verify through the browser/indexed doc before dropping the source.
 - BytePlus ModelArk docs now list Dreamina Seedance 2.0 Mini, `dreamina-seedance-2-0-mini-260615`, and pricing rows for `dreamina-seedance-2.0-mini`. Treat the hyphenated ID and dotted pricing label as surface-specific BytePlus names, not canonical names for every provider.
 - Additional provider/router pages visible on 2026-06-20 include EvoLink, OpenRouter, Kie.ai, PiAPI, LaoZhang, Runware, ModelsLab, AI/ML API, MuAPI, SeeGen, and Segmind. Treat them as surface-specific access routes, not official ByteDance/Volcengine/BytePlus contracts.
 - China-facing searches on 2026-06-20 confirm the strongest sources remain official ByteDance Seed, Volcengine Ark, BytePlus ModelArk, Doubao, Jimeng/Jianying, and CapCut/Jianying surfaces. Chinese-language workflow posts, business-partner news, or hosted ComfyUI workflows are not public API providers unless they publish provider-owned API docs.
@@ -151,6 +151,7 @@ Real-person face, portrait, and voice workflows require authorization, legal/eth
 - https://fal.ai/models/bytedance/seedance-2.0/text-to-video
 - https://fal.ai/models/bytedance/seedance-2.0/image-to-video
 - https://fal.ai/models/bytedance/seedance-2.0/reference-to-video
+- https://docs.dev.runwayml.com/guides/seedance/
 - https://docs.dev.runwayml.com/assets/inputs/
 - https://evolink.ai/seedance-2-0
 - https://openrouter.ai/bytedance/seedance-2.0
