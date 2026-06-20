@@ -15,7 +15,6 @@ IGNORE_NAMES = {
     ".pytest_cache",
     ".seedance_backups",
     "__pycache__",
-    "docs",
 }
 IGNORE_PATTERNS = ["*.pyc", "*.pyo", "*.tmp", "*.log", "*.png", "*.jpg", "*.jpeg", "*.psd"]
 

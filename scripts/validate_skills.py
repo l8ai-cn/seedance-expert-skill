@@ -305,6 +305,12 @@ def main() -> int:
             if line_count < 20:
                 errors.append(f"{rel}: script appears collapsed or incomplete ({line_count} lines)")
 
+    installer = root / "scripts" / "install_codex_skill.py"
+    if installer.exists():
+        installer_text = installer.read_text(encoding="utf-8")
+        if re.search(r"IGNORE_NAMES\s*=\s*{[^}]*[\"']docs[\"']", installer_text, re.S):
+            errors.append("scripts/install_codex_skill.py must include docs/ because README links native zh/ja/ko guides")
+
     openai_yaml = root / "agents" / "openai.yaml"
     if openai_yaml.exists():
         yaml_text = openai_yaml.read_text(encoding="utf-8")
