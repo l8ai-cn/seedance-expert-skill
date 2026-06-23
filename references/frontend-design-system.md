@@ -42,6 +42,7 @@ The front page uses a studio spec-sheet system. Apply these tokens to every hand
 | Accent (single) | `#E2A75E` amber | `#A86F24` amber |
 
 - Display type: `Didot, 'Bodoni MT', 'Hoefler Text', Baskerville, 'Palatino Linotype', Georgia, serif` - high-contrast editorial serif where the system provides one, Georgia as the universal fallback; weight 400, no external fonts. The tagline is set as a serif italic aphorism in sentence case, not monospace.
+- Script accent: `'Snell Roundhand', 'Apple Chancery', 'Gabriola', 'Segoe Script', 'Brush Script MT', cursive` - a calligraphic line used once, for the `Skill OS` half of the wordmark, paired against the engraved Didot `Seedance 2.0`. This is the only flourish; everything else stays disciplined. System scripts only, no external fonts, graceful fallback to `cursive`. Keep `Seedance 2.0`, the tagline, and all specification labels out of script so the masthead stays legible.
 - Specification type: `ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace` - weight 400, smaller sizes, generous letter-spacing (6-7px on eyebrows); labels whisper, the wordmark speaks.
 - Motifs: sprocket strips, viewfinder corner marks, crosshairs, timecode, waveform ticks - drawn as fine line work.
 - The masthead ships as a theme-aware pair (`hero-dark.svg`, `hero-light.svg`) behind a `prefers-color-scheme` picture element; the operating diagram (`skill-map.svg`) carries its own background so it reads on both themes.

@@ -1,10 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-labelledby="title desc">
   <title>Seedance 2.0 Skill OS</title>
-  <desc>Editorial masthead on warm black: serif Seedance 2.0 Skill OS wordmark with monospace specification labels, a 21:9 viewfinder frame with timecode, and film sprocket details.</desc>
+  <desc>Editorial masthead on warm black: a high-contrast serif Seedance 2.0 wordmark above a calligraphic script Skill OS line, with monospace specification labels, a 21:9 viewfinder frame with timecode, and film sprocket details.</desc>
   <defs>
     <style>
       .display{font:400 94px Didot,'Bodoni MT','Hoefler Text',Baskerville,'Palatino Linotype',Georgia,'Times New Roman',serif;fill:#EDE6D6;letter-spacing:-1.5px}
       .display-i{font:italic 400 94px Didot,'Bodoni MT','Hoefler Text',Baskerville,'Palatino Linotype',Georgia,'Times New Roman',serif;fill:#EDE6D6;letter-spacing:-1.5px}
+      .script{font:400 86px 'Snell Roundhand','Apple Chancery','Gabriola','Segoe Script','Brush Script MT',cursive;fill:#EDE6D6;letter-spacing:0}
       .tagline{font:italic 400 22px Didot,'Bodoni MT','Hoefler Text',Baskerville,'Palatino Linotype',Georgia,'Times New Roman',serif;fill:#9A917D;letter-spacing:0.5px}
       .eyebrow{font:400 13px ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,monospace;fill:#E2A75E;letter-spacing:7px}
       .spec{font:400 13px ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,monospace;fill:#9A917D;letter-spacing:3px}
@@ -33,7 +34,7 @@
 
   <text x="74" y="118" class="eyebrow">INTENT-FIRST AI FILMMAKING</text>
   <text x="70" y="208" class="display">Seedance 2.0</text>
-  <text x="70" y="298" class="display-i">Skill OS<tspan fill="#E2A75E">.</tspan></text>
+  <text x="70" y="306" class="script">Skill OS<tspan fill="#E2A75E">.</tspan></text>
   <text x="74" y="346" class="tagline">Direct the model — don’t micro-manage the frame.</text>
 
   <g>
