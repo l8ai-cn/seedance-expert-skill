@@ -15,7 +15,7 @@ The compiler turns internal project state into one natural-language Seedance pro
 
 ## Compile Order
 
-1. Lineage: name `project_id`, `clip_id`, and parent only in the user-facing contract or capsule, not necessarily in the final prompt if it wastes prompt budget.
+1. Lineage: name `project_id`, `clip_id`, and parent in the user-facing contract or capsule; omit them from the final prompt when they would waste prompt budget.
 2. Source role: identify the active reference tags and what each controls.
 3. Actual opening state: use observed footage for continuations and planned state only for first clips. When the source clip or final frame is attached as a reference, name it by tag and state only what the source cannot carry.
 4. Current clip action: one narrative job with an endpoint.

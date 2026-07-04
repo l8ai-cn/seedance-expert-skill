@@ -32,7 +32,7 @@ The second fixture shows the mirror-image deviation. A rooftop courier take plan
 
 ## 5 - The chain cap and the scene boundary
 
-Clip 03 chains from Clip 02's accepted footage: `extension_depth: 2` - exactly at `scene_01`'s `max_chain_depth`. That is legal, and it is also the end of the chain: a fourth output-sourced generation would exceed the cap, and the validator (`scripts/project_state_check.py`) fails it with instructions to open from canonical references instead. This is scheduled re-anchoring: identity decays along output-sourced chains, so the reset is routine, planned at the scene boundary - an intentional cut, opened from `@Image 1`, depth back to 0 - not an emergency repair after drift is visible. If drift appears **before** the cap, that is an immediate `reanchor_after_drift` instead.
+Clip 03 chains from Clip 02's accepted footage: `extension_depth: 2` - exactly at `scene_01`'s `max_chain_depth`. That is legal, and it is also the end of the chain: a third output-sourced generation would exceed the cap, and the validator (`scripts/project_state_check.py`) fails it with instructions to open from canonical references instead. This is scheduled re-anchoring: identity decays along output-sourced chains, so the reset is routine, planned at the scene boundary - an intentional cut, opened from `@Image 1`, depth back to 0 - not an emergency repair after drift is visible. If drift appears **before** the cap, that is an immediate `reanchor_after_drift` instead.
 
 ## 6 - Break for the night, resume tomorrow
 

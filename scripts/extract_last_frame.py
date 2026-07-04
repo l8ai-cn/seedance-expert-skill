@@ -3,7 +3,7 @@
 
 The continuation gates require the observed end state of the previous accepted
 take before any successor prompt is written - but nothing paid for that
-requirement: the user had to scrub the clip and describe ~8 categories by hand
+requirement: the user had to scrub the clip and describe ~10 categories by hand
 for every clip of a long project. This tool removes most of that cost:
 
   python scripts/extract_last_frame.py takes/clip_02_take1.mp4

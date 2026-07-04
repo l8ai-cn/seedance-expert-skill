@@ -76,12 +76,12 @@ Field-observed technique; test before promising results. Beyond mood and tempo, 
 
 - Tie each musical landmark to exactly one visible event - a cut, a pose, a light change, an object landing. One event per beat; stacked events smear.
 - Works best with a single strong rhythm (clean drums, a metronomic pulse). Dense mixes or rubato material give the model no clock to follow.
-- When the audio is the clock, make it the only clock: mute video references and avoid second timing systems such as timestamp lists in the same prompt.
+- When the audio is the clock, make it the only clock: mute video references and avoid a second timing system, such as a timestamp list, in the same prompt.
 - The clock works inside one generation only; audio is not continuous across calls, so multi-clip pieces get their unifying score in post.
 
 ## Troubleshooting
 
-- Desync: shorten dialogue, stabilize camera, remove head motion, reduce competing sound, and clean source audio role.
+- Desync: shorten dialogue, stabilize camera, remove head motion, reduce competing sound, and clean up the source audio's role.
 - Wrong speaker: split lines by speaker and use explicit character tags.
 - Audio ignored: remove competing music/SFX instructions and make `[Audio1]` role explicit.
 - Overbusy mix: choose ambience plus one key SFX; remove music if dialogue matters.
