@@ -57,6 +57,8 @@ Seedance 2.0 Skill OS is English-readable, but the v6 line gives Chinese, Japane
 | 日本語 | [`日本語ガイド`](docs/README.ja.md), [`seedance-vocab-ja`](skills/seedance-vocab-ja/SKILL.md), [`seedance-examples-ja`](skills/seedance-examples-ja/SKILL.md), [`references/vocab/ja.md`](references/vocab/ja.md) | 日本語では、人物の同一性、衣装、構図、動きの終点を明確に書き、字幕や広告コピーは後処理で追加します。 |
 | 한국어 | [`한국어 가이드`](docs/README.ko.md), [`seedance-vocab-ko`](skills/seedance-vocab-ko/SKILL.md), [`seedance-examples-ko`](skills/seedance-examples-ko/SKILL.md), [`references/vocab/ko.md`](references/vocab/ko.md) | 한국어 프롬프트는 인물 고정, 카메라 움직임, 조명, 사운드를 짧게 분리하고 자막과 문구는 편집 단계에서 넣습니다. |
 
+New here? Each language also has a 5-minute quickstart: [English](docs/QUICKSTART.md) · [中文](docs/QUICKSTART.zh.md) · [日本語](docs/QUICKSTART.ja.md) · [한국어](docs/QUICKSTART.ko.md) · [Español](docs/QUICKSTART.es.md) · [Русский](docs/QUICKSTART.ru.md).
+
 For longer stories in any language, start with [`seedance-sequence`](skills/seedance-sequence/SKILL.md). For the next part of an accepted clip, use [`seedance-continuation`](skills/seedance-continuation/SKILL.md) and update the observed final state before writing the next prompt.
 
 ## Why this repository exists
@@ -354,6 +356,14 @@ For manual installation, copy this repository into the skill directory used by y
 | GitHub Copilot workspace | `.github/skills/seedance-20/` |
 | Cursor workspace | `.cursor/skills/seedance-20/` |
 | Windsurf workspace | `.windsurf/skills/seedance-20/` |
+| Trae (ByteDance) | `.trae/skills/seedance-20/` |
+| Qwen Code (Alibaba) | `.qwen/skills/seedance-20/` or `~/.qwen/skills/seedance-20/` |
+| OpenCode | `.opencode/skills/seedance-20/` (also reads `.claude/skills/` and `.agents/skills/`) |
+| Amp (Sourcegraph) | `.agents/skills/seedance-20/` or `~/.config/agents/skills/seedance-20/` |
+| Goose (Block) | `.agents/skills/seedance-20/` (also `.goose/skills/seedance-20/`) |
+| Junie (JetBrains) | `.junie/skills/seedance-20/` or `~/.junie/skills/seedance-20/` |
+
+Several of these clients share the `.agents/skills/` convention — Codex, Google Antigravity, OpenCode, Amp, and Goose all read it — so one install under `.agents/skills/seedance-20/` can serve them together, and `.claude/skills/` is read by many as a compatibility path. Install once as the `seedance-20` root skill; its sub-skills and references resolve by relative path.
 
 ## Validation
 

@@ -46,6 +46,28 @@ Verified 2026-06-12 from each agent's public docs; install paths are volatile - 
 | Hermes Agent (Nous Research) | project `skills/`, `~/.hermes/skills/` | `hermes skills install` (runs a security scan) | Activates on the frontmatter `description` - this repo's third-person activation wording is exactly what it matches. |
 | Gemini CLI / Cursor / Windsurf / Copilot | `.gemini/`, `.cursor/`, `.windsurf/`, `.github/` + `skills/` | copy the folder | Treat as installation targets, not separate source trees. |
 
+## Chinese-ecosystem agents (verified 2026-07-06)
+
+Both clients implement the same Agent Skills open standard (`SKILL.md` folder, on-demand progressive disclosure) as the rest of this matrix, so this repository installs into them as the single `seedance-20` root skill. Verified 2026-07-06 from each project's public docs; install paths stay volatile, so recheck the active build.
+
+| Agent | What it is | Skills location | Install route |
+|---|---|---|---|
+| Trae (ByteDance) | AI IDE from ByteDance, the same company as Seedance 2.0 | `.trae/skills/` (project); managed under Settings -> Rules & Skills | Copy the folder as `seedance-20`; the SKILL.md loads on demand. A Trae MCP connector to Seedance, if used, is a separate surface from this skill package. |
+| Qwen Code (Alibaba) | Open-source terminal agent forked from the Gemini CLI line | `.qwen/skills/` (project), `~/.qwen/skills/` (personal) | Copy the folder as `seedance-20`; each skill needs a SKILL.md. The `/skills` command lists installed skills. |
+
+## More Agent-Skills clients (verified 2026-07-06)
+
+`.agents/skills/` is emerging as the shared cross-agent convention: Codex, Google Antigravity, OpenCode, Amp, and Goose all read it, so one install under `.agents/skills/seedance-20/` serves them together, and `.claude/skills/` is read by several as a compatibility path. Verified 2026-07-06 from each project's public docs; paths stay volatile, so recheck the active build.
+
+| Agent | What it is | Skills location | Notes |
+|---|---|---|---|
+| OpenCode | Open-source terminal coding agent | `.opencode/skills/` (project), `~/.opencode/skills/` (personal) | Also reads `.claude/skills/` and `.agents/skills/`; skills load on demand through the native skill tool. |
+| Amp (Sourcegraph) | Sourcegraph's coding agent (formerly Cody) | `.agents/skills/` (workspace), `~/.config/agents/skills/` (user) | Also reads `.claude/skills/` for compatibility. |
+| Goose (Block) | Block's open-source agent | `.agents/skills/` (project), `~/.config/agents/skills/` (global) | Also reads `.goose/skills/` and `.claude/skills/`. |
+| Junie (JetBrains) | JetBrains' IDE coding agent | `.junie/skills/<name>/` (project), `~/.junie/skills/<name>/` (user) | Scans project and user scopes and matches on the SKILL.md description. |
+
+Since 2026-06-12, Cursor has shipped native Agent-Skills discovery from `.cursor/skills/` (project-scoped; invoke with `/` in the agent) - treat its row above as verified native support, not copy-only. Gemini CLI and VS Code / GitHub Copilot also list Agent-Skills support on their paths above; verify the exact behavior in your build.
+
 ## Cross-Client Notes
 
 Different agent clients scan different local paths. Codex documentation says Codex scans `.agents/skills` locations from the current directory upward, plus user/admin/system skill locations. A repository root with `SKILL.md` has the right skill-folder shape, but it is not automatically discovered as a repository skill unless installed under a scanned skill directory or packaged through the relevant plugin/distribution path. Other agent clients may use `.claude/skills`, `.gemini/skills`, `.github/skills`, `.cursor/skills`, or `.windsurf/skills`. Treat those as installation targets, not separate source trees.
@@ -63,6 +85,13 @@ Runway MCP is a separate agent connector surface. It can expose Seedance 2.0 thr
 - OpenClaw skills docs: https://docs.openclaw.ai/tools/skills
 - Hermes Agent skills docs: https://hermes-agent.nousresearch.com/docs/user-guide/features/skills
 - Runway MCP announcement: https://runwayml.com/news/mcp
+- Trae Agent Skills docs: https://docs.trae.ai/ide/agent
+- Qwen Code Agent Skills docs: https://qwenlm.github.io/qwen-code-docs/en/users/features/skills/ and https://github.com/QwenLM/qwen-code
+- OpenCode Agent Skills docs: https://opencode.ai/docs/skills
+- Cursor Agent Skills docs: https://cursor.com/docs/context/skills
+- Amp (Sourcegraph) Agent Skills: https://ampcode.com/news/agent-skills
+- Goose (Block) Agent Skills docs: https://block.github.io/goose/docs/mcp/skills-mcp/
+- JetBrains Junie Agent Skills docs: https://junie.jetbrains.com/docs/agent-skills.html
 
 ## Do Not Claim
 
