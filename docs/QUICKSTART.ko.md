@@ -1,7 +1,7 @@
 # Seedance 2.0 Skill OS 빠른 시작
 
 > 버전 6.6.0 · 설치부터 첫 "연출된" 프롬프트까지 약 5분.
-> 자세한 내용은 [README](../README.md) 와 [한국어 가이드](README.ko.md) 를 참고하세요.
+> 자세한 내용은 [README](../README.md)와 [한국어 가이드](README.ko.md)를 참고하세요.
 
 ## 한마디로
 
@@ -17,7 +17,7 @@ Seedance 2.0 Skill OS 는 형용사를 늘어놓는 대신 영화감독처럼 Se
 python scripts/install_codex_skill.py --force
 ```
 
-저장소를 `~/.codex/skills/seedance-20`(또는 `$CODEX_HOME/skills/seedance-20`)로 복사합니다. Codex 를 다시 시작한 뒤 `$seedance-20` 로 불러오세요.
+저장소를 `~/.codex/skills/seedance-20`(또는 `$CODEX_HOME/skills/seedance-20`)로 복사합니다. Codex 를 다시 시작한 뒤 `$seedance-20`로 불러오세요.
 
 **GitHub 에서 설치 (저장소 URL 설치를 지원하는 클라이언트)**
 
@@ -29,7 +29,7 @@ https://github.com/Emily2040/seedance-2.0
 
 폴더를 이름 `seedance-20` 그대로 클라이언트의 스킬 디렉터리에 복사하세요. 흔한 위치는 [README 설치 표](../README.md#install)에 정리해 두었습니다(보장이 아니니 반드시 본인 클라이언트에서 확인하세요). 예: Claude Code `.claude/skills/`, Cursor `.cursor/skills/`, GitHub Copilot `.github/skills/`, Windsurf `.windsurf/skills/`.
 
-> 안전이 먼저입니다. 믿을 수 있는 agent 클라이언트에만 설치하세요. 낯설거나 서드파티 agent 에서 쓰기 전에 [SECURITY.md](../SECURITY.md) 를 꼭 읽어 보세요.
+> 안전이 먼저입니다. 믿을 수 있는 agent 클라이언트에만 설치하세요. 낯설거나 서드파티 agent 에서 쓰기 전에 [SECURITY.md](../SECURITY.md)를 꼭 읽어 보세요.
 
 ## 2. 상황에 맞춰 스킬 고르기
 
@@ -75,7 +75,7 @@ https://github.com/Emily2040/seedance-2.0
 
 ## 7. 더 깊이
 
-- `references/directing-engine.md` — 장면을 읽고 하나의 의도를 고르기(35개 장르 예제).
+- `references/directing-engine.md` — 장면을 읽고 하나의 의도를 고르기(33개 장르 예제).
 - `references/capability-map.md` — 모델의 강점을 살리고 알려진 약점을 피해 설계하기.
 - `references/api-workflow.md` — API, 제공자, 가격, 모델 ID(모두 출처 날짜 표기).
 - `references/examples-by-mode.md` — T2V, I2V, V2V, R2V, FLF2V, 편집, 확장 예시.

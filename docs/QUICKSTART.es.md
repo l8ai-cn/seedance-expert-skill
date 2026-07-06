@@ -75,7 +75,7 @@ Plano medio corto, a la altura de los ojos; baja la carta y sus manos se quedan 
 
 ## 7. Para profundizar
 
-- `references/directing-engine.md` — lee la escena y elige una única intención (35 géneros resueltos).
+- `references/directing-engine.md` — lee la escena y elige una única intención (33 ejemplos por género).
 - `references/capability-map.md` — diseña aprovechando las fortalezas del modelo y esquivando sus límites conocidos.
 - `references/api-workflow.md` — API, proveedores, precios e IDs de modelo (con fecha de la fuente).
 - `references/examples-by-mode.md` — ejemplos de T2V, I2V, V2V, R2V, FLF2V, edición y extensión.

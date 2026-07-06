@@ -73,7 +73,7 @@ Medium close-up, eye-level; she lowers the letter and her hands go still as a sl
 
 ## 7. Go deeper
 
-- `references/directing-engine.md` — read the scene, choose one intention (35 worked genres).
+- `references/directing-engine.md` — read the scene, choose one intention (33 worked genre examples).
 - `references/capability-map.md` — design into model strengths and around known limits.
 - `references/api-workflow.md` — API, providers, pricing, model IDs (source-dated).
 - `references/examples-by-mode.md` — T2V, I2V, V2V, R2V, FLF2V, edit, and extend examples.

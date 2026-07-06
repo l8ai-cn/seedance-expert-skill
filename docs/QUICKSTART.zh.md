@@ -75,7 +75,7 @@ https://github.com/Emily2040/seedance-2.0
 
 ## 7. 想更进一步
 
-- `references/directing-engine.md` — 读懂一场戏，锁定唯一意图（35 个完整类型示例）。
+- `references/directing-engine.md` — 读懂一场戏，锁定唯一意图（33 个完整类型示例）。
 - `references/capability-map.md` — 顺着模型的强项、避开它的短板来设计。
 - `references/api-workflow.md` — API、服务商、价格、模型 ID（都标了来源日期）。
 - `references/examples-by-mode.md` — T2V、I2V、V2V、R2V、FLF2V、编辑、延长的示例。

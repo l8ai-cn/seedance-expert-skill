@@ -75,7 +75,7 @@ https://github.com/Emily2040/seedance-2.0
 
 ## 7. さらに深く
 
-- `references/directing-engine.md` — シーンを読み、ひとつの意図を選ぶ（35 の作例つき）。
+- `references/directing-engine.md` — シーンを読み、ひとつの意図を選ぶ（33 のジャンル作例）。
 - `references/capability-map.md` — モデルの得意を活かし、既知の弱点を避けて設計する。
 - `references/api-workflow.md` — API、プロバイダー、価格、モデル ID（いずれも出典日付つき）。
 - `references/examples-by-mode.md` — T2V、I2V、V2V、R2V、FLF2V、編集、延長の例。

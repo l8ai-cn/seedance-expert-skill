@@ -61,12 +61,12 @@ Both clients implement the same Agent Skills open standard (`SKILL.md` folder, o
 
 | Agent | What it is | Skills location | Notes |
 |---|---|---|---|
-| OpenCode | Open-source terminal coding agent | `.opencode/skills/` (project), `~/.opencode/skills/` (personal) | Also reads `.claude/skills/` and `.agents/skills/`; skills load on demand through the native skill tool. |
-| Amp (Sourcegraph) | Sourcegraph's coding agent (formerly Cody) | `.agents/skills/` (workspace), `~/.config/agents/skills/` (user) | Also reads `.claude/skills/` for compatibility. |
+| OpenCode | Open-source terminal coding agent | `.opencode/skills/` (project), `~/.config/opencode/skills/` (personal) | Also reads `.claude/skills/` and `.agents/skills/`; skills load on demand through the native skill tool. |
+| Amp (Sourcegraph) | Sourcegraph's coding agent | `.agents/skills/` (workspace), `~/.config/agents/skills/` (user) | Also reads `.claude/skills/` for compatibility. |
 | Goose (Block) | Block's open-source agent | `.agents/skills/` (project), `~/.config/agents/skills/` (global) | Also reads `.goose/skills/` and `.claude/skills/`. |
 | Junie (JetBrains) | JetBrains' IDE coding agent | `.junie/skills/<name>/` (project), `~/.junie/skills/<name>/` (user) | Scans project and user scopes and matches on the SKILL.md description. |
 
-Since 2026-06-12, Cursor has shipped native Agent-Skills discovery from `.cursor/skills/` (project-scoped; invoke with `/` in the agent) - treat its row above as verified native support, not copy-only. Gemini CLI and VS Code / GitHub Copilot also list Agent-Skills support on their paths above; verify the exact behavior in your build.
+As of 2026-07-06, Cursor ships native Agent-Skills discovery from `.cursor/skills/` (project-scoped; invoke with `/` in the agent) - treat its row above as verified native support, not copy-only. Gemini CLI and VS Code / GitHub Copilot also list Agent-Skills support on their paths above; verify the exact behavior in your build.
 
 ## Cross-Client Notes
 

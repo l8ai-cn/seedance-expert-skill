@@ -75,7 +75,7 @@ https://github.com/Emily2040/seedance-2.0
 
 ## 7. Копнуть глубже
 
-- `references/directing-engine.md` — прочитать сцену и выбрать единственное намерение (35 разобранных жанров).
+- `references/directing-engine.md` — прочитать сцену и выбрать единственное намерение (33 разобранных жанровых примера).
 - `references/capability-map.md` — проектировать на сильных сторонах модели и в обход её известных ограничений.
 - `references/api-workflow.md` — API, провайдеры, цены, ID моделей (с датами источников).
 - `references/examples-by-mode.md` — примеры T2V, I2V, V2V, R2V, FLF2V, редактирования и продления.
