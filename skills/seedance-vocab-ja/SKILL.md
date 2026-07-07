@@ -20,7 +20,7 @@ metadata:
 
 # seedance-vocab-ja
 
-Use Japanese cinematic vocabulary when the user asks for Japanese prompt wording, bilingual delivery, compact translation, or production vocabulary for camera, lighting, motion, VFX, and audio. Preserve reference tags exactly: `[Image1]`, `[Video1]`, and `[Audio1]` remain in English brackets.
+Use Japanese cinematic vocabulary when the user asks for Japanese prompt wording, bilingual delivery, compact translation, or production vocabulary for camera, lighting, motion, VFX, and audio. Preserve reference tags exactly: `@Image1`, `@Video1`, and `@Audio1` remain in English brackets.
 
 ## Intent
 
@@ -40,7 +40,7 @@ Prefer concise production Japanese over literal translation. Keep the structure 
 
 ## Compact Pattern
 
-`[Image1]を参照として、被写体の顔/商品形状/ロゴを正確に維持する。変化は[動き/光/カメラ]のみ。カメラ：[一つの動き]。音：[音声指示]。`
+`@Image1を参照として、被写体の顔/商品形状/ロゴを正確に維持する。変化は[動き/光/カメラ]のみ。カメラ：[一つの動き]。音：[音声指示]。`
 
 ## De-Slop Rule
 

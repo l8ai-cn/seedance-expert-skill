@@ -1,15 +1,15 @@
 # Spanish Vocabulary
 
-Use this reference for Spanish Seedance prompt wording, role binding, and compact prompt compression. Keep reference tags unchanged: `[Image1]`, `[Video1]`, and `[Audio1]` stay literal.
+Use this reference for Spanish Seedance prompt wording, role binding, and compact prompt compression. Keep reference tags unchanged: `@Image1`, `@Video1`, and `@Audio1` stay literal.
 
 | Function | Spanish | English meaning |
 |---|---|---|
-| Role | `[Image1] como primer fotograma` | Image1 is the first frame |
-| Role | `[Image2] como fotograma final` | Image2 is the last frame |
-| Role | `[Image1] fija la identidad del personaje` | Image1 locks character identity |
-| Role | `[Video1] solo controla el movimiento de cámara` | Video1 controls camera movement only |
-| Role | `[Video1] solo marca el ritmo de la acción` | Video1 controls action rhythm only |
-| Role | `[Audio1] solo marca tempo y ambiente` | Audio1 controls tempo and mood only |
+| Role | `@Image1 como primer fotograma` | Image1 is the first frame |
+| Role | `@Image2 como fotograma final` | Image2 is the last frame |
+| Role | `@Image1 fija la identidad del personaje` | Image1 locks character identity |
+| Role | `@Video1 solo controla el movimiento de cámara` | Video1 controls camera movement only |
+| Role | `@Video1 solo marca el ritmo de la acción` | Video1 controls action rhythm only |
+| Role | `@Audio1 solo marca tempo y ambiente` | Audio1 controls tempo and mood only |
 | FirstLastFrame | `mantener el primer fotograma sin cambios` | keep first frame unchanged |
 | FirstLastFrame | `usar el fotograma final como objetivo visual` | final frame is the target endpoint |
 | FirstLastFrame | `movimiento continuo sin salto de montaje` | continuous motion, no jump cut |
@@ -57,11 +57,11 @@ Use this reference for Spanish Seedance prompt wording, role binding, and compac
 
 ## Compact Template
 
-`[Image1] es la referencia; mantener [identidad/producto/rostro/logotipo] sin cambios. Solo cambia [acción/luz/cámara]. Cámara: [movimiento único]. Sonido: [señal].`
+`@Image1 es la referencia; mantener [identidad/producto/rostro/logotipo] sin cambios. Solo cambia [acción/luz/cámara]. Cámara: [movimiento único]. Sonido: [señal].`
 
 ## Multimodal Template
 
-`[Image1] fija el personaje original. [Video1] solo controla el movimiento de cámara; no copiar persona, lugar ni marca. [Audio1] solo marca tempo y ambiente.`
+`@Image1 fija el personaje original. @Video1 solo controla el movimiento de cámara; no copiar persona, lugar ni marca. @Audio1 solo marca tempo y ambiente.`
 
 ## Dialogue Notes
 

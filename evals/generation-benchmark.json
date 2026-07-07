@@ -20,7 +20,7 @@
       "clip_id": "clip_01",
       "expected_checks": [
         "does not output sequence architecture",
-        "preserves [Image1] product identity",
+        "preserves @Image1 product identity",
         "one action and endpoint"
       ],
       "is_synthetic_fixture": true

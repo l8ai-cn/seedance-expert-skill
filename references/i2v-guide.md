@@ -6,7 +6,7 @@ Prompt only what the image cannot show. A still image already contains subject i
 
 ## Minimal Template
 
-`[Image1] is the reference; preserve [identity/product/scene] exactly. Only [motion] changes. Camera: [one move]. Lighting: [source or transition]. Sound: [cue]. Constraint: [what must not change].`
+`@Image1 is the reference; preserve [identity/product/scene] exactly. Only [motion] changes. Camera: [one move]. Lighting: [source or transition]. Sound: [cue]. Constraint: [what must not change].`
 
 ## Two I2V Modes
 

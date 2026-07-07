@@ -20,7 +20,7 @@ metadata:
 
 # seedance-examples-zh
 
-Use examples as patterns, not as content to copy blindly. Chinese prompts should stay compact, concrete, and production-oriented. Keep reference tags such as `[Image1]`, `[Video1]`, and `[Audio1]` unchanged.
+Use examples as patterns, not as content to copy blindly. Chinese prompts should stay compact, concrete, and production-oriented. Keep reference tags such as `@Image1`, `@Video1`, and `@Audio1` unchanged.
 
 ## Intent
 
@@ -37,7 +37,7 @@ Some users learn by rule, but the ones who come here learn by seeing. The purpos
 
 ## Safe Example Patterns
 
-**Product I2V:** `[Image1]为产品参考，严格保持logo、标签、瓶身形状和颜色不变。镜头缓慢推进到标签特写；左侧暖光扫过玻璃，水珠沿瓶身下滑，背景保持暗色静止。声音：轻微环境声，结尾一声清脆玻璃音。`
+**Product I2V:** `@Image1为产品参考，严格保持logo、标签、瓶身形状和颜色不变。镜头缓慢推进到标签特写；左侧暖光扫过玻璃，水珠沿瓶身下滑，背景保持暗色静止。声音：轻微环境声，结尾一声清脆玻璃音。`
 
 **Character drama:** `原创角色A站在狭窄走廊，缓慢放下信封，目光停在紧闭的门上。镜头为稳定中近景并轻微推进。暖色顶灯微微闪烁，墙面有冷色雨光反射。声音：远处雨声，无配乐。`
 
@@ -45,13 +45,13 @@ Some users learn by rule, but the ones who come here learn by seeing. The purpos
 
 **Safe animation:** `原创二维动画沙漠信使，夸张围巾，驾驶小型风力木车穿过浅色沙丘。手绘背景质感，圆润角色造型，柔和粉彩色调，车轮带出细小沙尘。镜头侧向稳定跟拍。`
 
-**First/last frame:** `@图1为首帧，@图2为尾帧。保持同一原创角色、服装和房间布局，角色从椅子上缓慢站起，走到窗边并停在尾帧姿势。动作连续自然，不跳切，不改变脸部、衣服或房间结构。镜头固定中景，仅轻微推镜。声音：安静室内环境声。`
+**First/last frame:** `@图片1为首帧，@图片2为尾帧。保持同一原创角色、服装和房间布局，角色从椅子上缓慢站起，走到窗边并停在尾帧姿势。动作连续自然，不跳切，不改变脸部、衣服或房间结构。镜头固定中景，仅轻微推镜。声音：安静室内环境声。`
 
 **Sequence Clip 01:** `原创角色A在清晨机场出口停下，手里握着一张折起的纸条。本段只建立“她在等待某人”的线索，不出现重逢或离开。镜头横向稳定跟拍到中景，A看向到达屏并停住。声音：机场环境声、远处广播、无配乐。`
 
 **Continuation:** `从上一段已接受视频的真实结尾继续：A站在到达屏前，纸条仍在右手。本段只让A打开纸条，看到名字后向画面左侧抬头，不重复走出机场的动作，不提前出现对方。镜头固定中近景，轻微推镜。`
 
-**Camera-reference R2V:** `@图1锁定原创角色造型和服装，@视频1仅参考运镜节奏和侧向跟拍方式，不复制人物、场景或品牌。角色在雨夜街道从画面左侧跑入，停在路灯下回头。镜头横向稳定跟拍，最后固定中景。冷色雨光，地面反射霓虹。声音：雨声、脚步声，无配乐。`
+**Camera-reference R2V:** `@图片1锁定原创角色造型和服装，@视频1仅参考运镜节奏和侧向跟拍方式，不复制人物、场景或品牌。角色在雨夜街道从画面左侧跑入，停在路灯下回头。镜头横向稳定跟拍，最后固定中景。冷色雨光，地面反射霓虹。声音：雨声、脚步声，无配乐。`
 
 **Dialogue:** `原创角色A坐在厨房桌前，固定中近景。对白期间头部保持稳定，只做轻微表情变化。角色轻声说：“我找到钥匙了。”柔和窗光来自画面右侧，背景有暖色台灯。声音：清晰短对白、低室内环境声、无配乐。`
 

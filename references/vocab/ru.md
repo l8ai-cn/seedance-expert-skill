@@ -1,16 +1,16 @@
 # Russian Vocabulary
 
-Use this reference for Russian Seedance prompt wording, role binding, and compact translation. Keep reference tags unchanged: `[Image1]`, `[Video1]`, and `[Audio1]` stay literal.
+Use this reference for Russian Seedance prompt wording, role binding, and compact translation. Keep reference tags unchanged: `@Image1`, `@Video1`, and `@Audio1` stay literal.
 
 | Function | Russian | English meaning |
 |---|---|---|
-| Role | `[Image1] как первый кадр` | Image 1 is the first frame |
-| Role | `[Image2] как последний кадр` | Image 2 is the final frame |
-| Role | `[Image1] задает персонажа` | Image 1 defines the character |
-| Role | `[Image2] задает атмосферу сцены` | Image 2 defines scene mood |
-| Role | `[Video1] только движение камеры` | Video 1 provides camera movement only |
-| Role | `[Video1] задает ритм действия` | Video 1 provides action rhythm |
-| Role | `[Audio1] задает темп и настроение` | Audio 1 provides tempo and mood |
+| Role | `@Image1 как первый кадр` | Image 1 is the first frame |
+| Role | `@Image2 как последний кадр` | Image 2 is the final frame |
+| Role | `@Image1 задает персонажа` | Image 1 defines the character |
+| Role | `@Image2 задает атмосферу сцены` | Image 2 defines scene mood |
+| Role | `@Video1 только движение камеры` | Video 1 provides camera movement only |
+| Role | `@Video1 задает ритм действия` | Video 1 provides action rhythm |
+| Role | `@Audio1 задает темп и настроение` | Audio 1 provides tempo and mood |
 | FirstLastFrame | `сохранить первый кадр без изменений` | keep first frame unchanged |
 | FirstLastFrame | `естественный переход к последнему кадру` | natural transition to final frame |
 | FirstLastFrame | `непрерывное движение без монтажного скачка` | continuous motion, no jump cut |
@@ -61,7 +61,7 @@ Use this reference for Russian Seedance prompt wording, role binding, and compac
 
 ## Compact Template
 
-`[Image1] — референс; сохранить [персонажа/продукт/логотип] без изменений. Меняются только [движение/свет/камера]. Камера: [одно движение]. Звук: [аудиосигнал].`
+`@Image1 — референс; сохранить [персонажа/продукт/логотип] без изменений. Меняются только [движение/свет/камера]. Камера: [одно движение]. Звук: [аудиосигнал].`
 
 ## Russian Dialogue Notes
 

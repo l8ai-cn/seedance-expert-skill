@@ -31,7 +31,7 @@ Half of every emotion enters through the ears, and users almost always forget so
 
 ## Core Rules
 
-Keep dialogue short, quote spoken lines, and assign every line to a named speaker. Prefer locked or stable framing for lip-sync. Remove head-turning, large face motion, extreme camera moves, or busy hand gestures while mouth accuracy matters. Treat `[Audio1]` as a rhythm, pacing, mood, voice-tone, or ambience reference unless the active platform documents exact playback behavior; on surfaces that accept a spoken-voice reference, field reports indicate an attached voice clip can drive lip-sync directly: the model syncs to your audio instead of synthesizing speech - the most reliable field-reported path for non-English dialogue. Use only rights-cleared voices.
+Keep dialogue short, quote spoken lines, and assign every line to a named speaker. Prefer locked or stable framing for lip-sync. Remove head-turning, large face motion, extreme camera moves, or busy hand gestures while mouth accuracy matters. Treat `@Audio1` as a rhythm, pacing, mood, voice-tone, or ambience reference unless the active platform documents exact playback behavior; on surfaces that accept a spoken-voice reference, field reports indicate an attached voice clip can drive lip-sync directly: the model syncs to your audio instead of synthesizing speech - the most reliable field-reported path for non-English dialogue. Use only rights-cleared voices.
 
 Reliability is probabilistic and language-dependent: field reports rank Mandarin strongest for lip-sync, English a close second, with Japanese, Korean, Russian, and others weaker. Keep non-English lines very short or use a voice reference, and budget retakes rather than promising a clean voiced take. See `[ref:audio-guide]` for the field-observed per-language dialogue-capacity table.
 
@@ -43,7 +43,7 @@ Use compact layers: `Dialogue: ... Sound: ... SFX: ... Music: ... Silence: ...`.
 |---|---|
 | Lip-sync | `Character A, locked medium close-up, says "I found it." Clear dry dialogue, no head turn.` |
 | Product ad | `Sound: low room tone. SFX: magnetic click on lid open, soft glass chime at final frame.` |
-| Beat sync | `[Audio1] provides tempo only; light pulses and foot taps match the downbeat.` |
+| Beat sync | `@Audio1 provides tempo only; light pulses and foot taps match the downbeat.` |
 | Drama | `Distant rain and refrigerator hum; no music during the line.` |
 | Action | `Breathing grows louder, shoe squeak at landing, metal door buzzer at endpoint.` |
 
@@ -55,7 +55,7 @@ Use one speaker per short clip when reliability matters. If two characters must 
 
 If dialogue desyncs, shorten the line, lock the camera, remove head turns, clean the audio role, and reduce competing SFX. If the wrong speaker talks, assign tags and split lines by speaker. If audio is ignored, remove extra music/SFX instructions and make the reference role explicit.
 
-If audio and video references fight each other, mute the reference video before upload when possible, or make the priority explicit: `[Video1] controls camera only; [Audio1] controls tempo and energy`.
+If audio and video references fight each other, mute the reference video before upload when possible, or make the priority explicit: `@Video1 controls camera only; @Audio1 controls tempo and energy`.
 
 ## Sequence State
 

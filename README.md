@@ -48,7 +48,7 @@ It then holds one directorial voice across every short clip of a long story, and
 
 ## Native Language Start / 多语言入门 / 多言語スタート / 다국어 시작
 
-Seedance 2.0 Skill OS is English-readable, but the v6 line gives Chinese, Japanese, and Korean readers first-class entry points, active example skills, and native prompt guidance. Keep reference tags exactly as written (`[Image1]`, `[Video1]`, `[Audio1]`, `@图1`, `@视频1`) in every language.
+Seedance 2.0 Skill OS is English-readable, but the v6 line gives Chinese, Japanese, and Korean readers first-class entry points, active example skills, and native prompt guidance. Keep reference tags exactly as written (`@Image1`, `@Video1`, `@Audio1`, `@图片1`, `@视频1`) in every language.
 
 | Language | Start path | Native reader note |
 |---|---|---|

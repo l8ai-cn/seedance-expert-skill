@@ -31,11 +31,11 @@ The user is protecting someone here - a character they invented, a product they 
 
 ## Character Contract
 
-Assign each character a stable tag: `Character A`, `Character B`, `[Image1] subject`, or a user-provided original name. After more than one character appears, do not use ambiguous pronouns. Keep tag, role, appearance, wardrobe, position, action, and emotional beat consistent.
+Assign each character a stable tag: `Character A`, `Character B`, `@Image1 subject`, or a user-provided original name. After more than one character appears, do not use ambiguous pronouns. Keep tag, role, appearance, wardrobe, position, action, and emotional beat consistent.
 
 | Field | Prompt use |
 |---|---|
-| Tag | `Character A` or `[Image1] subject` |
+| Tag | `Character A` or `@Image1 subject` |
 | Identity anchor | Age range, silhouette, hair, wardrobe, or authorized reference role |
 | Position | Foreground/background, left/right, seated/standing |
 | Action | One assigned verb and endpoint |

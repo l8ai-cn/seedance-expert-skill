@@ -50,9 +50,9 @@ Use **locked-off** shots for lip-sync, product identity, and delicate VFX. Use *
 
 ## Continuity Rules
 
-For multi-character scenes, anchor the camera to named tags: `camera holds Character A in foreground while Character B crosses behind`. For I2V, preserve the image composition unless the user explicitly wants a reframing. For reference video, state whether `[Video1]` transfers camera movement, action rhythm, or blocking; do not let it transfer identity unless authorized.
+For multi-character scenes, anchor the camera to named tags: `camera holds Character A in foreground while Character B crosses behind`. For I2V, preserve the image composition unless the user explicitly wants a reframing. For reference video, state whether `@Video1` transfers camera movement, action rhythm, or blocking; do not let it transfer identity unless authorized.
 
-For complex camera movement, a video reference often works better than a long verbal stack. Use `[Video1] controls camera rhythm only; do not transfer performer, room, logo, or identity`.
+For complex camera movement, a video reference often works better than a long verbal stack. Use `@Video1 controls camera rhythm only; do not transfer performer, room, logo, or identity`.
 
 ## Conflict Rule
 

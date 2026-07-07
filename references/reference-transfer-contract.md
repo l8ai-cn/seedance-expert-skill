@@ -4,7 +4,7 @@ Use this reference when images, videos, audio, previous clips, final frames, or 
 
 ## Exact Tag Rule
 
-Preserve every user-supplied reference tag exactly. Never invent, normalize, translate, reformat, renumber, correct spacing, or change case in tags such as `@Image1`, `@Image 1`, `[Image1]`, `[Video 1]`, or interface-provided equivalents.
+Preserve every user-supplied reference tag exactly. Never invent, normalize, translate, reformat, renumber, correct spacing, or change case in tags such as `@Image1`, `@Image 1`, `@Image1`, `[Video 1]`, or interface-provided equivalents.
 
 ## Role Separation
 

@@ -77,7 +77,7 @@ def main() -> int:
             if protected in text:
                 errors.append(f"{rel}: protected term `{protected}` should not appear in active vocab")
 
-        if not re.search(r"\[Image1\].*\[Video1\]|\[Image1\].*\[Audio1\]", text, re.S):
+        if not re.search(r"@Image1.*@Video1|@Image1.*@Audio1", text, re.S):
             errors.append(f"{rel}: expected unchanged reference tag examples")
 
     if errors:

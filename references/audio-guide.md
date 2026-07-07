@@ -44,19 +44,19 @@ Past the reliable-sync budget, especially in non-English, use the voice-referenc
 
 ## Audio reference mapping
 
-`[Audio1]` can be used for rhythm, pacing, mood, voice tone, ambience, music texture, or beat timing. Do not promise exact audio playback unless the active platform documents exact playback behavior. If the source contains a real voice or recognizable song, treat it as authorization-sensitive and convert it into broad sonic descriptors when rights are unclear.
+`@Audio1` can be used for rhythm, pacing, mood, voice tone, ambience, music texture, or beat timing. Do not promise exact audio playback unless the active platform documents exact playback behavior. If the source contains a real voice or recognizable song, treat it as authorization-sensitive and convert it into broad sonic descriptors when rights are unclear.
 
 On surfaces that accept a spoken-voice audio reference, field reports describe a stronger role than tempo or mood: attaching an actual voice clip can make the model lip-sync to that audio instead of synthesizing speech itself - effectively a lip-sync compiler. This is the most reliable field-reported path for non-English dialogue: record or commission the line, attach it, and let the model only move the mouth. Use only your own recorded, licensed, or rights-cleared voice; treat a real or recognizable person's voice as authorization-sensitive and route it through `[skill:seedance-copyright]` when rights are unclear. Verify the active surface actually exposes a voice audio reference before relying on this.
 
-When an audio reference and video reference compete, silence or mute the video reference before upload when the audio should control timing. If the video must keep sound, state the priority: `[Video1] controls only camera/motion; [Audio1] controls tempo and energy`.
+When an audio reference and video reference compete, silence or mute the video reference before upload when the audio should control timing. If the video must keep sound, state the priority: `@Video1 controls only camera/motion; @Audio1 controls tempo and energy`.
 
 | Role | Good wording | Avoid |
 |---|---|---|
-| Tempo | `[Audio1] provides tempo only; foot taps match the downbeat` | copying a protected performance |
-| Mood | `[Audio1] provides calm sparse atmosphere` | exact replay claim |
+| Tempo | `@Audio1 provides tempo only; foot taps match the downbeat` | copying a protected performance |
+| Mood | `@Audio1 provides calm sparse atmosphere` | exact replay claim |
 | Voice tone | `soft, breathy, close-mic delivery` | imitating a named real voice |
 | Ambience | `rainy street room tone, distant traffic bed` | dense competing sound layers |
-| Conflict repair | `[Video1] is muted and controls camera only; [Audio1] controls beat timing` | two sources both controlling rhythm |
+| Conflict repair | `@Video1 is muted and controls camera only; @Audio1 controls beat timing` | two sources both controlling rhythm |
 
 ## Multi-character dialogue
 
@@ -68,11 +68,11 @@ Use separate speaker turns when reliability matters. For two-person exchanges, g
 
 ## Beat-sync syntax
 
-`[Audio1] provides tempo only. On each downbeat: back wall light pulses once, dancer hits one pose, camera remains locked wide.` Use visible beat changes rather than asking the model to understand an abstract groove.
+`@Audio1 provides tempo only. On each downbeat: back wall light pulses once, dancer hits one pose, camera remains locked wide.` Use visible beat changes rather than asking the model to understand an abstract groove.
 
 ## Audio as clock
 
-Field-observed technique; test before promising results. Beyond mood and tempo, `[Audio1]` can act as the master clock of the edit: `cut on the beat of [Audio1]; the turn lands on the drop; the door slams on the final hit.`
+Field-observed technique; test before promising results. Beyond mood and tempo, `@Audio1` can act as the master clock of the edit: `cut on the beat of @Audio1; the turn lands on the drop; the door slams on the final hit.`
 
 - Tie each musical landmark to exactly one visible event - a cut, a pose, a light change, an object landing. One event per beat; stacked events smear.
 - Works best with a single strong rhythm (clean drums, a metronomic pulse). Dense mixes or rubato material give the model no clock to follow.
@@ -83,7 +83,7 @@ Field-observed technique; test before promising results. Beyond mood and tempo, 
 
 - Desync: shorten dialogue, stabilize camera, remove head motion, reduce competing sound, and clean up the source audio's role.
 - Wrong speaker: split lines by speaker and use explicit character tags.
-- Audio ignored: remove competing music/SFX instructions and make `[Audio1]` role explicit.
+- Audio ignored: remove competing music/SFX instructions and make `@Audio1` role explicit.
 - Overbusy mix: choose ambience plus one key SFX; remove music if dialogue matters.
 - Lip-sync drift: use a locked medium close-up, no head turn, short quoted line, and simple expression.
 - Audio-reference conflict: mute the video reference, remove competing SFX/music, and describe one visible event per beat.

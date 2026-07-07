@@ -1,13 +1,13 @@
 # Chinese Vocabulary
 
-Use this reference for Chinese Seedance prompt wording, role binding, and compact prompt compression. Keep reference tags unchanged: `[Image1]`, `[Video1]`, and `[Audio1]` stay literal.
+Use this reference for Chinese Seedance prompt wording, role binding, and compact prompt compression. Keep reference tags unchanged: `@Image1`, `@Video1`, and `@Audio1` stay literal.
 
 | Function | Chinese | English meaning |
 |---|---|---|
-| Role | `@图1 为首帧` | Image 1 is the first frame |
-| Role | `@图2 为尾帧` | Image 2 is the last frame |
-| Role | `@图1 锁定主体身份` | Image 1 locks subject identity |
-| Role | `@图2 仅参考场景氛围` | Image 2 provides scene mood only |
+| Role | `@图片1 为首帧` | Image 1 is the first frame |
+| Role | `@图片2 为尾帧` | Image 2 is the last frame |
+| Role | `@图片1 锁定主体身份` | Image 1 locks subject identity |
+| Role | `@图片2 仅参考场景氛围` | Image 2 provides scene mood only |
 | Role | `@视频1 仅参考运镜` | Video 1 provides camera movement only |
 | Role | `@视频1 参考动作节奏` | Video 1 provides action rhythm |
 | Role | `@音频1 参考节奏和氛围` | Audio 1 provides tempo and mood |
@@ -62,17 +62,17 @@ Use this reference for Chinese Seedance prompt wording, role binding, and compac
 
 ## Compact Template
 
-`[Image1]为参考，严格保持[主体/产品/脸部/标志]不变；仅加入[动作/光线/镜头变化]。镜头：[一个动作]。声音：[音效或环境声]。`
+`@Image1为参考，严格保持[主体/产品/脸部/标志]不变；仅加入[动作/光线/镜头变化]。镜头：[一个动作]。声音：[音效或环境声]。`
 
 ## Timeline Template
 
-社区常用的长提示词骨架（即梦/Dreamina 平台，约 8 秒以上时使用；field-observed）。保持 `[Image1]` 等引用标签不变：
+社区常用的长提示词骨架（即梦/Dreamina 平台，约 8 秒以上时使用；field-observed）。保持 `@Image1` 等引用标签不变：
 
 ```
 【风格】[媒介、质感、色调，一句话]
 【时间轴】0-3s：[画面+镜头+音效]；3-6s：[画面+镜头+音效]；6-10s：[画面+镜头+音效]
 【声音】[对白/环境声/音效/无配乐]
-【参考】[Image1] 锁定主体身份；[Video1] 仅参考运镜；[Audio1] 仅参考节奏
+【参考】@Image1 锁定主体身份；@Video1 仅参考运镜；@Audio1 仅参考节奏
 ```
 
 ## Sequence and Continuation Phrases

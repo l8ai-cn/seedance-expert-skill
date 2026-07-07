@@ -20,7 +20,7 @@ Use medium, line quality, palette, deformation, timing, texture, and motion rhyt
 
 ## Music / Beat Sync
 
-Map beats to visible changes: step, cut, light pulse, object impact, or camera accent. Use `[Audio1]` for tempo, energy, mood, or pacing unless documented platform behavior supports exact playback. Avoid copying protected voice, melody, or performance identity.
+Map beats to visible changes: step, cut, light pulse, object impact, or camera accent. Use `@Audio1` for tempo, energy, mood, or pacing unless documented platform behavior supports exact playback. Avoid copying protected voice, melody, or performance identity.
 
 ## Food and Lifestyle
 

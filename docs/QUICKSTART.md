@@ -63,7 +63,7 @@ Medium close-up, eye-level; she lowers the letter and her hands go still as a sl
 
 ## 5. Two rules that save takes
 
-- **Keep reference tags exactly as written** — `[Image1]`, `[Video1]`, `[Audio1]`, `@图1`, `@视频1`. Never translate or reformat them.
+- **Keep reference tags exactly as written** — `@Image1`, `@Video1`, `@Audio1`, `@图片1`, `@视频1`. Never translate or reformat them.
 - **Don't ask for the whole story in one generation.** Generate Clip 01, observe how it *actually* ended, then write Clip 02 from that real ending (`seedance-continuation`).
 
 ## 6. Safety

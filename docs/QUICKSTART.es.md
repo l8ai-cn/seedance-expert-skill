@@ -65,7 +65,7 @@ Plano medio corto, a la altura de los ojos; baja la carta y sus manos se quedan 
 
 ## 5. Dos reglas que te ahorran tomas
 
-- **Deja las etiquetas de referencia tal cual:** `[Image1]`, `[Video1]`, `[Audio1]`, `@图1`, `@视频1`. Ni las traduzcas ni las reformatees.
+- **Deja las etiquetas de referencia tal cual:** `@Image1`, `@Video1`, `@Audio1`, `@图片1`, `@视频1`. Ni las traduzcas ni las reformatees.
 - **No pidas la historia entera en una sola generación.** Genera el Clip 01, mira cómo terminó *de verdad* y escribe el Clip 02 a partir de ese final real (`seedance-continuation`).
 
 ## 6. Seguridad

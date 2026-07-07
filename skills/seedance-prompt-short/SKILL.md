@@ -50,9 +50,9 @@ For bilingual or mixed-language compression, load `[ref:multilingual-community-e
 | Need | Template |
 |---|---|
 | T2V | `[Subject] [action and endpoint] in [scene]. Camera: [one move]. Light/style: [physical source]. Sound: [cue]. Constraint: [risk/continuity].` |
-| I2V | `[Image1] preserved; only [motion/light/camera] changes. Camera: [one move]. Sound: [cue]. Constraint: [what must not change].` |
-| V2V | `[Video1] controls [motion/camera/timing] only; new subject [anchor]. [Action]. Do not transfer [identity/scene/logo].` |
-| Chinese | `[Image1]为参考，严格保持[主体]不变；仅加入[动作/光线/镜头]。声音：[提示]。` |
+| I2V | `@Image1 preserved; only [motion/light/camera] changes. Camera: [one move]. Sound: [cue]. Constraint: [what must not change].` |
+| V2V | `@Video1 controls [motion/camera/timing] only; new subject [anchor]. [Action]. Do not transfer [identity/scene/logo].` |
+| Chinese | `@Image1为参考，严格保持[主体]不变；仅加入[动作/光线/镜头]。声音：[提示]。` |
 
 ## Output Contract
 

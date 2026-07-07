@@ -53,7 +53,7 @@ When sound drives the motion, pair each visible change with one beat or SFX: `do
 
 ## Reference Motion Rules
 
-For reference footage, use only owned, licensed, public-domain, stock, mocap, rehearsal, or self-recorded material. Map `[Video1]` to motion, camera, timing, or blocking, not identity, unless the identity is authorized. If a reference contains a real person, transfer only general motion or camera behavior and explicitly exclude likeness transfer.
+For reference footage, use only owned, licensed, public-domain, stock, mocap, rehearsal, or self-recorded material. Map `@Video1` to motion, camera, timing, or blocking, not identity, unless the identity is authorized. If a reference contains a real person, transfer only general motion or camera behavior and explicitly exclude likeness transfer.
 
 ## Stability Rules
 

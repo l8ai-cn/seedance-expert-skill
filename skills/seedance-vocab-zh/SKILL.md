@@ -28,7 +28,7 @@ Chinese can say in four characters what English needs a sentence for - and the u
 
 ## Usage Rule
 
-Do not translate reference tags. Keep `[Image1]`, `[Video1]`, and `[Audio1]` unchanged. Use short production phrases instead of abstract adjectives.
+Do not translate reference tags. Keep `@Image1`, `@Video1`, and `@Audio1` unchanged. Use short production phrases instead of abstract adjectives.
 
 Load `[ref:vocab/zh]` for dense role-binding, first/last-frame, camera, lighting, audio, edit/extend, constraint, and safety vocabulary.
 
@@ -38,12 +38,12 @@ Load `[ref:vocab/zh]` for dense role-binding, first/last-frame, camera, lighting
 | Lighting | `侧逆光`, `柔和窗光`, `暖色实用灯`, `冷色月光`, `轮廓光`, `体积光` |
 | Motion | `慢慢转身`, `快速掠过画面`, `水珠沿表面下滑`, `薄雾贴地扩散` |
 | Audio | `安静环境声`, `一句短对白`, `轻微金属声`, `无配乐`, `脚步声卡点` |
-| First/last frame | `@图1 为首帧`, `@图2 为尾帧`, `自然过渡到尾帧`, `中间动作连续，不跳切` |
+| First/last frame | `@图片1 为首帧`, `@图片2 为尾帧`, `自然过渡到尾帧`, `中间动作连续，不跳切` |
 | Constraints | `严格保持logo、标签、形状和颜色不变` |
 
 ## Compact Pattern
 
-`[Image1]为参考，严格保持[主体/产品/脸部/标志]不变；仅加入[动作/光线/镜头变化]。镜头：[一个动作]。声音：[音效或环境声]。`
+`@Image1为参考，严格保持[主体/产品/脸部/标志]不变；仅加入[动作/光线/镜头变化]。镜头：[一个动作]。声音：[音效或环境声]。`
 
 ## De-Slop Rule
 

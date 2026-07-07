@@ -23,7 +23,7 @@ These are practitioner patterns gathered from public community material. Treat t
 |---|---|
 | `cinematic, epic, beautiful` | `soft side backlight, wet asphalt reflections, locked medium shot, quiet room tone` |
 | `make it move naturally` | `shoulders rise once with breathing, hand releases the cup, final pose holds for one second` |
-| `use this video as style` | `[Video1] provides only side-tracking camera rhythm; do not transfer performer identity or background` |
+| `use this video as style` | `@Video1 provides only side-tracking camera rhythm; do not transfer performer identity or background` |
 | `make product luxury` | `narrow warm light sweep across the label, black acrylic table reflection, no label redesign` |
 
 ## High-Risk Areas

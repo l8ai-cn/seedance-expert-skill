@@ -68,7 +68,7 @@ Every continuation prompt must exclude completed beats and reserved future beats
 
 ## Exact Reference Tags
 
-Preserve tags byte-for-byte: `@Image1`, `@Image 1`, `[Image1]`, `[Video 1]`, and interface equivalents must not be normalized, translated, renumbered, re-cased, or reformatted.
+Preserve tags byte-for-byte: `@Image1`, `@Image 1`, `@Image1`, `[Video 1]`, and interface equivalents must not be normalized, translated, renumbered, re-cased, or reformatted.
 
 ## Acceptance Rule
 

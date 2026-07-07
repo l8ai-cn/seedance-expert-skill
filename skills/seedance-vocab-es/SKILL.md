@@ -20,7 +20,7 @@ metadata:
 
 # seedance-vocab-es
 
-Use Spanish cinematic vocabulary when the user asks for Spanish prompts, bilingual delivery, or compact translation of camera, lighting, action, VFX, audio, and production constraints. Preserve reference tags exactly: `[Image1]`, `[Video1]`, `[Audio1]` must never be translated.
+Use Spanish cinematic vocabulary when the user asks for Spanish prompts, bilingual delivery, or compact translation of camera, lighting, action, VFX, audio, and production constraints. Preserve reference tags exactly: `@Image1`, `@Video1`, `@Audio1` must never be translated.
 
 ## Intent
 
@@ -40,7 +40,7 @@ Translate production meaning, not word-for-word English. Keep the prompt concret
 
 ## Compact Pattern
 
-`[Image1] es la referencia; mantener identidad, color y forma sin cambios. Solo cambia [movimiento/luz/cámara]. Cámara: [un movimiento]. Sonido: [señal].`
+`@Image1 es la referencia; mantener identidad, color y forma sin cambios. Solo cambia [movimiento/luz/cámara]. Cámara: [un movimiento]. Sonido: [señal].`
 
 ## De-Slop Rule
 

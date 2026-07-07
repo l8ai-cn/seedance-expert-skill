@@ -18,7 +18,7 @@ Identity fidelity, motion boldness, and scene density compete for the same gener
 
 1. Name the primary spend — the one thing this shot is for. One per generation.
 2. Pick one secondary; economize everything else on purpose.
-3. Offload fidelity to references: identity carried by `[Image1]` is budget the text no longer spends, freeing prose for motion and timing.
+3. Offload fidelity to references: identity carried by `@Image1` is budget the text no longer spends, freeing prose for motion and timing.
 4. Pay for the primary out of the others: bold motion buys down facial detail, so stage emotion in the body and ration close-ups; dense scenes buy down subject precision, so keep hero subjects large in frame and few in number.
 5. Re-anchor across a series: chained generations drift, so respend on identity (original references, not outputs) every few clips.
 
@@ -27,7 +27,7 @@ Identity fidelity, motion boldness, and scene density compete for the same gener
 | Shot | Primary | Secondary | Economized |
 |---|---|---|---|
 | Product ad | product identity (ref-anchored) | one material motion beat | scene density, crowd, weather |
-| Dance / action | motion boldness (donor `[Video1]`) | identity via `[Image1]` re-anchor | facial close-ups, set dressing |
+| Dance / action | motion boldness (donor `@Video1`) | identity via `@Image1` re-anchor | facial close-ups, set dressing |
 | Establishing world shot | scene density and atmosphere | camera move | character identity (no close subjects) |
 | Dialogue close-up | facial stability (locked camera) | the spoken line | motion, background activity |
 

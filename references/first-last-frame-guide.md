@@ -14,8 +14,8 @@ The first frame defines where the clip begins. The last frame defines the target
 
 | Role | English wording | Chinese wording | Russian wording |
 |---|---|---|---|
-| First frame | `[Image1] is the first frame.` | `@图1 为首帧。` | `[Image1] как первый кадр.` |
-| Last frame | `[Image2] is the last frame.` | `@图2 为尾帧。` | `[Image2] как последний кадр.` |
+| First frame | `@Image1 is the first frame.` | `@图片1 为首帧。` | `@Image1 как первый кадр.` |
+| Last frame | `@Image2 is the last frame.` | `@图片2 为尾帧。` | `@Image2 как последний кадр.` |
 | Identity lock | `Preserve the same subject identity, outfit, shape, and scene logic.` | `保持同一主体、服装、形状和场景逻辑。` | `Сохранить того же персонажа, одежду, форму и логику сцены.` |
 | Transition only | `Generate only the motion between the two frames.` | `只生成两帧之间的连续动作。` | `Сгенерировать только переход между кадрами.` |
 
@@ -30,7 +30,7 @@ The first frame defines where the clip begins. The last frame defines the target
 ## Prompt Template
 
 ```text
-[Image1] is the first frame. [Image2] is the last frame.
+@Image1 is the first frame. @Image2 is the last frame.
 Preserve [subject/product/character], [outfit/logo/shape], and scene layout.
 Generate a continuous transition from [starting state] to [ending state].
 Motion: [one physical action path].
@@ -42,11 +42,11 @@ Constraints: no new text, no watermark, no identity change, no object redesign.
 
 ## Product-Safe Transition
 
-`[Image1] is the first frame and [Image2] is the last frame. Preserve the bottle logo, label, glass shape, cap geometry, and color exactly. Only the condensation and light change: droplets gather at the shoulder, slide toward the label, and a narrow warm highlight travels left to right. Camera stays locked in a medium product shot. Sound: low room tone, one soft glass tick at the end.`
+`@Image1 is the first frame and @Image2 is the last frame. Preserve the bottle logo, label, glass shape, cap geometry, and color exactly. Only the condensation and light change: droplets gather at the shoulder, slide toward the label, and a narrow warm highlight travels left to right. Camera stays locked in a medium product shot. Sound: low room tone, one soft glass tick at the end.`
 
 ## Character-Safe Transition
 
-`[Image1] is the first frame and [Image2] is the last frame. Preserve the original character's face structure, hairstyle, jacket, and room layout. The character slowly stands from the chair, turns toward the window, and stops in the final pose. Camera: locked medium shot with a slight push-in. Lighting: same cool window light, warmer lamp glow at the end. Sound: quiet room tone and soft floor creak.`
+`@Image1 is the first frame and @Image2 is the last frame. Preserve the original character's face structure, hairstyle, jacket, and room layout. The character slowly stands from the chair, turns toward the window, and stops in the final pose. Camera: locked medium shot with a slight push-in. Lighting: same cool window light, warmer lamp glow at the end. Sound: quiet room tone and soft floor creak.`
 
 ## Transformation Method
 
@@ -65,4 +65,4 @@ Field-observed technique; test before promising results. Transformations succeed
 | Product/logo redraws | Use locked camera and say only light/weather moves. |
 | Jump cut | Add "continuous transition" and one physical action path. |
 | Camera chaos | Replace multiple moves with locked frame or one slow push-in. |
-| Ending misses target | State that `[Image2]` is the final visual target, not just mood reference. |
+| Ending misses target | State that `@Image2` is the final visual target, not just mood reference. |
