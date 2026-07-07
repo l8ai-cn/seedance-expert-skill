@@ -37,6 +37,8 @@ Ask at most three questions, and only ask them if the answer materially changes 
 
 If the user already supplied enough information, do not ask. Produce a brief immediately. If the user speaks production language fluently, drop the plain phrasing and ask in director terms.
 
+Run the interview and brief in the user's language; for native starting-point menus and invites, load `[ref:interview-starters]`. If the user gives explicit shot, lens, camera, blocking, or performance direction, keep it verbatim and compile it into a shot-contract-grade brief - never simplify or override a professional's spec. When the user has no idea at all, offer a starting-point menu to react to instead of asking a question they cannot answer.
+
 Even in fast mode, the brief states one motivated intention, not a generic "cinematic" look: name what the scene is doing and let the camera, light, and performance serve that. Load `[ref:directing-engine]` only when the right setup for the scene is genuinely unclear; otherwise apply its coherence rule inline.
 
 ## Compact Brief Pattern

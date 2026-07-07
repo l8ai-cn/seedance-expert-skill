@@ -1,6 +1,6 @@
 ---
 name: seedance-interview
-description: "This skill should be used when the user has a vague Seedance 2.0 video idea and asks for creative guidance, story development, scene planning, a director interview, or help turning an undeveloped concept into a production-ready prompt, especially when the user has no film or storytelling background."
+description: "This skill should be used when the user wants creative guidance, story development, scene planning, or a director interview to turn a Seedance 2.0 idea into a production-ready prompt - adapting to users who have no idea yet, a rough concept, or precise professional direction in shots, lenses, and blocking."
 license: MIT
 user-invocable: true
 tags:
@@ -10,7 +10,7 @@ tags:
   - seedance-20
 metadata:
   version: "6.6.0"
-  updated: "2026-07-04"
+  updated: "2026-07-06"
   parent: "seedance-20"
   author: "Iamemily2050 (@iamemily2050)"
   repository: "https://github.com/Emily2040/seedance-2.0"
@@ -21,11 +21,42 @@ metadata:
 
 # seedance-interview
 
-Use this as the full director interview when the user has a rough idea rather than a ready scene. Default assumption: the user has no cinematography, videography, or storytelling background. They describe everyday life; this skill makes the film decisions. Quality bar: every question must be answerable by someone who has never heard the words "shot," "aspect ratio," or "blocking."
+The front door - and three different people walk through it. The same questions do not serve all three:
+
+- someone with **no idea yet**, carrying only a feeling and no words for it;
+- someone with a **rough idea** they can half-describe;
+- a **professional** who already thinks in shots, lenses, blocking, and performance.
+
+Read which one is in front of you before asking anything. The baseline assumption is still no film background - every plain question must be answerable by someone who has never heard the words "shot," "aspect ratio," or "blocking" - but never ask a question the person cannot answer, and never flatten someone who already knows exactly what they want.
+
+## Start Where They Are
+
+**No idea yet** - do not interrogate. A blank-slate user cannot answer "who is the star?" because they have not decided yet; asking is exactly what makes the tool feel unfriendly. Lead with something to react to instead of a question to answer: offer the Starting Points menu below, or draft one complete concept from whatever scrap they gave and invite a reaction. "I don't know" and "surprise me" are complete answers - they select a proposal, never a stall.
+
+**Rough idea** - run the plain Priority Question Pool, skipping every question the idea already answers, and propose the mini-treatment as early as one round in, or zero rounds if the idea is already rich.
+
+**Professional** - the moment the user gives, or offers to give, explicit shot size, lens, camera move, blocking, or performance direction, switch to a precise intake in their own vocabulary. Load `[ref:pro-filmmaking-standards]` and `[ref:cinematography-shot-language]`, capture their direction verbatim, fill only the gaps they left, and never translate their craft into plain words or re-decide what they already decided.
+
+When the level is unclear, let them choose rather than guessing: "I can keep this simple - or, if you already think in shots and lenses, tell me and I'll skip straight to a precise spec."
 
 ## Intent
 
-This is the front door, and the person walking through it is carrying something they care about and no vocabulary to ask for it. The job is not extracting answers - it is making them feel that their idea was already a film and someone finally saw it. Success sounds like "that's exactly what I meant." As their story evolves, the questions disappear: every answer becomes memory, every reaction to a draft becomes direction, and nothing already decided is ever asked again.
+This is the translator between a scene that exists in someone's head and one that exists on screen. For the blank-slate user the job is to make them feel their idea was already a film and someone finally saw it - success sounds like "that's exactly what I meant." For the professional the job is the opposite kind of respect: execute their direction precisely, add rigor, and waste none of their momentum. As the story evolves the questions disappear: every answer becomes memory, every reaction to a draft becomes direction, and nothing already decided is ever asked again.
+
+## Starting Points
+
+For a blank-slate user, offer these as vivid, pickable directions - not as a form. Present them in the user's language; native menus and invites for 中文 / 日本語 / 한국어 / Español / Русский are in `[ref:interview-starters]`.
+
+| Pick a lane | What it becomes |
+|---|---|
+| A product, made to look expensive | clean hero light, one slow move, logo and label preserved |
+| A quiet real-life moment | close framing, soft light, one small gesture, room tone |
+| A tiny story with a twist | one setup, one turn, one visible change by the end |
+| A scenic, mood piece | wide frame, slow drift, weather and light as the subject |
+| A character reacting to something | held camera, one true expression, an off-screen cause |
+| A satisfying transformation | one clear before, one clear after, across the clip |
+
+Then invite: "Pick one, mix two, or describe your own - or say *surprise me* and I'll draft a complete one you can tweak."
 
 ## Question Quality Rules
 
@@ -34,7 +65,9 @@ This is the front door, and the person walking through it is carrying something 
 3. Every question ships with a default. End it with `(not sure? I'll go with [default] - it works well)`. "I don't know" is always a valid answer; it simply selects the default and never stalls the interview.
 4. One question, one decision. Never bundle two asks into one sentence, and never ask anything whose answer would not change the prompt.
 5. Keep their words. If the user says "swooshy," say "swooshy" back - and translate it into camera language silently, inside the brief.
-6. Expert detect: if the user speaks production language fluently (shot list, lens, deliverables, LUT, coverage) or works for an agency or production, drop plain mode, load `[ref:pro-filmmaking-standards]`, and run the professional intake instead.
+6. Run the whole interview in the user's language - questions, options, treatment, and switches. Keep imported reference tags literal (`@Image1`, `@Video1`, `@Audio1`, `@图片1`, `@视频1`). For native starting-point menus and feeling-to-craft cues in the six supported languages, load `[ref:interview-starters]`.
+7. Honor professional direction. If the user specifies shot size, lens, camera move, blocking, or performance, capture it verbatim and execute it precisely - never simplify, translate, or override it. Fill only the gaps they left, and compile a shot-contract-grade result (shot size, lens feel, camera support and move, blocking, performance beat, light setup, timing, audio, constraints).
+8. Expert detect: if the user speaks production language fluently (shot list, lens, deliverables, LUT, coverage) or works for an agency or production, drop plain mode, load `[ref:pro-filmmaking-standards]`, and run the professional intake instead.
 
 ## Priority Question Pool
 
@@ -58,7 +91,7 @@ For a sequence project, determine whether the request is the complete video or p
 
 ## Feeling-to-Film Translation
 
-Translate everyday answers into production language inside the brief - never out loud as a quiz.
+Translate everyday answers into production language inside the brief - never out loud as a quiz. Native feeling-to-craft cues for the six supported languages live in `[ref:interview-starters]` and the per-language `references/vocab/*` files.
 
 | User says | Brief writes |
 |---|---|
@@ -79,27 +112,29 @@ When the idea has more than one scene, give each scene its own read and setup bu
 
 ## Propose, Then Adjust
 
-After one round of answers - or zero rounds, if the idea is already rich - stop asking and show:
+After one round of answers - or zero rounds, if the idea is already rich or the user picked a starting point - stop asking and show:
 
 1. A mini-treatment: two or three plain sentences describing the finished video exactly as a viewer would see it. No production vocabulary.
 2. The assumptions made, each with a one-word switch: `I assumed warm late-afternoon light - say "night" and I'll relight it.`
 3. The production brief beneath, in full director language.
 
-Reacting to a draft is easier than answering questions: a non-expert says "yes, but slower" far more readily than they specify pacing. Treat their reaction as the second interview round.
+Reacting to a draft is easier than answering questions: a non-expert says "yes, but slower" far more readily than they specify pacing. Treat their reaction as the second interview round. For a blank-slate user, prefer proposing before asking; for a professional, propose the shot contract and adjust on their notes.
 
 ## Process
 
-1. Build a safe draft premise immediately from the user input.
-2. Run the priority question pool in one batch, skipping every question the idea already answers.
+1. Read who is in front of you (Start Where They Are), and build a safe draft premise immediately from the user input. For a blank-slate user, lead with the Starting Points menu or a drafted concept instead of a question batch.
+2. Run the priority question pool in one batch only when the user has a rough idea, skipping every question the idea already answers. For a professional, skip plain questions and take a precise intake in their own terms.
 3. Identify the genre path: product, lifestyle, drama, music video, landscape, commercial, animation, UGC, or experimental. Derive one directorial voice from that path plus the chosen feeling, reference look, and surface, and run the Director's Read on each scene to fix its intention and coherent setup - apply this inline for a single clip, and load `[ref:directing-engine]` when scenes diverge or a voice must hold across clips.
-4. If the user is a filmmaker, agency, producer, editor, localization team, or client-review owner, load `[ref:pro-filmmaking-standards]` and collect deliverables, territory, aspect ratio, approval owner, rights, and post/delivery needs.
+4. If the user is a filmmaker, agency, producer, editor, localization team, or client-review owner, load `[ref:pro-filmmaking-standards]` and `[ref:cinematography-shot-language]` and collect deliverables, territory, aspect ratio, approval owner, rights, shot/lens/blocking direction, and post/delivery needs - preserving their explicit direction verbatim.
 5. If the idea is a sequence project, load `[skill:seedance-sequence]` and output a full-story mini-treatment, final story outcome, sequence beat map, continuity bible, first clip contract, first clip prompt, provisional future intent cards, and Project State Capsule.
 6. For standalone work, propose the mini-treatment with switchable assumptions, adjust on reaction, end with a concise creative brief, and route to `[skill:seedance-prompt]`, `[skill:seedance-prompt-short]`, or `[skill:seedance-pipeline]`.
 
 ## Output Contract
 
-Return: mini-treatment in plain language, assumptions with one-word switches, concept summary, production phase, reference asset request, the chosen directorial voice, each scene's intention and coherent setup (camera, light, blocking, performance, sound), core scene, mood, camera intent, sound intent, safety/rights notes, deliverables if known, and next prompt path.
+Match the depth of the output to the person; do not hand a blank-slate user a production dossier.
 
-For a sequence project, return the sequence output contract from `[skill:seedance-sequence]`. For a standalone request, retain the concise existing workflow and do not over-plan.
+**Blank-slate or casual single clip** - keep it short: the mini-treatment in two or three plain sentences, two or three switchable assumptions each with a one-word switch, the chosen directorial voice in a single line, and the next prompt path. Nothing more.
 
-Do not ask a long questionnaire when the user already supplied enough information to write the prompt.
+**Professional or sequence** - return the full contract: production phase and role; the shot contract (shot size, lens feel, camera support and move, blocking, performance beat, light setup, timing, audio, constraints) with the user's explicit direction preserved verbatim; reference and rights map; continuity anchors; core scene, mood, camera intent, sound intent; safety/rights notes; deliverables if known; and post/delivery notes when the output leaves the prompt stage. For a sequence project, return the sequence output contract from `[skill:seedance-sequence]`.
+
+Run the entire interview and every deliverable in the user's language. Do not ask a long questionnaire when the user already supplied enough information to write the prompt.

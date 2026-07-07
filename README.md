@@ -14,7 +14,7 @@ An agent that directs Seedance 2.0 like a filmmaker — reading each scene befor
 
 [![Version](https://img.shields.io/badge/version-6.6.0-E2A75E?style=flat-square&labelColor=14110B)](#changelog)
 [![Sub-skills](https://img.shields.io/badge/sub--skills-28-4A4438?style=flat-square&labelColor=14110B)](#skill-map)
-[![References](https://img.shields.io/badge/references-59-4A4438?style=flat-square&labelColor=14110B)](#reference-library)
+[![References](https://img.shields.io/badge/references-60-4A4438?style=flat-square&labelColor=14110B)](#reference-library)
 [![Evals](https://img.shields.io/badge/evals-126-4A4438?style=flat-square&labelColor=14110B)](#validation)
 [![License](https://img.shields.io/badge/license-MIT-4A4438?style=flat-square&labelColor=14110B)](LICENSE)
 
@@ -294,6 +294,7 @@ Concept art for the system, generated and curated. Every image is paired with se
 | [`delivery-qc.md`](references/delivery-qc.md) | Professional preflight for picture, color, audio, captions, rights, metadata, versioning, and human QC. |
 | [`examples-by-mode.md`](references/examples-by-mode.md) | Mode-specific prompt examples for T2V, I2V, V2V, R2V, FLF2V, edit, extend, and troubleshooting. |
 | [`multilingual-community-examples.md`](references/multilingual-community-examples.md) | Original Chinese, Russian, Japanese, Korean, Spanish, and mixed-language prompt structures from safe community pattern mining. |
+| [`interview-starters.md`](references/interview-starters.md) | Native blank-slate starting-point menus and invites for the director interview in English, 中文, 日本語, 한국어, Spanish, and Russian. |
 | [`platform-surface-matrix.md`](references/platform-surface-matrix.md) | Model-vs-surface claim boundaries. |
 | [`model-name-map.md`](references/model-name-map.md) | Seedance naming, Fast variant, and Pro-label caveats. |
 | [`first-last-frame-guide.md`](references/first-last-frame-guide.md) | FLF2V, first-frame, and last-frame prompting. |
