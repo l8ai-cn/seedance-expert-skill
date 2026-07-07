@@ -25,7 +25,7 @@
   },
   "reference_registry": [
     {
-      "tag": "[Image1]",
+      "tag": "@Image1",
       "role": "watch identity",
       "preserve_exact_tag": true
     }
@@ -39,7 +39,7 @@
       "location": "black acrylic product table",
       "time_of_day": "studio-lit interior",
       "anchor_source": [
-        "[Image1]"
+        "@Image1"
       ],
       "max_chain_depth": 2,
       "audio_plan": "Clip carries a single sync SFX accent; music is added in post.",
@@ -78,15 +78,15 @@
       ],
       "reserved_for_later": [],
       "planned_start_state": {
-        "product_identity": "watch from [Image1]",
+        "product_identity": "watch from @Image1",
         "reference_tags": [
-          "[Image1]"
+          "@Image1"
         ]
       },
       "planned_end_state": {
-        "product_identity": "watch from [Image1]",
+        "product_identity": "watch from @Image1",
         "reference_tags": [
-          "[Image1]"
+          "@Image1"
         ]
       },
       "observed_start_state": null,

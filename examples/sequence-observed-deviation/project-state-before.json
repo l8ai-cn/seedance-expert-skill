@@ -25,7 +25,7 @@
   },
   "reference_registry": [
     {
-      "tag": "[Image1]",
+      "tag": "@Image1",
       "role": "courier identity",
       "preserve_exact_tag": true
     }
@@ -39,7 +39,7 @@
       "location": "wet rooftop service area",
       "time_of_day": "night",
       "anchor_source": [
-        "[Image1]"
+        "@Image1"
       ],
       "max_chain_depth": 2,
       "audio_plan": "Clips carry rain ambience and footstep SFX; score is unified in post.",
@@ -105,13 +105,13 @@
       "planned_start_state": {
         "location": "wet rooftop service area",
         "reference_tags": [
-          "[Image1]"
+          "@Image1"
         ]
       },
       "planned_end_state": {
         "location": "wet rooftop service area",
         "reference_tags": [
-          "[Image1]"
+          "@Image1"
         ]
       },
       "observed_start_state": null,
@@ -141,7 +141,7 @@
       "sequence_index": 2,
       "prompt_version": "6.6.0",
       "generation_mode": "V2V",
-      "source_clip_tag": "[Video1]",
+      "source_clip_tag": "@Video1",
       "status": "planned",
       "narrative_job": "Open the unlocked case.",
       "felt_intent": "The viewer feels anticipation sharpen as the case yields.",
@@ -157,14 +157,14 @@
       "planned_start_state": {
         "location": "wet rooftop service area",
         "reference_tags": [
-          "[Image1]"
+          "@Image1"
         ],
         "prop_owner": "courier"
       },
       "planned_end_state": {
         "location": "wet rooftop service area",
         "reference_tags": [
-          "[Image1]"
+          "@Image1"
         ],
         "prop_owner": "courier",
         "pose": "case open"
@@ -198,7 +198,7 @@
       "sequence_index": 3,
       "prompt_version": "6.6.0",
       "generation_mode": "V2V",
-      "source_clip_tag": "[Video2]",
+      "source_clip_tag": "@Video2",
       "status": "planned",
       "narrative_job": "Light the signal device inside the open case.",
       "felt_intent": "The viewer feels the payoff spark - the signal finally alive against the night.",
@@ -213,7 +213,7 @@
       "planned_start_state": {
         "location": "wet rooftop service area",
         "reference_tags": [
-          "[Image1]"
+          "@Image1"
         ],
         "prop_owner": "courier",
         "pose": "case open"
@@ -221,7 +221,7 @@
       "planned_end_state": {
         "location": "wet rooftop service area",
         "reference_tags": [
-          "[Image1]"
+          "@Image1"
         ],
         "prop_owner": "courier",
         "pose": "watching lit signal device"
