@@ -1,0 +1,16 @@
+{
+  "$schema": "../evidence-source.schema.json",
+  "source_snapshot_id": "volcengine.tutorial.2291680.2026-07-10",
+  "source_id": "volcengine.tutorial.2291680",
+  "title": "Doubao Seedance 2.0 series tutorial",
+  "source_url": "https://docs.volcengine.com/docs/82379/2291680?lang=zh",
+  "source_type": "first_party_platform_doc",
+  "publisher": "Volcengine",
+  "original_language": "zh-CN",
+  "document_updated_at": "2026-07-07",
+  "retrieved_at": "2026-07-10",
+  "retrieval_status": "fetched",
+  "retrieval_method": "window._SSR_DATA MDContent extraction",
+  "retrieved_document_sha256": "d16e2890782161e149619de33efc0f8e8f047243ecf7e794ab61000313f474f7",
+  "capture_path": null
+}
