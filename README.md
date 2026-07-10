@@ -328,23 +328,43 @@ Client support for Agent Skills is still tool-specific. Codex documents a skill 
 
 Codex scans `.agents/skills` locations from the working directory upward, plus user/admin/system skill locations. A repository root with `SKILL.md` is shaped like a skill folder, but it still needs to be installed/copied under a scanned skills directory or distributed as a plugin for automatic discovery.
 
-This repository now includes `agents/openai.yaml` and a local Codex installer. To install it for this Windows workstation or any local Codex profile, run:
+This repository includes `agents/openai.yaml` and a transactional local Codex installer. Preview the exact package plan, then install or replace it:
 
 ```bash
+python scripts/install_codex_skill.py --dry-run
 python scripts/install_codex_skill.py --force
 ```
 
-The installer copies the repository into `$CODEX_HOME/skills/seedance-20` when `CODEX_HOME` is set, otherwise into `~/.codex/skills/seedance-20`. Restart Codex after installation so `$seedance-20` appears in the available skills list.
+The installer builds a checksum-locked runtime from the reviewed positive allowlist in `runtime/seedance-20.manifest.json`; repository docs, tests, evals, archives, and marketing assets are not installed. It validates the complete stage before a transactional same-filesystem rename sequence and retains the previous installation for rollback. The destination is `$CODEX_HOME/skills/seedance-20` when `CODEX_HOME` is set, otherwise `~/.codex/skills/seedance-20`.
+
+Verify or roll back without copying files into a partially active directory:
+
+```bash
+python scripts/install_codex_skill.py --check
+python scripts/install_codex_skill.py --rollback
+python scripts/install_codex_skill.py --recover
+```
+
+`--check` compares the installed file records with this checkout's locked source plan; `--recover` resolves an interrupted journaled rename before any new install. These checks detect drift and incomplete copies, but they are not a publisher signature: obtain the checkout from a source and revision you trust.
+
+Restart Codex after installation so `$seedance-20` appears in the available skills list.
 
 This repository keeps dense facts in references so the active skill stays small.
 
-If your client supports installing a skill directly from a GitHub repository, use this repository URL:
+If your client supports installing a skill directly from a GitHub repository, this is the source URL:
 
 ```text
 https://github.com/Emily2040/seedance-2.0
 ```
 
-For manual installation, copy this repository into the skill directory used by your agent client. The directory name should match the root skill name, `seedance-20`. Treat the table below as common local targets to verify in your own client, not a universal support guarantee.
+A repo-URL installer may copy development material because it bypasses this repository's package builder. Prefer building the reviewed runtime and copying that output into the skill directory used by your client:
+
+```bash
+python tools/runtime_package.py --output dist/seedance-20
+python tools/runtime_package.py --verify dist/seedance-20
+```
+
+The builder canonicalizes declared UTF-8 text to LF and preserves selected binary bytes exactly, so the locked tree is stable across supported checkouts. `--verify` requires both internal file integrity and an exact match to this checkout's reviewed source lock. Copy `dist/seedance-20` as one folder named `seedance-20`. Treat the table below as common local targets to verify in your own client, not a universal support guarantee.
 
 | Platform | Typical install target (verify in your client) |
 |---|---|

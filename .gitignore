@@ -11,3 +11,6 @@ __pycache__/
 # Local audit outputs
 *.tmp
 *.log
+
+# Generated runtime packages
+dist/
