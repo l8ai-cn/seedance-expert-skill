@@ -320,12 +320,75 @@ class RuntimePackageTests(unittest.TestCase):
 
         clean_repo = self.base / "clean-repo"
         make_fixture(clean_repo)
+        outside_manifest_alias = self.base / "outside-manifest.json"
+        outside_manifest_alias.symlink_to(clean_repo / "runtime" / "seedance-20.manifest.json")
+        with self.assertRaisesRegex(package.PackageError, "stay inside"):
+            package.package_plan(clean_repo, outside_manifest_alias)
+        cli_result = subprocess.run(
+            [
+                sys.executable,
+                "-B",
+                str(ROOT / "tools" / "runtime_package.py"),
+                "--repo-root",
+                str(clean_repo),
+                "--manifest",
+                str(outside_manifest_alias),
+                "--dry-run",
+            ],
+            text=True,
+            capture_output=True,
+        )
+        self.assertEqual(cli_result.returncode, 1, cli_result.stdout + cli_result.stderr)
+        self.assertIn("stay inside", cli_result.stdout)
         output = self.base / "real-output"
         package.build_package(clean_repo, output)
         linked_output = self.base / "linked-output"
         linked_output.symlink_to(output, target_is_directory=True)
         with self.assertRaisesRegex(package.PackageError, "root.*special"):
             package.verify_package(linked_output)
+
+    def test_outer_repository_alias_is_canonicalized(self) -> None:
+        physical_parent = self.base / "physical"
+        alias_parent = self.base / "alias"
+        physical_parent.mkdir()
+        try:
+            alias_parent.symlink_to(physical_parent, target_is_directory=True)
+        except (OSError, NotImplementedError):
+            self.skipTest("directory symlinks unavailable")
+        aliased_repo = alias_parent / "repo"
+        make_fixture(aliased_repo)
+        plan = package.package_plan(aliased_repo)
+        manifest = read_manifest(aliased_repo / "runtime" / "seedance-20.manifest.json")
+        self.assertEqual(plan["tree_sha256"], manifest["locked_tree_sha256"])
+        output = self.base / "aliased-build"
+        package.build_package(
+            aliased_repo,
+            output,
+            aliased_repo / "runtime" / "seedance-20.manifest.json",
+        )
+        self.assertEqual(package.verify_package(output)["tree_sha256"], plan["tree_sha256"])
+        cli_result = subprocess.run(
+            [
+                sys.executable,
+                "-B",
+                str(ROOT / "tools" / "runtime_package.py"),
+                "--repo-root",
+                str(aliased_repo),
+                "--manifest",
+                str(aliased_repo / "runtime" / "seedance-20.manifest.json"),
+                "--dry-run",
+            ],
+            text=True,
+            capture_output=True,
+        )
+        self.assertEqual(cli_result.returncode, 0, cli_result.stdout + cli_result.stderr)
+
+        external_runtime = self.base / "aliased-external-runtime"
+        shutil.copytree(aliased_repo / "runtime", external_runtime)
+        shutil.rmtree(aliased_repo / "runtime")
+        (aliased_repo / "runtime").symlink_to(external_runtime, target_is_directory=True)
+        with self.assertRaisesRegex(package.PackageError, "symlink"):
+            package.package_plan(aliased_repo)
 
     def test_special_backup_and_journal_slots_fail_closed(self) -> None:
         repo = self.base / "repo"

@@ -284,12 +284,14 @@ def _validate_source_manifest_data(data: object) -> tuple[tuple[str, ...], str, 
 def load_source_manifest(
     repo_root: Path, manifest_path: Path | None = None
 ) -> tuple[tuple[str, ...], str, int]:
-    root = repo_root.resolve()
-    path = (manifest_path or root / "runtime" / "seedance-20.manifest.json").expanduser().absolute()
+    input_root = repo_root.expanduser().absolute()
+    root = input_root.resolve()
+    path = (manifest_path or input_root / "runtime" / "seedance-20.manifest.json").expanduser().absolute()
     try:
-        relative = normalize_relative_path(path.relative_to(root).as_posix(), "source manifest path")
+        relative_path = path.relative_to(input_root)
     except ValueError as exc:
         raise PackageError("source manifest must stay inside the repository") from exc
+    relative = normalize_relative_path(relative_path.as_posix(), "source manifest path")
     path = _assert_plain_source_file(root, relative)
     try:
         data = json.loads(read_plain_source_file(root, relative).decode("utf-8"))
@@ -472,8 +474,9 @@ def package_plan(
     *,
     enforce_lock: bool = True,
 ) -> dict[str, object]:
-    root = repo_root.resolve()
-    files, locked_sha, locked_size = load_source_manifest(root, manifest_path)
+    input_root = repo_root.expanduser().absolute()
+    root = input_root.resolve()
+    files, locked_sha, locked_size = load_source_manifest(input_root, manifest_path)
     validate_link_closure(root, files)
     records: list[dict[str, object]] = []
     for relative in files:
@@ -554,12 +557,13 @@ def materialize_package(
     package_dir: Path,
     manifest_path: Path | None = None,
 ) -> dict[str, object]:
-    root = repo_root.resolve()
+    input_root = repo_root.expanduser().absolute()
+    root = input_root.resolve()
     if is_special_path(package_dir):
         raise PackageError(f"package staging directory cannot be special: {package_dir}")
     if not package_dir.is_dir() or any(package_dir.iterdir()):
         raise PackageError(f"package staging directory must exist and be empty: {package_dir}")
-    plan = package_plan(root, manifest_path)
+    plan = package_plan(input_root, manifest_path)
     try:
         package_dir.chmod(0o755)
     except OSError:
@@ -736,7 +740,8 @@ def build_package(
     output_dir: Path,
     manifest_path: Path | None = None,
 ) -> dict[str, object]:
-    root = repo_root.resolve()
+    input_root = repo_root.expanduser().absolute()
+    root = input_root.resolve()
     output = output_dir.expanduser().absolute()
     if output == root or output in root.parents:
         raise PackageError("build output cannot replace the repository or one of its ancestors")
@@ -746,7 +751,7 @@ def build_package(
     stage = Path(tempfile.mkdtemp(prefix=f".{PACKAGE_NAME}.build-", dir=output.parent))
     activated = False
     try:
-        plan = materialize_package(root, stage, manifest_path)
+        plan = materialize_package(input_root, stage, manifest_path)
         os.replace(stage, output)
         activated = True
         _fsync_directory(output.parent)
@@ -801,8 +806,8 @@ def main() -> int:
     action.add_argument("--verify", type=Path, help="verify an existing built/installed package")
     args = parser.parse_args()
 
-    root = args.repo_root.expanduser().resolve()
-    manifest = args.manifest.expanduser().resolve() if args.manifest else None
+    root = args.repo_root.expanduser().absolute()
+    manifest = args.manifest.expanduser().absolute() if args.manifest else None
     try:
         if args.verify:
             plan = verify_package(args.verify.expanduser())
