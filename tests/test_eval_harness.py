@@ -415,6 +415,17 @@ class EvalHarnessTests(unittest.TestCase):
             )
             self.assertIn("link/reparse", record["error"]["message"])
 
+    def test_unsupported_mount_probe_is_portably_fail_safe(self) -> None:
+        with mock.patch.object(Path, "is_mount", side_effect=NotImplementedError("unsupported")):
+            resources = RuntimeResources(ROOT)
+            self.assertEqual(resources.tree_sha256, self.resources.tree_sha256)
+            with tempfile.TemporaryDirectory() as temporary:
+                bundle = RunBundle(Path(temporary) / "runs", "run-no-mount-probe")
+                case, run, public = minimal_bundle_records("run-no-mount-probe")
+                bundle.write_json("cases/0001.json", case)
+                bundle.write_json("public-summary.json", public)
+                self.assertFalse(verify_bundle(bundle.finish(run))["summary"]["passed"])
+
     def test_heldout_suite_must_be_external_and_public_suites_are_not_release_eligible(self) -> None:
         self.assertFalse(self.development["release_eligible"])
         with tempfile.TemporaryDirectory() as temporary:

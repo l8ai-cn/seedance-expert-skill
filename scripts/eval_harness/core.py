@@ -114,6 +114,13 @@ def _is_link_like(path: Path) -> bool:
     return bool(reparse and attributes & reparse)
 
 
+def _is_mount(path: Path) -> bool:
+    try:
+        return path.is_mount()
+    except (NotImplementedError, OSError):
+        return False
+
+
 def safe_file(root: Path, value: object, label: str) -> Path:
     root = root.resolve()
     relative = _relative_posix(value, label)
@@ -122,7 +129,7 @@ def safe_file(root: Path, value: object, label: str) -> Path:
         current = current / part
         if _is_link_like(current):
             raise HarnessError(f"{label}: link/reparse paths are forbidden: {relative}")
-        if current != root and current.exists() and current.is_mount():
+        if current != root and current.exists() and _is_mount(current):
             raise HarnessError(f"{label}: nested mount paths are forbidden: {relative}")
     try:
         resolved = current.resolve(strict=True)
@@ -987,7 +994,7 @@ def _scan_regular_tree(root: Path, directories: set[str] | None = None) -> set[s
                 raise HarnessError(f"bundle contains a link/reparse point: {relative}")
             metadata = entry.stat(follow_symlinks=False)
             if stat.S_ISDIR(metadata.st_mode):
-                if path.is_mount():
+                if _is_mount(path):
                     raise HarnessError(f"bundle contains a nested mount: {relative}")
                 if directories is not None:
                     directories.add(relative)
