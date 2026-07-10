@@ -94,7 +94,9 @@ This section records the inspected historical baseline for the original v6 migra
 - Evals increased from 61 to 108.
 - CI expanded from six checks to the complete v6 validation suite.
 
-## Validation Commands
+## Historical v6.6.0 Validation Commands
+
+The commands and pass records below are an immutable snapshot of the 2026-07-04 v6.6.0 release. V7-02 removes legacy `--strict` switches that had no effect; do not use this historical block as current executable guidance. Use the [README validation section](README.md#validation) for the active v7 commands and [`docs/V7_VALIDATION_MIGRATION.md`](docs/V7_VALIDATION_MIGRATION.md) for the breaking CLI/schema migration.
 
 ```bash
 python scripts/validate_skills.py --strict

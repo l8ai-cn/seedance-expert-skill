@@ -144,8 +144,8 @@ class RuntimePackageTests(unittest.TestCase):
     def test_repository_manifest_builds_conservative_runtime_exactly(self) -> None:
         plan = package.package_plan(ROOT)
         self.assertEqual(plan["payload_file_count"], 103)
-        self.assertEqual(plan["payload_size_bytes"], 539437)
-        self.assertEqual(plan["tree_sha256"], "5744a703657b1fe03325ad6d392efa44869f3d2bf0b14679d249b4be03996d8a")
+        self.assertEqual(plan["payload_size_bytes"], 540738)
+        self.assertEqual(plan["tree_sha256"], "fef52e3e1b62748334c95350af8c71e6266973d4a0faa27a6d9dcc538708027d")
 
         first = self.base / "first"
         second = self.base / "second"
@@ -166,7 +166,7 @@ class RuntimePackageTests(unittest.TestCase):
         self.assertFalse(any(path.startswith("assets/") for path in found))
 
         frame_tool = subprocess.run(
-            [sys.executable, "-B", str(first / "scripts" / "extract_last_frame.py"), "--self-test", "--strict"],
+            [sys.executable, "-B", str(first / "scripts" / "extract_last_frame.py"), "--self-test"],
             text=True,
             capture_output=True,
         )
@@ -177,7 +177,6 @@ class RuntimePackageTests(unittest.TestCase):
                 "-B",
                 str(first / "scripts" / "project_state_check.py"),
                 str(first),
-                "--strict",
             ],
             text=True,
             capture_output=True,

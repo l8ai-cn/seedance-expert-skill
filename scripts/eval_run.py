@@ -196,7 +196,6 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Model-in-the-loop eval harness for seedance-20.")
     parser.add_argument("repo", nargs="?", default=".")
     parser.add_argument("--self-test", action="store_true", help="offline wiring check, no network")
-    parser.add_argument("--strict", action="store_true", help="accepted for parity with other validators")
     parser.add_argument("--model", default=DEFAULT_MODEL, help="responder + judge model id")
     parser.add_argument("--judge-model", default=None, help="override judge model (defaults to --model)")
     parser.add_argument("--id", action="append", help="run only these case ids")

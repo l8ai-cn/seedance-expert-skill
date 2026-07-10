@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "mappings": [
+    {
+      "schema": "schemas/project-state.schema.json",
+      "instances": [
+        "examples/sequence-airport-arrival/project-state.json",
+        "examples/sequence-observed-deviation/project-state-before.json",
+        "examples/sequence-observed-deviation/project-state-after.json",
+        "examples/standalone-clip/project-state.json"
+      ]
+    },
+    {
+      "schema": "schemas/clip-contract.schema.json",
+      "instances": [
+        "examples/sequence-airport-arrival/clip-01-contract.json",
+        "examples/sequence-airport-arrival/clip-02-continuation-contract.json"
+      ]
+    },
+    {
+      "schema": "schemas/take-review.schema.json",
+      "instances": [
+        "examples/sequence-airport-arrival/clip-01-take-review.json",
+        "examples/sequence-observed-deviation/take-review.json"
+      ]
+    },
+    {
+      "schema": "schemas/generation-run.schema.json",
+      "jsonl_instances": ["data/generation-runs.example.jsonl"]
+    },
+    {
+      "schema": "schemas/prompt-spec.schema.json",
+      "instances": ["validation/fixtures/prompt-spec.valid.json"]
+    }
+  ]
+}

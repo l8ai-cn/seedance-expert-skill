@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -86,6 +87,7 @@ REQUIRED_FILES = [
     "CHANGELOG.md",
     "V6_SEQUENCE_PROMPT_COMPILER_MANIFEST.md",
     "scripts/validate_skills.py",
+    "scripts/schema_check.py",
     "scripts/content_audit.py",
     "scripts/eval_schema_check.py",
     "scripts/eval_run.py",
@@ -101,6 +103,9 @@ REQUIRED_FILES = [
     "scripts/generation_run_check.py",
     "scripts/extract_last_frame.py",
     ".github/workflows/validate-skills.yml",
+    "requirements-validation.lock",
+    "validation/schema-instances.json",
+    "validation/fixtures/prompt-spec.valid.json",
     "agents/openai.yaml",
     "evals/evals.json",
     "evals/generation-benchmark.json",
@@ -146,6 +151,7 @@ REQUIRED_FILES = [
     "assets/hero-light.svg",
     "assets/skill-map.svg",
     "docs/frontend-redesign.md",
+    "docs/V7_VALIDATION_MIGRATION.md",
     "docs/v6-release-readiness.md",
     "docs/README.zh.md",
     "docs/README.ja.md",
@@ -274,13 +280,17 @@ def main() -> int:
             validate_skill(path, root, errors, warnings)
 
 
-    pycache = root / "scripts" / "__pycache__"
-    if pycache.exists():
-        errors.append("scripts/__pycache__ must not be committed")
-    for pyc in root.rglob("*.pyc"):
-        rel = pyc.relative_to(root).as_posix()
-        if not rel.startswith(".seedance_backups/"):
-            errors.append(f"compiled Python cache must not be committed: {rel}")
+    try:
+        tracked = subprocess.run(
+            ["git", "-C", str(root), "ls-files", "-z"],
+            check=True,
+            capture_output=True,
+        ).stdout.decode("utf-8").split("\0")
+    except (OSError, subprocess.CalledProcessError, UnicodeDecodeError):
+        tracked = []
+        warnings.append("could not inspect Git index for committed Python caches")
+    for rel in sorted(path for path in tracked if path.endswith(".pyc") or "__pycache__/" in path):
+        errors.append(f"compiled Python cache must not be committed: {rel}")
 
     eval_path = root / "evals" / "evals.json"
     if eval_path.exists():
@@ -344,6 +354,9 @@ def main() -> int:
         for warning in warnings:
             print(f"- {warning}")
         print()
+
+    if args.strict and warnings:
+        errors.extend(f"strict warning: {warning}" for warning in warnings)
 
     if errors:
         print("ERRORS:")

@@ -392,25 +392,28 @@ Run these checks before every release:
 
 ```bash
 python scripts/validate_skills.py --strict
-python scripts/content_audit.py --strict
-python scripts/eval_schema_check.py --strict
-python scripts/design_audit.py --strict
-python scripts/source_registry_check.py --strict
+python scripts/content_audit.py
+python scripts/eval_schema_check.py
+# Reproducible release environment only: Linux x86-64, CPython 3.12.
+python -m pip install --require-hashes --requirement requirements-validation.lock
+python scripts/schema_check.py --strict
+python scripts/design_audit.py
+python scripts/source_registry_check.py
 python scripts/vocab_schema_check.py --strict
-python scripts/project_state_check.py --strict
+python scripts/project_state_check.py
 python scripts/continuity_chain_check.py --strict
-python scripts/behavior_contract_check.py --strict
-python scripts/sequence_eval_check.py --strict
-python scripts/generation_run_check.py --strict
-python scripts/prompt_lint.py --self-test --strict
-python scripts/eval_run.py --self-test --strict
-python scripts/extract_last_frame.py --self-test --strict
+python scripts/behavior_contract_check.py
+python scripts/sequence_eval_check.py
+python scripts/generation_run_check.py
+python scripts/prompt_lint.py --self-test
+python scripts/eval_run.py --self-test
+python scripts/extract_last_frame.py --self-test
 python -m unittest discover -s tests -v
 python -m compileall scripts tests
 git diff --check
 ```
 
-The CI workflow runs the same checks on push and pull request. These are deterministic and offline — they prove the package is well-formed.
+The CI workflow runs these checks plus runtime install/rollback and an idempotence rerun; see [the validation workflow](.github/workflows/validate-skills.yml). The schema dependency lock is deliberately limited to the release environment above. These checks are deterministic and offline after dependency installation — they prove the package is well-formed. Schema-contract migration notes are in [`docs/V7_VALIDATION_MIGRATION.md`](docs/V7_VALIDATION_MIGRATION.md).
 
 To prove the package is also *good*, run the model-in-the-loop harness, which sends each eval case through the real skill content and scores the response against the case's assertions using [`eval-rubric.md`](references/eval-rubric.md):
 
