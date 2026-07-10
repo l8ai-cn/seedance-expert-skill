@@ -1,36 +1,32 @@
 # Eval Run Ledger
 
-This file is the **evidence layer** for the eval suite. The deterministic CI
-validators (`eval_schema_check.py`, `sequence_eval_check.py`, ...) prove the
-cases are well-formed; this ledger records that the skill's *output* was actually
-scored against the rubric in [`references/eval-rubric.md`](../references/eval-rubric.md)
-by the model-in-the-loop harness `scripts/eval_run.py`.
+This file is a historical v6 placeholder, **not evaluation evidence**. No valid
+live run was recorded here. V7-03 replaces overwriteable Markdown tables with
+private, no-overwrite, checksum-manifested JSON bundles produced by
+`scripts/eval_run.py`.
 
-## How to regenerate
+## Offline wiring validation
 
-A live scored pass needs network access and a key, so it runs outside the offline
-CI gate:
+The deterministic CI check performs no scored provider run and needs no key:
 
 ```bash
-export ANTHROPIC_API_KEY=...
-python scripts/eval_run.py --run --ledger evals/eval-run-ledger.md --stamp <ISO-date>
+python scripts/eval_run.py --self-test
 ```
 
-The harness, for each case, builds a responder context from the real skill content
-(root `SKILL.md` plus the case's expected sub-skills and any `state_fixture`),
-gets a response to the case prompt, then has a judge model score that response
-against the case's own assertions. Legacy cases use the rubric's 0-3 scale
-(release: every case >= 2, average >= 2.6); sequence cases use the 0-4 scale
-(release: critical cases at 4, no dimension below 3, average >= 3.5).
+The v2 harness performs blind route selection before loading complete allowlisted
+resources, uses a distinct judge model, validates every assertion and sequence
+dimension, and derives pass/fail locally. See
+[`docs/V7_EVAL_HARNESS_MIGRATION.md`](../docs/V7_EVAL_HARNESS_MIGRATION.md).
 
-The offline wiring is checked in CI via `python scripts/eval_run.py --self-test`.
+For the explicit networked development command and its trust limits, see
+[`docs/V7_EVAL_HARNESS_MIGRATION.md`](../docs/V7_EVAL_HARNESS_MIGRATION.md).
 
 ## Latest scored run
 
 _Not yet scored live in this environment (no `ANTHROPIC_API_KEY` available offline)._
-Run the command above to populate the table below; the harness overwrites this
-file with per-case scores and a pass/fail verdict against the rubric thresholds.
+Do not populate or overwrite this file. Store raw bundles outside the repository
+and publish only a verified, redacted aggregate.
 
 | id | scale | score | pass | notes |
 |---|---|---|---|---|
-| _pending_ | — | — | — | run `eval_run.py --run --ledger` to populate |
+| _no valid v2 run_ | — | — | — | held-out release runner not yet operational |

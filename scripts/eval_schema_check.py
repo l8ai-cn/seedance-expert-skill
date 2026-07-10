@@ -5,6 +5,8 @@ import argparse
 import json
 from pathlib import Path
 
+from eval_harness.core import HarnessError, RuntimeResources, load_suite
+
 REQUIRED = ["id", "prompt", "expected_output", "assertions", "skills_expected_to_activate", "failure_mode"]
 REQUIRED_IDS = {
     "api_status_check",
@@ -178,6 +180,31 @@ def main() -> int:
     missing_ids = REQUIRED_IDS - ids
     if missing_ids:
         errors.append("missing required eval ids: " + ", ".join(sorted(missing_ids)))
+
+    try:
+        resources = RuntimeResources(Path(args.repo).resolve())
+    except HarnessError as exc:
+        errors.append(f"runtime resources invalid: {exc}")
+        resources = None
+
+    for name, expected in (("development", len(cases)), ("live", 8)):
+        try:
+            suite = load_suite(Path(args.repo).resolve(), Path(args.repo).resolve() / "evals" / "suites" / f"{name}.json")
+        except HarnessError as exc:
+            errors.append(f"{name} suite invalid: {exc}")
+        else:
+            if len(suite["cases"]) != expected:
+                errors.append(f"{name} suite expected {expected} cases, got {len(suite['cases'])}")
+            if resources is not None:
+                try:
+                    resources.validate_suite_resources(suite)
+                except HarnessError as exc:
+                    errors.append(f"{name} suite resource resolution failed: {exc}")
+
+    heldout_dir = Path(args.repo).resolve() / "evals" / "held-out"
+    heldout_entries = sorted(path.name for path in heldout_dir.iterdir()) if heldout_dir.is_dir() else []
+    if heldout_entries != ["README.md"]:
+        errors.append("evals/held-out must contain only README.md; private corpus material must remain external")
 
     if errors:
         print("Eval schema errors:")

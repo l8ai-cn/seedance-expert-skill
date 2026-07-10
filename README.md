@@ -415,14 +415,15 @@ git diff --check
 
 The CI workflow runs these checks plus runtime install/rollback and an idempotence rerun; see [the validation workflow](.github/workflows/validate-skills.yml). The schema dependency lock is deliberately limited to the release environment above. These checks are deterministic and offline after dependency installation — they prove the package is well-formed. Schema-contract migration notes are in [`docs/V7_VALIDATION_MIGRATION.md`](docs/V7_VALIDATION_MIGRATION.md).
 
-To prove the package is also *good*, run the model-in-the-loop harness, which sends each eval case through the real skill content and scores the response against the case's assertions using [`eval-rubric.md`](references/eval-rubric.md):
+The model-in-the-loop harness is development tooling, not proof that the package is good. V7-03 first runs a blind route stage, loads complete allowlisted resources without silent truncation, then uses a different effective judge model. Public development and live-canary cases are never release-eligible. The public CLI refuses external held-out execution; no valid held-out run or quality release gate exists yet.
 
 ```bash
-export ANTHROPIC_API_KEY=...   # required for a live scored pass
-python scripts/eval_run.py --run --ledger evals/eval-run-ledger.md --stamp 2026-06-28
+python scripts/eval_run.py --self-test
 ```
 
-This is the quality gate, not a shape gate, so it lives outside offline CI; the latest scored run is recorded in [`evals/eval-run-ledger.md`](evals/eval-run-ledger.md).
+Networked execution is explicit, requires distinct requested and returned responder/judge identities plus an egress acknowledgement, and writes a no-overwrite, checksum-manifested private bundle outside the repository. POSIX runs enforce owner-only output permissions; Windows users must choose a directory protected by an appropriate private ACL.
+
+Binary attachments are hash-only in V7-03, so these are text-behavior checks rather than multimodal/video-quality measurements. See [`docs/V7_EVAL_HARNESS_MIGRATION.md`](docs/V7_EVAL_HARNESS_MIGRATION.md). The old [`evals/eval-run-ledger.md`](evals/eval-run-ledger.md) is retained only as a historical unscored placeholder.
 
 ## Design Standard
 

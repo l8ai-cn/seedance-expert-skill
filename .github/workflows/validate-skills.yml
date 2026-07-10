@@ -90,3 +90,5 @@ jobs:
         run: |
           python tools/runtime_package.py --dry-run
           python -m unittest tests.test_runtime_package -v
+          python -m unittest tests.test_eval_harness -v
+          python -c "import subprocess, sys; [subprocess.run([sys.executable, 'scripts/eval_run.py', '--self-test'], check=True) for _ in range(10)]"

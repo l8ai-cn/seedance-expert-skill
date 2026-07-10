@@ -2,7 +2,7 @@
 
 ## Scope
 
-Seedance 2.0 Skill OS is an **offline agent-skill and reference package**: Markdown skill/reference files, deterministic local validators, and a local package builder/installer. It is not a hosted service or an API wrapper. It stores no credentials and ships no telemetry. The installer writes only to the selected local skills directory, stages and verifies a checksum-locked allowlist, and retains the previous installation for rollback.
+Seedance 2.0 Skill OS is an **offline installable agent-skill and reference package**: Markdown skill/reference files, deterministic local runtime tools, and a local package builder/installer. It is not a hosted service or an API wrapper. It stores no credentials and ships no telemetry. The repository also contains an explicitly invoked, development-only evaluator that can call a configured model provider; it is excluded from the installable runtime.
 
 ## Reporting a vulnerability
 
@@ -14,10 +14,11 @@ Include what you found, where, and how to reproduce it. We aim to acknowledge re
 
 ## Security posture of this package
 
-- **No network calls, no telemetry.** The skill content is text. Runtime tools and validators need no credentials. The installer performs local filesystem writes only after a dry-run-capable package validation — read it before running.
+- **No runtime network calls, no telemetry.** Installed skill content and runtime tools need no credentials. The excluded development evaluator uses network access only with `--run`, an egress acknowledgement, two explicit model IDs, and a provider credential supplied through the environment. The public evaluator refuses external held-out suites. Raw bundles must never be committed; POSIX permissions are enforced as owner-only, while Windows users must supply an ACL-protected output directory.
 - **No secrets in the repo.** API keys, account cookies, and private prompt corpora are never stored here (see `references/agent-compatibility.md`). Do not add them in a fork or PR.
 - **CI validates structure, not just prose.** Every push and pull request runs the checks in `.github/workflows/validate-skills.yml`, including runtime-package tests on Linux, Windows, and macOS.
 - **Checksums are integrity controls, not publisher signatures.** `--check` and `--verify` bind the package to the source lock in the checkout that runs them. Obtain that checkout and revision from a source you trust; a malicious checkout can replace its own lock and code.
+- **Evaluator bundles may contain secrets present in inputs or outputs.** The evaluator does not serialize its credential environment variable or authorization header, but it intentionally retains raw prompts, fixtures, responses, and judgments. Treat every bundle and recovered checkpoint as sensitive.
 
 ## Using this skill safely inside an agent
 
@@ -31,5 +32,5 @@ This package is only as safe as the **agent client** you load it into. The skill
 
 ## What this project will not do
 
-- It will not add telemetry, network calls, or credential prompts to the skill or its scripts.
+- It will not add telemetry, network calls, or credential prompts to the installable runtime. Development-only network tools must remain excluded, explicit, documented, and auditable.
 - It will not claim that every agent client can install directly from the repository URL, or that any registry lists this skill unless it has actually been published there.
