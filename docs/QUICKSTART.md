@@ -14,10 +14,11 @@ Install this repository as **one** root skill named `seedance-20`; its sub-skill
 **Codex (has a one-command installer):**
 
 ```bash
+python scripts/install_codex_skill.py --dry-run
 python scripts/install_codex_skill.py --force
 ```
 
-This copies the repo to `~/.codex/skills/seedance-20` (or `$CODEX_HOME/skills/seedance-20`). Restart Codex, then call `$seedance-20`.
+The script builds and verifies the reviewed runtime allowlist, installs it transactionally at `~/.codex/skills/seedance-20` (or `$CODEX_HOME/skills/seedance-20`), and preserves the previous install for rollback. Restart Codex, then call `$seedance-20`.
 
 **Install from GitHub (if your client supports repo-URL install):**
 
@@ -25,7 +26,7 @@ This copies the repo to `~/.codex/skills/seedance-20` (or `$CODEX_HOME/skills/se
 https://github.com/Emily2040/seedance-2.0
 ```
 
-**Manual copy (any other client):** copy this folder into your client's skills directory, keeping the name `seedance-20`. Common targets — verify in your own client, these are not a support guarantee — are in the [Install table of the README](../README.md#install): e.g. Claude Code `.claude/skills/`, Cursor `.cursor/skills/`, GitHub Copilot `.github/skills/`, Windsurf `.windsurf/skills/`.
+**Manual copy (any other client):** first run `python tools/runtime_package.py --output dist/seedance-20`, then copy the generated `dist/seedance-20` folder into your client's skills directory. Common targets — verify in your own client, these are not a support guarantee — are in the [Install table of the README](../README.md#install).
 
 > Security first: only install into agent clients you trust. Read [SECURITY.md](../SECURITY.md) before using this skill inside a third-party or unfamiliar agent.
 

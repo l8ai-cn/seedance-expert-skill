@@ -2,7 +2,7 @@
 
 ## Scope
 
-Seedance 2.0 Skill OS is an **offline agent-skill and reference package**: Markdown skill/reference files plus deterministic local Python validation scripts. It is not a hosted service, an API wrapper, or a runtime that executes on its own. It stores no credentials and ships no telemetry.
+Seedance 2.0 Skill OS is an **offline agent-skill and reference package**: Markdown skill/reference files, deterministic local validators, and a local package builder/installer. It is not a hosted service or an API wrapper. It stores no credentials and ships no telemetry. The installer writes only to the selected local skills directory, stages and verifies a checksum-locked allowlist, and retains the previous installation for rollback.
 
 ## Reporting a vulnerability
 
@@ -14,9 +14,10 @@ Include what you found, where, and how to reproduce it. We aim to acknowledge re
 
 ## Security posture of this package
 
-- **No network calls, no telemetry.** The skill content is text. The `scripts/` are deterministic, offline validators that need no credentials — read them before running.
+- **No network calls, no telemetry.** The skill content is text. Runtime tools and validators need no credentials. The installer performs local filesystem writes only after a dry-run-capable package validation — read it before running.
 - **No secrets in the repo.** API keys, account cookies, and private prompt corpora are never stored here (see `references/agent-compatibility.md`). Do not add them in a fork or PR.
-- **CI validates structure, not just prose.** Every push and pull request runs the checks in `.github/workflows/validate-skills.yml`.
+- **CI validates structure, not just prose.** Every push and pull request runs the checks in `.github/workflows/validate-skills.yml`, including runtime-package tests on Linux, Windows, and macOS.
+- **Checksums are integrity controls, not publisher signatures.** `--check` and `--verify` bind the package to the source lock in the checkout that runs them. Obtain that checkout and revision from a source you trust; a malicious checkout can replace its own lock and code.
 
 ## Using this skill safely inside an agent
 
