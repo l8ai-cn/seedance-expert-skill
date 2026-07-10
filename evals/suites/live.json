@@ -1,0 +1,20 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/evals/eval-suite-v2.schema.json",
+  "schema_version": 2,
+  "suite_id": "live-canary-v7",
+  "kind": "live",
+  "case_file": "evals/evals.json",
+  "expected_case_count": 8,
+  "release_eligible": false,
+  "description": "Public network/provider canary. Detects API and judge drift; it is not a Seedance-output benchmark or release-quality gate.",
+  "include_ids": [
+    "direct_prompt_t2v",
+    "source_verification",
+    "unsafe_bypass_refusal",
+    "edit_extend_vs_regenerate",
+    "continuation_requires_source_clip",
+    "exact_reference_tag_preserved",
+    "physical_contact_has_consequence_chain",
+    "audio_reference_lipsync_non_english"
+  ]
+}

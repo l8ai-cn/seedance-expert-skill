@@ -1,247 +1,259 @@
 #!/usr/bin/env python3
-"""Model-in-the-loop eval harness for the seedance-20 skill.
-
-The deterministic CI validators (eval_schema_check.py, sequence_eval_check.py, ...)
-prove the eval suite is well-formed. They do not prove the skill actually produces
-good output. This harness closes that gap: it runs each case prompt through the
-real skill content (root SKILL.md plus the case's expected skills) to get a
-response, then asks a judge model to score that response against the case's own
-assertions using references/eval-rubric.md.
-
-Two modes:
-  --self-test   Offline. Validates wiring only - cases load, the rubric parses,
-                every case's skills resolve, a responder context can be built,
-                and assertions are non-empty. No network. Safe for CI.
-  (default)     Live. Requires ANTHROPIC_API_KEY. Runs responder + judge for each
-                case, prints per-case scores, aggregates against the rubric
-                thresholds, and (with --ledger) writes a markdown score ledger.
-
-Standard library only; honors HTTPS_PROXY and SSL_CERT_FILE from the environment.
-This script is intentionally NOT part of the strict offline CI gate - run it
-manually (or in a network-enabled job) when you want evidence, not just shape.
-"""
+"""Explicit, blind, auditable model-in-the-loop evaluation harness."""
 from __future__ import annotations
 
 import argparse
-import json
 import os
-import re
 import sys
-import urllib.request
-import urllib.error
 from pathlib import Path
 
-API_URL = "https://api.anthropic.com/v1/messages"
-ANTHROPIC_VERSION = "2023-06-01"
-DEFAULT_MODEL = "claude-sonnet-4-6"
-# Thresholds sourced from references/eval-rubric.md.
-LEGACY_MIN, LEGACY_AVG = 2, 2.6          # 0-3 scale
-SEQUENCE_CRIT, SEQUENCE_AVG, SEQUENCE_FLOOR = 4, 3.5, 3  # 0-4 scale
+import eval_harness
+import eval_harness.core as harness_core
+import eval_harness.providers as harness_providers
+from eval_harness.core import (
+    HarnessError,
+    RunBundle,
+    RuntimeResources,
+    aggregate,
+    canonical_json,
+    default_run_id,
+    execute_case,
+    load_suite,
+    repository_provenance,
+    recover_incomplete,
+    run_metadata,
+    sha256_bytes,
+    split_case,
+    utc_now,
+    verify_bundle,
+)
+from eval_harness.providers import anthropic_completion
 
 
-def repo_root() -> Path:
-    return Path(__file__).resolve().parent.parent
+def root_from(value: str) -> Path:
+    return Path(value).expanduser().resolve()
 
 
-def load_cases(root: Path) -> list[dict]:
-    data = json.loads((root / "evals" / "evals.json").read_text(encoding="utf-8"))
-    return data.get("cases", [])
+def suite_path(root: Path, name: str) -> Path:
+    return root / "evals" / "suites" / f"{name}.json"
 
 
-def read_text(path: Path, limit: int = 12000) -> str:
-    if not path.exists():
-        return ""
-    text = path.read_text(encoding="utf-8")
-    return text if len(text) <= limit else text[:limit] + "\n...[truncated]"
-
-
-def is_sequence_case(case: dict) -> bool:
-    return "expected_sequence_relation" in case or case.get("critical") is True
-
-
-def responder_context(root: Path, case: dict) -> str:
-    parts = ["# Skill: seedance-20 (root router)", read_text(root / "SKILL.md")]
-    for name in case.get("skills_expected_to_activate", []):
-        if name == "seedance-20":
-            continue  # the root router is already included above
-        body = read_text(root / "skills" / name / "SKILL.md", limit=8000)
-        if body:
-            parts.append(f"\n# Sub-skill: {name}\n{body}")
-    fixture = case.get("state_fixture")
-    if fixture and (root / fixture).exists():
-        parts.append(f"\n# Project state fixture ({fixture})\n{read_text(root / fixture, limit=6000)}")
-    return "\n\n".join(parts)
-
-
-def call_api(system: str, user: str, model: str, api_key: str, max_tokens: int = 1500) -> str:
-    payload = json.dumps({
-        "model": model,
-        "max_tokens": max_tokens,
-        "system": system,
-        "messages": [{"role": "user", "content": user}],
-    }).encode("utf-8")
-    req = urllib.request.Request(API_URL, data=payload, method="POST")
-    req.add_header("x-api-key", api_key)
-    req.add_header("anthropic-version", ANTHROPIC_VERSION)
-    req.add_header("content-type", "application/json")
-    with urllib.request.urlopen(req, timeout=120) as resp:
-        body = json.loads(resp.read().decode("utf-8"))
-    return "".join(block.get("text", "") for block in body.get("content", []) if block.get("type") == "text")
-
-
-def judge(case: dict, response: str, model: str, api_key: str, rubric: str) -> dict:
-    scale = "0-4" if is_sequence_case(case) else "0-3"
-    extra = ""
-    if case.get("forbidden_behaviors"):
-        extra += "\nForbidden behaviors (any present => fail):\n- " + "\n- ".join(case["forbidden_behaviors"])
-    if case.get("required_output_sections"):
-        extra += "\nRequired output sections:\n- " + "\n- ".join(case["required_output_sections"])
-    system = (
-        "You are a strict eval judge for an AI video-prompting skill. Apply the rubric exactly and "
-        "return ONLY a JSON object, no prose. Be skeptical: reward only behavior that is actually present."
-    )
-    user = (
-        f"RUBRIC:\n{rubric}\n\n"
-        f"Use the {scale} scale for this case.\n"
-        f"CASE PROMPT:\n{case['prompt']}\n\n"
-        f"ASSERTIONS (each must be satisfied):\n- " + "\n- ".join(case["assertions"]) + extra + "\n\n"
-        f"CANDIDATE RESPONSE TO GRADE:\n{response}\n\n"
-        'Return JSON: {"assertion_scores":[{"assertion":str,"met":bool}],'
-        '"overall_score":int,"pass":bool,"notes":str}. '
-        f'overall_score is on the {scale} scale.'
-    )
-    raw = call_api(system, user, model, api_key, max_tokens=900)
-    match = re.search(r"\{.*\}", raw, re.S)
-    if not match:
-        return {"overall_score": 0, "pass": False, "notes": "judge returned no JSON", "assertion_scores": []}
-    try:
-        return json.loads(match.group(0))
-    except json.JSONDecodeError:
-        return {"overall_score": 0, "pass": False, "notes": "unparseable judge JSON", "assertion_scores": []}
+def executed_harness_sources() -> list[dict[str, object]]:
+    paths = [
+        ("executed:eval_harness/__init__.py", Path(eval_harness.__file__).resolve()),
+        ("executed:eval_harness/core.py", Path(harness_core.__file__).resolve()),
+        ("executed:eval_harness/providers.py", Path(harness_providers.__file__).resolve()),
+        ("executed:eval_run.py", Path(__file__).resolve()),
+    ]
+    return [
+        {"path": label, "size": len(path.read_bytes()), "sha256": sha256_bytes(path.read_bytes())}
+        for label, path in sorted(paths)
+    ]
 
 
 def self_test(root: Path) -> int:
     errors: list[str] = []
-    cases = load_cases(root)
-    if len(cases) < 16:
-        errors.append("fewer than 16 cases")
-    rubric = read_text(root / "references" / "eval-rubric.md")
-    if "0 to 3" not in rubric or "0-4" not in rubric:
-        errors.append("eval-rubric.md missing the 0-3 and 0-4 scales")
-    seq = 0
-    for case in cases:
-        cid = case.get("id", "?")
-        if not case.get("assertions"):
-            errors.append(f"{cid}: no assertions")
-        for name in case.get("skills_expected_to_activate", []):
-            if name != "seedance-20" and not (root / "skills" / name).is_dir():
-                errors.append(f"{cid}: skill '{name}' does not resolve")
-        if not responder_context(root, case).strip():
-            errors.append(f"{cid}: empty responder context")
-        if is_sequence_case(case):
-            seq += 1
+    try:
+        development = load_suite(root, suite_path(root, "development"))
+        live = load_suite(root, suite_path(root, "live"))
+        resources = RuntimeResources(root)
+        resources.validate_suite_resources(development)
+        resources.validate_suite_resources(live)
+        router_system, router_records = resources.router_system()
+        root_text = (root / "SKILL.md").read_text(encoding="utf-8")
+        if root_text not in router_system or "...[truncated]" in router_system:
+            errors.append("router does not contain the complete root skill")
+        if len(router_records) != len(resources.catalog) + len(resources.reference_catalog) + 1:
+            errors.append("router resource manifest is incomplete")
+        synthetic = {
+            "id": "blindness-sentinel",
+            "prompt": "Return one concise prompt.",
+            "assertions": ["ORACLE_ASSERTION_SENTINEL"],
+            "expected_output": "ORACLE_OUTPUT_SENTINEL",
+            "failure_mode": "ORACLE_FAILURE_SENTINEL",
+            "skills_expected_to_activate": ["ORACLE_ROUTE_SENTINEL"],
+        }
+        case_input, oracle = split_case(synthetic)
+        projected = canonical_json(case_input)
+        for value in oracle.values():
+            for sentinel in value if isinstance(value, list) else [value]:
+                if isinstance(sentinel, str) and sentinel.encode("utf-8") in projected:
+                    errors.append("oracle value leaked into responder input projection")
+        empty = aggregate([], development)
+        if empty["passed"] or empty["release_pass"]:
+            errors.append("empty aggregate fails open")
+        false_high = [{
+            "case_id": case["id"], "status": "completed", "passed": False,
+            "sequence": False, "score": 3,
+        } for case in development["cases"]]
+        if aggregate(false_high, development)["passed"]:
+            errors.append("pass:false can be overridden by a high score")
+        if development["release_eligible"] or live["release_eligible"]:
+            errors.append("public suites must not be release eligible")
+    except Exception as exc:
+        errors.append(f"self-test exception: {type(exc).__name__}: {exc}")
     if errors:
-        print("eval_run self-test FAILED:")
-        for e in errors[:40]:
-            print(f"- {e}")
+        print("eval harness v2 self-test FAILED:")
+        for error in errors:
+            print(f"- {error}")
         return 1
-    print(f"eval_run self-test passed: {len(cases)} cases wired, {seq} on the 0-4 sequence scale, rubric parsed, all skills resolve.")
+    print(
+        "eval harness v2 self-test passed: "
+        f"{len(development['cases'])} development cases, {len(live['cases'])} live canaries, "
+        f"{len(resources.catalog)} blind-route catalog entries; zero network calls."
+    )
     return 0
 
 
-def aggregate(scored: list[dict]) -> int:
-    legacy = [s for s in scored if not s["sequence"]]
-    seq = [s for s in scored if s["sequence"]]
-    ok = True
-    if legacy:
-        avg = sum(s["score"] for s in legacy) / len(legacy)
-        below = [s["id"] for s in legacy if s["score"] < LEGACY_MIN]
-        print(f"\nLegacy (0-3): {len(legacy)} cases, avg {avg:.2f} (need >= {LEGACY_AVG}); {len(below)} below {LEGACY_MIN}")
-        if avg < LEGACY_AVG or below:
-            ok = False
-            if below:
-                print("  below floor:", ", ".join(below))
-    if seq:
-        avg = sum(s["score"] for s in seq) / len(seq)
-        crit_fail = [s["id"] for s in seq if s.get("critical") and s["score"] < SEQUENCE_CRIT]
-        floor_fail = [s["id"] for s in seq if s["score"] < SEQUENCE_FLOOR]
-        print(f"Sequence (0-4): {len(seq)} cases, avg {avg:.2f} (need >= {SEQUENCE_AVG}); "
-              f"{len(crit_fail)} critical below {SEQUENCE_CRIT}; {len(floor_fail)} below floor {SEQUENCE_FLOOR}")
-        if avg < SEQUENCE_AVG or crit_fail or floor_fail:
-            ok = False
-            if crit_fail:
-                print("  critical not at 4:", ", ".join(crit_fail))
-    print("\nRESULT:", "PASS" if ok else "FAIL")
-    return 0 if ok else 1
-
-
-def write_ledger(path: Path, scored: list[dict], model: str, stamp: str) -> None:
-    lines = [
-        "# Eval Run Ledger", "",
-        f"Last scored: **{stamp}** with responder+judge model `{model}` via `scripts/eval_run.py`.",
-        "This is the evidence layer for the rubric in `references/eval-rubric.md`; the deterministic",
-        "CI validators check shape, this checks output quality. Regenerate with",
-        "`python scripts/eval_run.py --run --ledger evals/eval-run-ledger.md`.", "",
-        "| id | scale | score | pass | notes |", "|---|---|---|---|---|",
-    ]
-    for s in sorted(scored, key=lambda x: (x["sequence"], x["id"])):
-        scale = "0-4" if s["sequence"] else "0-3"
-        note = (s.get("notes") or "").replace("|", "/").replace("\n", " ")[:80]
-        lines.append(f"| {s['id']} | {scale} | {s['score']} | {'yes' if s['pass'] else 'NO'} | {note} |")
-    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
-    print(f"\nLedger written to {path}")
-
-
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Model-in-the-loop eval harness for seedance-20.")
+    parser = argparse.ArgumentParser(description="Blind evaluation harness v2 for seedance-20.")
     parser.add_argument("repo", nargs="?", default=".")
-    parser.add_argument("--self-test", action="store_true", help="offline wiring check, no network")
-    parser.add_argument("--model", default=DEFAULT_MODEL, help="responder + judge model id")
-    parser.add_argument("--judge-model", default=None, help="override judge model (defaults to --model)")
-    parser.add_argument("--id", action="append", help="run only these case ids")
-    parser.add_argument("--limit", type=int, default=0, help="cap number of cases (0 = all)")
-    parser.add_argument("--ledger", default=None, help="write a markdown score ledger to this path")
-    parser.add_argument("--stamp", default="unstamped", help="date label for the ledger (pass an ISO date)")
+    actions = parser.add_mutually_exclusive_group(required=True)
+    actions.add_argument("--self-test", action="store_true", help="offline architecture check; never uses network")
+    actions.add_argument("--run", action="store_true", help="explicitly run a networked responder/router/judge evaluation")
+    actions.add_argument("--verify-bundle", type=Path, help="verify a completion-bound run bundle without network")
+    actions.add_argument("--recover-incomplete", type=Path, help="mark a crashed reserved run directory as permanently incomplete")
+    parser.add_argument("--suite", choices=["development", "live"], default="development")
+    parser.add_argument("--suite-file", type=Path, help="reserved for a future protected runner; rejected by this public harness")
+    parser.add_argument("--provider", choices=["anthropic"], default="anthropic")
+    parser.add_argument("--responder-model")
+    parser.add_argument("--judge-model")
+    parser.add_argument("--id", action="append", help="development-only diagnostic case selection")
+    parser.add_argument("--limit", type=int, default=0, help="development-only diagnostic cap")
+    parser.add_argument("--attempt-index", type=int, default=1)
+    parser.add_argument("--output-root", type=Path)
+    parser.add_argument("--run-id")
+    parser.add_argument("--acknowledge-network-egress", action="store_true")
+    parser.add_argument("--allow-dirty-development", action="store_true")
     args = parser.parse_args()
 
-    root = Path(args.repo).resolve()
+    root = root_from(args.repo)
     if args.self_test:
         return self_test(root)
-
-    api_key = os.environ.get("ANTHROPIC_API_KEY")
-    if not api_key:
-        print("ANTHROPIC_API_KEY not set. Use --self-test for an offline wiring check, "
-              "or export a key to run a live scored pass.")
-        return 2
-
-    rubric = read_text(root / "references" / "eval-rubric.md")
-    judge_model = args.judge_model or args.model
-    cases = load_cases(root)
-    if args.id:
-        wanted = set(args.id)
-        cases = [c for c in cases if c.get("id") in wanted]
-    if args.limit:
-        cases = cases[: args.limit]
-
-    scored: list[dict] = []
-    for case in cases:
-        cid = case.get("id", "?")
+    if args.verify_bundle:
         try:
-            response = call_api(responder_context(root, case), case["prompt"], args.model, api_key)
-            verdict = judge(case, response, judge_model, api_key, rubric)
-        except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError) as exc:
-            print(f"[{cid}] API error: {exc}")
-            verdict = {"overall_score": 0, "pass": False, "notes": f"api error: {exc}"}
-        score = int(verdict.get("overall_score", 0) or 0)
-        passed = bool(verdict.get("pass"))
-        scored.append({"id": cid, "score": score, "pass": passed,
-                       "sequence": is_sequence_case(case), "critical": case.get("critical"),
-                       "notes": verdict.get("notes", "")})
-        print(f"[{cid}] {'PASS' if passed else 'FAIL'} score={score} :: {str(verdict.get('notes',''))[:70]}")
+            record = verify_bundle(args.verify_bundle)
+        except HarnessError as exc:
+            print(f"Bundle verification FAILED: {exc}")
+            return 1
+        summary = record.get("summary", {}) if isinstance(record, dict) else {}
+        print(f"Verified eval bundle: status={summary.get('status')} passed={summary.get('passed')} release_pass={summary.get('release_pass')}")
+        return 0
+    if args.recover_incomplete:
+        try:
+            recovered = recover_incomplete(args.recover_incomplete)
+        except HarnessError as exc:
+            print(f"Incomplete bundle recovery FAILED: {exc}")
+            return 1
+        print(f"Recovered incomplete eval evidence: {recovered}; passed=False release_pass=False")
+        return 0
 
-    if args.ledger:
-        write_ledger(Path(args.ledger), scored, args.model, args.stamp)
-    return aggregate(scored)
+    try:
+        if not args.acknowledge_network_egress:
+            raise HarnessError("--run requires --acknowledge-network-egress")
+        if not args.responder_model or not args.judge_model:
+            raise HarnessError("--run requires explicit --responder-model and --judge-model")
+        if args.responder_model == args.judge_model:
+            raise HarnessError("responder and judge model IDs must be distinct")
+        if type(args.attempt_index) is not int or args.attempt_index < 1:
+            raise HarnessError("attempt-index must be an integer >= 1")
+        if args.output_root is None:
+            raise HarnessError("--run requires --output-root; raw evidence is never written into the repository by default")
+        if args.suite_file is not None:
+            raise HarnessError(
+                "external/held-out execution is disabled in the shipped V7-03 CLI; "
+                "the protected runner and private-corpus boundary are not operational"
+            )
+        try:
+            args.output_root.expanduser().absolute().resolve().relative_to(root)
+        except ValueError:
+            pass
+        else:
+            raise HarnessError("raw eval bundles must be stored outside the candidate repository")
+        manifest = args.suite_file or suite_path(root, args.suite)
+        suite = load_suite(root, manifest, requested_ids=args.id, limit=args.limit)
+        kind = suite["manifest"]["kind"]
+        if kind == "held_out":
+            raise HarnessError("held-out execution is not implemented by this public harness")
+        resources = RuntimeResources(root)
+        resources.validate_suite_resources(suite)
+        provenance = repository_provenance(root)
+        if not provenance["clean"] and not (kind == "development" and args.allow_dirty_development):
+            raise HarnessError("networked evaluation requires a clean Git tree (dirty runs are development-only and explicit)")
+        if not provenance["clean"]:
+            suite["release_eligible"] = False
+        api_key = os.environ.get("ANTHROPIC_API_KEY")
+        if not api_key:
+            raise HarnessError("ANTHROPIC_API_KEY is not set")
+        rubric_path = root / "references" / "eval-rubric.md"
+        rubric = rubric_path.read_text(encoding="utf-8")
+        run_id = args.run_id or default_run_id(suite["manifest"]["suite_id"], provenance["commit_sha"], args.attempt_index)
+        metadata = run_metadata(suite, provenance, args.responder_model, args.judge_model, args.attempt_index, run_id)
+        metadata["rubric"] = {"path": "references/eval-rubric.md", "sha256": sha256_bytes(rubric.encode("utf-8"))}
+        metadata["runtime_tree_sha256"] = resources.tree_sha256
+        metadata["harness_sources"] = executed_harness_sources()
+        metadata["configuration_sha256"] = sha256_bytes(canonical_json({
+            "provider": args.provider,
+            "responder_model": args.responder_model,
+            "judge_model": args.judge_model,
+            "attempt_index": args.attempt_index,
+            "suite_manifest_sha256": suite["manifest_sha256"],
+            "case_pack_sha256": suite["case_sha256"],
+        }))
+        metadata["egress_acknowledged"] = True
+        provider_factories = {"anthropic": anthropic_completion}
+        completion = provider_factories[args.provider](api_key)
+        bundle = RunBundle(args.output_root, run_id)
+        records = []
+        try:
+            total = len(suite["cases"])
+            for index, case in enumerate(suite["cases"], 1):
+                def checkpoint(stage: str, partial: dict, *, ordinal: int = index) -> None:
+                    bundle.write_json(f"checkpoints/{ordinal:04d}-{stage}.json", partial)
+
+                record = execute_case(
+                    root, resources, case, rubric, args.responder_model, args.judge_model,
+                    completion, args.attempt_index,
+                    checkpoint=checkpoint,
+                )
+                records.append(record)
+                bundle.write_json(f"cases/{index:04d}.json", record)
+                label = case["id"] if kind != "held_out" else f"sealed-case-{index}"
+                print(f"[{index}/{total}] {label}: {record['status']} {'PASS' if record['passed'] else 'FAIL'}")
+            summary = aggregate(records, suite)
+            metadata["cases"] = [
+                {
+                    "ordinal": index,
+                    "case_record_sha256": sha256_bytes(canonical_json(record)),
+                    "status": record["status"],
+                    "passed": record["passed"],
+                }
+                for index, record in enumerate(records, 1)
+            ]
+            metadata["summary"] = summary
+            metadata["finished_at"] = utc_now()
+            bundle.write_json("public-summary.json", {
+                "schema_version": 2,
+                "run_id": run_id,
+                "suite_kind": kind,
+                "case_count": summary["case_count"],
+                "status": summary["status"],
+                "passed": summary["passed"],
+                "release_pass": summary["release_pass"],
+                "failed_case_count": len(summary.get("failed_case_ids", [])),
+                "commit_sha": provenance["commit_sha"],
+                "runtime_tree_sha256": resources.tree_sha256,
+            })
+            final = bundle.finish(metadata)
+        except Exception:
+            bundle.abort()
+            raise
+        print(f"Run bundle: {final}")
+        print(f"RESULT: {'PASS' if summary['passed'] else 'FAIL'}; RELEASE_PASS: {summary['release_pass']}")
+        return 0 if summary["passed"] else 1
+    except HarnessError as exc:
+        print(f"Eval harness error: {exc}")
+        return 2
 
 
 if __name__ == "__main__":

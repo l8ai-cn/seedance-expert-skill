@@ -1,0 +1,10 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/evals/eval-suite-v2.schema.json",
+  "schema_version": 2,
+  "suite_id": "development-v7",
+  "kind": "development",
+  "case_file": "evals/evals.json",
+  "expected_case_count": 126,
+  "release_eligible": false,
+  "description": "Public assertion-blinded regression corpus. Useful for development; never evidence of generalization."
+}

@@ -206,6 +206,8 @@ class RuntimePackageTests(unittest.TestCase):
             ("tests/secret.txt", "development-only"),
             ("Tests/secret.txt", "development-only"),
             ("scripts/eval_run.py", "development script"),
+            ("scripts/eval_harness/core.py", "development script"),
+            ("evals/suites/development.json", "development-only"),
             ("references/migrated/old.md", "migrated archive"),
             ("NUL.txt", "portable"),
             ("CONIN$", "portable"),
