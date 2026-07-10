@@ -3,6 +3,7 @@
   "$id": "https://github.com/Emily2040/seedance-2.0/schemas/prompt-spec.schema.json",
   "title": "Seedance Prompt Specification",
   "type": "object",
+  "additionalProperties": false,
   "required": [
     "project_id",
     "clip_id",
@@ -18,15 +19,15 @@
     "natural_language_prompt"
   ],
   "properties": {
-    "project_id": {"type": "string"},
-    "clip_id": {"type": "string"},
-    "prompt_version": {"type": "string"},
+    "project_id": {"type": "string", "minLength": 1},
+    "clip_id": {"type": "string", "minLength": 1},
+    "prompt_version": {"type": "string", "minLength": 1},
     "sequence_relation": {"enum": ["standalone", "sequence_first_clip", "seamless_continuation", "intentional_next_shot", "bridge_between_known_states", "repair_tail", "reanchor_after_drift"]},
-    "generation_mode": {"type": "string"},
-    "reference_roles": {"type": "array"},
+    "generation_mode": {"type": "string", "minLength": 1},
+    "reference_roles": {"type": "array", "items": {"type": "string"}},
     "opening_state_source": {"enum": ["planned_start_state", "observed_end_state", "user_supplied_final_frame", "source_clip"]},
-    "current_clip_action": {"type": "string"},
-    "endpoint": {"type": "string"},
+    "current_clip_action": {"type": "string", "minLength": 1},
+    "endpoint": {"type": "string", "minLength": 1},
     "completed_beat_exclusions": {"type": "array", "items": {"type": "string"}},
     "reserved_future_exclusions": {"type": "array", "items": {"type": "string"}},
     "natural_language_prompt": {"type": "string", "minLength": 1}

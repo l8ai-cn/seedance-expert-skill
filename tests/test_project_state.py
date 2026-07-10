@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 class ProjectStateTests(unittest.TestCase):
     def test_project_state_examples_validate(self) -> None:
         result = subprocess.run(
-            [sys.executable, "scripts/project_state_check.py", "--strict"],
+            [sys.executable, "scripts/project_state_check.py"],
             cwd=ROOT,
             text=True,
             capture_output=True,

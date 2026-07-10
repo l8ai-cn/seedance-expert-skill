@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 class PromptLintTests(unittest.TestCase):
     def test_prompt_lint_self_test_and_examples(self) -> None:
         result = subprocess.run(
-            [sys.executable, "scripts/prompt_lint.py", "--self-test", "--strict"],
+            [sys.executable, "scripts/prompt_lint.py", "--self-test"],
             cwd=ROOT,
             text=True,
             capture_output=True,

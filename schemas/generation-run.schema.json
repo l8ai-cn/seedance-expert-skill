@@ -3,6 +3,7 @@
   "$id": "https://github.com/Emily2040/seedance-2.0/schemas/generation-run.schema.json",
   "title": "Seedance Generation Run Record",
   "type": "object",
+  "additionalProperties": false,
   "required": [
     "run_id",
     "project_id",
@@ -16,14 +17,14 @@
     "is_synthetic_fixture"
   ],
   "properties": {
-    "run_id": {"type": "string"},
-    "project_id": {"type": "string"},
-    "clip_id": {"type": "string"},
-    "surface": {"type": "string"},
-    "prompt_version": {"type": "string"},
-    "input_mode": {"type": "string"},
-    "reference_tags": {"type": "array", "items": {"type": "string"}},
-    "prompt": {"type": "string"},
+    "run_id": {"type": "string", "minLength": 1},
+    "project_id": {"type": "string", "minLength": 1},
+    "clip_id": {"type": "string", "minLength": 1},
+    "surface": {"type": "string", "minLength": 1},
+    "prompt_version": {"type": "string", "minLength": 1},
+    "input_mode": {"type": "string", "minLength": 1},
+    "reference_tags": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "prompt": {"type": "string", "minLength": 1},
     "result_status": {"enum": ["not_run_fixture", "submitted", "generated", "reviewed", "accepted", "rejected"]},
     "is_synthetic_fixture": {"type": "boolean"}
   }

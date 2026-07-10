@@ -1,0 +1,14 @@
+{
+  "project_id": "seq_airport_arrival",
+  "clip_id": "clip_02",
+  "prompt_version": "6.6.0",
+  "sequence_relation": "seamless_continuation",
+  "generation_mode": "video_reference",
+  "reference_roles": ["@Video1 supplies the accepted opening state"],
+  "opening_state_source": "observed_end_state",
+  "current_clip_action": "The traveler completes the walk to the sedan.",
+  "endpoint": "She settles beside the rear door.",
+  "completed_beat_exclusions": ["Do not replay the terminal exit."],
+  "reserved_future_exclusions": ["Do not enter the sedan yet."],
+  "natural_language_prompt": "Continue from the accepted final state as the traveler completes the walk to the sedan and settles beside the rear door."
+}

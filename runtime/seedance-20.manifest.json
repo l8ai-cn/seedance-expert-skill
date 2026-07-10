@@ -2,8 +2,8 @@
   "schema_version": 1,
   "package_name": "seedance-20",
   "generated_manifest": ".seedance-package.json",
-  "locked_payload_size_bytes": 539437,
-  "locked_tree_sha256": "5744a703657b1fe03325ad6d392efa44869f3d2bf0b14679d249b4be03996d8a",
+  "locked_payload_size_bytes": 540738,
+  "locked_tree_sha256": "fef52e3e1b62748334c95350af8c71e6266973d4a0faa27a6d9dcc538708027d",
   "files": [
     "LICENSE",
     "SKILL.md",
