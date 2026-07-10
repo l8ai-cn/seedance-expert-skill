@@ -129,7 +129,7 @@ def resign_built_package(root: Path) -> dict:
     manifest["payload_file_count"] = len(records)
     manifest["payload_size_bytes"] = sum(record["size"] for record in records)
     manifest["tree_sha256"] = package._tree_sha256(records)
-    manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    manifest_path.write_bytes(package.render_generated_manifest(manifest))
     return manifest
 
 
@@ -507,7 +507,11 @@ class RuntimePackageTests(unittest.TestCase):
         active = skills / "seedance-20"
         with (active / "SKILL.md").open("a", encoding="utf-8") as handle:
             handle.write("self-signed local change\n")
-        resign_built_package(active)
+        resigned = resign_built_package(active)
+        self.assertEqual(
+            (active / package.GENERATED_MANIFEST_NAME).read_bytes(),
+            package.render_generated_manifest(resigned),
+        )
         package.verify_package(active)
 
         with mock.patch.object(installer, "REPO_ROOT", repo):
@@ -536,7 +540,9 @@ class RuntimePackageTests(unittest.TestCase):
         for relative in read_manifest(repo / "runtime" / "seedance-20.manifest.json")["files"]:
             path = repo.joinpath(*relative.split("/"))
             if path.suffix.lower() in package.TEXT_PAYLOAD_SUFFIXES or path.name == "LICENSE":
-                path.write_bytes(path.read_bytes().replace(b"\n", b"\r\n"))
+                canonical = path.read_bytes().replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+                path.write_bytes(canonical.replace(b"\n", b"\r\n"))
+                self.assertNotIn(b"\r\r\n", path.read_bytes())
         self.assertEqual(package.package_plan(repo), expected)
         output = self.base / "crlf-output"
         package.build_package(repo, output)
