@@ -1,0 +1,65 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/evidence-claim.schema.json",
+  "claim_id": "fal.input.seed-absent",
+  "claim_text": "The current fal reference-to-video input schema does not list seed as an accepted request field.",
+  "normalized_key": "provider.fal.reference.input.seed",
+  "value": false,
+  "model_family": "seedance",
+  "model_version": "2.0-series",
+  "claim_class": "api_field",
+  "scope": {
+    "surfaces": [
+      "fal.reference-to-video"
+    ],
+    "operations": [
+      "reference_generation"
+    ],
+    "locale": "en",
+    "region": "global"
+  },
+  "support_status": "supported",
+  "confidence": "high",
+  "criticality": "critical",
+  "volatility": "volatile",
+  "ttl_days": 7,
+  "agreement_status": "uncontested",
+  "lifecycle_status": "active",
+  "runtime_presence": "not_present",
+  "runtime_status": "candidate",
+  "source_evidence": [
+    {
+      "source_snapshot_id": "fal.reference-to-video.2026-07-11",
+      "source_snapshot_sha256": "20865b3d27883770e41f187ea702d3597c02ee641a268c83b2c4673b926e0e9b",
+      "capture_sha256": "ea94e2ee2faeb782053fac380d4fbf8734e7761043e94da52100b9ab472e17af",
+      "evidence_items": [
+        {
+          "evidence_item_id": "fal.reference.input-no-seed",
+          "normalized_evidence_sha256": "f4eaaf04cd72ef60f74c24af7ec6530c584129681210e6a89ad533d81e5f6956"
+        }
+      ],
+      "relation": "supports"
+    }
+  ],
+  "verified_at": "2026-07-11",
+  "expires_at": "2026-07-18",
+  "supersedes": [],
+  "relations": [],
+  "conflict_group": null,
+  "affected_paths": [
+    "references/api-status.md"
+  ],
+  "affected_profiles": [
+    "fal.reference-to-video"
+  ],
+  "affected_tests": [
+    "tests/test_evidence_registry.py#test_provider_reference_tokens_are_explicitly_surface_scoped",
+    "evals/evals.json#source_verification"
+  ],
+  "review": {
+    "status": "pending",
+    "reviewers": [],
+    "decision_at": null,
+    "claim_sha256": null
+  },
+  "notes": "The legacy runtime lists seed as a fal input. That occurrence is blocked migration debt for V7-05."
+}

@@ -1,0 +1,63 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/evidence-claim.schema.json",
+  "claim_id": "bp.assets.purposeful-set",
+  "claim_text": "BytePlus recommends a small purposeful reference set and warns that using the maximum can create priority, style, and identification problems.",
+  "normalized_key": "reference.selection.minimum-purposeful-set",
+  "value": "start_small_add_incrementally",
+  "model_family": "seedance",
+  "model_version": "2.0-series",
+  "claim_class": "workflow",
+  "scope": {
+    "surfaces": [
+      "byteplus.modelark"
+    ],
+    "operations": [
+      "reference_generation"
+    ],
+    "locale": "en",
+    "region": "global"
+  },
+  "support_status": "supported",
+  "confidence": "high",
+  "criticality": "important",
+  "volatility": "volatile",
+  "ttl_days": 30,
+  "agreement_status": "uncontested",
+  "lifecycle_status": "active",
+  "runtime_presence": "future_profile",
+  "runtime_status": "candidate",
+  "source_evidence": [
+    {
+      "source_snapshot_id": "byteplus.prompt-guide.2222480.2026-07-11",
+      "source_snapshot_sha256": "721a4df57104731951904c050e5baba76b8cbd10ee9f1e7caece5809118d105b",
+      "capture_sha256": "bb35646a893b540dbbecfba6697b20fd6bd9d26dfed009cc0c6778ea333e900c",
+      "evidence_items": [
+        {
+          "evidence_item_id": "byteplus.prompt.reference-selection",
+          "normalized_evidence_sha256": "7afd5c5f48819e571a5c7fea5f03472074425e00973502b49c9f7cd5d9ca7a96"
+        }
+      ],
+      "relation": "supports"
+    }
+  ],
+  "verified_at": "2026-07-11",
+  "expires_at": "2026-08-10",
+  "supersedes": [],
+  "relations": [],
+  "conflict_group": null,
+  "affected_paths": [],
+  "affected_profiles": [
+    "byteplus.modelark"
+  ],
+  "affected_tests": [
+    "tests/test_evidence_registry.py#test_byteplus_claims_remain_surface_scoped",
+    "tests/test_evidence_registry.py#test_every_supported_source_reference_resolves_to_a_retained_item"
+  ],
+  "review": {
+    "status": "pending",
+    "reviewers": [],
+    "decision_at": null,
+    "claim_sha256": null
+  },
+  "notes": "No exact occurrence exists in the current runtime; V7-06 may consume it after V7-05 profiles exist."
+}

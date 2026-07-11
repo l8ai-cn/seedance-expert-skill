@@ -1,0 +1,66 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/evidence-claim.schema.json",
+  "claim_id": "volc.binding.asset-ordinal",
+  "claim_text": "Volcengine requires prompt references to use media type plus one-based position and says Asset ID cannot replace that prompt reference.",
+  "normalized_key": "reference.binding.image.ordinal",
+  "value": "图片1",
+  "model_family": "seedance",
+  "model_version": "2.0-series",
+  "claim_class": "api_field",
+  "scope": {
+    "surfaces": [
+      "volcengine.ark"
+    ],
+    "operations": [
+      "reference_generation"
+    ],
+    "locale": "zh-CN",
+    "region": "CN"
+  },
+  "support_status": "supported",
+  "confidence": "high",
+  "criticality": "critical",
+  "volatility": "volatile",
+  "ttl_days": 7,
+  "agreement_status": "uncontested",
+  "lifecycle_status": "active",
+  "runtime_presence": "legacy_active",
+  "runtime_status": "candidate",
+  "source_evidence": [
+    {
+      "source_snapshot_id": "volcengine.tutorial.2291680.2026-07-11",
+      "source_snapshot_sha256": "fb3b43c92fc92f9ef9f0cf4839196dd865c17ae963cd6d7a375a3da5169ab801",
+      "capture_sha256": "83d0b45d18998f1451d78a0bedef27f74bcf6d666ad715bbcd07e335ddf9cefb",
+      "evidence_items": [
+        {
+          "evidence_item_id": "volcengine.tutorial.asset-ordinal",
+          "normalized_evidence_sha256": "eccf6e26c7daeb6d69543406e6d8390919f6438cdd6a7c2b10df551b51e61f21"
+        }
+      ],
+      "relation": "supports"
+    }
+  ],
+  "verified_at": "2026-07-11",
+  "expires_at": "2026-07-18",
+  "supersedes": [],
+  "relations": [],
+  "conflict_group": null,
+  "affected_paths": [
+    "references/platform-surface-matrix.md",
+    "references/reference-workflow.md"
+  ],
+  "affected_profiles": [
+    "volcengine.ark"
+  ],
+  "affected_tests": [
+    "evals/evals.json#exact_reference_tag_preserved",
+    "tests/test_evidence_registry.py#test_runtime_map_exactly_covers_the_runtime_manifest"
+  ],
+  "review": {
+    "status": "pending",
+    "reviewers": [],
+    "decision_at": null,
+    "claim_sha256": null
+  },
+  "notes": "The request asset handle and the prompt-visible ordinal are separate concepts on this surface."
+}

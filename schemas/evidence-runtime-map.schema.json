@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Emily2040/seedance-2.0/schemas/evidence-runtime-map.schema.json",
+  "title": "Seedance runtime evidence occurrence audit",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "schema_version", "runtime_manifest_sha256", "files"],
+  "properties": {
+    "$schema": {
+      "const": "https://github.com/Emily2040/seedance-2.0/schemas/evidence-runtime-map.schema.json"
+    },
+    "schema_version": {"const": 1},
+    "runtime_manifest_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "files": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "sha256", "audit_status", "occurrences"],
+        "properties": {
+          "path": {"type": "string", "minLength": 1, "maxLength": 300},
+          "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+          "audit_status": {"enum": ["mapped", "no_volatile_claims", "non_text", "legacy_blocked"]},
+          "occurrences": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "claim_id",
+                "heading",
+                "anchor_text",
+                "anchor_sha256",
+                "occurrence_count",
+                "disposition",
+                "profile_ids",
+                "test_ids"
+              ],
+              "properties": {
+                "claim_id": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)+$"
+                },
+                "heading": {"type": "string", "minLength": 1, "maxLength": 300},
+                "anchor_text": {"type": "string", "minLength": 8, "maxLength": 1200},
+                "anchor_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+                "occurrence_count": {"const": 1},
+                "disposition": {"enum": ["supported_candidate", "blocked_migration_debt", "watchlist"]},
+                "profile_ids": {
+                  "type": "array",
+                  "items": {"type": "string", "minLength": 1, "maxLength": 160},
+                  "uniqueItems": true
+                },
+                "test_ids": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {"type": "string", "minLength": 1, "maxLength": 240},
+                  "uniqueItems": true
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

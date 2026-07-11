@@ -1,0 +1,71 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/evidence-claim.schema.json",
+  "claim_id": "bytedance.model.multimodal-inputs",
+  "claim_text": "ByteDance describes Seedance 2.0 as accepting text, image, audio, and video inputs in a unified audio-video generation model.",
+  "normalized_key": "model.input.modalities",
+  "value": [
+    "audio",
+    "image",
+    "text",
+    "video"
+  ],
+  "model_family": "seedance",
+  "model_version": "2.0",
+  "claim_class": "model_capability",
+  "scope": {
+    "surfaces": [
+      "model"
+    ],
+    "operations": [
+      "generation"
+    ],
+    "locale": "en",
+    "region": "global"
+  },
+  "support_status": "supported",
+  "confidence": "high",
+  "criticality": "important",
+  "volatility": "stable",
+  "ttl_days": 180,
+  "agreement_status": "uncontested",
+  "lifecycle_status": "active",
+  "runtime_presence": "legacy_active",
+  "runtime_status": "candidate",
+  "source_evidence": [
+    {
+      "source_snapshot_id": "bytedance.seedance-2-0.model-page.2026-07-11",
+      "source_snapshot_sha256": "9914a258a746fd88c4c3e8d853283e5184c2110e06a59a4c1f45426a24f13203",
+      "capture_sha256": "f712d74420e5bcd52f2ef3ff3e47dda823cfe209641c00f4ac4438458a8baafa",
+      "evidence_items": [
+        {
+          "evidence_item_id": "bytedance.model.multimodal-inputs",
+          "normalized_evidence_sha256": "876ae5df061903520337efbf6c74e4856e47407bb1c8eb59611cb799fd562df1"
+        }
+      ],
+      "relation": "supports"
+    }
+  ],
+  "verified_at": "2026-07-11",
+  "expires_at": "2027-01-07",
+  "supersedes": [],
+  "relations": [],
+  "conflict_group": null,
+  "affected_paths": [
+    "references/api-status.md",
+    "references/platform-surface-matrix.md"
+  ],
+  "affected_profiles": [
+    "seedance-2.0-model"
+  ],
+  "affected_tests": [
+    "tests/test_evidence_registry.py#test_bytedance_claims_remain_model_level",
+    "tests/test_evidence_registry.py#test_runtime_map_exactly_covers_the_runtime_manifest"
+  ],
+  "review": {
+    "status": "pending",
+    "reviewers": [],
+    "decision_at": null,
+    "claim_sha256": null
+  },
+  "notes": "This is model-level capability evidence and does not establish per-surface file limits or availability."
+}

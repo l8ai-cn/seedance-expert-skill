@@ -1,0 +1,348 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/evidence-policy.schema.json",
+  "schema_version": 1,
+  "policy_id": "v7.evidence.activation",
+  "activation_enabled": false,
+  "requirements": [
+    {
+      "requirement_id": "requirement.bp-assets-purposeful-set",
+      "selected_claim_id": "bp.assets.purposeful-set",
+      "selected_claim_sha256": "2af5a7cab7b1325f90947fa91e3f49462f80f91fae398da847be22492cf31922",
+      "lineage_root_claim_id": "bp.assets.purposeful-set",
+      "normalized_key": "reference.selection.minimum-purposeful-set",
+      "criticality": "important",
+      "expected_support_status": "supported",
+      "allowed_runtime_status": [
+        "candidate"
+      ],
+      "enforce_freshness": true,
+      "require_capture": true,
+      "required_profile_ids": [
+        "byteplus.modelark"
+      ],
+      "required_test_ids": [
+        "tests/test_evidence_registry.py#test_byteplus_claims_remain_surface_scoped"
+      ]
+    },
+    {
+      "requirement_id": "requirement.bp-binding-spaced-example-token",
+      "selected_claim_id": "bp.binding.spaced-example-token",
+      "selected_claim_sha256": "0c4d17aec48f44f153f6b9a7872940618e0144750728910a18a0373e0c6f11ca",
+      "lineage_root_claim_id": "bp.binding.spaced-example-token",
+      "normalized_key": "reference.binding.image.ordinal",
+      "criticality": "critical",
+      "expected_support_status": "supported",
+      "allowed_runtime_status": [
+        "candidate"
+      ],
+      "enforce_freshness": true,
+      "require_capture": true,
+      "required_profile_ids": [
+        "byteplus.modelark"
+      ],
+      "required_test_ids": [
+        "evals/evals.json#exact_reference_tag_preserved"
+      ]
+    },
+    {
+      "requirement_id": "requirement.bp-camera-one-move",
+      "selected_claim_id": "bp.camera.one-move",
+      "selected_claim_sha256": "fe9bc86d0a1ee200857fd5bf73a8547246321fbd7c6109ee2589a6a2098c6ca4",
+      "lineage_root_claim_id": "bp.camera.one-move",
+      "normalized_key": "prompt.camera.primary_moves_per_shot",
+      "criticality": "important",
+      "expected_support_status": "supported",
+      "allowed_runtime_status": [
+        "candidate"
+      ],
+      "enforce_freshness": true,
+      "require_capture": true,
+      "required_profile_ids": [
+        "byteplus.modelark"
+      ],
+      "required_test_ids": [
+        "evals/evals.json#camera_has_start_path_and_endpoint"
+      ]
+    },
+    {
+      "requirement_id": "requirement.bp-character-headshot-fullbody",
+      "selected_claim_id": "bp.character.headshot-fullbody",
+      "selected_claim_sha256": "9e14bd580804b47d672c5f24dcbd780e08262d757aec8d1aea5ec8ab08d50b6b",
+      "lineage_root_claim_id": "bp.character.headshot-fullbody",
+      "normalized_key": "reference.character.preflight",
+      "criticality": "important",
+      "expected_support_status": "supported",
+      "allowed_runtime_status": [
+        "candidate"
+      ],
+      "enforce_freshness": true,
+      "require_capture": true,
+      "required_profile_ids": [
+        "byteplus.modelark"
+      ],
+      "required_test_ids": [
+        "tests/test_evidence_registry.py#test_byteplus_claims_remain_surface_scoped"
+      ]
+    },
+    {
+      "requirement_id": "requirement.bp-operation-edit-extend-classifier",
+      "selected_claim_id": "bp.operation.edit-extend-classifier",
+      "selected_claim_sha256": "fa71cd6bf2fac5ba0147437f2603361d76c1dab065b18ebc8656482070d7d17c",
+      "lineage_root_claim_id": "bp.operation.edit-extend-classifier",
+      "normalized_key": "prompt.operation.edit_extend.reference_prefix",
+      "criticality": "critical",
+      "expected_support_status": "supported",
+      "allowed_runtime_status": [
+        "candidate"
+      ],
+      "enforce_freshness": true,
+      "require_capture": true,
+      "required_profile_ids": [
+        "byteplus.modelark"
+      ],
+      "required_test_ids": [
+        "evals/evals.json#edit_extend_vs_regenerate"
+      ]
+    },
+    {
+      "requirement_id": "requirement.bp-subject-stable-label",
+      "selected_claim_id": "bp.subject.stable-label",
+      "selected_claim_sha256": "86ea16601ce2b1a77f82f2985172b04db652c68144dd6550e6a75cd9578e466c",
+      "lineage_root_claim_id": "bp.subject.stable-label",
+      "normalized_key": "prompt.subject.stable-label",
+      "criticality": "important",
+      "expected_support_status": "supported",
+      "allowed_runtime_status": [
+        "candidate"
+      ],
+      "enforce_freshness": true,
+      "require_capture": true,
+      "required_profile_ids": [
+        "byteplus.modelark"
+      ],
+      "required_test_ids": [
+        "evals/evals.json#multi_character_scene"
+      ]
+    },
+    {
+      "requirement_id": "requirement.bp-timing-exact-caution",
+      "selected_claim_id": "bp.timing.exact-caution",
+      "selected_claim_sha256": "ed5f361346f3c7bb3abab9c817ef18686ddf44bdcbe9a6260916b4c1eda45948",
+      "lineage_root_claim_id": "bp.timing.exact-caution",
+      "normalized_key": "prompt.timing.exact-seconds",
+      "criticality": "important",
+      "expected_support_status": "supported",
+      "allowed_runtime_status": [
+        "candidate"
+      ],
+      "enforce_freshness": true,
+      "require_capture": true,
+      "required_profile_ids": [
+        "byteplus.modelark"
+      ],
+      "required_test_ids": [
+        "evals/evals.json#multishot_uses_shot_labels_not_continuous_take"
+      ]
+    },
+    {
+      "requirement_id": "requirement.bytedance-model-multimodal-inputs",
+      "selected_claim_id": "bytedance.model.multimodal-inputs",
+      "selected_claim_sha256": "fe5df415cea7cf989076e2605f7af9a391dbf3bb7e416cfa9689589aa1229ef3",
+      "lineage_root_claim_id": "bytedance.model.multimodal-inputs",
+      "normalized_key": "model.input.modalities",
+      "criticality": "important",
+      "expected_support_status": "supported",
+      "allowed_runtime_status": [
+        "candidate"
+      ],
+      "enforce_freshness": true,
+      "require_capture": true,
+      "required_profile_ids": [
+        "seedance-2.0-model"
+      ],
+      "required_test_ids": [
+        "tests/test_evidence_registry.py#test_bytedance_claims_remain_model_level"
+      ]
+    },
+    {
+      "requirement_id": "requirement.bytedance-model-reference-control",
+      "selected_claim_id": "bytedance.model.reference-control",
+      "selected_claim_sha256": "02793804a725ea4dad766489038653b5895d12e5f6d17a73116323829f5a31cc",
+      "lineage_root_claim_id": "bytedance.model.reference-control",
+      "normalized_key": "model.reference.control-dimensions",
+      "criticality": "important",
+      "expected_support_status": "supported",
+      "allowed_runtime_status": [
+        "candidate"
+      ],
+      "enforce_freshness": true,
+      "require_capture": true,
+      "required_profile_ids": [
+        "seedance-2.0-model"
+      ],
+      "required_test_ids": [
+        "tests/test_evidence_registry.py#test_bytedance_claims_remain_model_level"
+      ]
+    },
+    {
+      "requirement_id": "requirement.contra-annotation-observable-dimensions",
+      "selected_claim_id": "contra.annotation.observable-dimensions",
+      "selected_claim_sha256": "022645aa44d1d61f9e1704d30079c078a639879557efc5900a553ea4ddb54214",
+      "lineage_root_claim_id": "contra.annotation.observable-dimensions",
+      "normalized_key": "evaluation.annotation.observable-dimensions",
+      "criticality": "informational",
+      "expected_support_status": "supported",
+      "allowed_runtime_status": [
+        "research_only"
+      ],
+      "enforce_freshness": true,
+      "require_capture": true,
+      "required_profile_ids": [
+        "future.benchmark-ontology"
+      ],
+      "required_test_ids": [
+        "tests/test_evidence_registry.py#test_contra_dataset_is_research_only_not_model_or_prompt_proof"
+      ]
+    },
+    {
+      "requirement_id": "requirement.fal-binding-at-ordinal",
+      "selected_claim_id": "fal.binding.at-ordinal",
+      "selected_claim_sha256": "a651deb46721b54a75280a2437abd15e483abe32a2c281120e90ebcf61d7d0f9",
+      "lineage_root_claim_id": "fal.binding.at-ordinal",
+      "normalized_key": "reference.binding.image.ordinal",
+      "criticality": "critical",
+      "expected_support_status": "supported",
+      "allowed_runtime_status": [
+        "candidate"
+      ],
+      "enforce_freshness": true,
+      "require_capture": true,
+      "required_profile_ids": [
+        "fal.reference-to-video"
+      ],
+      "required_test_ids": [
+        "evals/evals.json#exact_reference_tag_preserved"
+      ]
+    },
+    {
+      "requirement_id": "requirement.fal-input-seed-absent",
+      "selected_claim_id": "fal.input.seed-absent",
+      "selected_claim_sha256": "a7207befa63608209da4ad5030c6b29be65a522104b38f07098eeeb7d3db6c6b",
+      "lineage_root_claim_id": "fal.input.seed-absent",
+      "normalized_key": "provider.fal.reference.input.seed",
+      "criticality": "critical",
+      "expected_support_status": "supported",
+      "allowed_runtime_status": [
+        "candidate"
+      ],
+      "enforce_freshness": true,
+      "require_capture": true,
+      "required_profile_ids": [
+        "fal.reference-to-video"
+      ],
+      "required_test_ids": [
+        "tests/test_evidence_registry.py#test_provider_reference_tokens_are_explicitly_surface_scoped"
+      ]
+    },
+    {
+      "requirement_id": "requirement.fal-resolution-standard-4k",
+      "selected_claim_id": "fal.resolution.standard-4k",
+      "selected_claim_sha256": "c76954237c895447b6118cae392518303a1c77957b5773acc5b2b3a1612d131b",
+      "lineage_root_claim_id": "fal.resolution.standard-4k",
+      "normalized_key": "provider.fal.reference.resolution",
+      "criticality": "important",
+      "expected_support_status": "supported",
+      "allowed_runtime_status": [
+        "candidate"
+      ],
+      "enforce_freshness": true,
+      "require_capture": true,
+      "required_profile_ids": [
+        "fal.reference-to-video"
+      ],
+      "required_test_ids": [
+        "tests/test_evidence_registry.py#test_provider_reference_tokens_are_explicitly_surface_scoped"
+      ]
+    },
+    {
+      "requirement_id": "requirement.global-binding-no-universal-token",
+      "selected_claim_id": "global.binding.no-universal-token",
+      "selected_claim_sha256": "94a0035d4b184882182f0916788e2616e9c7c094dedb033fe0aa09cb6485f09e",
+      "lineage_root_claim_id": "global.binding.no-universal-token",
+      "normalized_key": "reference.binding.universal-token",
+      "criticality": "critical",
+      "expected_support_status": "supported",
+      "allowed_runtime_status": [
+        "candidate"
+      ],
+      "enforce_freshness": true,
+      "require_capture": true,
+      "required_profile_ids": [
+        "byteplus.modelark"
+      ],
+      "required_test_ids": [
+        "evals/evals.json#exact_reference_tag_preserved"
+      ]
+    },
+    {
+      "requirement_id": "requirement.volc-binding-asset-ordinal",
+      "selected_claim_id": "volc.binding.asset-ordinal",
+      "selected_claim_sha256": "7abb7fac0cd19a486d736e401f6b0d2d083cf073e4d28398efbe732fac350c36",
+      "lineage_root_claim_id": "volc.binding.asset-ordinal",
+      "normalized_key": "reference.binding.image.ordinal",
+      "criticality": "critical",
+      "expected_support_status": "supported",
+      "allowed_runtime_status": [
+        "candidate"
+      ],
+      "enforce_freshness": true,
+      "require_capture": true,
+      "required_profile_ids": [
+        "volcengine.ark"
+      ],
+      "required_test_ids": [
+        "evals/evals.json#exact_reference_tag_preserved"
+      ]
+    },
+    {
+      "requirement_id": "requirement.volc-binding-first-last-frame-role",
+      "selected_claim_id": "volc.binding.first-last-frame-role",
+      "selected_claim_sha256": "04e775b42c8fc31035393beabd161453765c299e711440b6fbed59ccc2e8f7f7",
+      "lineage_root_claim_id": "volc.binding.first-last-frame-role",
+      "normalized_key": "reference.binding.frame-role",
+      "criticality": "critical",
+      "expected_support_status": "supported",
+      "allowed_runtime_status": [
+        "candidate"
+      ],
+      "enforce_freshness": true,
+      "require_capture": true,
+      "required_profile_ids": [
+        "volcengine.ark"
+      ],
+      "required_test_ids": [
+        "evals/evals.json#first_last_frame_workflow"
+      ]
+    },
+    {
+      "requirement_id": "requirement.volc-timing-exact-example",
+      "selected_claim_id": "volc.timing.exact-example",
+      "selected_claim_sha256": "489e5f0605e92d4ff7a9a90667c1d2f0bb5887743fb8a89307d20d345a4e99ea",
+      "lineage_root_claim_id": "volc.timing.exact-example",
+      "normalized_key": "prompt.timing.exact-seconds",
+      "criticality": "important",
+      "expected_support_status": "supported",
+      "allowed_runtime_status": [
+        "candidate"
+      ],
+      "enforce_freshness": true,
+      "require_capture": true,
+      "required_profile_ids": [
+        "volcengine.ark"
+      ],
+      "required_test_ids": [
+        "tests/test_evidence_registry.py#test_volcengine_claims_remain_surface_scoped"
+      ]
+    }
+  ]
+}

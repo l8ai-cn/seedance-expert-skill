@@ -1,0 +1,33 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/evidence-capture.schema.json",
+  "capture_id": "volcengine.tutorial.2291680.2026-07-11.normalized",
+  "source_snapshot_id": "volcengine.tutorial.2291680.2026-07-11",
+  "capture_kind": "normalized_evidence",
+  "created_at": "2026-07-11",
+  "canonical_url": "https://docs.volcengine.com/docs/82379/2291680?lang=zh",
+  "final_url": "https://docs.volcengine.com/docs/82379/2291680?lang=zh",
+  "raw_document_sha256": "d16e2890782161e149619de33efc0f8e8f047243ecf7e794ab61000313f474f7",
+  "normalization": "Claim-bearing Chinese tutorial sections were extracted from SSR MDContent and represented as English factual paraphrases with stable section hints.",
+  "rights_note": "Only short normalized claim evidence and locators are retained; the full Volcengine tutorial is not redistributed.",
+  "items": [
+    {
+      "evidence_item_id": "volcengine.tutorial.asset-ordinal",
+      "locator": {"heading_path": ["提示词规则"], "fragment_hint": "5o-Q56S66K-N6KeE5YiZ"},
+      "normalized_evidence": "The Volcengine tutorial says prompt references use the media type plus a one-based ordinal corresponding to that media type's order in the request content array; an Asset ID is not the prompt-visible reference.",
+      "normalized_evidence_sha256": "eccf6e26c7daeb6d69543406e6d8390919f6438cdd6a7c2b10df551b51e61f21"
+    },
+    {
+      "evidence_item_id": "volcengine.tutorial.timestamp-example",
+      "locator": {"heading_path": ["多模态生视频", "示例"], "fragment_hint": "2-4 秒"},
+      "normalized_evidence": "A current Volcengine multimodal example uses explicit second ranges for successive events; this proves an official surface example, not a universal timing rule.",
+      "normalized_evidence_sha256": "29d6f1aaa25a03969e9193e3c611ff777ebd55cf4d9a4dc998fe2bb8f1da6061"
+    },
+    {
+      "evidence_item_id": "volcengine.tutorial.first-last-frame-roles",
+      "locator": {"heading_path": ["多模态生视频", "进阶用法"], "fragment_hint": "first_frame/last_frame"},
+      "normalized_evidence": "The tutorial documents assigning supplied images the structured first-frame and last-frame roles instead of relying only on prompt references. This establishes role designation, not guaranteed pixel-level preservation of generated endpoints.",
+      "normalized_evidence_sha256": "acdb101984353ca8024fd643a0af5fbf64dc941759073d4ee1600566699d50d7"
+    }
+  ],
+  "notes": "Research on 2026-07-11 recorded the same raw MDContent hash as the prior observation. The raw provider bytes are not redistributed; reviewers must re-fetch the pinned URL and match the recorded hash and locator."
+}

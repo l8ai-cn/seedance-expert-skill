@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Emily2040/seedance-2.0/schemas/evidence-authorities.schema.json",
+  "title": "Seedance reviewed evidence authority registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "schema_version", "authorities"],
+  "properties": {
+    "$schema": {
+      "const": "https://github.com/Emily2040/seedance-2.0/schemas/evidence-authorities.schema.json"
+    },
+    "schema_version": {"const": 1},
+    "authorities": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["authority_id", "source_types", "publishers", "hosts", "allow_null_url"],
+        "properties": {
+          "authority_id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)+$"
+          },
+          "source_types": {
+            "type": "array",
+            "minItems": 1,
+            "items": {"type": "string", "minLength": 1},
+            "uniqueItems": true
+          },
+          "publishers": {
+            "type": "array",
+            "minItems": 1,
+            "items": {"type": "string", "minLength": 1},
+            "uniqueItems": true
+          },
+          "hosts": {
+            "type": "array",
+            "items": {"type": "string", "minLength": 1},
+            "uniqueItems": true
+          },
+          "allow_null_url": {"type": "boolean"}
+        }
+      }
+    }
+  }
+}

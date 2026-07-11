@@ -1,0 +1,72 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/evidence-claim.schema.json",
+  "claim_id": "volc.timing.exact-example",
+  "claim_text": "The current Volcengine tutorial includes a multimodal prompt example that uses explicit second ranges.",
+  "normalized_key": "prompt.timing.exact-seconds",
+  "value": "official_example_uses_ranges",
+  "model_family": "seedance",
+  "model_version": "2.0-series",
+  "claim_class": "official_example",
+  "scope": {
+    "surfaces": [
+      "volcengine.ark"
+    ],
+    "operations": [
+      "reference_generation",
+      "multi_shot"
+    ],
+    "locale": "zh-CN",
+    "region": "CN"
+  },
+  "support_status": "supported",
+  "confidence": "high",
+  "criticality": "important",
+  "volatility": "volatile",
+  "ttl_days": 30,
+  "agreement_status": "qualified",
+  "lifecycle_status": "active",
+  "runtime_presence": "legacy_active",
+  "runtime_status": "candidate",
+  "source_evidence": [
+    {
+      "source_snapshot_id": "volcengine.tutorial.2291680.2026-07-11",
+      "source_snapshot_sha256": "fb3b43c92fc92f9ef9f0cf4839196dd865c17ae963cd6d7a375a3da5169ab801",
+      "capture_sha256": "83d0b45d18998f1451d78a0bedef27f74bcf6d666ad715bbcd07e335ddf9cefb",
+      "evidence_items": [
+        {
+          "evidence_item_id": "volcengine.tutorial.timestamp-example",
+          "normalized_evidence_sha256": "29d6f1aaa25a03969e9193e3c611ff777ebd55cf4d9a4dc998fe2bb8f1da6061"
+        }
+      ],
+      "relation": "supports"
+    }
+  ],
+  "verified_at": "2026-07-11",
+  "expires_at": "2026-08-10",
+  "supersedes": [],
+  "relations": [
+    {
+      "claim_id": "bp.timing.exact-caution",
+      "type": "tension_with"
+    }
+  ],
+  "conflict_group": null,
+  "affected_paths": [
+    "references/multishot-grammar.md",
+    "skills/seedance-motion/SKILL.md"
+  ],
+  "affected_profiles": [
+    "volcengine.ark"
+  ],
+  "affected_tests": [
+    "tests/test_evidence_registry.py#test_volcengine_claims_remain_surface_scoped",
+    "tests/test_evidence_registry.py#test_qualification_relation_must_remain_reciprocal"
+  ],
+  "review": {
+    "status": "pending",
+    "reviewers": [],
+    "decision_at": null,
+    "claim_sha256": null
+  },
+  "notes": "An example proves accepted surface syntax, not superior control or a universal timing requirement."
+}

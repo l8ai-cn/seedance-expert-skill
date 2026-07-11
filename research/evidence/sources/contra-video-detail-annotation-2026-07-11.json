@@ -1,0 +1,22 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/evidence-source.schema.json",
+  "source_snapshot_id": "contra.video-detail-annotation.2026-07-11",
+  "source_id": "contra.video-detail-annotation",
+  "title": "Contra Labs video-detail annotation dataset",
+  "canonical_url": "https://huggingface.co/datasets/contra-labs/video-detail-annotation",
+  "final_url": "https://huggingface.co/datasets/contra-labs/video-detail-annotation/raw/6eb94f7f23e8ecf198900b3cf9b9cf5f5359b1f2/README.md",
+  "authority_id": "huggingface.dataset",
+  "source_type": "third_party_dataset",
+  "publisher": "Contra Labs",
+  "original_language": "en",
+  "source_revision": "6eb94f7f23e8ecf198900b3cf9b9cf5f5359b1f2",
+  "document_updated_at": "2026-07-02",
+  "retrieved_at": "2026-07-11",
+  "retrieval_status": "fetched",
+  "retrieval_method": "pinned Hugging Face dataset-card bytes",
+  "raw_document_sha256": "a8242ad0d33567bf01b1e5404d955610f3ca97b79c884da2c65d40e9a611de8f",
+  "capture_kind": "normalized_evidence",
+  "capture_path": "research/evidence/captures/contra-video-detail-annotation-2026-07-11.json",
+  "capture_sha256": "2d525445dcb86dd876a03e9d64495a0c59cc1c17f7a789b22474dd5a1c0323cc",
+  "notes": "CC BY 4.0 dataset card for 15 non-Seedance product videos. CSV audit evidence is pinned separately. This is research-only ontology input, not prompt or architecture proof."
+}

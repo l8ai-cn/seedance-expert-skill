@@ -47,6 +47,22 @@ def pointer(parts: Iterable[Any]) -> str:
     return "/" + "/".join(encoded) if encoded else "/"
 
 
+def reject_reference_keywords(value: Any, label: str) -> None:
+    stack: list[tuple[str, Any]] = [("$", value)]
+    while stack:
+        location, current = stack.pop()
+        if isinstance(current, dict):
+            for key, item in current.items():
+                child = f"{location}/{key}"
+                if key == "$ref" and (not isinstance(item, str) or not item.startswith("#")):
+                    raise ValueError(f"{label}: non-local $ref is forbidden at {child}")
+                if key in {"$dynamicRef", "$recursiveRef"}:
+                    raise ValueError(f"{label}: reference-resolving keyword {key} is forbidden at {child}")
+                stack.append((child, item))
+        elif isinstance(current, list):
+            stack.extend((f"{location}/{index}", item) for index, item in enumerate(current))
+
+
 def safe_path(root: Path, value: object, label: str) -> tuple[Path | None, str | None]:
     if not isinstance(value, str) or not value or "\\" in value:
         return None, f"{label}: path must be a non-empty repository-relative POSIX path"
@@ -149,6 +165,7 @@ def validate_repository(root: Path, manifest_path: Path, strict: bool) -> tuple[
         declared.add(schema_value)
         try:
             schema = load_json(schema_path)
+            reject_reference_keywords(schema, schema_value)
             Draft202012Validator.check_schema(schema)
         except (OSError, json.JSONDecodeError, ValueError, SchemaError) as exc:
             errors.append(f"{schema_value}: invalid Draft 2020-12 schema: {exc}")

@@ -262,7 +262,8 @@ Concept art for the system, generated and curated. Every image is paired with se
 | Reference | Purpose |
 |---|---|
 | [`api-status.md`](references/api-status.md) | Current dated platform and API status. |
-| [`source-registry.md`](references/source-registry.md) | Source hierarchy and evidence labels. |
+| [`source-registry.md`](references/source-registry.md) | Legacy runtime source guidance retained during the staged v7 migration. |
+| [`research/evidence/`](research/evidence/README.md) | Canonical non-runtime claim evidence, retained captures, freshness, and closed release policy. |
 | [`research-2026-05-30.md`](references/research-2026-05-30.md) | Dated source and field-observation snapshot. |
 | [`agent-compatibility.md`](references/agent-compatibility.md) | Agent Skills structure, Codex compatibility, and packaging notes. |
 | [`api-workflow.md`](references/api-workflow.md) | Volcengine, BytePlus, Runway, provider/router APIs, async task, reference-file, pricing, and production workflow checklist. |
@@ -397,6 +398,7 @@ python scripts/eval_schema_check.py
 # Reproducible release environment only: Linux x86-64, CPython 3.12.
 python -m pip install --require-hashes --requirement requirements-validation.lock
 python scripts/schema_check.py --strict
+python tools/evidence_registry.py --enforce-freshness --report /tmp/evidence-registry-report.json
 python scripts/design_audit.py
 python scripts/source_registry_check.py
 python scripts/vocab_schema_check.py --strict
@@ -413,7 +415,9 @@ python -m compileall scripts tests
 git diff --check
 ```
 
-The CI workflow runs these checks plus runtime install/rollback and an idempotence rerun; see [the validation workflow](.github/workflows/validate-skills.yml). The schema dependency lock is deliberately limited to the release environment above. These checks are deterministic and offline after dependency installation — they prove the package is well-formed. Schema-contract migration notes are in [`docs/V7_VALIDATION_MIGRATION.md`](docs/V7_VALIDATION_MIGRATION.md).
+The CI workflow runs these checks plus runtime install/rollback and an idempotence rerun; see [the validation workflow](.github/workflows/validate-skills.yml).
+The schema dependency lock is deliberately limited to the release environment above. These checks are deterministic and offline after dependency installation — they prove the package is well-formed.
+Schema-contract migration notes are in [`docs/V7_VALIDATION_MIGRATION.md`](docs/V7_VALIDATION_MIGRATION.md); the claim-evidence activation boundary is in [`docs/V7_EVIDENCE_MIGRATION.md`](docs/V7_EVIDENCE_MIGRATION.md).
 
 The model-in-the-loop harness is development tooling, not proof that the package is good. V7-03 first runs a blind route stage, loads complete allowlisted resources without silent truncation, then uses a different effective judge model. Public development and live-canary cases are never release-eligible. The public CLI refuses external held-out execution; no valid held-out run or quality release gate exists yet.
 

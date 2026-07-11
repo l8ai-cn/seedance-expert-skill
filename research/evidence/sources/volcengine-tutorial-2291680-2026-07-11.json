@@ -1,0 +1,22 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/evidence-source.schema.json",
+  "source_snapshot_id": "volcengine.tutorial.2291680.2026-07-11",
+  "source_id": "volcengine.tutorial.2291680",
+  "title": "Doubao Seedance 2.0 series tutorial",
+  "canonical_url": "https://docs.volcengine.com/docs/82379/2291680?lang=zh",
+  "final_url": "https://docs.volcengine.com/docs/82379/2291680?lang=zh",
+  "authority_id": "volcengine.docs",
+  "source_type": "first_party_platform_doc",
+  "publisher": "Volcengine",
+  "original_language": "zh-CN",
+  "source_revision": null,
+  "document_updated_at": "2026-07-07",
+  "retrieved_at": "2026-07-11",
+  "retrieval_status": "fetched",
+  "retrieval_method": "window SSR MDContent extraction; identical to the 2026-07-10 document hash",
+  "raw_document_sha256": "d16e2890782161e149619de33efc0f8e8f047243ecf7e794ab61000313f474f7",
+  "capture_kind": "normalized_evidence",
+  "capture_path": "research/evidence/captures/volcengine-tutorial-2291680-2026-07-11.json",
+  "capture_sha256": "83d0b45d18998f1451d78a0bedef27f74bcf6d666ad715bbcd07e335ddf9cefb",
+  "notes": "The retained capture preserves normalized claim evidence for the Volcengine surface only."
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/evidence-source.schema.json",
+  "source_snapshot_id": "byteplus.prompt-guide.2222480.2026-07-11",
+  "source_id": "byteplus.prompt-guide.2222480",
+  "title": "Dreamina Seedance 2.0 series prompt guide",
+  "canonical_url": "https://docs.byteplus.com/en/docs/ModelArk/2222480",
+  "final_url": "https://docs.byteplus.com/en/docs/ModelArk/2222480",
+  "authority_id": "byteplus.docs",
+  "source_type": "first_party_platform_doc",
+  "publisher": "BytePlus",
+  "original_language": "en",
+  "source_revision": null,
+  "document_updated_at": "2026-07-07",
+  "retrieved_at": "2026-07-11",
+  "retrieval_status": "fetched",
+  "retrieval_method": "window SSR MDContent extraction; identical to the 2026-07-10 document hash",
+  "raw_document_sha256": "c21da527d49ec22e070743f9a6186502aac72492079e273a9046f93167c1276b",
+  "capture_kind": "normalized_evidence",
+  "capture_path": "research/evidence/captures/byteplus-prompt-guide-2222480-2026-07-11.json",
+  "capture_sha256": "bb35646a893b540dbbecfba6697b20fd6bd9d26dfed009cc0c6778ea333e900c",
+  "notes": "The retained capture contains claim-level paraphrases and locators, not a copy of the full provider page."
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/evidence-source.schema.json",
+  "source_snapshot_id": "contra.video-detail-annotation-csv.2026-07-11",
+  "source_id": "contra.video-detail-annotation-csv",
+  "title": "Contra Labs video-detail annotation CSV",
+  "canonical_url": "https://huggingface.co/datasets/contra-labs/video-detail-annotation/blob/6eb94f7f23e8ecf198900b3cf9b9cf5f5359b1f2/video-detail-annotation-0626.csv",
+  "final_url": "https://huggingface.co/datasets/contra-labs/video-detail-annotation/raw/6eb94f7f23e8ecf198900b3cf9b9cf5f5359b1f2/video-detail-annotation-0626.csv",
+  "authority_id": "huggingface.dataset",
+  "source_type": "third_party_dataset",
+  "publisher": "Contra Labs",
+  "original_language": "en",
+  "source_revision": "6eb94f7f23e8ecf198900b3cf9b9cf5f5359b1f2",
+  "document_updated_at": "2026-07-02",
+  "retrieved_at": "2026-07-11",
+  "retrieval_status": "fetched",
+  "retrieval_method": "pinned CSV bytes plus deterministic aggregate audit",
+  "raw_document_sha256": "b7490d49978b2d373bd9320981fce16fcf2667d0df2399fdba9ee3b8c8122d91",
+  "capture_kind": "normalized_evidence",
+  "capture_path": "research/evidence/captures/contra-video-detail-annotation-csv-2026-07-11.json",
+  "capture_sha256": "a8569c8e16ba4d9ed0a4276ac161b3dbcd3b14a4c2d5d554355fea65d1bf4ac9",
+  "notes": "The raw CSV is not committed. Its pinned URL, exact SHA-256, column-level counting method, and aggregate results make the quality audit reproducible without treating the dataset as Seedance evidence."
+}

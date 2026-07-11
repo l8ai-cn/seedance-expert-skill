@@ -1,0 +1,22 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/evidence-source.schema.json",
+  "source_snapshot_id": "fal.reference-to-video.2026-07-11",
+  "source_id": "fal.reference-to-video",
+  "title": "fal Seedance 2.0 reference-to-video API schema",
+  "canonical_url": "https://fal.ai/models/bytedance/seedance-2.0/reference-to-video/api",
+  "final_url": "https://fal.ai/api/openapi/queue/openapi.json?endpoint_id=bytedance/seedance-2.0/reference-to-video",
+  "authority_id": "fal.docs",
+  "source_type": "provider_owned_doc",
+  "publisher": "fal",
+  "original_language": "en",
+  "source_revision": null,
+  "document_updated_at": null,
+  "retrieved_at": "2026-07-11",
+  "retrieval_status": "fetched",
+  "retrieval_method": "provider OpenAPI JSON endpoint",
+  "raw_document_sha256": "8a658b8050bb76feb1497337e6abc14aebf179aaad997740a5c6c7396c2b9713",
+  "capture_kind": "normalized_evidence",
+  "capture_path": "research/evidence/captures/fal-reference-to-video-2026-07-11.json",
+  "capture_sha256": "ea94e2ee2faeb782053fac380d4fbf8734e7761043e94da52100b9ab472e17af",
+  "notes": "Provider-owned schema evidence applies only to fal's endpoint and must not be generalized."
+}

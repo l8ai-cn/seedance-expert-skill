@@ -1,0 +1,41 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/evidence-authorities.schema.json",
+  "schema_version": 1,
+  "authorities": [
+    {
+      "authority_id": "bytedance.seed",
+      "source_types": ["first_party_model_doc"],
+      "publishers": ["ByteDance"],
+      "hosts": ["seed.bytedance.com"],
+      "allow_null_url": false
+    },
+    {
+      "authority_id": "byteplus.docs",
+      "source_types": ["first_party_platform_doc"],
+      "publishers": ["BytePlus"],
+      "hosts": ["docs.byteplus.com"],
+      "allow_null_url": false
+    },
+    {
+      "authority_id": "fal.docs",
+      "source_types": ["provider_owned_doc"],
+      "publishers": ["fal"],
+      "hosts": ["fal.ai"],
+      "allow_null_url": false
+    },
+    {
+      "authority_id": "huggingface.dataset",
+      "source_types": ["third_party_dataset"],
+      "publishers": ["Contra Labs"],
+      "hosts": ["huggingface.co"],
+      "allow_null_url": false
+    },
+    {
+      "authority_id": "volcengine.docs",
+      "source_types": ["first_party_platform_doc"],
+      "publishers": ["Volcengine"],
+      "hosts": ["docs.volcengine.com", "www.volcengine.com"],
+      "allow_null_url": false
+    }
+  ]
+}

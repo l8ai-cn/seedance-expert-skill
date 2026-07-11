@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Emily2040/seedance-2.0/schemas/evidence-capture.schema.json",
+  "title": "Seedance retained normalized evidence capture",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "capture_id",
+    "source_snapshot_id",
+    "capture_kind",
+    "created_at",
+    "canonical_url",
+    "final_url",
+    "raw_document_sha256",
+    "normalization",
+    "rights_note",
+    "items"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "https://github.com/Emily2040/seedance-2.0/schemas/evidence-capture.schema.json"
+    },
+    "capture_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)+$",
+      "maxLength": 220
+    },
+    "source_snapshot_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)+$",
+      "maxLength": 200
+    },
+    "capture_kind": {"const": "normalized_evidence"},
+    "created_at": {"type": "string", "format": "date"},
+    "canonical_url": {"type": "string", "format": "uri", "maxLength": 2000},
+    "final_url": {"type": "string", "format": "uri", "maxLength": 2000},
+    "raw_document_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "normalization": {"type": "string", "minLength": 20, "maxLength": 1000},
+    "rights_note": {"type": "string", "minLength": 20, "maxLength": 1000},
+    "items": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "evidence_item_id",
+          "locator",
+          "normalized_evidence",
+          "normalized_evidence_sha256"
+        ],
+        "properties": {
+          "evidence_item_id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)+$",
+            "maxLength": 220
+          },
+          "locator": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["heading_path", "fragment_hint"],
+            "properties": {
+              "heading_path": {
+                "type": "array",
+                "items": {"type": "string", "minLength": 1, "maxLength": 200},
+                "minItems": 1
+              },
+              "fragment_hint": {"type": ["string", "null"], "maxLength": 200}
+            }
+          },
+          "normalized_evidence": {"type": "string", "minLength": 20, "maxLength": 1500},
+          "normalized_evidence_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+        }
+      }
+    },
+    "notes": {"type": "string", "maxLength": 2000}
+  }
+}
