@@ -37,13 +37,13 @@ Leave the fast lane the instant the request earns a gate: IP/likeness/brand/safe
 2. Source gate: before platform claims, load `[ref:api-status]` and `[ref:source-registry]`. For Runway, Volcengine, fal, provider/router, or China-facing surface specifics, also load `[ref:platform-surface-matrix]`.
 3. Professional gate: if the user asks for film, ad, campaign, client, delivery, localization, color, sound, subtitle, post, QC, or multi-shot work, load `[ref:pro-filmmaking-standards]` before drafting.
 4. Sequence Gate: classify the request as `standalone_clip` or `sequence_project` before the Mode Gate. Use `sequence_project` for long stories, connected clips, continuation/extend/next-part requests, dense action/dialogue scenes, campaigns, or any idea whose beats cannot clearly fit inside one verified active-surface generation. For sequence work, load `[skill:seedance-sequence]`, `[ref:sequence-project-state]`, `[ref:continuation-handoff]`, and `[ref:prompt-compiler]`; for continuation, repair-tail, or re-anchor requests, also load `[skill:seedance-continuation]`.
-5. Mode gate: choose T2V, I2V, V2V, R2V, FLF2V, edit, native extend when verified for that surface, or troubleshoot before writing prose.
+5. Mode gate: choose T2V, I2V, V2V, R2V, FLF2V, edit, native extend when verified for that exact surface operation, or troubleshoot before writing prose.
 
-   Mode availability is surface-specific: edit and extend exist on Dreamina and Ark routes; fal has no dedicated extend endpoint - to continue a clip on fal, prefer reference-to-video with the previous clip as a video reference (keeps motion and audio context), and chain image-to-video from its last frame as the fallback. Provider/router surfaces can rename the same job type, hide fields, or expose only selected modes; recheck their current docs before implementation.
+   Mode availability is operation- and surface-specific. Do not infer an endpoint, entitlement, request field, duration, or fallback from a provider name. Use a checked-in profile only for its exact registered operation; unknown or disabled operations fail closed and require current provider-owned documentation.
 
 6. Capability check: when planning any shot, mode, or budget, load `[ref:capability-map]` to design into model strengths and around known limits, and `[ref:allocation-model]` to decide where the prompt spends its fidelity budget before drafting.
-7. Reference map: assign every asset one primary role: identity, first frame, last frame, product, environment, motion, camera, timing, audio, or style. State what must not transfer.
-8. Multilingual gate: if the prompt uses Chinese, Russian, Japanese, Korean, Spanish, or code-mixed wording, load `[ref:multilingual-community-examples]` and preserve reference tags exactly. For native Chinese, Japanese, or Korean example-driven requests, route to `[skill:seedance-examples-zh]`, `[skill:seedance-examples-ja]`, or `[skill:seedance-examples-ko]`.
+7. Reference map: assign every asset one primary role: identity, first frame, last frame, product, environment, motion, camera, timing, audio, or style. State what must not transfer. Then load `[ref:surface-prompt-profiles]`: keep the semantic binding ID separate from request transport and prompt syntax. Preserve an externally captured handle, derive only an evidence-pinned surface ordinal, or use structured roles with no token. Never invent a universal `@` tag, parse a placeholder, accept a caller override for a derived binding, or put an asset ID/URL into prompt prose.
+8. Multilingual gate: if the prompt uses Chinese, Russian, Japanese, Korean, Spanish, or code-mixed wording, load `[ref:multilingual-community-examples]` and preserve exact opaque surface bindings without translating or normalizing them. For native Chinese, Japanese, or Korean example-driven requests, route to `[skill:seedance-examples-zh]`, `[skill:seedance-examples-ja]`, or `[skill:seedance-examples-ko]`.
 9. Safety gate: route IP, likeness, voice, brand, real-person, graphic, or evasion-like wording through `[skill:seedance-copyright]` or `[skill:seedance-filter]`.
 10. Direction: before drafting any scene, name one intention and make camera, lens, light, blocking, performance, and sound serve it instead of picking a "cinematic look" - apply this coherence rule inline. Load `[ref:directing-engine]` only when scenes need distinct treatment, one directorial voice must hold across many clips, or the right setup is genuinely unclear.
 11. Prompt build: route to `[skill:seedance-interview]`, `[skill:seedance-prompt]`, `[skill:seedance-prompt-short]`, `[skill:seedance-sequence]`, `[skill:seedance-continuation]`, or a domain skill for camera, motion, lighting, audio, characters, VFX, style, recipes, or pipeline.
@@ -62,7 +62,7 @@ Sequence invariants:
 - accepted observed state overrides planned state;
 - rejected footage is excluded from canon and cannot become a continuation source;
 - future prompts remain provisional until the preceding accepted take is reviewed;
-- exact reference tags survive every clip unchanged;
+- semantic binding IDs and their selected surface policy—opaque external, derived ordinal, or structured role—survive every clip unchanged;
 - seamless continuation stays inside a scene; a scene boundary opens from canonical references and resets `extension_depth`;
 - completed beats cannot replay and reserved future beats cannot leak early;
 - continuity state must be updated after each accepted take;
@@ -101,4 +101,4 @@ Sequence invariants:
 | A take came back: keep, fix in post, edit, re-roll, or rewrite | `[ref:retake-protocol]` |
 | Why a rule works, or a novel case no rule covers | `[ref:model-mechanics]` |
 
-Preserve reference tags exactly, keep prompts short, and never convert field-observed community tricks into official platform guarantees. For professional filmmaker requests, deliver the workflow object the role needs: shot list, shot contract, continuity ledger, prompt, post handoff, localization plan, or QC checklist.
+Preserve typed binding IDs and selected surface policies, keep prompts short, and never convert field-observed community tricks into official platform guarantees. Fixed tokens in legacy fixtures are local values, never defaults for new output. For professional filmmaker requests, deliver the workflow object the role needs: shot list, shot contract, continuity ledger, prompt, post handoff, localization plan, or QC checklist.

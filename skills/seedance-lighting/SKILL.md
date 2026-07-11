@@ -54,7 +54,7 @@ If an output looks flat, add a motivated key source, rim separation, and one mat
 
 ## Sequence State
 
-When sequence state is present, inherit persistent practical sources, key direction, lighting phase, current clip scope, continuity locks, exact reference tags, and reserved future beats. Do not reset day/night, practical lamps, or weather light unless the transition or allowed changes explicitly permit it.
+When sequence state is present, inherit persistent practical sources, key direction, lighting phase, current clip scope, continuity locks, typed bindings and surface policies, and reserved future beats. Do not reset day/night, practical lamps, or weather light unless the transition or allowed changes explicitly permit it.
 
 ## Output Contract
 

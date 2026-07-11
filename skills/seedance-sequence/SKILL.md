@@ -39,9 +39,9 @@ For every request also classify:
 - sequence relation: standalone, sequence_first_clip, seamless_continuation, intentional_next_shot, bridge_between_known_states, repair_tail, or reanchor_after_drift;
 - shot structure: compact_single_take, phased_single_take, dense_multishot, first_last_frame_transition, or video_edit_contract;
 - medium grammar: live_action, 3d_animation, 2d_animation, product_or_object, or another supported medium;
-- surface profile: exact reference-tag convention, verified duration range, prompt budget, supported reference roles, timeline syntax, edit/extension availability, audio behavior, and constraints.
+- surface operation profile: request transport, opaque/derived/structured binding policy, external handles only where required, allowed media, required structured roles, and evidence expiry. Track duration, prompt budget, timeline syntax, edit/extension availability, and audio behavior as separate verified surface facts; V7-05 profiles do not supply them.
 
-If the surface is unknown, use a conservative generic profile. Do not invent a duration, prompt limit, reference count, or tag syntax.
+If the surface is unknown, stay in conservative planning and ask for the actual surface before rendering. Do not invent a duration, prompt limit, reference count, operation, request field, or token syntax; there is no generic provider fallback.
 
 ## Scene Architecture
 
@@ -87,7 +87,7 @@ For a new sequence, return:
 5. Scene map and sequence map.
 6. Clip 01 contract.
 7. Intent echo: one line - "this clip exists so the viewer feels X" - confirmed before generation spends money.
-8. Clip 01 final Seedance prompt in natural language.
+8. Clip 01 surface-rendered prompt when an eligible profile exists; otherwise the typed binding plan plus natural-language segments and an explicit rendering blocker.
 9. Provisional intent cards for future clips.
 10. Instruction to return the generated clip or final frame before Clip 02 is finalized.
 11. Project State Capsule.

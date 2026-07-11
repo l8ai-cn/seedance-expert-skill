@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Emily2040/seedance-2.0/schemas/profile-index.schema.json",
+  "title": "Seedance profile index",
+  "$comment": "Schema version 1 is non-activating: every indexed profile is a disabled candidate. Activation requires an explicit schema/version and renderer policy change.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schema_version",
+    "activation_enabled",
+    "unknown_profile_policy",
+    "models",
+    "surfaces"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "https://github.com/Emily2040/seedance-2.0/schemas/profile-index.schema.json"
+    },
+    "schema_version": {"const": 1},
+    "activation_enabled": {"const": false},
+    "unknown_profile_policy": {"const": "fail_closed"},
+    "models": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/index_entry"}
+    },
+    "surfaces": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/index_entry"}
+    }
+  },
+  "$defs": {
+    "index_entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["profile_id", "path", "sha256", "status", "runtime_enabled"],
+      "properties": {
+        "profile_id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)+$",
+          "maxLength": 100
+        },
+        "path": {
+          "type": "string",
+          "pattern": "^profiles/(?:models|surfaces)/[a-z0-9][a-z0-9.-]*\\.json$",
+          "maxLength": 180
+        },
+        "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "status": {"const": "candidate"},
+        "runtime_enabled": {"const": false}
+      }
+    }
+  }
+}

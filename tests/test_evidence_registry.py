@@ -127,12 +127,13 @@ class EvidenceRegistryTests(unittest.TestCase):
         self.assertEqual(report["capture_count"], 6)
         self.assertEqual(report["verified_capture_source_count"], 6)
         self.assertEqual(report["runtime_coverage_counts"], {
-            "legacy_blocked": 92,
-            "no_volatile_claims": 11,
+            "legacy_blocked": 93,
+            "mapped_candidate": 4,
+            "no_volatile_claims": 17,
         })
         self.assertEqual(report["review_counts"], {"pending": 17})
         self.assertFalse(report["release_gate_pass"])
-        self.assertIn("runtime.coverage:legacy-blocked-files=92", report["release_blockers"])
+        self.assertIn("runtime.coverage:legacy-blocked-files=93", report["release_blockers"])
 
     def test_closed_release_cli_fails_without_changing_structural_result(self) -> None:
         result = subprocess.run(
@@ -158,6 +159,50 @@ class EvidenceRegistryTests(unittest.TestCase):
         self.assertEqual([item["path"] for item in runtime_map["files"]], manifest["files"])
         for item in runtime_map["files"]:
             self.assertEqual(item["sha256"], hashlib.sha256((ROOT / item["path"]).read_bytes()).hexdigest())
+
+    def test_candidate_profile_occurrences_are_complete_but_not_activated(self) -> None:
+        runtime_map = json_data(ROOT / EVIDENCE / "runtime-map.json")
+        candidates = {
+            item["path"]: item
+            for item in runtime_map["files"]
+            if item["audit_status"] == "mapped_candidate"
+        }
+        self.assertEqual(set(candidates), set(registry.V705_CANDIDATE_PROFILE_PATHS))
+        self.assertEqual(sum(len(item["occurrences"]) for item in candidates.values()), 9)
+        for path, item in candidates.items():
+            expected_profile = registry.V705_CANDIDATE_PROFILE_PATHS[path]
+            self.assertTrue(item["occurrences"])
+            for occurrence in item["occurrences"]:
+                self.assertEqual(occurrence["disposition"], "supported_candidate")
+                self.assertEqual(occurrence["profile_ids"], [expected_profile])
+
+    def test_candidate_profile_cannot_be_relabeled_activation_ready(self) -> None:
+        def activate(value: dict) -> None:
+            entry = next(
+                item for item in value["files"]
+                if item["path"] == "profiles/surfaces/byteplus-modelark.json"
+            )
+            entry["audit_status"] = "mapped"
+
+        self.mutate("research/evidence/runtime-map.json", activate)
+        report, errors, warnings = self.evaluate()
+        messages = self.all_messages(report, errors, warnings)
+        self.assertIn("mapped occurrence is not activation-ready", messages)
+        self.assertFalse(report["release_gate_pass"])
+
+    def test_candidate_profile_requires_occurrences_and_exact_profile_scope(self) -> None:
+        path = "research/evidence/runtime-map.json"
+
+        def remove_occurrences(value: dict) -> None:
+            entry = next(
+                item for item in value["files"]
+                if item["path"] == "profiles/surfaces/fal-reference-to-video.json"
+            )
+            entry["occurrences"] = []
+
+        self.mutate(path, remove_occurrences)
+        report, errors, warnings = self.evaluate()
+        self.assertIn("mapped file must contain occurrences", self.all_messages(report, errors, warnings))
 
     def test_contra_dataset_is_research_only_not_model_or_prompt_proof(self) -> None:
         claim = json_data(ROOT / EVIDENCE / "claims" / "contra-annotation-observable-dimensions.json")
@@ -626,7 +671,7 @@ class EvidenceRegistryTests(unittest.TestCase):
         self.mutate("research/evidence/runtime-map.json", erase_debt)
         report, errors, warnings = self.evaluate()
         messages = self.all_messages(report, errors, warnings)
-        self.assertIn("V7-04 audit status must remain legacy_blocked", messages)
+        self.assertIn("V7-05 audit status must remain legacy_blocked", messages)
         self.assertFalse(report["release_gate_pass"])
 
     def test_runtime_manifest_byte_mutation_invalidates_map_pin(self) -> None:

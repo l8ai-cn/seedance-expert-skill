@@ -1,4 +1,15 @@
+---
+fixture: true
+profile_id: synthetic.unregistered
+operation: synthetic_sequence_plan
+handle_provenance: exact_fixture_literal
+fixed_handle_audit: synthetic_fixture
+renderable: false
+---
+
 # Sequence Plan: Airport Arrival
+
+> **Fixture binding boundary:** The media handles in this synthetic trace are exact opaque values supplied by the fixture, including their spacing. They are not defaults for new output and must never be normalized or synthesized for another surface.
 
 ## Project Summary
 

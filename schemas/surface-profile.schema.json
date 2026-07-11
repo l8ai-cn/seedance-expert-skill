@@ -1,0 +1,359 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Emily2040/seedance-2.0/schemas/surface-profile.schema.json",
+  "title": "Seedance surface profile",
+  "$comment": "Schema version 1 permits disabled candidate projections only. Cross-field formatter/media equality, role subsets, operation uniqueness, and the exact reviewed profile closure are also enforced by the renderer and profile_check.py.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schema_version",
+    "profile_kind",
+    "profile_id",
+    "model_profile_id",
+    "status",
+    "runtime_enabled",
+    "fallback_policy",
+    "operations"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "https://github.com/Emily2040/seedance-2.0/schemas/surface-profile.schema.json"
+    },
+    "schema_version": {"const": 1},
+    "profile_kind": {"const": "surface"},
+    "profile_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)+$",
+      "maxLength": 100
+    },
+    "model_profile_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)+$",
+      "maxLength": 100
+    },
+    "status": {"const": "candidate"},
+    "runtime_enabled": {"const": false},
+    "fallback_policy": {"const": "fail_closed"},
+    "operations": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 5,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/operation"}
+    }
+  },
+  "$defs": {
+    "evidence_pin": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["claim_id", "claim_sha256", "expires_at"],
+      "properties": {
+        "claim_id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)+$",
+          "maxLength": 100
+        },
+        "claim_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "expires_at": {"type": "string", "format": "date"}
+      }
+    },
+    "operation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "operation",
+        "request_transport",
+        "prompt_binding",
+        "allowed_media_types",
+        "structured_roles",
+        "required_role_set",
+        "evidence_pins"
+      ],
+      "properties": {
+        "operation": {
+          "enum": [
+            "reference_generation",
+            "first_frame",
+            "first_last_frame",
+            "edit",
+            "extend"
+          ]
+        },
+        "request_transport": {
+          "enum": [
+            "external_surface_unresolved",
+            "typed_media_arrays",
+            "ordered_content_objects",
+            "structured_content_roles"
+          ]
+        },
+        "prompt_binding": {
+          "oneOf": [
+            {"$ref": "#/$defs/opaque_prompt_binding"},
+            {"$ref": "#/$defs/derived_prompt_binding"},
+            {"$ref": "#/$defs/no_prompt_binding"}
+          ]
+        },
+        "allowed_media_types": {
+          "type": "array",
+          "items": {"enum": ["audio", "image", "video"]},
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "structured_roles": {
+          "type": "array",
+          "items": {"enum": ["first_frame", "last_frame"]},
+          "uniqueItems": true
+        },
+        "required_role_set": {
+          "type": "array",
+          "items": {"enum": ["first_frame", "last_frame"]},
+          "uniqueItems": true
+        },
+        "evidence_pins": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/evidence_pin"}
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "prompt_binding": {
+                "properties": {"kind": {"const": "opaque_external_handle"}},
+                "required": ["kind"]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "request_transport": {"const": "external_surface_unresolved"},
+              "structured_roles": {"maxItems": 0},
+              "required_role_set": {"maxItems": 0}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "prompt_binding": {
+                "properties": {"kind": {"const": "derived_media_ordinal"}},
+                "required": ["kind"]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "request_transport": {"enum": ["typed_media_arrays", "ordered_content_objects"]},
+              "structured_roles": {"maxItems": 0},
+              "required_role_set": {"maxItems": 0}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "prompt_binding": {
+                "properties": {"kind": {"const": "none"}},
+                "required": ["kind"]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "request_transport": {"const": "structured_content_roles"},
+              "structured_roles": {"minItems": 1},
+              "required_role_set": {"minItems": 1}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "prompt_binding": {
+                "properties": {"kind": {"const": "derived_media_ordinal"}},
+                "required": ["kind"]
+              },
+              "allowed_media_types": {"contains": {"const": "audio"}}
+            }
+          },
+          "then": {
+            "properties": {
+              "prompt_binding": {
+                "properties": {
+                  "media_formatters": {"required": ["audio"]}
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "prompt_binding": {
+                "properties": {
+                  "kind": {"const": "derived_media_ordinal"},
+                  "media_formatters": {"required": ["audio"]}
+                },
+                "required": ["kind", "media_formatters"]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "allowed_media_types": {"contains": {"const": "audio"}}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "prompt_binding": {
+                "properties": {"kind": {"const": "derived_media_ordinal"}},
+                "required": ["kind"]
+              },
+              "allowed_media_types": {"contains": {"const": "image"}}
+            }
+          },
+          "then": {
+            "properties": {
+              "prompt_binding": {
+                "properties": {
+                  "media_formatters": {"required": ["image"]}
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "prompt_binding": {
+                "properties": {
+                  "kind": {"const": "derived_media_ordinal"},
+                  "media_formatters": {"required": ["image"]}
+                },
+                "required": ["kind", "media_formatters"]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "allowed_media_types": {"contains": {"const": "image"}}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "prompt_binding": {
+                "properties": {"kind": {"const": "derived_media_ordinal"}},
+                "required": ["kind"]
+              },
+              "allowed_media_types": {"contains": {"const": "video"}}
+            }
+          },
+          "then": {
+            "properties": {
+              "prompt_binding": {
+                "properties": {
+                  "media_formatters": {"required": ["video"]}
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "prompt_binding": {
+                "properties": {
+                  "kind": {"const": "derived_media_ordinal"},
+                  "media_formatters": {"required": ["video"]}
+                },
+                "required": ["kind", "media_formatters"]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "allowed_media_types": {"contains": {"const": "video"}}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "required_role_set": {"contains": {"const": "first_frame"}}
+            }
+          },
+          "then": {
+            "properties": {
+              "structured_roles": {"contains": {"const": "first_frame"}}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "required_role_set": {"contains": {"const": "last_frame"}}
+            }
+          },
+          "then": {
+            "properties": {
+              "structured_roles": {"contains": {"const": "last_frame"}}
+            }
+          }
+        }
+      ]
+    },
+    "opaque_prompt_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "source"],
+      "properties": {
+        "kind": {"const": "opaque_external_handle"},
+        "source": {"const": "surface_captured_exact"}
+      }
+    },
+    "media_formatter": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sigil", "media_label", "separator", "ordinal_base"],
+      "properties": {
+        "sigil": {"type": "string", "maxLength": 32},
+        "media_label": {"type": "string", "minLength": 1, "maxLength": 32},
+        "separator": {"type": "string", "maxLength": 32},
+        "ordinal_base": {"const": 1}
+      }
+    },
+    "derived_prompt_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "position_scope", "media_formatters"],
+      "properties": {
+        "kind": {"const": "derived_media_ordinal"},
+        "position_scope": {"const": "per_media_type"},
+        "media_formatters": {
+          "type": "object",
+          "additionalProperties": false,
+          "minProperties": 1,
+          "properties": {
+            "audio": {"$ref": "#/$defs/media_formatter"},
+            "image": {"$ref": "#/$defs/media_formatter"},
+            "video": {"$ref": "#/$defs/media_formatter"}
+          }
+        }
+      }
+    },
+    "no_prompt_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind"],
+      "properties": {"kind": {"const": "none"}}
+    }
+  }
+}

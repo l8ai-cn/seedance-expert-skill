@@ -132,6 +132,25 @@ V7_CLEAN_RUNTIME_PATHS = {
     "schemas/take-review.schema.json",
     "scripts/extract_last_frame.py",
 }
+V705_CANDIDATE_PROFILE_PATHS = {
+    "profiles/models/seedance-2.0-model.json": "seedance-2.0-model",
+    "profiles/surfaces/byteplus-modelark.json": "byteplus.modelark",
+    "profiles/surfaces/fal-reference-to-video.json": "fal.reference-to-video",
+    "profiles/surfaces/volcengine-ark.json": "volcengine.ark",
+}
+V705_CLEAN_RUNTIME_PATHS = (
+    V7_CLEAN_RUNTIME_PATHS
+    - {"references/surface-prompt-profiles.md"}
+    | {
+        "profiles/profile-index.json",
+        "schemas/binding-plan.schema.json",
+        "schemas/binding-render.schema.json",
+        "schemas/model-profile.schema.json",
+        "schemas/profile-index.schema.json",
+        "schemas/surface-profile.schema.json",
+        "scripts/render_surface_bindings.py",
+    }
+)
 V7_AUTHORITIES_SHA256 = "f7f62449d52aa7c096d14e26e21dd4fdcc40d7458cf1d696cf7b4c2949a4c16b"
 V7_SOURCE_RECORD_SHA256 = {
     "bytedance.seedance-2-0.model-page.2026-07-11": "9914a258a746fd88c4c3e8d853283e5184c2110e06a59a4c1f45426a24f13203",
@@ -1169,10 +1188,15 @@ def validate_runtime_map(
         path = entry.get("path")
         status_value = entry.get("audit_status")
         counts[status_value] += 1
-        expected_status = "no_volatile_claims" if path in V7_CLEAN_RUNTIME_PATHS else "legacy_blocked"
+        if path in V705_CANDIDATE_PROFILE_PATHS:
+            expected_status = "mapped_candidate"
+        elif path in V705_CLEAN_RUNTIME_PATHS:
+            expected_status = "no_volatile_claims"
+        else:
+            expected_status = "legacy_blocked"
         if status_value != expected_status:
             errors.append(
-                f"runtime-map/{path}: V7-04 audit status must remain {expected_status}, got {status_value}"
+                f"runtime-map/{path}: V7-05 audit status must remain {expected_status}, got {status_value}"
             )
         try:
             _, raw = read_regular_file(layout.root, path, f"runtime-map/{path}", max_bytes=MAX_JSON_BYTES)
@@ -1182,7 +1206,7 @@ def validate_runtime_map(
         if sha256_bytes(raw) != entry.get("sha256"):
             errors.append(f"runtime-map/{path}: file SHA-256 mismatch")
         occurrences = entry.get("occurrences", [])
-        if status_value in {"mapped"} and not occurrences:
+        if status_value in {"mapped", "mapped_candidate"} and not occurrences:
             errors.append(f"runtime-map/{path}: mapped file must contain occurrences")
         if status_value in {"no_volatile_claims", "non_text"} and occurrences:
             errors.append(f"runtime-map/{path}: clean/non-text file cannot contain occurrences")
@@ -1211,7 +1235,20 @@ def validate_runtime_map(
                 or occurrence.get("disposition") != "supported_candidate"
             ):
                 errors.append(f"runtime-map/{path}/{claim_id}: mapped occurrence is not activation-ready")
-            if path not in claim.get("affected_paths", []):
+            if status_value == "mapped_candidate" and (
+                claim.get("lifecycle_status") != "active"
+                or claim.get("support_status") != "supported"
+                or claim.get("runtime_status") != "candidate"
+                or claim.get("review", {}).get("status") not in {"pending", "approved"}
+                or occurrence.get("disposition") != "supported_candidate"
+                or occurrence.get("profile_ids") != [V705_CANDIDATE_PROFILE_PATHS.get(path)]
+            ):
+                errors.append(f"runtime-map/{path}/{claim_id}: candidate occurrence is not projection-ready")
+            candidate_profile_projection = (
+                status_value == "mapped_candidate"
+                and V705_CANDIDATE_PROFILE_PATHS.get(path) in claim.get("affected_profiles", [])
+            )
+            if path not in claim.get("affected_paths", []) and not candidate_profile_projection:
                 errors.append(f"runtime-map/{path}/{claim_id}: path is absent from claim affected_paths")
             if not set(occurrence.get("profile_ids", [])).issubset(set(claim.get("affected_profiles", []))):
                 errors.append(f"runtime-map/{path}/{claim_id}: profile mapping exceeds claim consumers")

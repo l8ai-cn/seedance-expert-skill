@@ -33,6 +33,34 @@
       "instances": ["validation/fixtures/prompt-spec.valid.json"]
     },
     {
+      "schema": "schemas/binding-plan.schema.json",
+      "instances": [
+        "validation/fixtures/binding-plan.derived.valid.json",
+        "validation/fixtures/binding-plan.opaque.valid.json",
+        "validation/fixtures/binding-plan.structured.valid.json"
+      ]
+    },
+    {
+      "schema": "schemas/binding-render.schema.json",
+      "instances": ["validation/fixtures/binding-render.valid.json"]
+    },
+    {
+      "schema": "schemas/model-profile.schema.json",
+      "instances": ["profiles/models/seedance-2.0-model.json"]
+    },
+    {
+      "schema": "schemas/profile-index.schema.json",
+      "instances": ["profiles/profile-index.json"]
+    },
+    {
+      "schema": "schemas/surface-profile.schema.json",
+      "instances": [
+        "profiles/surfaces/byteplus-modelark.json",
+        "profiles/surfaces/fal-reference-to-video.json",
+        "profiles/surfaces/volcengine-ark.json"
+      ]
+    },
+    {
       "schema": "schemas/evidence-authorities.schema.json",
       "instances": ["research/evidence/authorities.json"]
     },

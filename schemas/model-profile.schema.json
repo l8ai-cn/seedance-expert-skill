@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Emily2040/seedance-2.0/schemas/model-profile.schema.json",
+  "title": "Seedance model profile",
+  "$comment": "Schema version 1 permits disabled candidate projections only. Activation requires a new reviewed contract.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schema_version",
+    "profile_kind",
+    "profile_id",
+    "model_family",
+    "model_version",
+    "status",
+    "runtime_enabled",
+    "binding_contract",
+    "input_modalities",
+    "reference_control_dimensions",
+    "evidence_pins"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "https://github.com/Emily2040/seedance-2.0/schemas/model-profile.schema.json"
+    },
+    "schema_version": {"const": 1},
+    "profile_kind": {"const": "model"},
+    "profile_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)+$",
+      "maxLength": 100
+    },
+    "model_family": {"type": "string", "minLength": 1, "maxLength": 80},
+    "model_version": {"type": "string", "minLength": 1, "maxLength": 80},
+    "status": {"const": "candidate"},
+    "runtime_enabled": {"const": false},
+    "binding_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["owner", "universal_prompt_handle"],
+      "properties": {
+        "owner": {"const": "surface_profile"},
+        "universal_prompt_handle": {"const": false}
+      }
+    },
+    "input_modalities": {
+      "type": "array",
+      "items": {"enum": ["audio", "image", "text", "video"]},
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "reference_control_dimensions": {
+      "type": "array",
+      "items": {
+        "enum": ["camera_movement", "lighting", "performance", "shadow"]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "evidence_pins": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/evidence_pin"}
+    }
+  },
+  "$defs": {
+    "evidence_pin": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["claim_id", "claim_sha256", "expires_at"],
+      "properties": {
+        "claim_id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)+$",
+          "maxLength": 100
+        },
+        "claim_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "expires_at": {"type": "string", "format": "date"}
+      }
+    }
+  }
+}

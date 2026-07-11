@@ -20,7 +20,7 @@ metadata:
 
 # seedance-vocab-ko
 
-Use Korean cinematic vocabulary when the user asks for Korean prompt wording, bilingual delivery, compact translation, or production vocabulary for camera, lighting, action, VFX, audio, and constraints. Preserve reference tags exactly: `@Image1`, `@Video1`, and `@Audio1` must not be translated.
+Use Korean cinematic vocabulary when the user asks for Korean prompt wording, bilingual delivery, compact translation, or production vocabulary for camera, lighting, action, VFX, audio, and constraints. Binding is a separate typed step: a selected profile preserves an external opaque handle, derives an evidenced ordinal, or uses structured roles with no token.
 
 ## Intent
 
@@ -40,7 +40,7 @@ Translate the production intention rather than every English word. Keep the Kore
 
 ## Compact Pattern
 
-`@Image1은 참조 이미지이며 얼굴/제품 형태/로고를 정확히 유지한다. 변화는 [동작/조명/카메라]만 적용한다. 카메라: [한 가지 움직임]. 사운드: [음향 지시].`
+In a separate text segment after the typed binding, avoid handle-dependent particles: `: 참조 자료. 얼굴/제품 형태/로고를 정확히 유지한다. 변화는 [동작/조명/카메라]만 적용한다. 카메라: [한 가지 움직임]. 사운드: [음향 지시].`
 
 ## De-Slop Rule
 
@@ -48,4 +48,4 @@ When the prompt leans on `영화 같은`, `감성적인`, `분위기 있는`, `�
 
 ## Output Contract
 
-Return Korean prompt wording, optional English gloss when useful, and unchanged reference tags.
+Return Korean prose segments, an optional English gloss, and the unchanged typed binding plan for surface rendering.

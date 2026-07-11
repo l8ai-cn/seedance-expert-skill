@@ -64,7 +64,7 @@ Medium close-up, eye-level; she lowers the letter and her hands go still as a sl
 
 ## 5. Two rules that save takes
 
-- **Keep reference tags exactly as written** — `@Image1`, `@Video1`, `@Audio1`, `@图片1`, `@视频1`. Never translate or reformat them.
+- **Resolve every reference through the active surface profile.** Preserve an externally captured handle byte-for-byte, let an API profile derive only its evidenced media ordinal, and add no token for structured roles. Never guess another surface's syntax.
 - **Don't ask for the whole story in one generation.** Generate Clip 01, observe how it *actually* ended, then write Clip 02 from that real ending (`seedance-continuation`).
 
 ## 6. Safety

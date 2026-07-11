@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import re
 from pathlib import Path
 
 RISK_PHRASES = {
@@ -29,6 +30,12 @@ RISK_PHRASES = {
     "обход фильтра": "Russian filter-bypass wording",
     "клонировать лицо": "Russian face-cloning wording",
     "голос знаменитости": "Russian celebrity voice wording",
+    "Keep reference tags unchanged": "retired universal binding rule",
+    "Preserve reference tags exactly": "retired universal binding rule",
+    "platform's `@`-parser": "unsupported universal parser claim",
+    "@Image1`–`@Image9": "unsupported universal image-token range",
+    "@Video1`–`@Video3": "unsupported universal video-token range",
+    "@Audio1`–`@Audio3": "unsupported universal audio-token range",
 }
 
 IGNORE_PREFIXES = [
@@ -39,6 +46,21 @@ IGNORE_PREFIXES = [
 
 IGNORE_FILES = {
     "CHANGELOG.md",
+}
+
+NUMBERED_HANDLE = re.compile(
+    r"@(?:image|video|audio)\s*[1-9][0-9]*"
+    r"|(?<![A-Za-z0-9_])(?:image|video|audio)\s*[1-9][0-9]*(?![A-Za-z0-9_])"
+    r"|(?:图片|图像|视频|音频)\s*[1-9][0-9]*",
+    re.IGNORECASE,
+)
+ALLOWED_NUMBERED_HANDLE_FILES = {
+    "examples/sequence-airport-arrival/clip-01-prompt.md": "fixed_handle_audit: synthetic_fixture",
+    "examples/sequence-airport-arrival/clip-02-prompt.md": "fixed_handle_audit: synthetic_fixture",
+    "examples/sequence-airport-arrival/sequence-plan.md": "fixed_handle_audit: synthetic_fixture",
+    "references/reference-transfer-contract.md": "fixed_handle_audit: contrast_only",
+    "references/sequence-worked-trace.md": "fixed_handle_audit: synthetic_fixture",
+    "references/surface-prompt-profiles.md": "fixed_handle_audit: evidence_example",
 }
 
 
@@ -59,13 +81,24 @@ def main() -> int:
     root = Path(args.repo).resolve()
     findings = []
     archived_findings = []
+    numbered_handle_files: set[str] = set()
 
     for path in root.rglob("*"):
         if path.is_file() and should_scan(path, root):
             text = path.read_text(encoding="utf-8", errors="ignore")
+            relative = path.relative_to(root).as_posix()
             for phrase, reason in RISK_PHRASES.items():
                 if phrase in text:
-                    findings.append((path.relative_to(root).as_posix(), phrase, reason))
+                    findings.append((relative, phrase, reason))
+            if NUMBERED_HANDLE.search(text):
+                numbered_handle_files.add(relative)
+                expected_marker = ALLOWED_NUMBERED_HANDLE_FILES.get(relative)
+                if expected_marker is None or expected_marker not in text:
+                    findings.append((relative, "numbered reference handle", "unquarantined surface syntax"))
+
+    missing_quarantine = set(ALLOWED_NUMBERED_HANDLE_FILES) - numbered_handle_files
+    for relative in sorted(missing_quarantine):
+        findings.append((relative, "numbered reference handle", "declared quarantine no longer contains evidence"))
 
     migrated_root = root / "references" / "migrated"
     if migrated_root.exists():

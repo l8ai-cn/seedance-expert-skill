@@ -18,7 +18,7 @@ The repository does not currently contain a standalone web app. The public front
 - The README must include visible Chinese, Japanese, and Korean copy, not only English labels saying those languages exist.
 - Native-language rows must link to active skill files and active vocabulary references, not migrated legacy files.
 - Japanese and Korean must have active example-skill routes equal in status to Chinese examples.
-- Reference tags such as `@Image1`, `@Video1`, `@Audio1`, `@图片1`, and `@视频1` must be shown exactly so readers do not translate them away.
+- The redesign must never present one fixed reference syntax as universal. Distinguish semantic IDs from an externally captured opaque handle, a profile-derived media ordinal, and structured request roles; show which layer owns each value.
 - Localization guidance must keep subtitles, legal copy, and market copy in post-production unless the user explicitly asks for simple on-screen generated text.
 
 ## Assets

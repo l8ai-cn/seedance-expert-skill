@@ -31,11 +31,11 @@ The user is protecting someone here - a character they invented, a product they 
 
 ## Character Contract
 
-Assign each character a stable tag: `Character A`, `Character B`, `@Image1 subject`, or a user-provided original name. After more than one character appears, do not use ambiguous pronouns. Keep tag, role, appearance, wardrobe, position, action, and emotional beat consistent.
+Assign each character a stable semantic label: `Character A`, `Character B`, or a user-provided original name. Keep that label separate from external handles and profile-derived ordinals. After more than one character appears, do not use ambiguous pronouns. Keep label, role, appearance, wardrobe, position, action, and emotional beat consistent.
 
 | Field | Prompt use |
 |---|---|
-| Tag | `Character A` or `@Image1 subject` |
+| Tag | `Character A` or a user-provided original name; media binding is a separate typed segment |
 | Identity anchor | Age range, silhouette, hair, wardrobe, or authorized reference role |
 | Position | Foreground/background, left/right, seated/standing |
 | Action | One assigned verb and endpoint |
@@ -64,7 +64,7 @@ For real-person likeness, do not infer consent from an uploaded asset. Treat por
 
 ## Sequence State
 
-When sequence state is present, inherit wardrobe, hair, screen geography, eyeline, pose, emotional state, current clip scope, continuity locks, exact reference tags, and reserved future beats. Canonical identity references control identity; accepted footage controls transient opening state. Do not let a motion or continuity source overwrite immutable character locks.
+When sequence state is present, inherit wardrobe, hair, screen geography, eyeline, pose, emotional state, current clip scope, continuity locks, typed bindings and surface policies, and reserved future beats. Canonical identity references control identity; accepted footage controls transient opening state. Do not let a motion or continuity source overwrite immutable character locks.
 
 ## Output Contract
 

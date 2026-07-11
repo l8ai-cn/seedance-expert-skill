@@ -20,7 +20,7 @@ metadata:
 
 # seedance-examples-ja
 
-Use Japanese examples as native prompt patterns, not translated English templates. Preserve reference tags exactly: `@Image1`, `@Image2`, `@Video1`, and `@Audio1` remain unchanged inside Japanese sentences.
+Use Japanese examples as native prompt patterns, not translated English templates. Resolve every reference through `[ref:surface-prompt-profiles]`: preserve external opaque handles, let API profiles derive evidenced ordinals, and add no token for structured roles. Separate an unknown handle from Japanese grammar with punctuation.
 
 ## Intent
 
@@ -37,9 +37,9 @@ Japanese examples should feel like production notes a Japanese creator could act
 
 ## Safe Example Patterns
 
-**Product I2V:** `@Image1を商品参照として使い、ロゴ、ラベル、形状、色を正確に維持する。変化は小さな水滴が表面を下へ流れる動きと、左から横切る柔らかい暖色光だけ。Camera: locked product close-up, slow push-in. Sound: quiet room tone, one small glass tick at the end.`
+**Product I2V:** After the typed product binding: `：商品参照。ロゴ、ラベル、形状、色を正確に維持する。変化は小さな水滴が表面を下へ流れる動きと、左から横切る柔らかい暖色光だけ。Camera: locked product close-up, slow push-in. Sound: quiet room tone, one small glass tick at the end.`
 
-**Portrait micro-performance:** `@Image1の人物の顔、髪型、衣装、背景構図を保持。動きは小さく、一度まばたきし、視線を少し下げ、最後に控えめに微笑む。Camera: locked medium close-up, no reframing. Lighting: soft window light from frame right. Sound: quiet room tone.`
+**Portrait micro-performance:** After the typed portrait binding: `：人物参照。顔、髪型、衣装、背景構図を保持。動きは小さく、一度まばたきし、視線を少し下げ、最後に控えめに微笑む。Camera: locked medium close-up, no reframing. Lighting: soft window light from frame right. Sound: quiet room tone.`
 
 **Sequence clip 01:** `オリジナル人物Aが夜明けの駅ホームに入ってくる。「誰かを待つ」という目的が分かる最初の手がかりだけを見せる。Aは濡れた床を二歩歩き、折りたたまれた切符を見つけて拾わずに止まる。Camera: stable lateral tracking, medium-wide. このクリップでは列車到着や再会は見せない。`
 

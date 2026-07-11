@@ -11,10 +11,13 @@ JSON_START = re.compile(r"^\s*\{")
 REQUIRED_GOLDEN_SECTIONS = [
     "## Source Brief",
     "## Internal Prompt Specification",
-    "## Compiled Natural-Language Prompt",
     "## Lint Result",
     "## Control-Critical Sentences",
 ]
+PROMPT_SECTION_MARKERS = (
+    "## Compiled Natural-Language Prompt",
+    "## Typed Segment Composition",
+)
 BLOCKED_MARKERS = ("TO" "DO", "PLACE" "HOLDER")
 
 
@@ -23,8 +26,8 @@ def read_text(path: Path) -> str:
 
 
 def compiled_prompt(text: str) -> str:
-    marker = "## Compiled Natural-Language Prompt"
-    if marker not in text:
+    marker = next((candidate for candidate in PROMPT_SECTION_MARKERS if candidate in text), None)
+    if marker is None:
         return ""
     tail = text.split(marker, 1)[1]
     for next_marker in ["\n## Lint Result", "\n## Control-Critical Sentences"]:
@@ -47,9 +50,9 @@ def lint_markdown(path: Path, root: Path) -> list[str]:
                 errors.append(f"{rel}: missing {section}")
         prompt = compiled_prompt(text)
         if not prompt:
-            errors.append(f"{rel}: missing compiled natural-language prompt")
+            errors.append(f"{rel}: missing natural-language prompt or typed segment composition")
         elif JSON_START.match(prompt):
-            errors.append(f"{rel}: compiled prompt must be natural language, not JSON/YAML")
+            errors.append(f"{rel}: prompt section must be prose/typed composition, not JSON/YAML")
         if "lint: pass" not in text.lower():
             errors.append(f"{rel}: missing lint: pass result")
         if "why this remains" not in text.lower():
@@ -84,6 +87,15 @@ why this remains: it preserves the observed opening.
 """
     if JSON_START.match(compiled_prompt(sample)):
         return ["self-test failed: prose prompt detected as JSON"]
+    typed = sample.replace(
+        "## Compiled Natural-Language Prompt",
+        "## Typed Segment Composition",
+    ).replace(
+        "Begin with the accepted final frame and stop at the door.",
+        "`binding(source)` + ` continues to the door.`",
+    )
+    if not compiled_prompt(typed).startswith("`binding(source)`"):
+        return ["self-test failed: typed segment composition not detected"]
     bad = sample.replace("Begin with", "{")
     if not JSON_START.match(compiled_prompt(bad)):
         return ["self-test failed: JSON prompt not detected"]

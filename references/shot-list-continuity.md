@@ -26,7 +26,7 @@ Collect only what changes production decisions:
 | Purpose | establish, reveal, demonstrate, emotional turn, end card |
 | Subject/action | product rotates once; character lowers letter |
 | Shot contract | medium close-up, locked-off, 50mm portrait compression |
-| References | `@Image1 product identity`, `@Video1 camera rhythm`, `@Audio1 beat` |
+| References | semantic bindings for product identity, camera rhythm, and beat; exact handles resolved by the surface renderer |
 | Continuity anchors | wardrobe, prop, screen direction, light state, background layout |
 | Start frame | where the shot begins |
 | End frame | next-shot handoff or final target |

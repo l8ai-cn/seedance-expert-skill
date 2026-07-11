@@ -27,7 +27,7 @@ Genre craft appears in three places; each owns one job so they stop diverging:
 
 - `directing-engine.md` / `directing-engine-genre-library.md` own the **derivation** - why a genre is shot, lit, and performed the way it is (read -> intention -> voice -> setup).
 - `genre-guides.md` owns the **priorities** - what each genre most needs protected (product identity, lip-sync, beat-sync).
-- `seedance-recipes` + `examples-by-mode.md` own the **skeletons** - copy-ready starting patterns.
+- `seedance-recipes` + `examples-by-mode.md` own the **skeletons** - semantic starting patterns that require surface binding resolution.
 
 A genre fact's single source of truth is its derivation file; the others reference it rather than restating it.
 

@@ -51,7 +51,7 @@ Classify before rewriting - each class has a different repair:
 
 ## Rewrite Pass
 
-First, underline all superlatives and vague style labels and classify each by slop class. Second, decide whether each word should become camera, light, motion, material, sound, or constraint language. Third, reduce duplicates. Fourth, keep the prompt within the character budget and preserve reference tags.
+First, underline all superlatives and vague style labels and classify each by slop class. Second, decide whether each word should become camera, light, motion, material, sound, or constraint language. Third, reduce duplicates. Fourth, keep the prompt within the character budget and preserve typed bindings and selected surface policies.
 
 ## Do Not Over-Correct
 

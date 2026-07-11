@@ -23,7 +23,9 @@ metadata:
 
 Use recipes as starting patterns, not rigid prompt templates. Pick the recipe that matches the user's outcome, then customize subject, action, camera, lighting, audio, and constraints. Recipes should preserve the one-beat discipline of a short clip.
 
-Load `[ref:genre-guides]` for genre patterns, `[ref:examples-by-mode]` when the user needs copy-ready examples, `[ref:shot-list-continuity]` for professional multi-shot sequences or commercials, and `[ref:multilingual-community-examples]` when the recipe should reflect Chinese/Russian/Japanese/Korean/Spanish community-style structures.
+Load `[ref:genre-guides]` for genre patterns, `[ref:examples-by-mode]` when the user needs semantic starting structures, `[ref:shot-list-continuity]` for professional multi-shot sequences or commercials, and `[ref:multilingual-community-examples]` when the recipe should reflect Chinese/Russian/Japanese/Korean/Spanish community-style structures.
+
+Resolve every reference through `[ref:surface-prompt-profiles]`. “Typed binding” below is compiler structure, not literal prompt text: it preserves an external handle or lets the selected API profile derive its evidenced ordinal; structured endpoint roles add no token. Never invent a default from media type or upload order.
 
 ## Intent
 
@@ -49,13 +51,13 @@ A recipe is a head start, never a mold. The user wants the confidence of a prove
 
 ## Prompt Skeletons
 
-**Product I2V:** `@Image1 is the product reference; preserve logo, label, shape, and materials exactly. [One material or light change]. Camera: [single move]. Lighting: [physical source]. Sound: [ambient/SFX].`
+**Product I2V:** Typed product binding + `is the product reference; preserve logo, label, shape, and materials exactly. [One material or light change]. Camera: [single move]. Lighting: [physical source]. Sound: [ambient/SFX].`
 
 **Drama T2V:** `Character A [visible emotional action] in [specific setting]. Camera: [motivated framing]. Lighting: [motivated source]. Sound: [ambient or short dialogue]. End state: [changed expression/action].`
 
-**Reference Motion:** `@Video1 provides only [camera/action/timing] reference; do not transfer identity, costume, logo, or environment. New subject: [authorized/original subject]. [Action and endpoint].`
+**Reference Motion:** Typed video binding + `provides only [camera/action/timing] reference; do not transfer identity, costume, logo, or environment. New subject: [authorized/original subject]. [Action and endpoint].`
 
-**First/Last Frame:** `@Image1 is the first frame. @Image2 is the last frame. Preserve [identity/product/scene anchors]. Generate a continuous transition from [start state] to [end state]. Camera: [locked or one controlled move]. Sound: [ambient/SFX].`
+**First/Last Frame:** Assign the verified structured endpoint roles, then prompt: `Preserve [identity/product/scene anchors]. Generate a continuous transition from [start state] to [end state]. Camera: [locked or one controlled move]. Sound: [ambient/SFX].`
 
 **Animation:** `Original [character archetype] [action] in [environment]. Style: [medium, line quality, texture, palette]. Motion: [rhythm]. Camera and sound: [simple support].`
 
@@ -65,8 +67,8 @@ If a user gives many goals, choose the recipe that protects the most fragile req
 
 ## Sequence State
 
-When sequence state is present, recipes must inherit the story spine, current clip scope, continuity locks, exact reference tags, completed beats, and reserved future beats. A recipe can propose a clip map, but it must finalize only the current unresolved prompt and leave later prompts provisional until accepted footage is reviewed.
+When sequence state is present, recipes must inherit the story spine, current clip scope, continuity locks, semantic bindings plus selected surface policies, completed beats, and reserved future beats. A recipe can propose a clip map, but it must finalize only the current unresolved prompt and leave later prompts provisional until accepted footage is reviewed.
 
 ## Output Contract
 
-Return one selected recipe, why it fits, the customized prompt skeleton, compact final prompt, and campaign/delivery notes when relevant.
+Return one selected recipe, why it fits, the customized typed prompt skeleton, a surface-rendered prompt only when an eligible profile exists, and campaign/delivery notes when relevant.

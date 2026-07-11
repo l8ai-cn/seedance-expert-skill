@@ -143,9 +143,9 @@ class RuntimePackageTests(unittest.TestCase):
 
     def test_repository_manifest_builds_conservative_runtime_exactly(self) -> None:
         plan = package.package_plan(ROOT)
-        self.assertEqual(plan["payload_file_count"], 103)
-        self.assertEqual(plan["payload_size_bytes"], 540738)
-        self.assertEqual(plan["tree_sha256"], "fef52e3e1b62748334c95350af8c71e6266973d4a0faa27a6d9dcc538708027d")
+        self.assertEqual(plan["payload_file_count"], 114)
+        self.assertEqual(plan["payload_size_bytes"], 645932)
+        self.assertEqual(plan["tree_sha256"], "a6983502f6f3c04a92efae7ae67ffea9cc1f78770d79391674cc4b7f66559443")
 
         first = self.base / "first"
         second = self.base / "second"
@@ -158,8 +158,10 @@ class RuntimePackageTests(unittest.TestCase):
         self.assertEqual(package.verify_package(first)["tree_sha256"], plan["tree_sha256"])
 
         found = package._scan_plain_tree(first)
-        self.assertEqual(len(found), 104)
+        self.assertEqual(len(found), 115)
         self.assertIn("references/interview-starters.md", found)
+        self.assertIn("profiles/profile-index.json", found)
+        self.assertIn("scripts/render_surface_bindings.py", found)
         self.assertNotIn("README.md", found)
         self.assertFalse(any(path.startswith(("docs/", "evals/", "tests/", "data/", "research/")) for path in found))
         self.assertFalse(any(path.startswith("schemas/evidence-") for path in found))
@@ -183,6 +185,17 @@ class RuntimePackageTests(unittest.TestCase):
             capture_output=True,
         )
         self.assertEqual(state_tool.returncode, 0, state_tool.stdout + state_tool.stderr)
+        binding_tool = subprocess.run(
+            [
+                sys.executable,
+                "-B",
+                str(first / "scripts" / "render_surface_bindings.py"),
+                "--self-test",
+            ],
+            text=True,
+            capture_output=True,
+        )
+        self.assertEqual(binding_tool.returncode, 0, binding_tool.stdout + binding_tool.stderr)
 
     def test_selected_binary_asset_is_exactly_preserved(self) -> None:
         repo = self.base / "repo"

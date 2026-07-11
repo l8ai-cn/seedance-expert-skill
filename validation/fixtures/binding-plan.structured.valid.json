@@ -1,0 +1,16 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/binding-plan.schema.json",
+  "schema_version": 1,
+  "profile_id": "volcengine.ark",
+  "operation": "first_last_frame",
+  "segments": [
+    {
+      "kind": "text",
+      "value": "Begin from the supplied first frame, complete one continuous action, and settle at the supplied last frame."
+    }
+  ],
+  "bindings": [
+    {"binding_id": "opening", "media_type": "image", "structured_role": "first_frame"},
+    {"binding_id": "endpoint", "media_type": "image", "structured_role": "last_frame"}
+  ]
+}

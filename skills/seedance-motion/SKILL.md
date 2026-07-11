@@ -53,7 +53,7 @@ When sound drives the motion, pair each visible change with one beat or SFX: `do
 
 ## Reference Motion Rules
 
-For reference footage, use only owned, licensed, public-domain, stock, mocap, rehearsal, or self-recorded material. Map `@Video1` to motion, camera, timing, or blocking, not identity, unless the identity is authorized. If a reference contains a real person, transfer only general motion or camera behavior and explicitly exclude likeness transfer.
+For reference footage, use only owned, licensed, public-domain, stock, mocap, rehearsal, or self-recorded material. Bind the typed video source to motion, camera, timing, or blocking—not identity unless authorized—and resolve it through the selected surface policy. If a reference contains a real person, transfer only general motion or camera behavior and explicitly exclude likeness transfer.
 
 ## Stability Rules
 
@@ -61,7 +61,7 @@ Hands, faces, logos, and product geometry drift when too many actions occur. Red
 
 ## Sequence State
 
-When sequence state is present, inherit the observed action phase, open motion vector, current clip scope, continuity locks, exact reference tags, and reserved future beats. Do not replay actions marked already happened or completed. Do not perform a reserved beat early; carry unfinished motion from the accepted end state into the next clip.
+When sequence state is present, inherit the observed action phase, open motion vector, current clip scope, continuity locks, typed bindings and surface policies, and reserved future beats. Do not replay actions marked already happened or completed. Do not perform a reserved beat early; carry unfinished motion from the accepted end state into the next clip.
 
 ## Output Contract
 

@@ -29,7 +29,7 @@ Avoid exact reproduction claims for protected songs, real voices, or licensed pe
 
 ## Audio Planning Template
 
-`Dialogue: [speaker/line/language]. Ambience: [bed]. SFX: [visible sync cue]. Music: [tempo/mood or none]. Reference: [Audio1 role]. Post: [stems/M&E/loudness/sync notes].`
+`Dialogue: [speaker/line/language]. Ambience: [bed]. SFX: [visible sync cue]. Music: [tempo/mood or none]. Reference: [semantic binding ID, media type, control role, and surface resolution policy]. Post: [stems/M&E/loudness/sync notes].`
 
 ## Sync And Loudness Checks
 
@@ -49,6 +49,6 @@ For professional delivery, check:
 | dialogue desync | shorter line, locked framing, less head motion, one speaker |
 | wrong speaker | tag the speaker and split turns |
 | music overwhelms line | remove music during dialogue, keep room tone |
-| audio reference ignored | map `@Audio1` to tempo or mood and bind a visible event to it |
+| audio reference ignored | bind the typed audio source to tempo or mood, resolve it through the selected surface policy, and attach a visible event to it |
 | video and audio refs conflict | mute video reference or assign video to camera only |
 | localization impossible | plan M&E/stems and textless picture before final edit |

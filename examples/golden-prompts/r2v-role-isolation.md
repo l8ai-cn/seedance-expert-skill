@@ -6,15 +6,17 @@ Use an image for identity, a video for camera rhythm, and audio for tempo.
 
 ## Internal Prompt Specification
 
-Mode: R2V. `@Image1` controls original character identity. `@Video1` controls camera rhythm only. `@Audio1` controls tempo only. Endpoint: character reaches the doorway.
+Mode: R2V. Internal binding `character` controls identity, `camera_reference` controls camera rhythm only, and `tempo_reference` controls tempo only. Endpoint: character reaches the doorway. All three are typed segments.
 
-## Compiled Natural-Language Prompt
+## Typed Segment Composition
 
-@Image1 controls the original character identity and wardrobe. @Video1 controls camera rhythm only; ignore its performer, room, logo, and costume. @Audio1 controls tempo only; do not copy voice or song identity. The character walks toward the doorway in three steady steps as the camera matches the reference rhythm and stops when her hand reaches the handle.
+`binding(character)` + ` controls the original character identity and wardrobe. ` + `binding(camera_reference)` + ` controls camera rhythm only; ignore its performer, room, logo, and costume. ` + `binding(tempo_reference)` + ` controls tempo only; do not copy voice or song identity. The character walks toward the doorway in three steady steps as the camera matches the reference rhythm and stops when her hand reaches the handle.`
+
+The `binding(...)` markers describe typed segments and are never sent literally.
 
 ## Lint Result
 
-lint: pass
+semantic lint: pass; surface render: required
 
 ## Control-Critical Sentences
 

@@ -1,15 +1,15 @@
 # Korean Vocabulary
 
-Use this reference for Korean Seedance prompt wording, role binding, and compact prompt compression. Keep reference tags unchanged: `@Image1`, `@Video1`, and `@Audio1` stay literal.
+Use this reference for Korean Seedance prompt wording, role binding, and compact prompt compression. Binding is a separate typed step: the selected profile preserves an external opaque handle, derives an evidenced media ordinal, or uses structured roles with no token. Never translate provider syntax.
 
 | Function | Korean | English meaning |
 |---|---|---|
-| Role | `@Image1을 첫 프레임으로 사용` | use Image1 as the first frame |
-| Role | `@Image2를 마지막 프레임으로 사용` | use Image2 as the last frame |
-| Role | `@Image1로 인물 정체성을 고정` | Image1 locks character identity |
-| Role | `@Video1은 카메라 움직임만 참고` | Video1 controls camera movement only |
-| Role | `@Video1은 동작 리듬만 참고` | Video1 controls action rhythm only |
-| Role | `@Audio1은 템포와 분위기만 참고` | Audio1 controls tempo and mood only |
+| Request role | 제공된 시작 이미지를 첫 프레임으로 지정 | structured first-frame role; no invented prompt token |
+| Request role | 제공된 끝 이미지를 마지막 프레임으로 지정 | structured last-frame role; no invented prompt token |
+| Binding clause | `참조 역할: 인물 정체성을 고정한다` | locks character identity |
+| Binding clause | `참조 역할: 카메라 움직임만 사용한다` | controls camera movement only |
+| Binding clause | `참조 역할: 동작 리듬만 사용한다` | controls action rhythm only |
+| Binding clause | `참조 역할: 템포와 분위기만 사용한다` | controls tempo and mood only |
 | FirstLastFrame | `첫 프레임은 변경하지 않는다` | keep first frame unchanged |
 | FirstLastFrame | `마지막 프레임을 최종 목표로 삼는다` | final frame is the target endpoint |
 | FirstLastFrame | `중간 동작은 끊기지 않고 이어진다` | continuous in-between motion |
@@ -57,11 +57,11 @@ Use this reference for Korean Seedance prompt wording, role binding, and compact
 
 ## Compact Template
 
-`@Image1은 참조이며 [피사체/제품/얼굴/로고]를 정확히 유지한다. 변화는 [동작/조명/카메라]만 적용한다. 카메라: [한 가지 움직임]. 사운드: [음향 지시].`
+In a separate text segment after the typed binding, avoid `은/는` or `로/으로`, whose form depends on the unknown handle's final sound: `: 참조 자료. [피사체/제품/얼굴/로고]를 정확히 유지한다. 변화는 [동작/조명/카메라]만 적용한다. 카메라: [한 가지 움직임]. 사운드: [음향 지시].`
 
 ## Multimodal Template
 
-`@Image1은 오리지널 인물을 고정한다. @Video1은 카메라 움직임만 참고하고 인물, 장소, 브랜드는 복사하지 않는다. @Audio1은 템포와 분위기만 참고한다.`
+Compile three typed bindings with colon-delimited clauses: `: 오리지널 인물의 정체성을 고정한다`; `: 카메라 움직임만 참고하고 인물, 장소, 브랜드는 복사하지 않는다`; `: 템포와 분위기만 참고한다`.
 
 ## Sequence and Continuation Phrases
 

@@ -34,7 +34,7 @@ Use this only for safe prompts that are being misunderstood. The repair is clari
 Language mixing is allowed when it makes a safe prompt clearer:
 
 - Keep technical camera terms in English when they are more precise: `locked medium shot`, `35mm lens`, `slow dolly-in`.
-- Keep Chinese role binding when it is shorter: `@图片1锁定主体身份`, `@视频1仅参考运镜`.
+- Keep Chinese role clauses when they are shorter, but insert handles only through typed surface bindings: `锁定主体身份`, `仅参考运镜`.
 - Keep dialogue in the speaker language, and keep safety/ownership constraints explicit.
 - Do not translate unsafe content into another language as a workaround.
 - If a prompt still fails, change the risky creative surface instead of only changing language.

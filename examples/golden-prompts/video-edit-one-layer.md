@@ -6,15 +6,17 @@ Fix lighting in an otherwise good clip.
 
 ## Internal Prompt Specification
 
-Mode: edit. `@Video1` is source clip. Change one layer only.
+Mode: edit. Internal binding `source_clip` is the source. Change one layer only.
 
-## Compiled Natural-Language Prompt
+## Typed Segment Composition
 
-@Video1 is the source clip. Preserve the existing subject, timing, camera path, background layout, and action exactly. Change only the lighting layer: add a soft warm practical lamp from frame left and a faint blue rim on the shoulder, keeping the same motion and endpoint. Do not regenerate wardrobe, face, props, dialogue, or camera movement.
+`binding(source_clip)` + ` is the source clip. Preserve the existing subject, timing, camera path, background layout, and action exactly. Change only the lighting layer: add a soft warm practical lamp from frame left and a faint blue rim on the shoulder, keeping the same motion and endpoint. Do not regenerate wardrobe, face, props, dialogue, or camera movement.`
+
+The binding marker is typed plan notation. No edit operation is activated by the V7-05 profiles.
 
 ## Lint Result
 
-lint: pass
+semantic lint: pass; surface render: unavailable in V7-05
 
 ## Control-Critical Sentences
 

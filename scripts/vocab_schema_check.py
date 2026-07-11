@@ -9,6 +9,7 @@ LANGS = ["en", "zh", "ru", "ja", "ko", "es"]
 ALLOWED_FUNCTIONS = {
     "Role", "FirstLastFrame", "Camera", "Shot", "Lens", "Lighting", "Motion",
     "VFX", "Audio", "Text", "Editing", "Constraint", "Constraints", "Safety",
+    "Request role", "Binding clause",
 }
 STRICT_REQUIRED_FUNCTIONS = {"Role", "FirstLastFrame", "Camera", "Audio", "Text", "Editing", "Constraint", "Safety"}
 PROTECTED_TERMS = ["Studio Ghibli", "Ghibli", "Spider-Man", "Disney", "Marvel"]
@@ -47,8 +48,10 @@ def main() -> int:
         rel = path.relative_to(root).as_posix()
         if not text.startswith("# "):
             errors.append(f"{rel}: missing H1")
-        if "Keep reference tags unchanged" not in text and "reference tags unchanged" not in text:
-            errors.append(f"{rel}: missing reference-tag preservation note")
+        if "external opaque handle" not in text or "Never translate provider syntax" not in text:
+            errors.append(f"{rel}: missing typed surface-binding preservation note")
+        if "derives an evidenced media ordinal" not in text or "structured roles with no token" not in text:
+            errors.append(f"{rel}: missing opaque/derived/structured binding split")
         if "| Function |" not in text:
             errors.append(f"{rel}: missing Function vocabulary table")
         if "## Slop Traps" not in text:
@@ -62,7 +65,7 @@ def main() -> int:
         functions = set()
         for i, row in enumerate(rows, start=1):
             function, term, meaning = row[0], row[1], row[2]
-            functions.add(function)
+            functions.add("Role" if function in {"Request role", "Binding clause"} else function)
             if function not in ALLOWED_FUNCTIONS:
                 errors.append(f"{rel}: row {i} has unsupported function `{function}`")
             if not function or not term or not meaning:
@@ -77,8 +80,8 @@ def main() -> int:
             if protected in text:
                 errors.append(f"{rel}: protected term `{protected}` should not appear in active vocab")
 
-        if not re.search(r"@Image1.*@Video1|@Image1.*@Audio1", text, re.S):
-            errors.append(f"{rel}: expected unchanged reference tag examples")
+        if re.search(r"Keep reference tags unchanged|reference tags unchanged", text):
+            errors.append(f"{rel}: contains the retired universal-tag preservation rule")
 
     if errors:
         print("Vocab schema errors:")

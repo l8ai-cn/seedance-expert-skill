@@ -46,23 +46,25 @@ Use `Subject + Action + Scene + Camera + Lighting/Style + Audio + Constraints`. 
 
 ## Mode Gate
 
-Choose the mode before drafting. **T2V** needs subject, action, scene, camera, light, style, and constraints because nothing is visible yet. **I2V** starts from `@Image1` and adds only motion, time, camera, lighting transition, audio, and preservation. **V2V** should map `@Video1` to source clip, camera move, action rhythm, blocking, edit target, or extension anchor rather than accidentally transferring identity. **R2V** must list every reference role and state what must not transfer. **FLF2V** uses `@Image1` as first frame and `@Image2` as last frame, then describes only the continuous transition.
+Choose the mode before drafting. **T2V** needs subject, action, scene, camera, light, style, and constraints because nothing is visible yet. **I2V** starts from the supplied image and adds only motion, time, camera, lighting transition, audio, and preservation. **V2V** maps the supplied video to source clip, camera move, action rhythm, blocking, edit target, or extension anchor rather than accidentally transferring identity. **R2V** lists every semantic binding role and what must not transfer. **FLF2V** assigns explicit first-frame and last-frame roles, then describes only the continuous transition.
+
+Before producing prompt prose, load `[ref:surface-prompt-profiles]`. Represent references as typed binding segments: preserve an external handle only for an opaque profile, omit caller syntax for a derived ordinal, and use structured roles without tokens. Never invent a default `@` token from the mode name or upload order.
 
 | Mode | Drafting priority | Common mistake | Repair |
 |---|---|---|---|
 | T2V | Build the whole shot in compact layers. | Too many events in one clip. | Keep one visible beat and one endpoint. |
-| I2V | Preserve visible identity; add motion. | Re-describing the image until the product or face drifts. | Say `preserve @Image1 exactly`; add only dynamic changes. |
+| I2V | Preserve visible identity; add motion. | Re-describing the image until the product or face drifts. | Bind the supplied image exactly; add only dynamic changes. |
 | V2V | Transfer motion, camera, or timing. | Copying unauthorized likeness or scene details. | Use owned/licensed/authorized references and restrict transfer role. |
 | R2V | Assign separate roles to each asset. | One reference asked to control identity, pose, scene, and style. | Split roles or prioritize the most important role. |
-| FLF2V | Move from first frame to last frame. | Treating the last frame as vague mood instead of endpoint. | State `@Image2` is the final visual target. |
-| Edit | Preserve the source clip while changing one layer. | Rewriting the whole scene and losing continuity. | Say `@Video1 is the source clip; change only...` |
+| FLF2V | Move from first frame to last frame. | Treating the last frame as vague mood instead of endpoint. | Assign explicit endpoint roles and make the last frame the final visual target. |
+| Edit | Preserve the source clip while changing one layer. | Rewriting the whole scene and losing continuity. | Bind the actual edit target through the verified edit operation; change only one layer. |
 | Extend | Continue from accepted source footage only. | Starting from a planned ending or inventing the clip state. | Route to `[skill:seedance-continuation]` and use the observed end state. |
 
 ## Sequence Boundary
 
 The generic prompt skill must not independently invent continuation state. If the user asks to continue, extend, make part two, or use a previous clip, route to `[skill:seedance-continuation]` unless the accepted clip/final frame and observed end state are already present in the sequence state.
 
-For sequence prompts, preserve `project_id`, `clip_id`, `parent_clip_id`, continuity locks, exact reference tags, the actual opening state, completed beat exclusions, and reserved future beats. The final prompt remains natural language and covers only the current clip.
+For sequence prompts, preserve `project_id`, `clip_id`, `parent_clip_id`, continuity locks, typed bindings and surface policies, the actual opening state, completed beat exclusions, and reserved future beats. The final prose covers only the current clip.
 
 ## Prompt Build Process
 

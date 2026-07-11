@@ -20,7 +20,7 @@ metadata:
 
 # seedance-vocab-es
 
-Use Spanish cinematic vocabulary when the user asks for Spanish prompts, bilingual delivery, or compact translation of camera, lighting, action, VFX, audio, and production constraints. Preserve reference tags exactly: `@Image1`, `@Video1`, `@Audio1` must never be translated.
+Use Spanish cinematic vocabulary when the user asks for Spanish prompts, bilingual delivery, or compact translation of camera, lighting, action, VFX, audio, and production constraints. Binding is a separate typed step: a selected profile preserves an external opaque handle, derives an evidenced ordinal, or uses structured roles with no token.
 
 ## Intent
 
@@ -40,7 +40,7 @@ Translate production meaning, not word-for-word English. Keep the prompt concret
 
 ## Compact Pattern
 
-`@Image1 es la referencia; mantener identidad, color y forma sin cambios. Solo cambia [movimiento/luz/cámara]. Cámara: [un movimiento]. Sonido: [señal].`
+In a separate text segment after the typed binding: `: referencia autorizada; mantener identidad, color y forma sin cambios. Solo cambia [movimiento/luz/cámara]. Cámara: [un movimiento]. Sonido: [señal].`
 
 ## De-Slop Rule
 
@@ -48,4 +48,4 @@ When the prompt leans on `cinematográfico`, `épico`, `impresionante`, `mágico
 
 ## Output Contract
 
-Return Spanish prompt wording, optional English gloss when useful, and unchanged reference tags.
+Return Spanish prose segments, an optional English gloss, and the unchanged typed binding plan for surface rendering.

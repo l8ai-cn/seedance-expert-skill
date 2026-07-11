@@ -1,10 +1,14 @@
 # Reference Transfer Contract
 
+<!-- fixed_handle_audit: contrast_only -->
+
 Use this reference when images, videos, audio, previous clips, final frames, or interface tags appear in a sequence.
 
-## Exact Tag Rule
+## Exact Binding Rule
 
-Preserve every user-supplied reference tag exactly. Never invent, normalize, translate, reformat, renumber, correct spacing, or change case in tags such as `@Image1`, `@Image 1`, `@Image1`, `[Video 1]`, or interface-provided equivalents.
+Keep the semantic `binding_id` separate from the surface binding. When a profile requires an externally supplied opaque handle, preserve it byte-for-byte. Never invent, normalize, translate, reformat, renumber, correct spacing, change case, or add a prefix. A value such as `@Image1`, `@Image 1`, `[Video 1]`, or a Chinese/interface-generated name is opaque; its spelling proves nothing about another surface. Derived profiles reject those caller values and construct only their pinned formatter.
+
+Load `[ref:surface-prompt-profiles]` and render typed text/binding segments through the selected operation profile. Never parse placeholder-looking text. When the API uses structured media roles, keep those roles out of prompt prose and never substitute an asset ID, URL, or filename as a token.
 
 ## Role Separation
 
@@ -27,8 +31,10 @@ When a reference contains multiple subjects, identify the intended subject by po
 
 ## Transfer And Ignore Clause
 
-Every role-bound reference should be expressed as:
+Every role-bound reference should compile as a typed binding segment followed by a transfer clause:
 
-`[ReferenceTag] controls [role] only; ignore [identity/environment/logo/audio/camera/motion] from that reference.`
+`controls [role] only; ignore [identity/environment/logo/audio/camera/motion] from that reference.`
+
+The surface renderer inserts a binding before that clause only when the active operation uses `opaque_external_handle` or `derived_media_ordinal`. Opaque values are preserved; ordinals are derived from the selected profile and request position. The bracketed words above are editorial fields, not prompt tokens.
 
 Use only owned, licensed, public-domain, stock, self-recorded, or clearly authorized references for protected identity, voice, brand, logo, or performance transfer.

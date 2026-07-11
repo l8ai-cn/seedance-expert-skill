@@ -1,0 +1,24 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/binding-render.schema.json",
+  "schema_version": 1,
+  "profile_id": "byteplus.modelark",
+  "profile_index_sha256": "02a98fbf0c9816820ad62cdd2de17f35ab3e3bdf0efbdeb87edde485db8a36b2",
+  "profile_sha256": "1f3b30221e886e8a8233479639ec23a8356aa1317170150852672d759db91592",
+  "profile_status": "candidate",
+  "preview": true,
+  "model_profile_id": "seedance-2.0-model",
+  "model_profile_sha256": "c88d295e3f823e0891c529226afbf909afda0edada004cf23a119c1cae33ab04",
+  "operation": "reference_generation",
+  "request_transport": "external_surface_unresolved",
+  "rendered_prompt": "@Image 1 controls product geometry; preserve its label and proportions.",
+  "request_bindings": [
+    {"binding_id": "product", "media_type": "image"}
+  ],
+  "evidence_claim_ids": [
+    "bytedance.model.multimodal-inputs",
+    "bytedance.model.reference-control",
+    "global.binding.no-universal-token",
+    "bp.binding.spaced-example-token"
+  ],
+  "evidence_expires_at": "2026-07-18"
+}

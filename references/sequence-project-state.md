@@ -12,7 +12,7 @@ Plan globally. Generate locally. Observe the real result. Update canon. Continue
 
 Keep canonical and transient state separate.
 
-Canonical references control identity and immutable design: character identity, product identity, wardrobe, product geometry, persistent props, location, and approved reference tags.
+Canonical references control identity and immutable design: character identity, product identity, wardrobe, product geometry, persistent props, location, and approved typed bindings with their selected surface policies.
 
 Accepted previous footage controls transient opening state: pose, action phase, screen position, camera phase, environment arrangement, audio phase, open motion, and incomplete gestures.
 
@@ -83,7 +83,7 @@ PROJECT ID:
 STORY GOAL:
 FINAL OUTCOME:
 SURFACE:
-REFERENCE TAGS:
+REFERENCE BINDINGS (legacy v1 state may still call this field `tag`; treat each value as opaque):
 CANONICAL REFERENCES:
 ACCEPTED CLIPS:
 SCENE MAP:

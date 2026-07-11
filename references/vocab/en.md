@@ -1,15 +1,15 @@
 # English Vocabulary
 
-Use this reference for precise English Seedance prompt wording. English is the default prompting language and the most heavily moderated surface, and it fails in two ways at once: empty quality words ("cinematic, stunning, 8K") add zero signal, and vague threat-adjacent wording trips false-positive filters. Precision fixes both - concrete production English reads better to the model and to the filter. Keep reference tags unchanged: `@Image1`, `@Video1`, and `@Audio1` stay literal.
+Use this reference for precise English Seedance prompt wording. English is the default prompting language and the most heavily moderated surface, and it fails in two ways at once: empty quality words ("cinematic, stunning, 8K") add zero signal, and vague threat-adjacent wording trips false-positive filters. Precision fixes both. Binding is a separate typed step: the selected profile preserves an external opaque handle, derives an evidenced media ordinal, or uses structured roles with no token. Never translate provider syntax.
 
 | Function | English wording | What it decides |
 |---|---|---|
-| Role | `@Image1 is the first frame` | locks the opening composition |
-| Role | `@Image2 is the last frame` | sets the final visual target |
-| Role | `@Image1 locks character identity` | face, hair, and wardrobe stay stable |
-| Role | `@Video1 controls camera movement only` | motion donor, no appearance transfer |
-| Role | `@Video1 controls action rhythm only` | pacing donor, nothing else transfers |
-| Role | `@Audio1 controls tempo and mood only` | the clock of the edit, not its content |
+| Request role | assign the supplied opening image as first frame | locks the opening composition; do not invent prompt text for a structured field |
+| Request role | assign the supplied endpoint image as last frame | sets the final visual target; do not invent prompt text for a structured field |
+| Binding clause | `locks character identity` | face, hair, and wardrobe stay stable |
+| Binding clause | `controls camera movement only` | motion donor, no appearance transfer |
+| Binding clause | `controls action rhythm only` | pacing donor, nothing else transfers |
+| Binding clause | `controls tempo and mood only` | the clock of the edit, not its content |
 | FirstLastFrame | `keep the first frame unchanged` | anchors the opening state |
 | FirstLastFrame | `treat the last frame as the final visual target` | endpoint, not mood reference |
 | FirstLastFrame | `one continuous motion, no jump cut` | forces a single transition path |

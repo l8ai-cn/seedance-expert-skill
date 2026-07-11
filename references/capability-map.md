@@ -9,8 +9,8 @@
 | Multi-shot in one call [official] | `Shot 1:/2:/3:` labels · one action + one camera each · Standard tier · 10–15s/`auto` · shots×seconds budget |
 | Native synced audio [official] | name specific sounds; dialogue as a natural quoted line on-screen; short lines; clean front face ref; SFX>music>dialogue — test dialogue first |
 | Role-separated references [official] | per-asset role **+ exclusion** ("motion only, no appearance") |
-| Motion transfer via @Video [official/field] | donor clip for choreography/camera rhythm + identity @Image |
-| Audio-as-clock via @Audio [field] | "cut on the beat of @Audio1; the turn lands on the drop" |
+| Motion transfer through typed video/image bindings [official/field] | donor clip for choreography/camera rhythm + a separately bound identity image; surface syntax is resolved later |
+| Audio-as-clock via a verified surface binding [field-observed] | typed audio binding + "controls beat timing; the turn lands on the drop" |
 | First/last frame [official] | lock endpoints; prompt initiate→travel→resolve; transformations & match-cuts |
 | Literal camera verbs [official] | one motivated move per shot |
 | Physics [official claim] | physical verbs & consequences, not pose adjectives |
@@ -18,7 +18,7 @@
 | Transformation [field] | endpoint states + the persisting carrier; hard cases → FLF decomposition |
 | 2D/anime [field] | medium grammar: cel over painted bg, sakuga vs held frames, impact frames/speed lines/smears; no lens/DOF talk — full grammar in `[ref:2d-anime-grammar]` |
 | Formats & `auto` [official] | 21:9 for cinema; `auto` sizes duration to complexity |
-| Multilingual [official/field] | zh anchors for texture/mood; keep reference tags exact |
+| Multilingual [official/field] | zh anchors for texture/mood; keep exact opaque surface bindings byte-exact |
 
 ## Design AROUND these
 

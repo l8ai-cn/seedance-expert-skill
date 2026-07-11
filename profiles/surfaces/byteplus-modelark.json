@@ -1,0 +1,35 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/surface-profile.schema.json",
+  "schema_version": 1,
+  "profile_kind": "surface",
+  "profile_id": "byteplus.modelark",
+  "model_profile_id": "seedance-2.0-model",
+  "status": "candidate",
+  "runtime_enabled": false,
+  "fallback_policy": "fail_closed",
+  "operations": [
+    {
+      "operation": "reference_generation",
+      "request_transport": "external_surface_unresolved",
+      "prompt_binding": {
+        "kind": "opaque_external_handle",
+        "source": "surface_captured_exact"
+      },
+      "allowed_media_types": ["image"],
+      "structured_roles": [],
+      "required_role_set": [],
+      "evidence_pins": [
+        {
+          "claim_id": "global.binding.no-universal-token",
+          "claim_sha256": "94a0035d4b184882182f0916788e2616e9c7c094dedb033fe0aa09cb6485f09e",
+          "expires_at": "2026-07-18"
+        },
+        {
+          "claim_id": "bp.binding.spaced-example-token",
+          "claim_sha256": "0c4d17aec48f44f153f6b9a7872940618e0144750728910a18a0373e0c6f11ca",
+          "expires_at": "2026-08-10"
+        }
+      ]
+    }
+  ]
+}
