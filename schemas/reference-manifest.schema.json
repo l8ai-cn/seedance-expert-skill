@@ -1,0 +1,414 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Emily2040/seedance-2.0/schemas/reference-manifest.schema.json",
+  "title": "Seedance V7 reference authority manifest",
+  "$comment": "Candidate-only semantic planning contract. Asset/target ID uniqueness, complete 13-dimension partitions, exactly one winner per required target/dimension, asset purpose, binding-plan alignment, rights sufficiency, and resolved leakage are runtime-enforced invariants. The contract intentionally has no handle, URL, path, provider-object, or media-payload field.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schema_version",
+    "profile_id",
+    "operation",
+    "task_intent",
+    "targets",
+    "assets",
+    "authority_assignments",
+    "selection_order",
+    "ablation_order"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "https://github.com/Emily2040/seedance-2.0/schemas/reference-manifest.schema.json"
+    },
+    "schema_version": {"const": 1},
+    "profile_id": {
+      "enum": ["byteplus.modelark", "fal.reference-to-video", "volcengine.ark"]
+    },
+    "operation": {
+      "enum": ["reference_generation", "first_last_frame"]
+    },
+    "task_intent": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1000,
+      "not": {"pattern": "(?:https?://|file://)"}
+    },
+    "targets": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 64,
+      "items": {"$ref": "#/$defs/target"}
+    },
+    "assets": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 64,
+      "items": {"$ref": "#/$defs/asset"}
+    },
+    "authority_assignments": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 832,
+      "items": {"$ref": "#/$defs/authority_assignment"}
+    },
+    "selection_order": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 64,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/id"}
+    },
+    "ablation_order": {
+      "type": "array",
+      "maxItems": 64,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/id"}
+    }
+  },
+  "oneOf": [
+    {
+      "properties": {
+        "profile_id": {"const": "byteplus.modelark"},
+        "operation": {"const": "reference_generation"}
+      }
+    },
+    {
+      "properties": {
+        "profile_id": {"const": "fal.reference-to-video"},
+        "operation": {"const": "reference_generation"}
+      }
+    },
+    {
+      "properties": {
+        "profile_id": {"const": "volcengine.ark"},
+        "operation": {"enum": ["reference_generation", "first_last_frame"]}
+      }
+    }
+  ],
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+    },
+    "bounded_text": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1000,
+      "not": {"pattern": "(?:https?://|file://)"}
+    },
+    "dimension": {
+      "enum": [
+        "identity",
+        "face_detail",
+        "wardrobe",
+        "product_object_geometry",
+        "environment",
+        "visual_style",
+        "opening_composition",
+        "subject_motion",
+        "camera_motion",
+        "timing_rhythm",
+        "audio_voice",
+        "endpoint",
+        "text_logo_treatment"
+      ]
+    },
+    "dimension_set": {
+      "type": "array",
+      "maxItems": 13,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/dimension"}
+    },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target_id",
+        "target_kind",
+        "required_dimensions",
+        "not_applicable_dimensions"
+      ],
+      "properties": {
+        "target_id": {"$ref": "#/$defs/id"},
+        "target_kind": {
+          "enum": ["character", "product", "object", "environment", "shot", "audio", "text_logo"]
+        },
+        "required_dimensions": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 13,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/dimension"}
+        },
+        "not_applicable_dimensions": {"$ref": "#/$defs/dimension_set"}
+      }
+    },
+    "right_assertion": {
+      "enum": [
+        "user_asserted_authorized",
+        "not_applicable",
+        "unknown",
+        "not_authorized"
+      ]
+    },
+    "rights": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["media_use", "likeness", "voice_performance", "music", "brand_logo"],
+      "properties": {
+        "media_use": {"$ref": "#/$defs/right_assertion"},
+        "likeness": {"$ref": "#/$defs/right_assertion"},
+        "voice_performance": {"$ref": "#/$defs/right_assertion"},
+        "music": {"$ref": "#/$defs/right_assertion"},
+        "brand_logo": {"$ref": "#/$defs/right_assertion"}
+      }
+    },
+    "inspection_method": {
+      "enum": ["user_attested", "reviewer_attested"]
+    },
+    "image_preflight": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "inspection_method",
+        "subject_count",
+        "face_visibility",
+        "face_frame_fraction",
+        "body_coverage",
+        "view_layout",
+        "background_complexity",
+        "has_text",
+        "has_logo",
+        "occlusion",
+        "composition_use"
+      ],
+      "properties": {
+        "inspection_method": {"$ref": "#/$defs/inspection_method"},
+        "subject_count": {"type": "integer", "minimum": 0, "maximum": 64},
+        "face_visibility": {"enum": ["none", "partial", "clear"]},
+        "face_frame_fraction": {"type": "number", "minimum": 0, "maximum": 1},
+        "body_coverage": {"enum": ["none", "partial", "full"]},
+        "view_layout": {"enum": ["single_scene", "multiview_collage"]},
+        "background_complexity": {"enum": ["low", "medium", "high"]},
+        "has_text": {"type": "boolean"},
+        "has_logo": {"type": "boolean"},
+        "occlusion": {"enum": ["none", "partial", "severe"]},
+        "composition_use": {
+          "enum": [
+            "appearance_reference",
+            "opening_frame",
+            "endpoint_frame",
+            "environment_reference",
+            "product_reference",
+            "style_reference"
+          ]
+        }
+      }
+    },
+    "video_preflight": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "inspection_method",
+        "duration_seconds",
+        "cut_count",
+        "actor_count",
+        "camera_motion",
+        "subject_motion",
+        "embedded_audio",
+        "has_voice",
+        "has_music",
+        "occlusion",
+        "silhouette_readable",
+        "start_state_visible",
+        "end_state_visible",
+        "decisive_event_visible"
+      ],
+      "properties": {
+        "inspection_method": {"$ref": "#/$defs/inspection_method"},
+        "duration_seconds": {"type": "number", "exclusiveMinimum": 0, "maximum": 600},
+        "cut_count": {"type": "integer", "minimum": 0, "maximum": 1000},
+        "actor_count": {"type": "integer", "minimum": 0, "maximum": 64},
+        "camera_motion": {"enum": ["locked", "single_move", "compound", "unknown"]},
+        "subject_motion": {"enum": ["none", "subtle", "clear", "complex", "unknown"]},
+        "embedded_audio": {"type": "boolean"},
+        "has_voice": {"type": "boolean"},
+        "has_music": {"type": "boolean"},
+        "occlusion": {"enum": ["none", "partial", "severe"]},
+        "silhouette_readable": {"type": "boolean"},
+        "start_state_visible": {"type": "boolean"},
+        "end_state_visible": {"type": "boolean"},
+        "decisive_event_visible": {"type": "boolean"}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"embedded_audio": {"const": false}}},
+          "then": {
+            "properties": {
+              "has_voice": {"const": false},
+              "has_music": {"const": false}
+            }
+          }
+        }
+      ]
+    },
+    "audio_preflight": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "inspection_method",
+        "duration_seconds",
+        "has_voice",
+        "has_music",
+        "has_sound_effects",
+        "has_ambience",
+        "speaker_count",
+        "clarity",
+        "timing_useful"
+      ],
+      "properties": {
+        "inspection_method": {"$ref": "#/$defs/inspection_method"},
+        "duration_seconds": {"type": "number", "exclusiveMinimum": 0, "maximum": 600},
+        "has_voice": {"type": "boolean"},
+        "has_music": {"type": "boolean"},
+        "has_sound_effects": {"type": "boolean"},
+        "has_ambience": {"type": "boolean"},
+        "speaker_count": {"type": "integer", "minimum": 0, "maximum": 64},
+        "clarity": {"enum": ["clear", "mixed", "poor", "unknown"]},
+        "timing_useful": {"type": "boolean"}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"has_voice": {"const": true}}},
+          "then": {"properties": {"speaker_count": {"minimum": 1}}},
+          "else": {"properties": {"speaker_count": {"const": 0}}}
+        }
+      ]
+    },
+    "subject_locator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["method", "description"],
+      "properties": {
+        "method": {
+          "enum": [
+            "whole_asset",
+            "single_subject",
+            "position",
+            "role",
+            "visible_feature",
+            "speaker_label"
+          ]
+        },
+        "description": {"$ref": "#/$defs/bounded_text"}
+      }
+    },
+    "asset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "asset_id",
+        "media_type",
+        "use",
+        "selection_status",
+        "subject_selector",
+        "subject_locator",
+        "observed_leakage_dimensions",
+        "preflight_status",
+        "preflight",
+        "rights"
+      ],
+      "properties": {
+        "asset_id": {"$ref": "#/$defs/id"},
+        "media_type": {"enum": ["image", "video", "audio"]},
+        "use": {
+          "enum": [
+            "identity_reference",
+            "appearance_reference",
+            "motion_reference",
+            "environment_reference",
+            "style_reference",
+            "opening_frame",
+            "endpoint_frame",
+            "audio_reference",
+            "product_reference",
+            "text_logo_reference"
+          ]
+        },
+        "selection_status": {"enum": ["required", "supporting"]},
+        "subject_selector": {"$ref": "#/$defs/id"},
+        "subject_locator": {"$ref": "#/$defs/subject_locator"},
+        "observed_leakage_dimensions": {"$ref": "#/$defs/dimension_set"},
+        "preflight_status": {"enum": ["inspected", "uninspected"]},
+        "preflight": {
+          "oneOf": [
+            {"$ref": "#/$defs/image_preflight"},
+            {"$ref": "#/$defs/video_preflight"},
+            {"$ref": "#/$defs/audio_preflight"}
+          ]
+        },
+        "rights": {"$ref": "#/$defs/rights"}
+      },
+      "oneOf": [
+        {
+          "properties": {
+            "media_type": {"const": "image"},
+            "preflight": {"$ref": "#/$defs/image_preflight"}
+          }
+        },
+        {
+          "properties": {
+            "media_type": {"const": "video"},
+            "preflight": {"$ref": "#/$defs/video_preflight"}
+          }
+        },
+        {
+          "properties": {
+            "media_type": {"const": "audio"},
+            "preflight": {"$ref": "#/$defs/audio_preflight"}
+          }
+        }
+      ]
+    },
+    "authority_assignment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target_id",
+        "dimension",
+        "winner_asset_id",
+        "excluded_asset_ids",
+        "priority",
+        "confidence",
+        "excluded_transfer_dimensions",
+        "leakage_risks",
+        "resolved_leakage",
+        "acceptance_criteria"
+      ],
+      "properties": {
+        "target_id": {"$ref": "#/$defs/id"},
+        "dimension": {"$ref": "#/$defs/dimension"},
+        "winner_asset_id": {"$ref": "#/$defs/id"},
+        "excluded_asset_ids": {
+          "type": "array",
+          "maxItems": 63,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/id"}
+        },
+        "priority": {"enum": ["required", "supporting"]},
+        "confidence": {"enum": ["high", "medium", "low"]},
+        "excluded_transfer_dimensions": {"$ref": "#/$defs/dimension_set"},
+        "leakage_risks": {"$ref": "#/$defs/dimension_set"},
+        "resolved_leakage": {"$ref": "#/$defs/dimension_set"},
+        "acceptance_criteria": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 16,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/bounded_text"}
+        }
+      }
+    }
+  }
+}

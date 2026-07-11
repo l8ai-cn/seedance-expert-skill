@@ -66,6 +66,10 @@ jobs:
         run: python scripts/extract_last_frame.py --self-test
       - name: Check surface-binding renderer wiring (offline, candidate preview only)
         run: python scripts/render_surface_bindings.py --self-test
+      - name: Check causal scene-IR wiring (offline)
+        run: python scripts/scene_ir_check.py --self-test
+      - name: Check reference planner wiring (offline, candidate preview only)
+        run: python scripts/reference_planner.py --self-test
       - name: Validate deterministic runtime package boundary
         run: python tools/runtime_package.py --dry-run
       - name: Exercise transactional installer and rollback

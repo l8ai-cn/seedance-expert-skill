@@ -146,9 +146,14 @@ V705_CLEAN_RUNTIME_PATHS = (
         "schemas/binding-plan.schema.json",
         "schemas/binding-render.schema.json",
         "schemas/model-profile.schema.json",
+        "schemas/planning-report.schema.json",
         "schemas/profile-index.schema.json",
+        "schemas/reference-manifest.schema.json",
+        "schemas/scene-ir.schema.json",
         "schemas/surface-profile.schema.json",
+        "scripts/reference_planner.py",
         "scripts/render_surface_bindings.py",
+        "scripts/scene_ir_check.py",
     }
 )
 V7_AUTHORITIES_SHA256 = "f7f62449d52aa7c096d14e26e21dd4fdcc40d7458cf1d696cf7b4c2949a4c16b"

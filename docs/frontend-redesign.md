@@ -7,7 +7,7 @@ The repository does not currently contain a standalone web app. The public front
 - Lead with the v6 sequence-state promise: one story state, one current clip contract, one compiled Seedance prompt.
 - Make the README useful to native English, Chinese, Japanese, and Korean readers before they reach the install section, including full native-reader docs and active example skills.
 - Show Seedance's practical range: references, first/last-frame continuity, continuation, product reveal, timeline control, audio, and camera direction.
-- Use generated cinematic infographics for the operating-system overview, skill map, skill capability map, CDN delivery map, reference role map, production delivery map, and QC stack.
+- Use generated cinematic infographics for the operating-system overview, skill map, skill capability map, CDN delivery map, production delivery map, and QC stack. The retired media-type reference-role graphic must not appear because it implies false universal authority rules.
 - Allow text-rich infographics when the text is large, corrected, visually balanced, and repeated in nearby searchable Markdown.
 - Keep SVG assets as support diagrams, not the primary emotional surface.
 - Validate README completeness, gallery coverage, PNG dimensions, and asset presence with `scripts/design_audit.py`.
@@ -27,7 +27,6 @@ The repository does not currently contain a standalone web app. The public front
 - `assets/hero-global-filmmaker-mode.png`
 - `assets/infographic-skill-capabilities.png`
 - `assets/infographic-cdn-delivery-map.png`
-- `assets/infographic-reference-role-map.png`
 - `assets/infographic-production-delivery.png`
 - `assets/infographic-professional-qc-stack.png`
 - `assets/hero-cinematic.png`

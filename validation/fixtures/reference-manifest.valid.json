@@ -1,0 +1,81 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/reference-manifest.schema.json",
+  "schema_version": 1,
+  "profile_id": "fal.reference-to-video",
+  "operation": "reference_generation",
+  "task_intent": "Keep the bottle geometry stable while showing one readable tip, contact, response, and settled endpoint.",
+  "targets": [
+    {
+      "target_id": "bottle",
+      "target_kind": "product",
+      "required_dimensions": ["product_object_geometry"],
+      "not_applicable_dimensions": [
+        "identity",
+        "face_detail",
+        "wardrobe",
+        "environment",
+        "visual_style",
+        "opening_composition",
+        "subject_motion",
+        "camera_motion",
+        "timing_rhythm",
+        "audio_voice",
+        "endpoint",
+        "text_logo_treatment"
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "asset_id": "product",
+      "media_type": "image",
+      "use": "product_reference",
+      "selection_status": "required",
+      "subject_selector": "bottle",
+      "subject_locator": {
+        "method": "single_subject",
+        "description": "The bottle is the only visible product subject."
+      },
+      "observed_leakage_dimensions": ["environment", "visual_style"],
+      "preflight_status": "inspected",
+      "preflight": {
+        "inspection_method": "reviewer_attested",
+        "subject_count": 1,
+        "face_visibility": "none",
+        "face_frame_fraction": 0,
+        "body_coverage": "full",
+        "view_layout": "single_scene",
+        "background_complexity": "low",
+        "has_text": false,
+        "has_logo": false,
+        "occlusion": "none",
+        "composition_use": "product_reference"
+      },
+      "rights": {
+        "media_use": "user_asserted_authorized",
+        "likeness": "not_applicable",
+        "voice_performance": "not_applicable",
+        "music": "not_applicable",
+        "brand_logo": "not_applicable"
+      }
+    }
+  ],
+  "authority_assignments": [
+    {
+      "target_id": "bottle",
+      "dimension": "product_object_geometry",
+      "winner_asset_id": "product",
+      "excluded_asset_ids": [],
+      "priority": "required",
+      "confidence": "high",
+      "excluded_transfer_dimensions": ["environment", "visual_style"],
+      "leakage_risks": ["environment", "visual_style"],
+      "resolved_leakage": ["environment", "visual_style"],
+      "acceptance_criteria": [
+        "The bottle silhouette and proportions remain stable through the settled endpoint."
+      ]
+    }
+  ],
+  "selection_order": ["product"],
+  "ablation_order": []
+}

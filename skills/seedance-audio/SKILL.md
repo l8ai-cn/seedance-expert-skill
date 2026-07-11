@@ -53,7 +53,7 @@ Use one speaker per short clip when reliability matters. If two characters must 
 
 ## Failure Fixes
 
-If dialogue desyncs, shorten the line, lock the camera, remove head turns, clean the audio role, and reduce competing SFX. If the wrong speaker talks, assign tags and split lines by speaker. If audio is ignored, remove extra music/SFX instructions and make the reference role explicit.
+If dialogue desyncs, shorten the line, lock the camera, remove head turns, make audio/voice and timing/rhythm authority explicit, and reduce competing SFX. If the wrong speaker talks, assign tags and split lines by speaker. If audio is ignored, remove extra music/SFX instructions and resolve competing audio dimensions.
 
 If audio and video references fight each other, mute the reference video before upload when possible, or compile separate typed binding clauses: the video controls camera only; the audio controls tempo and energy.
 
@@ -63,4 +63,4 @@ When sequence state is present, inherit completed dialogue, active dialogue, amb
 
 ## Output Contract
 
-Return speaker map, quoted dialogue, sound layers, audio reference role, lip-sync constraints, post/delivery notes if needed, and a compact prompt-ready audio block.
+Return speaker map, quoted dialogue, sound layers, audio/voice and timing/rhythm authority plus exclusions, lip-sync constraints, post/delivery notes if needed, and a compact prompt-ready audio block.

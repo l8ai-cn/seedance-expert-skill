@@ -28,7 +28,7 @@ Use this reference for Seedance 2.0 operational planning on Volcengine, BytePlus
 
 - Prompt says one visible beat, one camera move, physical light, sound intent, and constraints.
 - Mode is explicit: T2V, I2V, V2V, R2V, FLF2V, edit, or extend.
-- Reference roles are explicit and legal: first frame, last frame, identity, product, motion, camera, timing, audio, or style.
+- Reference authority is explicit and authorized per target/dimension; structured first/last-frame request roles and surface bindings remain separate contracts.
 - Audio references are paired with a text prompt and a valid image/video reference when the surface requires that combination.
 - First/last-frame requests do not silently mix incompatible video/audio reference modes unless the active docs allow it.
 - Real-person, face, portrait, and voice inputs have authorization and surface support.

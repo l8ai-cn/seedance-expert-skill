@@ -43,7 +43,7 @@ State: actor/object, action, force level, timing, physical consequence, continui
 
 ## Physics-Forward Pattern
 
-Official material claims strong physics; extract it by writing causes and letting the model compute consequences (field-observed emphasis - test before promising results). State mass, force, and material, then name one consequence the camera can see: `the heavy oak door swings shut and the candle flames bend toward it` beats `the door closes dramatically`. Consequences prove the action: weight shows in landing compression, momentum in overshoot and recovery, friction in skid length, wind in what it displaces. One physical cause with two or three visible consequences reads stronger than three separate actions.
+Use causal language as a planning and evaluation heuristic, not as proof of Seedance's internal physics architecture. For material interaction, state mass, force, material, and one consequence the camera can see: `the heavy oak door swings shut and the candle flames bend toward it` is more testable than `the door closes dramatically`. Weight can be staged through landing compression, momentum through overshoot and recovery, friction through skid length, and wind through what it displaces. For a performance, reveal, or lighting beat, use a visible non-material state change instead of inventing contact physics. Test before promising results.
 
 ## Timing Pattern
 
@@ -65,4 +65,4 @@ When sequence state is present, inherit the observed action phase, open motion v
 
 ## Output Contract
 
-Return the motion phrase, timing pattern, reference role map if any, and repaired prompt language.
+Return the motion phrase, causal/observable event chain when needed, timing pattern, target/dimension reference authority if any, and repaired prompt language.

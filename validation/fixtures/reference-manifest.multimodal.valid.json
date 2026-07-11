@@ -1,0 +1,192 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/reference-manifest.schema.json",
+  "schema_version": 1,
+  "profile_id": "fal.reference-to-video",
+  "operation": "reference_generation",
+  "task_intent": "Preserve one performer identity while borrowing only the selected body motion and spoken voice.",
+  "targets": [
+    {
+      "target_id": "hero",
+      "target_kind": "character",
+      "required_dimensions": ["identity", "subject_motion", "audio_voice"],
+      "not_applicable_dimensions": [
+        "face_detail",
+        "wardrobe",
+        "product_object_geometry",
+        "environment",
+        "visual_style",
+        "opening_composition",
+        "camera_motion",
+        "timing_rhythm",
+        "endpoint",
+        "text_logo_treatment"
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "asset_id": "hero_image",
+      "media_type": "image",
+      "use": "identity_reference",
+      "selection_status": "required",
+      "subject_selector": "hero",
+      "subject_locator": {
+        "method": "single_subject",
+        "description": "The hero is the only visible person."
+      },
+      "observed_leakage_dimensions": ["environment", "visual_style"],
+      "preflight_status": "inspected",
+      "preflight": {
+        "inspection_method": "user_attested",
+        "subject_count": 1,
+        "face_visibility": "clear",
+        "face_frame_fraction": 0.24,
+        "body_coverage": "partial",
+        "view_layout": "single_scene",
+        "background_complexity": "low",
+        "has_text": false,
+        "has_logo": false,
+        "occlusion": "none",
+        "composition_use": "appearance_reference"
+      },
+      "rights": {
+        "media_use": "user_asserted_authorized",
+        "likeness": "user_asserted_authorized",
+        "voice_performance": "not_applicable",
+        "music": "not_applicable",
+        "brand_logo": "not_applicable"
+      }
+    },
+    {
+      "asset_id": "motion_video",
+      "media_type": "video",
+      "use": "motion_reference",
+      "selection_status": "supporting",
+      "subject_selector": "hero",
+      "subject_locator": {
+        "method": "single_subject",
+        "description": "The motion donor contains one visible performer."
+      },
+      "observed_leakage_dimensions": [
+        "identity",
+        "environment",
+        "visual_style",
+        "camera_motion",
+        "timing_rhythm"
+      ],
+      "preflight_status": "inspected",
+      "preflight": {
+        "inspection_method": "reviewer_attested",
+        "duration_seconds": 4.8,
+        "cut_count": 0,
+        "actor_count": 1,
+        "camera_motion": "single_move",
+        "subject_motion": "clear",
+        "embedded_audio": false,
+        "has_voice": false,
+        "has_music": false,
+        "occlusion": "none",
+        "silhouette_readable": true,
+        "start_state_visible": true,
+        "end_state_visible": true,
+        "decisive_event_visible": true
+      },
+      "rights": {
+        "media_use": "user_asserted_authorized",
+        "likeness": "user_asserted_authorized",
+        "voice_performance": "not_applicable",
+        "music": "not_applicable",
+        "brand_logo": "not_applicable"
+      }
+    },
+    {
+      "asset_id": "voice_audio",
+      "media_type": "audio",
+      "use": "audio_reference",
+      "selection_status": "supporting",
+      "subject_selector": "hero",
+      "subject_locator": {
+        "method": "single_subject",
+        "description": "The clip contains one clearly identified speaker."
+      },
+      "observed_leakage_dimensions": ["timing_rhythm"],
+      "preflight_status": "inspected",
+      "preflight": {
+        "inspection_method": "user_attested",
+        "duration_seconds": 3.2,
+        "has_voice": true,
+        "has_music": false,
+        "has_sound_effects": false,
+        "has_ambience": false,
+        "speaker_count": 1,
+        "clarity": "clear",
+        "timing_useful": true
+      },
+      "rights": {
+        "media_use": "user_asserted_authorized",
+        "likeness": "not_applicable",
+        "voice_performance": "user_asserted_authorized",
+        "music": "not_applicable",
+        "brand_logo": "not_applicable"
+      }
+    }
+  ],
+  "authority_assignments": [
+    {
+      "target_id": "hero",
+      "dimension": "identity",
+      "winner_asset_id": "hero_image",
+      "excluded_asset_ids": ["motion_video", "voice_audio"],
+      "priority": "required",
+      "confidence": "high",
+      "excluded_transfer_dimensions": ["environment", "visual_style"],
+      "leakage_risks": ["environment", "visual_style"],
+      "resolved_leakage": ["environment", "visual_style"],
+      "acceptance_criteria": ["The performer remains recognizably the person in the identity image."]
+    },
+    {
+      "target_id": "hero",
+      "dimension": "subject_motion",
+      "winner_asset_id": "motion_video",
+      "excluded_asset_ids": ["hero_image", "voice_audio"],
+      "priority": "required",
+      "confidence": "high",
+      "excluded_transfer_dimensions": [
+        "identity",
+        "environment",
+        "visual_style",
+        "camera_motion",
+        "timing_rhythm"
+      ],
+      "leakage_risks": [
+        "identity",
+        "environment",
+        "visual_style",
+        "camera_motion",
+        "timing_rhythm"
+      ],
+      "resolved_leakage": [
+        "identity",
+        "environment",
+        "visual_style",
+        "camera_motion",
+        "timing_rhythm"
+      ],
+      "acceptance_criteria": ["The body follows the donor action without copying its person, set, style, or camera."]
+    },
+    {
+      "target_id": "hero",
+      "dimension": "audio_voice",
+      "winner_asset_id": "voice_audio",
+      "excluded_asset_ids": ["hero_image", "motion_video"],
+      "priority": "required",
+      "confidence": "high",
+      "excluded_transfer_dimensions": ["timing_rhythm"],
+      "leakage_risks": ["timing_rhythm"],
+      "resolved_leakage": ["timing_rhythm"],
+      "acceptance_criteria": ["The spoken voice matches the authorized voice reference without importing its timing as camera rhythm."]
+    }
+  ],
+  "selection_order": ["hero_image", "motion_video", "voice_audio"],
+  "ablation_order": ["voice_audio", "motion_video"]
+}

@@ -1,0 +1,151 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/scene-ir.schema.json",
+  "schema_version": 1,
+  "entities": [
+    {
+      "entity_id": "performer",
+      "label": "seated performer",
+      "kind": "character",
+      "stable_features": ["upright seated posture", "hands resting in frame", "direct eyeline"]
+    }
+  ],
+  "materials": [],
+  "shots": [
+    {
+      "shot_id": "quiet_realization",
+      "shot_index": 1,
+      "events": [
+        {
+          "event_id": "performance_initial",
+          "event_index": 1,
+          "phase": "initial_state",
+          "actor_ids": ["performer"],
+          "target_ids": [],
+          "depends_on": [],
+          "visible_state_change": "The performer sits still with a neutral expression and direct eyeline.",
+          "interaction_kind": "none",
+          "material_ids": []
+        },
+        {
+          "event_id": "performance_trigger",
+          "event_index": 2,
+          "phase": "trigger",
+          "actor_ids": ["performer"],
+          "target_ids": [],
+          "depends_on": ["performance_initial"],
+          "visible_state_change": "The performer hears an off-screen name and shifts attention slightly left.",
+          "interaction_kind": "none",
+          "material_ids": []
+        },
+        {
+          "event_id": "performance_change",
+          "event_index": 3,
+          "phase": "contact_or_state_change",
+          "actor_ids": ["performer"],
+          "target_ids": [],
+          "depends_on": ["performance_trigger"],
+          "visible_state_change": "Recognition becomes visible as the eyes widen and the brow lifts.",
+          "interaction_kind": "non_material_state_change",
+          "material_ids": []
+        },
+        {
+          "event_id": "performance_response",
+          "event_index": 4,
+          "phase": "primary_response",
+          "actor_ids": ["performer"],
+          "target_ids": [],
+          "depends_on": ["performance_change"],
+          "visible_state_change": "A restrained smile appears while the performer keeps the new eyeline.",
+          "interaction_kind": "non_material_state_change",
+          "material_ids": []
+        },
+        {
+          "event_id": "performance_follow",
+          "event_index": 5,
+          "phase": "follow_through",
+          "actor_ids": ["performer"],
+          "target_ids": [],
+          "depends_on": ["performance_response"],
+          "visible_state_change": "The performer exhales and the shoulders relax without changing position.",
+          "interaction_kind": "none",
+          "material_ids": []
+        },
+        {
+          "event_id": "performance_endpoint",
+          "event_index": 6,
+          "phase": "settled_endpoint",
+          "actor_ids": ["performer"],
+          "target_ids": [],
+          "depends_on": ["performance_follow"],
+          "visible_state_change": "The performer holds the gentle smile and leftward eyeline in a stable final beat.",
+          "interaction_kind": "none",
+          "material_ids": []
+        }
+      ],
+      "camera": {
+        "primary_move": {
+          "kind": "push_in",
+          "start_framing": "Medium close-up with both eyes and shoulders unobstructed.",
+          "path": "Straight, shallow move toward the performer.",
+          "speed": "slow and even",
+          "subject_relationship": "The eyeline and expression remain readable throughout the move.",
+          "endpoint_framing": "Tight close-up holding the settled smile and both eyes."
+        },
+        "observability": {
+          "before_state_event_id": "performance_initial",
+          "decisive_event_id": "performance_change",
+          "consequence_event_ids": ["performance_response", "performance_follow"],
+          "endpoint_event_id": "performance_endpoint",
+          "occlusion_risks": ["The push-in could crop the eyes before the expression settles."],
+          "mitigations": ["End with visible margin above the brow and below the chin."]
+        }
+      }
+    }
+  ],
+  "audio_events": [
+    {
+      "audio_event_id": "offscreen_name",
+      "shot_id": "quiet_realization",
+      "linked_event_id": "performance_trigger",
+      "source_entity_ids": ["performer"],
+      "temporal_relationship": "on_trigger",
+      "semantic_function": "dialogue",
+      "description": "The performer quietly says one short word at the attention shift."
+    }
+  ],
+  "requested_invariants": [
+    {
+      "invariant_id": "identity_and_eyeline",
+      "entity_ids": ["performer"],
+      "description": "Identity remains stable and the final leftward eyeline does not revert."
+    }
+  ],
+  "known_fragilities": [
+    {
+      "fragility_id": "expression_timing",
+      "event_ids": ["performance_change", "performance_response"],
+      "description": "The recognition and smile may merge before the state change can be read."
+    }
+  ],
+  "acceptance_tests": [
+    {
+      "acceptance_id": "recognition_then_smile",
+      "event_ids": ["performance_change", "performance_response"],
+      "observable": "The eye and brow change is visible before the smile appears.",
+      "pass_condition": "Recognition and response remain two ordered, readable beats."
+    },
+    {
+      "acceptance_id": "performance_settled",
+      "event_ids": ["performance_endpoint"],
+      "observable": "The final smile and leftward eyeline hold without drift.",
+      "pass_condition": "The endpoint remains visually stable through the final beat."
+    }
+  ],
+  "post_fallbacks": [
+    {
+      "fallback_id": "tighten_response_hold",
+      "trigger_acceptance_ids": ["recognition_then_smile"],
+      "action": "If the two expression beats merge, shorten the response hold without inventing a new state change."
+    }
+  ]
+}

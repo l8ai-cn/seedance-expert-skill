@@ -17,7 +17,7 @@
 | Gate | Pass condition |
 |---|---|
 | Mode | T2V, I2V, V2V, or R2V is explicit. |
-| References | Each asset has exactly one primary role unless deliberately layered. |
+| References | Every applicable target/dimension has exactly one winning asset; every included asset owns at least one necessary dimension and lists likely leakage exclusions. |
 | Subject | Main subject appears in the first clause and has stable tags if needed. |
 | Action | One visible beat has an observable endpoint. |
 | Camera | One primary move has start, speed, subject relationship, and endpoint. |
@@ -29,6 +29,8 @@
 | Sequence lineage | Sequence prompts have `project_id`, `clip_id`, and parent when continuing. |
 | Actual state | Continuations start from accepted observed state, not planned state. |
 | Clip scope | Completed beats are excluded and reserved future beats stay out. |
+| Causal chain | Fragile action has an ordered initial state, trigger, decisive change, visible response, follow-through, and settled endpoint. |
+| Observability | One primary camera move can show the before-state, decisive event, consequence, and endpoint. |
 
 ## Fast repair phrases
 
@@ -43,3 +45,14 @@
 | Style/IP risk | `medium + texture + palette + composition + motion rhythm` |
 | Planned ending mismatch | `begin from the observed final frame: [actual visible state]` |
 | Future beat leakage | `this clip stops at [endpoint]; do not show [reserved future beat] yet` |
+| Reference authority conflict | choose one winner for the exact target/dimension; exclude that dimension from every competing asset |
+| Donor leakage | keep only the donor's assigned motion/camera/timing dimensions; exclude identity, wardrobe, environment, style, audio, and logo as applicable |
+| Invisible consequence | make the trigger, state change, visible response, and endpoint readable from the chosen camera |
+
+## Reference boundary
+
+- Authority is `(target, dimension)`, not one role per file. A single asset may control several compatible dimensions.
+- Media type, upload order, priority, confidence, and legacy project-state tags never choose a winner.
+- An appearance image is not a first or last frame unless the verified operation assigns that structured role.
+- Keep semantic binding IDs separate from authority, request transport, and prompt-visible syntax.
+- Treat causal and observability planning as a preflight heuristic, not a Seedance architecture or physics guarantee.

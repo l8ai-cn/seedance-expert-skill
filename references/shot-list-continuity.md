@@ -55,7 +55,7 @@ Track these anchors across shots:
 1. Extract the dramatic or commercial beats.
 2. Assign one Seedance clip per beat unless the beat is tiny and stable.
 3. Choose the fragile anchor for each clip: face, product, text, choreography, or endpoint.
-4. Select the safest mode: I2V for identity/product preservation, FLF2V for exact endpoints, R2V for role-bound motion or camera, edit for one-layer changes, extend for continuation.
+4. Select the safest verified mode: I2V for an image-conditioned preservation attempt, FLF2V when the surface exposes structured endpoint roles, R2V for target/dimension-controlled references, edit for one-layer changes, extend for continuation. Test fidelity; the mode name is not a guarantee.
 5. Create a shot contract and continuity anchors for every shot.
 6. Write prompts only after the shot list is stable.
 

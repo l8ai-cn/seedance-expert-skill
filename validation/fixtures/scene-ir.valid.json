@@ -1,0 +1,170 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/scene-ir.schema.json",
+  "schema_version": 1,
+  "entities": [
+    {
+      "entity_id": "bottle",
+      "label": "clear glass bottle",
+      "kind": "product",
+      "stable_features": ["cylindrical silhouette", "short narrow neck", "transparent body"]
+    },
+    {
+      "entity_id": "table",
+      "label": "matte wooden tabletop",
+      "kind": "environment",
+      "stable_features": ["flat uninterrupted surface", "warm brown finish"]
+    }
+  ],
+  "materials": [
+    {
+      "material_id": "bottle_glass",
+      "entity_id": "bottle",
+      "kind": "rigid",
+      "response_properties": ["retains silhouette", "brief hard contact"]
+    },
+    {
+      "material_id": "table_wood",
+      "entity_id": "table",
+      "kind": "rigid",
+      "response_properties": ["does not visibly deform", "stops downward motion"]
+    }
+  ],
+  "shots": [
+    {
+      "shot_id": "bottle_tip",
+      "shot_index": 1,
+      "events": [
+        {
+          "event_id": "bottle_initial",
+          "event_index": 1,
+          "phase": "initial_state",
+          "actor_ids": ["bottle"],
+          "target_ids": ["table"],
+          "depends_on": [],
+          "visible_state_change": "The bottle stands upright and still on the tabletop.",
+          "interaction_kind": "none",
+          "material_ids": []
+        },
+        {
+          "event_id": "bottle_trigger",
+          "event_index": 2,
+          "phase": "trigger",
+          "actor_ids": ["bottle"],
+          "target_ids": ["table"],
+          "depends_on": ["bottle_initial"],
+          "visible_state_change": "The bottle begins tipping toward its right side.",
+          "interaction_kind": "none",
+          "material_ids": []
+        },
+        {
+          "event_id": "bottle_contact",
+          "event_index": 3,
+          "phase": "contact_or_state_change",
+          "actor_ids": ["bottle"],
+          "target_ids": ["table"],
+          "depends_on": ["bottle_trigger"],
+          "visible_state_change": "The bottle side makes visible contact with the tabletop.",
+          "interaction_kind": "contact",
+          "material_ids": ["bottle_glass", "table_wood"]
+        },
+        {
+          "event_id": "bottle_response",
+          "event_index": 4,
+          "phase": "primary_response",
+          "actor_ids": ["bottle"],
+          "target_ids": ["table"],
+          "depends_on": ["bottle_contact"],
+          "visible_state_change": "The rigid contact stops the fall and redirects the bottle into a short roll.",
+          "interaction_kind": "contact",
+          "material_ids": ["bottle_glass", "table_wood"]
+        },
+        {
+          "event_id": "bottle_follow",
+          "event_index": 5,
+          "phase": "follow_through",
+          "actor_ids": ["bottle"],
+          "target_ids": ["table"],
+          "depends_on": ["bottle_response"],
+          "visible_state_change": "The bottle rolls a short distance while its motion visibly decays.",
+          "interaction_kind": "none",
+          "material_ids": []
+        },
+        {
+          "event_id": "bottle_endpoint",
+          "event_index": 6,
+          "phase": "settled_endpoint",
+          "actor_ids": ["bottle"],
+          "target_ids": ["table"],
+          "depends_on": ["bottle_follow"],
+          "visible_state_change": "The bottle settles fully on its side and remains still.",
+          "interaction_kind": "none",
+          "material_ids": []
+        }
+      ],
+      "camera": {
+        "primary_move": {
+          "kind": "locked",
+          "start_framing": "Medium side view containing the bottle and its short roll path.",
+          "path": "No translation or rotation.",
+          "speed": "static",
+          "subject_relationship": "The bottle remains unobstructed in the center third of frame.",
+          "endpoint_framing": "Medium side view with the settled bottle fully visible."
+        },
+        "observability": {
+          "before_state_event_id": "bottle_initial",
+          "decisive_event_id": "bottle_contact",
+          "consequence_event_ids": ["bottle_response", "bottle_follow"],
+          "endpoint_event_id": "bottle_endpoint",
+          "occlusion_risks": [],
+          "mitigations": []
+        }
+      }
+    }
+  ],
+  "audio_events": [
+    {
+      "audio_event_id": "contact_sound",
+      "shot_id": "bottle_tip",
+      "linked_event_id": "bottle_contact",
+      "source_entity_ids": ["bottle", "table"],
+      "temporal_relationship": "on_contact_or_state_change",
+      "semantic_function": "sound_effect",
+      "description": "One short hard contact sound occurs at the visible impact."
+    }
+  ],
+  "requested_invariants": [
+    {
+      "invariant_id": "bottle_geometry",
+      "entity_ids": ["bottle"],
+      "description": "The bottle silhouette and proportions remain unchanged across the shot."
+    }
+  ],
+  "known_fragilities": [
+    {
+      "fragility_id": "contact_readability",
+      "event_ids": ["bottle_contact", "bottle_response"],
+      "description": "The contact and its immediate response may visually collapse into one ambiguous beat."
+    }
+  ],
+  "acceptance_tests": [
+    {
+      "acceptance_id": "impact_visible",
+      "event_ids": ["bottle_contact", "bottle_response"],
+      "observable": "The impact frame and redirected roll are both visible without occlusion.",
+      "pass_condition": "The contact precedes the roll and the bottle does not pass through the table."
+    },
+    {
+      "acceptance_id": "endpoint_settled",
+      "event_ids": ["bottle_endpoint"],
+      "observable": "The bottle is fully still on its side in the final beat.",
+      "pass_condition": "No residual sliding, rolling, geometry drift, or camera cutoff remains."
+    }
+  ],
+  "post_fallbacks": [
+    {
+      "fallback_id": "trim_after_settle",
+      "trigger_acceptance_ids": ["endpoint_settled"],
+      "action": "If the settled hold is longer than needed, trim only after the first fully still frame."
+    }
+  ]
+}

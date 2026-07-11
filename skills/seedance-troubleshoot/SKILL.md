@@ -59,11 +59,11 @@ First quote the failing phrase or missing element. Then name the root cause. Nex
 
 ## Conservative Retry Pattern
 
-`[Reference role if any]. Preserve [identity/product/environment] exactly. One visible action: [specific verb and consequence]. Camera: [single move]. Lighting: [physical source]. Sound: [ambient/SFX/dialogue]. Constraints: [what must not change].`
+`[Reference target/dimension authority and exclusions, if any]. Preserve [identity/product/environment]. One visible action: [specific verb and consequence]. Camera: [single move that observes before/change/consequence/endpoint]. Lighting: [physical source]. Sound: [ambient/SFX/dialogue]. Constraints: [what must not change].`
 
 ## Escalation Rules
 
-If the same error repeats, split the scene into shorter clips, reduce characters, simplify hand or face motion, use stronger reference role mapping, or change the mode. For unstable text/logos, keep them static, centered, and protected; do not ask the model to redraw small text during motion.
+If the same error repeats, split the scene into shorter clips, reduce characters, simplify hand or face motion, resolve reference authority and leakage per target/dimension, or change the mode. For unstable text/logos, keep them static, centered, and protected; do not ask the model to redraw small text during motion.
 
 For edit/extend failures, preserve the source clip first and change only the failing layer. If a surface supports returned last frames, use that still as the next first-frame anchor before extending.
 

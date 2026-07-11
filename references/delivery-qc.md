@@ -32,7 +32,7 @@ Include:
 
 - concept/treatment;
 - shot list and accepted prompts;
-- reference role map and rights notes;
+- target/dimension authority map, typed leakage exclusions, and separate media/likeness/voice/music/brand rights notes;
 - exported review links/files;
 - known issues and recommended fixes;
 - approval questions;

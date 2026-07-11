@@ -28,7 +28,9 @@ Author: [Iamemily2050 (@iamemily2050)](https://github.com/Emily2040) · [Instagr
 
 Platform context: [ByteDance Seedance 2.0](https://seed.bytedance.com/en/seedance2_0) · Dreamina · Jimeng · Doubao · [Volcengine Ark](https://www.volcengine.com/docs/82379/2291680?lang=zh) · [BytePlus ModelArk](https://docs.byteplus.com/en/docs/ModelArk/2291680) · [Runway Seedance 2](https://docs.dev.runwayml.com/guides/models/) · fal · provider/router surfaces tracked in [`platform-surface-matrix.md`](references/platform-surface-matrix.md)
 
-> **V7 development boundary:** reference syntax is surface- and operation-specific. The candidate renderer preserves externally captured handles, derives only evidence-pinned media ordinals, or emits structured roles without text; all provider profiles remain disabled pending evidence review and later activation. See [`V7_SURFACE_PROFILE_MIGRATION.md`](docs/V7_SURFACE_PROFILE_MIGRATION.md).
+> **V7 development boundary:** reference syntax is surface- and operation-specific. The candidate renderer preserves externally captured handles, derives only evidence-pinned media ordinals, or emits structured roles without text; all provider profiles remain disabled pending evidence review and later activation.
+>
+> V7-06 adds a preview-only target/dimension authority map and causal-observability preflight—not a claim about hidden model architecture or guaranteed physics. See [`V7_SURFACE_PROFILE_MIGRATION.md`](docs/V7_SURFACE_PROFILE_MIGRATION.md) and [`V7_REFERENCE_CAUSAL_MIGRATION.md`](docs/V7_REFERENCE_CAUSAL_MIGRATION.md).
 
 Updated: **2026-07-06** · **v6.6.0 the loop closes: frame-extraction observation tooling, state lifecycle for long projects, and the worked end-to-end trace** · plus native quickstarts in six languages, a security policy, and an expanded agent-install matrix
 
@@ -54,7 +56,7 @@ Seedance 2.0 Skill OS is English-readable, but the v6 line gives Chinese, Japane
 
 | Language | Start path | Native reader note |
 |---|---|---|
-| English | [`seedance-prompt`](skills/seedance-prompt/SKILL.md), [`seedance-sequence`](skills/seedance-sequence/SKILL.md), [`references/vocab/en.md`](references/vocab/en.md) | Use precise production English: one visible beat, one camera move, real light, and clear reference roles. |
+| English | [`seedance-prompt`](skills/seedance-prompt/SKILL.md), [`seedance-sequence`](skills/seedance-sequence/SKILL.md), [`references/vocab/en.md`](references/vocab/en.md) | Use precise production English: one visible beat, one camera move, real light, and clear target/dimension reference authority. |
 | 中文 | [`中文指南`](docs/README.zh.md), [`seedance-vocab-zh`](skills/seedance-vocab-zh/SKILL.md), [`seedance-examples-zh`](skills/seedance-examples-zh/SKILL.md), [`references/vocab/zh.md`](references/vocab/zh.md) | 中文用户可从角色锁定、首尾帧、运镜、动作节奏开始；提示词要短、具体，通过当前平台配置解析类型化绑定，不把字幕交给模型生成。 |
 | 日本語 | [`日本語ガイド`](docs/README.ja.md), [`seedance-vocab-ja`](skills/seedance-vocab-ja/SKILL.md), [`seedance-examples-ja`](skills/seedance-examples-ja/SKILL.md), [`references/vocab/ja.md`](references/vocab/ja.md) | 日本語では、人物の同一性、衣装、構図、動きの終点を明確に書き、字幕や広告コピーは後処理で追加します。 |
 | 한국어 | [`한국어 가이드`](docs/README.ko.md), [`seedance-vocab-ko`](skills/seedance-vocab-ko/SKILL.md), [`seedance-examples-ko`](skills/seedance-examples-ko/SKILL.md), [`references/vocab/ko.md`](references/vocab/ko.md) | 한국어 프롬프트는 인물 고정, 카메라 움직임, 조명, 사운드를 짧게 분리하고 자막과 문구는 편집 단계에서 넣습니다. |
@@ -76,7 +78,7 @@ This skill package turns Seedance 2.0 work into a repeatable assistant workflow:
 - Routes vague ideas into short creative interviews instead of premature prompt dumps.
 - Directs each scene before drafting: reads its dramatic function, sets one directorial voice, and makes camera, light, blocking, performance, and sound serve a single intention instead of a generic "cinematic" look - and holds that voice across every clip of a long story.
 - Writes full or compressed prompts for T2V, I2V, V2V, R2V, FLF2V, edit, extend, audio-aware, and first/last-frame workflows.
-- Separates every reference asset by role: identity, environment, motion, camera rhythm, audio tempo, style, or endpoint.
+- Resolves each reference by target and controlled dimension, with one authority winner and explicit exclusions for identity, environment, motion, camera, timing, audio, style, endpoint, or text/logo leakage.
 - Keeps model and platform claims source-dated so API, pricing, region, quota, and model-ID details are not guessed.
 - Plans into model strengths before drafting: a capability map, a fidelity-allocation model, and a working model of the generator's mechanics that explains why every rule works.
 - Runs the shoot like a producer after generation: five-verdict take triage, one-variable retakes, attempt budgets, and cost-aware drafting.
@@ -85,7 +87,7 @@ This skill package turns Seedance 2.0 work into a repeatable assistant workflow:
 - Adds professional filmmaker workflows for treatment-to-shot-list planning, shot contracts, continuity ledgers, ACES/color handoff, audio post, subtitles/localization, aspect-ratio variants, campaign cutdowns, delivery/QC, and client review packets.
 - Handles safe false-positive repairs by clarifying benign production context, not by hiding unsafe intent.
 - Rewrites unsafe celebrity, protected IP, private-person, brand, logo, song, or voice requests into safer creative equivalents.
-- Diagnoses failed outputs with concrete repair levers: camera, lighting, motion, reference role, duration, framing, audio, or safety wording.
+- Diagnoses failed outputs with concrete repair levers: camera, lighting, motion, reference authority, causal order, observability, duration, framing, audio, or safety wording.
 - Ships validation scripts, eval cases, source data, and design checks so maintainers can review changes before release.
 
 ## Making Videos Longer Than One Generation
@@ -129,8 +131,8 @@ For these requests, the skill should not stop at a single prompt. It should retu
 | “I know the scene I want.” | [`seedance-prompt`](skills/seedance-prompt/SKILL.md) | A production-ready Seedance prompt. |
 | “Make it actually feel directed, not just cinematic.” | [`directing-engine`](references/directing-engine.md) | One intention per scene, a coherent camera/light/blocking/performance/sound setup, and one directorial voice across the story. |
 | “Make it short and strong.” | [`seedance-prompt-short`](skills/seedance-prompt-short/SKILL.md) | A compressed 30–100 word prompt. |
-| “I have an image/video/audio reference.” | [`reference-workflow`](references/reference-workflow.md) | A role map for every reference asset. |
-| “Use this as first frame and that as final frame.” | [`first-last-frame-guide`](references/first-last-frame-guide.md) | A continuous transition with endpoint locks. |
+| “I have an image/video/audio reference.” | [`reference-workflow`](references/reference-workflow.md) | A target/dimension authority map, transfer exclusions, and a surface binding plan. |
+| “Use this as first frame and that as final frame.” | [`first-last-frame-guide`](references/first-last-frame-guide.md) | Verified structured endpoint roles and a testable continuous transition. |
 | “The take is 80% right - regenerate or keep?” | [`retake-protocol`](references/retake-protocol.md) | A triage verdict, the one-variable retake, and an attempt budget. |
 | “It failed or looks bad.” | [`seedance-troubleshoot`](skills/seedance-troubleshoot/SKILL.md) | A root-cause diagnosis and repaired prompt. |
 | “Why did that happen?” | [`model-mechanics`](references/model-mechanics.md) | The mechanism behind the failure and the lever that works with it. |
@@ -150,7 +152,7 @@ For these requests, the skill should not stop at a single prompt. It should retu
 
 Seedance platform behavior changes quickly. Before making factual claims about API availability, face or portrait authorization, upload limits, pricing, regional availability, or model names, load [`references/api-status.md`](references/api-status.md) and check its `last_verified` date.
 
-As of 2026-06-20, public official sources describe Seedance 2.0 as supporting text, image, audio, and video inputs. Official launch and model-card material says references can include up to 9 images, 3 video clips, and 3 audio clips.
+The dated 2026-06-20 v6 snapshot records official descriptions of text, image, audio, and video inputs, including model-level maxima reported at that time. Do not treat those counts as a universal current upload contract: select the exact surface and operation, recheck provider-owned documentation, and start with the smallest purposeful set.
 
 Volcengine and BytePlus docs now expose Seedance 2.0 Mini as a surface-specific model lane. Treat `Seedance V2 Mini` as shorthand for Seedance 2.0 Mini only when the active surface confirms it. Current source-visible IDs include `doubao-seedance-2-0-mini-260615` on Volcengine and `dreamina-seedance-2-0-mini-260615` on BytePlus.
 
@@ -182,7 +184,7 @@ The diagram is the contract: every request passes the gates, the root routes it,
 - Research sources: dated official, academic, platform, and community evidence.
 - Production spine: brief, shot list, continuity, post handoff, localization, and delivery/QC.
 - Prompt router: interview, prompt writing, compression, recipes, and troubleshooting.
-- Multimodal references: image, video, audio, first-frame, last-frame, and role-bound assets.
+- Multimodal references: image, video, audio, first-frame, and last-frame assets with target/dimension authority separated from surface binding.
 - Safety gates: IP, likeness, voice, brand, real-person, filter, and platform-policy checks.
 - Quality evals: schema checks, source freshness, vocabulary integrity, design audit, and behavior cases.
 
@@ -201,8 +203,6 @@ Concept art for the system, generated and curated. Every image is paired with se
 ![What this skill can do infographic: brief, references, prompt, generate, post, deliver](assets/infographic-skill-capabilities.png)
 
 ![CDN video delivery map infographic: creator, origin, CDN edge, global review, delivery, fast playback, regional cache, version control, and QC before publish](assets/infographic-cdn-delivery-map.png)
-
-![Reference role map infographic: image equals identity, video equals motion, audio equals timing](assets/infographic-reference-role-map.png)
 
 ![Production to delivery infographic: brief, shot list, generate, edit, localize, QC](assets/infographic-production-delivery.png)
 
@@ -277,7 +277,7 @@ Concept art for the system, generated and curated. Every image is paired with se
 | [`sequence-project-state.md`](references/sequence-project-state.md) | Stateful project model, canon reconciliation, visual state fields, and Project State Capsule. |
 | [`continuation-handoff.md`](references/continuation-handoff.md) | Accepted-source continuation gate, observed state capture, continuation types, and beat exclusions. |
 | [`prompt-compiler.md`](references/prompt-compiler.md) | Compiles project state and current clip contract into one natural-language prompt. |
-| [`reference-transfer-contract.md`](references/reference-transfer-contract.md) | Surface-specific binding resolution, reference role separation, and transfer/ignore clauses. |
+| [`reference-transfer-contract.md`](references/reference-transfer-contract.md) | Target/dimension authority, surface-specific binding resolution, and transfer/exclusion clauses. |
 | [`surface-prompt-profiles.md`](references/surface-prompt-profiles.md) | Candidate request transport, prompt-binding policy, allowed media, structured roles, and evidence boundaries. |
 | [`event-density.md`](references/event-density.md) | Clip-scope firewall for completed, current, reserved, and do-not-show-yet beats. |
 | [`continuity-qc.md`](references/continuity-qc.md) | Boundary checks for immutable and transient continuity across accepted clips. |
@@ -305,7 +305,7 @@ Concept art for the system, generated and curated. Every image is paired with se
 | [`community-source-methodology.md`](references/community-source-methodology.md) | Safe public corpus mining and labeling rules. |
 | [`platform-constraints.md`](references/platform-constraints.md) | Stable platform-risk rules. |
 | [`quick-ref.md`](references/quick-ref.md) | Compact routing and prompt checklist. |
-| [`reference-workflow.md`](references/reference-workflow.md) | How to map image, video, audio, and storyboard references. |
+| [`reference-workflow.md`](references/reference-workflow.md) | How to map target/dimension authority for image, video, audio, and storyboard references. |
 | [`i2v-guide.md`](references/i2v-guide.md) | Image-to-video best practices. |
 | [`prompt-examples.md`](references/prompt-examples.md) | Semantic prompt patterns that require surface binding resolution before use. |
 | [`genre-guides.md`](references/genre-guides.md) | Genre-specific prompt patterns. |
@@ -412,6 +412,10 @@ python scripts/generation_run_check.py
 python scripts/prompt_lint.py --self-test
 python scripts/eval_run.py --self-test
 python scripts/extract_last_frame.py --self-test
+python scripts/render_surface_bindings.py --self-test
+python scripts/scene_ir_check.py --self-test
+python scripts/reference_planner.py --self-test
+python tools/runtime_package.py --dry-run
 python -m unittest discover -s tests -v
 python -m compileall scripts tests
 git diff --check
