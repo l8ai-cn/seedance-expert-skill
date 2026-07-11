@@ -1,0 +1,221 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Emily2040/seedance-2.0/schemas/evidence-claim.schema.json",
+  "title": "Seedance atomic evidence claim",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "claim_id",
+    "claim_text",
+    "normalized_key",
+    "value",
+    "model_family",
+    "model_version",
+    "claim_class",
+    "scope",
+    "support_status",
+    "confidence",
+    "criticality",
+    "volatility",
+    "ttl_days",
+    "agreement_status",
+    "lifecycle_status",
+    "runtime_presence",
+    "runtime_status",
+    "source_evidence",
+    "verified_at",
+    "expires_at",
+    "supersedes",
+    "relations",
+    "conflict_group",
+    "affected_paths",
+    "affected_profiles",
+    "affected_tests",
+    "review"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "https://github.com/Emily2040/seedance-2.0/schemas/evidence-claim.schema.json"
+    },
+    "claim_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)+$",
+      "maxLength": 160
+    },
+    "claim_text": {"type": "string", "minLength": 20, "maxLength": 1000},
+    "normalized_key": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)+$",
+      "maxLength": 160
+    },
+    "value": {
+      "oneOf": [
+        {"type": "string", "maxLength": 1000},
+        {"type": "number"},
+        {"type": "boolean"},
+        {
+          "type": "array",
+          "items": {"type": "string", "maxLength": 300},
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      ]
+    },
+    "model_family": {"type": "string", "minLength": 1, "maxLength": 80},
+    "model_version": {"type": "string", "minLength": 1, "maxLength": 80},
+    "claim_class": {
+      "enum": [
+        "pricing",
+        "model_id",
+        "api_field",
+        "prompt_grammar",
+        "model_capability",
+        "workflow",
+        "official_example",
+        "release_watchlist",
+        "annotation_ontology",
+        "community_pattern"
+      ]
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["surfaces", "operations", "locale", "region"],
+      "properties": {
+        "surfaces": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1, "maxLength": 100},
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "operations": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1, "maxLength": 100},
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "locale": {"type": "string", "minLength": 2, "maxLength": 40},
+        "region": {"type": "string", "minLength": 2, "maxLength": 80}
+      }
+    },
+    "support_status": {"enum": ["supported", "unverified", "retracted"]},
+    "confidence": {"enum": ["high", "medium", "low", "unknown"]},
+    "criticality": {"enum": ["critical", "important", "informational"]},
+    "volatility": {"enum": ["stable", "volatile", "unknown"]},
+    "ttl_days": {"type": "integer", "minimum": 1, "maximum": 180},
+    "agreement_status": {"enum": ["not_assessed", "uncontested", "qualified", "conflicting"]},
+    "lifecycle_status": {"enum": ["active", "expired", "superseded"]},
+    "runtime_presence": {"enum": ["legacy_active", "not_present", "watchlist", "future_profile"]},
+    "runtime_status": {
+      "enum": ["candidate", "blocked", "research_only"],
+      "description": "V7-04 is non-activating. V7-05 must introduce and validate any active profile status."
+    },
+    "source_evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "source_snapshot_id",
+          "source_snapshot_sha256",
+          "capture_sha256",
+          "evidence_items",
+          "relation"
+        ],
+        "properties": {
+          "source_snapshot_id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)+$"
+          },
+          "source_snapshot_sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "capture_sha256": {
+            "type": ["string", "null"],
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "evidence_items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["evidence_item_id", "normalized_evidence_sha256"],
+              "properties": {
+                "evidence_item_id": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)+$"
+                },
+                "normalized_evidence_sha256": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                }
+              }
+            },
+            "uniqueItems": true
+          },
+          "relation": {"enum": ["supports", "qualifies", "contradicts", "context"]}
+        }
+      }
+    },
+    "verified_at": {"type": "string", "format": "date"},
+    "expires_at": {
+      "type": "string",
+      "format": "date",
+      "description": "Exclusive UTC date: the claim is expired when as_of >= expires_at."
+    },
+    "supersedes": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)+$"},
+      "uniqueItems": true
+    },
+    "relations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["claim_id", "type"],
+        "properties": {
+          "claim_id": {"type": "string", "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)+$"},
+          "type": {"enum": ["supports", "supported_by", "qualifies", "qualified_by", "tension_with"]}
+        }
+      },
+      "uniqueItems": true
+    },
+    "conflict_group": {"type": ["string", "null"], "minLength": 1, "maxLength": 160},
+    "affected_paths": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1, "maxLength": 300},
+      "uniqueItems": true
+    },
+    "affected_profiles": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1, "maxLength": 160},
+      "uniqueItems": true
+    },
+    "affected_tests": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1, "maxLength": 240},
+      "uniqueItems": true
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "reviewers", "decision_at", "claim_sha256"],
+      "properties": {
+        "status": {"enum": ["pending", "approved", "rejected"]},
+        "reviewers": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1, "maxLength": 100},
+          "uniqueItems": true
+        },
+        "decision_at": {"type": ["string", "null"], "format": "date"},
+        "claim_sha256": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"}
+      }
+    },
+    "notes": {"type": "string", "maxLength": 2000}
+  }
+}

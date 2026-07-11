@@ -1,0 +1,27 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/evidence-capture.schema.json",
+  "capture_id": "contra.video-detail-annotation.2026-07-11.normalized",
+  "source_snapshot_id": "contra.video-detail-annotation.2026-07-11",
+  "capture_kind": "normalized_evidence",
+  "created_at": "2026-07-11",
+  "canonical_url": "https://huggingface.co/datasets/contra-labs/video-detail-annotation",
+  "final_url": "https://huggingface.co/datasets/contra-labs/video-detail-annotation/raw/6eb94f7f23e8ecf198900b3cf9b9cf5f5359b1f2/README.md",
+  "raw_document_sha256": "a8242ad0d33567bf01b1e5404d955610f3ca97b79c884da2c65d40e9a611de8f",
+  "normalization": "The pinned dataset card was summarized without retaining the videos or dataset rows. CSV observations use a separate byte-pinned source snapshot.",
+  "rights_note": "The source declares CC BY 4.0. This repository retains attribution, hashes, schema-level observations, and aggregate QA only.",
+  "items": [
+    {
+      "evidence_item_id": "contra.dataset.scope-license",
+      "locator": {"heading_path": ["Dataset Overview", "License"], "fragment_hint": "CC BY 4.0"},
+      "normalized_evidence": "At pinned revision 6eb94f7f23e8ecf198900b3cf9b9cf5f5359b1f2, the dataset card declares CC BY 4.0 and covers 15 product videos from Veo 3.1, Adobe Firefly Video, and Grok Imagine, not Seedance.",
+      "normalized_evidence_sha256": "a723a56ded21fe98f8f0b2324f0c89ed5f72db9ff53fe8b70843130406b51ed8"
+    },
+    {
+      "evidence_item_id": "contra.dataset.documented-dimensions",
+      "locator": {"heading_path": ["Evaluation Dimensions"], "fragment_hint": "five quality dimensions"},
+      "normalized_evidence": "The card documents five top-level evaluation dimensions covering brand and text, material realism, camera adherence, multi-shot continuity, and product consistency.",
+      "normalized_evidence_sha256": "cbdfe87c6179d1d25abef4eb7631f0195b6b8452f2f463bf7719886c2c67c439"
+    }
+  ],
+  "notes": "Use only as research input for an observable-video ontology after normalization; never as Seedance architecture or golden-prompt evidence."
+}

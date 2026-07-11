@@ -161,7 +161,8 @@ class RuntimePackageTests(unittest.TestCase):
         self.assertEqual(len(found), 104)
         self.assertIn("references/interview-starters.md", found)
         self.assertNotIn("README.md", found)
-        self.assertFalse(any(path.startswith(("docs/", "evals/", "tests/", "data/")) for path in found))
+        self.assertFalse(any(path.startswith(("docs/", "evals/", "tests/", "data/", "research/")) for path in found))
+        self.assertFalse(any(path.startswith("schemas/evidence-") for path in found))
         self.assertFalse(any(path.startswith("references/migrated/") for path in found))
         self.assertFalse(any(path.startswith("assets/") for path in found))
 
@@ -208,6 +209,10 @@ class RuntimePackageTests(unittest.TestCase):
             ("scripts/eval_run.py", "development script"),
             ("scripts/eval_harness/core.py", "development script"),
             ("evals/suites/development.json", "development-only"),
+            ("research/evidence/claims/claim.json", "development-only"),
+            ("Research/evidence/claims/claim.json", "development-only"),
+            ("schemas/evidence-claim.schema.json", "evidence-control schema"),
+            ("schemas/EVIDENCE-policy.schema.json", "evidence-control schema"),
             ("references/migrated/old.md", "migrated archive"),
             ("NUL.txt", "portable"),
             ("CONIN$", "portable"),

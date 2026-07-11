@@ -1,0 +1,85 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/evidence-claim.schema.json",
+  "claim_id": "contra.annotation.observable-dimensions",
+  "claim_text": "The pinned Contra Labs dataset offers candidate observable-video dimensions but does not evaluate Seedance or establish prompt quality.",
+  "normalized_key": "evaluation.annotation.observable-dimensions",
+  "value": [
+    "brand_text",
+    "camera_adherence",
+    "material_realism",
+    "multishot_continuity",
+    "product_consistency"
+  ],
+  "model_family": "cross-model",
+  "model_version": "dataset-2026-07-02",
+  "claim_class": "annotation_ontology",
+  "scope": {
+    "surfaces": [
+      "research"
+    ],
+    "operations": [
+      "video_evaluation"
+    ],
+    "locale": "en",
+    "region": "global"
+  },
+  "support_status": "supported",
+  "confidence": "medium",
+  "criticality": "informational",
+  "volatility": "stable",
+  "ttl_days": 180,
+  "agreement_status": "uncontested",
+  "lifecycle_status": "active",
+  "runtime_presence": "not_present",
+  "runtime_status": "research_only",
+  "source_evidence": [
+    {
+      "source_snapshot_id": "contra.video-detail-annotation.2026-07-11",
+      "source_snapshot_sha256": "d87abbd06f0ba50083f872ee12369fcae2a0804640792f9478ffb2d5b6468184",
+      "capture_sha256": "2d525445dcb86dd876a03e9d64495a0c59cc1c17f7a789b22474dd5a1c0323cc",
+      "evidence_items": [
+        {
+          "evidence_item_id": "contra.dataset.scope-license",
+          "normalized_evidence_sha256": "a723a56ded21fe98f8f0b2324f0c89ed5f72db9ff53fe8b70843130406b51ed8"
+        },
+        {
+          "evidence_item_id": "contra.dataset.documented-dimensions",
+          "normalized_evidence_sha256": "cbdfe87c6179d1d25abef4eb7631f0195b6b8452f2f463bf7719886c2c67c439"
+      }
+    ],
+    "relation": "supports"
+    },
+    {
+      "source_snapshot_id": "contra.video-detail-annotation-csv.2026-07-11",
+      "source_snapshot_sha256": "5b18a7d17e288a3d965bc62f2b4bd69df37bbb4424aaeaeab1d7a50091ce1973",
+      "capture_sha256": "a8569c8e16ba4d9ed0a4276ac161b3dbcd3b14a4c2d5d554355fea65d1bf4ac9",
+      "evidence_items": [
+        {
+          "evidence_item_id": "contra.dataset.qa-limitations",
+          "normalized_evidence_sha256": "148da2807269cff7d9e7b4d21a1409b708d39f171ed442b4e0557ec6d8d5c399"
+        }
+      ],
+      "relation": "context"
+    }
+  ],
+  "verified_at": "2026-07-11",
+  "expires_at": "2027-01-07",
+  "supersedes": [],
+  "relations": [],
+  "conflict_group": null,
+  "affected_paths": [],
+  "affected_profiles": [
+    "future.benchmark-ontology"
+  ],
+  "affected_tests": [
+    "tests/test_evidence_registry.py#test_contra_dataset_is_research_only_not_model_or_prompt_proof",
+    "evals/evals.json#source_verification"
+  ],
+  "review": {
+    "status": "pending",
+    "reviewers": [],
+    "decision_at": null,
+    "claim_sha256": null
+  },
+  "notes": "The CSV requires normalization: 31 issue types, Unrated severities, missing timestamps, inconsistent slugs, and a duplicate were observed."
+}

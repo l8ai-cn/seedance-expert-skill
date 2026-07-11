@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Emily2040/seedance-2.0/schemas/evidence-source.schema.json",
+  "title": "Seedance immutable evidence source snapshot",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "source_snapshot_id",
+    "source_id",
+    "title",
+    "canonical_url",
+    "final_url",
+    "authority_id",
+    "source_type",
+    "publisher",
+    "original_language",
+    "source_revision",
+    "document_updated_at",
+    "retrieved_at",
+    "retrieval_status",
+    "retrieval_method",
+    "raw_document_sha256",
+    "capture_kind",
+    "capture_path",
+    "capture_sha256"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "https://github.com/Emily2040/seedance-2.0/schemas/evidence-source.schema.json"
+    },
+    "source_snapshot_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)+$",
+      "maxLength": 200
+    },
+    "source_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)+$",
+      "maxLength": 180
+    },
+    "title": {"type": "string", "minLength": 1, "maxLength": 300},
+    "canonical_url": {"type": ["string", "null"], "format": "uri", "maxLength": 2000},
+    "final_url": {"type": ["string", "null"], "format": "uri", "maxLength": 2000},
+    "authority_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)+$",
+      "maxLength": 120
+    },
+    "source_type": {
+      "enum": [
+        "first_party_model_doc",
+        "first_party_platform_doc",
+        "provider_owned_doc",
+        "provider_authored_model_card",
+        "research_paper",
+        "third_party_dataset",
+        "community_source",
+        "internal_record"
+      ]
+    },
+    "publisher": {"type": "string", "minLength": 1, "maxLength": 160},
+    "original_language": {"type": "string", "minLength": 2, "maxLength": 40},
+    "source_revision": {"type": ["string", "null"], "maxLength": 160},
+    "document_updated_at": {"type": ["string", "null"], "format": "date"},
+    "retrieved_at": {"type": "string", "format": "date"},
+    "retrieval_status": {"enum": ["fetched", "browser_verified", "provided", "blocked", "missing"]},
+    "retrieval_method": {"type": "string", "minLength": 1, "maxLength": 300},
+    "raw_document_sha256": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+    "capture_kind": {"enum": ["normalized_evidence", "hash_only", "none"]},
+    "capture_path": {"type": ["string", "null"], "minLength": 1, "maxLength": 300},
+    "capture_sha256": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+    "notes": {"type": "string", "maxLength": 2000}
+  }
+}

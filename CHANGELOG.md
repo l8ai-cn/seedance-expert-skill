@@ -6,6 +6,17 @@ Current active release: **6.6.0**. Older entries below are preserved as release 
 
 ## Unreleased
 
+### Added
+
+- Added the non-activating v7 claim-level evidence control plane: 17 atomic claims, 6 dated source snapshots, 6 bounded retained captures, a closed authority allowlist, an exact runtime-file inventory, conflict/supersession semantics, exclusive UTC TTLs, and a closed policy pinned to exact claim bytes.
+- Added an offline scheduled freshness proposal workflow with separate read-only validation and bounded write jobs. It cannot fetch sources, renew evidence, approve claims, or activate runtime guidance.
+- Added 65 fail-closed evidence tests covering strict JSON, zero-fetch schema handling, transitive provenance pins, capture tamper, path/link and ancestor-swap attacks, policy deletion/downgrade, runtime drift, conflicts, expiry, deterministic reports, workflow permissions, and literal shell syntax.
+
+### Changed
+
+- Moved the former `.github/evidence-v2` shadow records into the canonical `research/evidence/` registry, declared every evidence instance in strict schema validation, and kept the legacy runtime unchanged. The initial 103-file audit intentionally blocks release on 92 files pending the staged v7 migration.
+- Excluded `research/` and `schemas/evidence-*` control files from the installable package while preserving the exact 103-file runtime tree hash.
+
 ### Fixed
 
 - Native-level proofreading pass across all six languages. Chinese: 编钟余震 -> 余音 (aftershock -> lingering resonance), 湿地 (wetland) -> 潮湿地面/湿润地面/湿滑地面 for "wet ground" (3 files), the missed 三分之二 -> 四分之三 three-quarter angle in the community-examples file, 表面 -> 平台 (surface translationese), 轮廓 -> 剪影 (silhouette), 后退揭示镜头 -> 镜头后拉揭示空间, 宽幅远景 -> 远景定场镜头 (establishing shot), a missing 仅 to match its "only" gloss, and full-width quotes in two Chinese sentences. Japanese: the same fraction bug 三分の二 -> 四分の三, 主体 -> 被写体 (photographic subject), 実用照明 -> プラクティカルライト (practical light, 2 files), 開示 -> 種明かし（リビール） (cinematic reveal), two grammar repairs, 開いた動き -> 進行中の動き, 顔を向けて -> 振り向いて, 日本語入口 -> 日本語の入り口, だけで止めず -> だけにとどめず, 電気の弧 -> 電気アーク. Korean: 실용 조명 -> 프랙티컬 조명 (practical light, 4 files), 천천히 돌리 인 -> 느린 돌리 인, 머리 회전 -> 고개를 돌리지 않고, 중간 샷/중간 클로즈업 -> 미디엄 샷/미디엄 클로즈업, 주체 -> 피사체, a particle-spacing fix, 영화같은 -> 영화 같은, register fix 마세요 -> 마십시오, 멀리 -> 멀리서, 낮은 앵글 -> 로우 앵글, 틸앤오렌지 -> 틸 앤 오렌지, and one unstacked modifier. Spanish: bloqueo -> puesta en escena (film blocking, not blockage), caen en el pulso -> siguen el pulso. Russian: макро-крупный план -> макросъемка крупным планом, and one stray ё normalized to the file's е-style.

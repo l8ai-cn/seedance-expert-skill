@@ -1,0 +1,66 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/evidence-claim.schema.json",
+  "claim_id": "fal.resolution.standard-4k",
+  "claim_text": "The current standard fal reference-to-video schema enumerates 4k as a surface-specific resolution option.",
+  "normalized_key": "provider.fal.reference.resolution",
+  "value": "4k",
+  "model_family": "seedance",
+  "model_version": "2.0-series",
+  "claim_class": "api_field",
+  "scope": {
+    "surfaces": [
+      "fal.reference-to-video"
+    ],
+    "operations": [
+      "reference_generation"
+    ],
+    "locale": "en",
+    "region": "global"
+  },
+  "support_status": "supported",
+  "confidence": "high",
+  "criticality": "important",
+  "volatility": "volatile",
+  "ttl_days": 7,
+  "agreement_status": "uncontested",
+  "lifecycle_status": "active",
+  "runtime_presence": "not_present",
+  "runtime_status": "candidate",
+  "source_evidence": [
+    {
+      "source_snapshot_id": "fal.reference-to-video.2026-07-11",
+      "source_snapshot_sha256": "20865b3d27883770e41f187ea702d3597c02ee641a268c83b2c4673b926e0e9b",
+      "capture_sha256": "ea94e2ee2faeb782053fac380d4fbf8734e7761043e94da52100b9ab472e17af",
+      "evidence_items": [
+        {
+          "evidence_item_id": "fal.reference.resolution-4k",
+          "normalized_evidence_sha256": "5fd8b57d648bbaf78c6261683a013c8e17e93be13ed5d53213cd23e700eac6f2"
+        }
+      ],
+      "relation": "supports"
+    }
+  ],
+  "verified_at": "2026-07-11",
+  "expires_at": "2026-07-18",
+  "supersedes": [],
+  "relations": [],
+  "conflict_group": null,
+  "affected_paths": [
+    "references/api-status.md",
+    "references/platform-surface-matrix.md"
+  ],
+  "affected_profiles": [
+    "fal.reference-to-video"
+  ],
+  "affected_tests": [
+    "tests/test_evidence_registry.py#test_provider_reference_tokens_are_explicitly_surface_scoped",
+    "evals/evals.json#source_verification"
+  ],
+  "review": {
+    "status": "pending",
+    "reviewers": [],
+    "decision_at": null,
+    "claim_sha256": null
+  },
+  "notes": "This is not a native model-resolution claim. Other fal variants can expose narrower resolution sets."
+}

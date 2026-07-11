@@ -31,6 +31,62 @@
     {
       "schema": "schemas/prompt-spec.schema.json",
       "instances": ["validation/fixtures/prompt-spec.valid.json"]
+    },
+    {
+      "schema": "schemas/evidence-authorities.schema.json",
+      "instances": ["research/evidence/authorities.json"]
+    },
+    {
+      "schema": "schemas/evidence-capture.schema.json",
+      "instances": [
+        "research/evidence/captures/bytedance-seedance-20-model-page-2026-07-11.json",
+        "research/evidence/captures/byteplus-prompt-guide-2222480-2026-07-11.json",
+        "research/evidence/captures/contra-video-detail-annotation-csv-2026-07-11.json",
+        "research/evidence/captures/contra-video-detail-annotation-2026-07-11.json",
+        "research/evidence/captures/fal-reference-to-video-2026-07-11.json",
+        "research/evidence/captures/volcengine-tutorial-2291680-2026-07-11.json"
+      ]
+    },
+    {
+      "schema": "schemas/evidence-claim.schema.json",
+      "instances": [
+        "research/evidence/claims/bp-assets-purposeful-set.json",
+        "research/evidence/claims/bp-binding-spaced-example-token.json",
+        "research/evidence/claims/bp-camera-one-move.json",
+        "research/evidence/claims/bp-character-headshot-fullbody.json",
+        "research/evidence/claims/bp-operation-edit-extend-classifier.json",
+        "research/evidence/claims/bp-subject-stable-label.json",
+        "research/evidence/claims/bp-timing-exact-caution.json",
+        "research/evidence/claims/bytedance-model-multimodal-inputs.json",
+        "research/evidence/claims/bytedance-model-reference-control.json",
+        "research/evidence/claims/contra-annotation-observable-dimensions.json",
+        "research/evidence/claims/fal-binding-at-ordinal.json",
+        "research/evidence/claims/fal-input-seed-absent.json",
+        "research/evidence/claims/fal-resolution-standard-4k.json",
+        "research/evidence/claims/global-binding-no-universal-token.json",
+        "research/evidence/claims/volc-binding-asset-ordinal.json",
+        "research/evidence/claims/volc-binding-first-last-frame-role.json",
+        "research/evidence/claims/volc-timing-exact-example.json"
+      ]
+    },
+    {
+      "schema": "schemas/evidence-policy.schema.json",
+      "instances": ["research/evidence/release-policy.json"]
+    },
+    {
+      "schema": "schemas/evidence-runtime-map.schema.json",
+      "instances": ["research/evidence/runtime-map.json"]
+    },
+    {
+      "schema": "schemas/evidence-source.schema.json",
+      "instances": [
+        "research/evidence/sources/bytedance-seedance-20-model-page-2026-07-11.json",
+        "research/evidence/sources/byteplus-prompt-guide-2222480-2026-07-11.json",
+        "research/evidence/sources/contra-video-detail-annotation-csv-2026-07-11.json",
+        "research/evidence/sources/contra-video-detail-annotation-2026-07-11.json",
+        "research/evidence/sources/fal-reference-to-video-2026-07-11.json",
+        "research/evidence/sources/volcengine-tutorial-2291680-2026-07-11.json"
+      ]
     }
   ]
 }

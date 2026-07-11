@@ -1,0 +1,57 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/evidence-capture.schema.json",
+  "capture_id": "byteplus.prompt-guide.2222480.2026-07-11.normalized",
+  "source_snapshot_id": "byteplus.prompt-guide.2222480.2026-07-11",
+  "capture_kind": "normalized_evidence",
+  "created_at": "2026-07-11",
+  "canonical_url": "https://docs.byteplus.com/en/docs/ModelArk/2222480",
+  "final_url": "https://docs.byteplus.com/en/docs/ModelArk/2222480",
+  "raw_document_sha256": "c21da527d49ec22e070743f9a6186502aac72492079e273a9046f93167c1276b",
+  "normalization": "Claim-bearing sections were extracted from the page's SSR MDContent and rewritten as bounded factual paraphrases; the full provider page is not retained.",
+  "rights_note": "This capture keeps only short claim-level paraphrases and structural locators so the repository does not redistribute the provider document.",
+  "items": [
+    {
+      "evidence_item_id": "byteplus.prompt.operation-edit-extend",
+      "locator": {"heading_path": ["Basic formula", "Video extension and editing"], "fragment_hint": "2025"},
+      "normalized_evidence": "The guide distinguishes reference generation from editing or extending a target video and warns that generic reference phrasing can cause the operation to be classified incorrectly.",
+      "normalized_evidence_sha256": "c4398176cbad0f6f02ee23dfd723b1c15e5d0717fc3be65ac908236fbd447b6b"
+    },
+    {
+      "evidence_item_id": "byteplus.prompt.binding-spaced-token",
+      "locator": {"heading_path": ["Advanced formula", "Reference binding"], "fragment_hint": "Zhang San"},
+      "normalized_evidence": "The BytePlus examples display a spaced prompt-visible handle such as at-sign Image 1; this is evidence for those BytePlus examples, not a universal cross-surface grammar.",
+      "normalized_evidence_sha256": "be46481d96454430cd1c5b0f1770f2a6eb9a1fb39d17e0334e42de29452c2d74"
+    },
+    {
+      "evidence_item_id": "byteplus.prompt.reference-selection",
+      "locator": {"heading_path": ["Advanced formula", "Asset preparation"], "fragment_hint": "4-5 assets"},
+      "normalized_evidence": "The guide recommends a small purposeful set of references and cautions that automatically using the full allowance can create priority, style, and subject-identification conflicts.",
+      "normalized_evidence_sha256": "7afd5c5f48819e571a5c7fea5f03472074425e00973502b49c9f7cd5d9ca7a96"
+    },
+    {
+      "evidence_item_id": "byteplus.prompt.character-selection",
+      "locator": {"heading_path": ["Advanced formula", "Character reference"], "fragment_hint": "full body"},
+      "normalized_evidence": "For a character, the guide favors a clean facial reference plus a separate full-body reference and warns that multi-view collage references can confuse subject identity.",
+      "normalized_evidence_sha256": "2ee9c13ec2e7fdfc30c4934ecf32d80721d403604d62a070de0fac38de872e66"
+    },
+    {
+      "evidence_item_id": "byteplus.prompt.stable-subject-label",
+      "locator": {"heading_path": ["Advanced formula", "Subject description"], "fragment_hint": "same label"},
+      "normalized_evidence": "After defining a referenced subject, the guide recommends repeating one stable, unambiguous subject label whenever that subject appears.",
+      "normalized_evidence_sha256": "61fefd4d7414ca8ad5f577afdf090d9e1cd1a53eaa687b7a4948ee335f2fc76a"
+    },
+    {
+      "evidence_item_id": "byteplus.prompt.ordered-shots",
+      "locator": {"heading_path": ["Advanced formula", "Multi-shot"], "fragment_hint": "Shot 1"},
+      "normalized_evidence": "The guide recommends ordering events with shot labels and cautions against forcing rigid duration limits for every segment when natural event pacing is more important.",
+      "normalized_evidence_sha256": "0b5e9cb8df4de67c9e279527c74fd9d840cb158352bf18495108282011d8fe34"
+    },
+    {
+      "evidence_item_id": "byteplus.prompt.one-camera-move",
+      "locator": {"heading_path": ["Advanced formula", "Camera movement prompts"], "fragment_hint": "96bb2087"},
+      "normalized_evidence": "The guide recommends one camera-movement type per shot because combining several primary moves can increase visual instability.",
+      "normalized_evidence_sha256": "d69a7903a089a14f799d60a9fc956236433d87e7918d5ea50f2f671798e33863"
+    }
+  ],
+  "notes": "Research on 2026-07-11 recorded the same raw MDContent hash as the prior 2026-07-10 observation. The raw provider bytes are not redistributed; reviewers must re-fetch the pinned URL and match the recorded hash and locators."
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/evidence-source.schema.json",
+  "source_snapshot_id": "bytedance.seedance-2-0.model-page.2026-07-11",
+  "source_id": "bytedance.seedance-2-0.model-page",
+  "title": "Seedance 2.0 official model page",
+  "canonical_url": "https://seed.bytedance.com/en/seedance2_0",
+  "final_url": "https://seed.bytedance.com/en/seedance2_0",
+  "authority_id": "bytedance.seed",
+  "source_type": "first_party_model_doc",
+  "publisher": "ByteDance",
+  "original_language": "en",
+  "source_revision": null,
+  "document_updated_at": null,
+  "retrieved_at": "2026-07-11",
+  "retrieval_status": "fetched",
+  "retrieval_method": "public HTML document",
+  "raw_document_sha256": "bea405ac7d573ca77ee8243d58be87f5d3081aaf2f852e97b6b6fb8cea650100",
+  "capture_kind": "normalized_evidence",
+  "capture_path": "research/evidence/captures/bytedance-seedance-20-model-page-2026-07-11.json",
+  "capture_sha256": "f712d74420e5bcd52f2ef3ff3e47dda823cfe209641c00f4ac4438458a8baafa",
+  "notes": "This model-level source does not establish provider API schemas, account availability, or independent quality."
+}

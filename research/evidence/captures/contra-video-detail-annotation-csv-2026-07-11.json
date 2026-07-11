@@ -1,0 +1,24 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/evidence-capture.schema.json",
+  "capture_id": "contra.video-detail-annotation-csv.2026-07-11.normalized",
+  "source_snapshot_id": "contra.video-detail-annotation-csv.2026-07-11",
+  "capture_kind": "normalized_evidence",
+  "created_at": "2026-07-11",
+  "canonical_url": "https://huggingface.co/datasets/contra-labs/video-detail-annotation/blob/6eb94f7f23e8ecf198900b3cf9b9cf5f5359b1f2/video-detail-annotation-0626.csv",
+  "final_url": "https://huggingface.co/datasets/contra-labs/video-detail-annotation/raw/6eb94f7f23e8ecf198900b3cf9b9cf5f5359b1f2/video-detail-annotation-0626.csv",
+  "raw_document_sha256": "b7490d49978b2d373bd9320981fce16fcf2667d0df2399fdba9ee3b8c8122d91",
+  "normalization": "The pinned UTF-8 CSV was parsed by header with Python csv.DictReader. Counts use data rows only; issue types and video_model slugs use exact distinct strings; Unrated is an exact issue_severity match; a row lacks timestamps when either timestamp cell is empty; duplicates compare every parsed column.",
+  "rights_note": "The dataset declares CC BY 4.0. This repository retains attribution, the pinned CSV URL and hash, the audit method, and aggregate QA only, not dataset rows or videos.",
+  "items": [
+    {
+      "evidence_item_id": "contra.dataset.qa-limitations",
+      "locator": {
+        "heading_path": ["video-detail-annotation-0626.csv", "Deterministic aggregate audit"],
+        "fragment_hint": "b7490d49"
+      },
+      "normalized_evidence": "The pinned CSV hash is b7490d49978b2d373bd9320981fce16fcf2667d0df2399fdba9ee3b8c8122d91. An audit found 544 rows, 31 issue-type values, 157 Unrated severities, 95 rows without timestamps, 19 video slugs for 15 files, and one exact duplicate.",
+      "normalized_evidence_sha256": "148da2807269cff7d9e7b4d21a1409b708d39f171ed442b4e0557ec6d8d5c399"
+    }
+  ],
+  "notes": "The aggregate audit qualifies dataset reuse; it does not evaluate Seedance, establish model architecture, or validate prompt grammar."
+}

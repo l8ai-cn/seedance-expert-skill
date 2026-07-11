@@ -1,0 +1,67 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/evidence-claim.schema.json",
+  "claim_id": "bp.operation.edit-extend-classifier",
+  "claim_text": "BytePlus warns that edit and extension prompts should not prefix the source video with generic reference wording.",
+  "normalized_key": "prompt.operation.edit_extend.reference_prefix",
+  "value": "avoid_generic_reference_prefix",
+  "model_family": "seedance",
+  "model_version": "2.0-series",
+  "claim_class": "prompt_grammar",
+  "scope": {
+    "surfaces": [
+      "byteplus.modelark"
+    ],
+    "operations": [
+      "edit",
+      "extend"
+    ],
+    "locale": "en",
+    "region": "global"
+  },
+  "support_status": "supported",
+  "confidence": "high",
+  "criticality": "critical",
+  "volatility": "volatile",
+  "ttl_days": 30,
+  "agreement_status": "uncontested",
+  "lifecycle_status": "active",
+  "runtime_presence": "legacy_active",
+  "runtime_status": "candidate",
+  "source_evidence": [
+    {
+      "source_snapshot_id": "byteplus.prompt-guide.2222480.2026-07-11",
+      "source_snapshot_sha256": "721a4df57104731951904c050e5baba76b8cbd10ee9f1e7caece5809118d105b",
+      "capture_sha256": "bb35646a893b540dbbecfba6697b20fd6bd9d26dfed009cc0c6778ea333e900c",
+      "evidence_items": [
+        {
+          "evidence_item_id": "byteplus.prompt.operation-edit-extend",
+          "normalized_evidence_sha256": "c4398176cbad0f6f02ee23dfd723b1c15e5d0717fc3be65ac908236fbd447b6b"
+        }
+      ],
+      "relation": "supports"
+    }
+  ],
+  "verified_at": "2026-07-11",
+  "expires_at": "2026-08-10",
+  "supersedes": [],
+  "relations": [],
+  "conflict_group": null,
+  "affected_paths": [
+    "SKILL.md",
+    "references/reference-workflow.md"
+  ],
+  "affected_profiles": [
+    "byteplus.modelark"
+  ],
+  "affected_tests": [
+    "evals/evals.json#edit_extend_vs_regenerate",
+    "tests/test_evidence_registry.py#test_runtime_map_exactly_covers_the_runtime_manifest"
+  ],
+  "review": {
+    "status": "pending",
+    "reviewers": [],
+    "decision_at": null,
+    "claim_sha256": null
+  },
+  "notes": "The current legacy runtime contains generic @Video1 source wording. V7-05 must reconcile the mapped occurrences before this claim can be consumed."
+}

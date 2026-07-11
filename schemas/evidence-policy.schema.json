@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Emily2040/seedance-2.0/schemas/evidence-policy.schema.json",
+  "title": "Seedance closed evidence release policy",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "schema_version", "policy_id", "activation_enabled", "requirements"],
+  "properties": {
+    "$schema": {
+      "const": "https://github.com/Emily2040/seedance-2.0/schemas/evidence-policy.schema.json"
+    },
+    "schema_version": {"const": 1},
+    "policy_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)+$",
+      "maxLength": 160
+    },
+    "activation_enabled": {
+      "const": false,
+      "description": "Evidence validation cannot activate runtime guidance in V7-04."
+    },
+    "requirements": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "requirement_id",
+          "selected_claim_id",
+          "selected_claim_sha256",
+          "lineage_root_claim_id",
+          "normalized_key",
+          "criticality",
+          "expected_support_status",
+          "allowed_runtime_status",
+          "enforce_freshness",
+          "require_capture",
+          "required_profile_ids",
+          "required_test_ids"
+        ],
+        "properties": {
+          "requirement_id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)+$",
+            "maxLength": 180
+          },
+          "selected_claim_id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)+$"
+          },
+          "selected_claim_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+          "lineage_root_claim_id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)+$"
+          },
+          "normalized_key": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)+$"
+          },
+          "criticality": {"enum": ["critical", "important", "informational"]},
+          "expected_support_status": {"enum": ["supported", "unverified"]},
+          "allowed_runtime_status": {
+            "type": "array",
+            "minItems": 1,
+            "items": {"enum": ["candidate", "blocked", "research_only"]},
+            "uniqueItems": true
+          },
+          "enforce_freshness": {"type": "boolean"},
+          "require_capture": {"type": "boolean"},
+          "required_profile_ids": {
+            "type": "array",
+            "items": {"type": "string", "minLength": 1, "maxLength": 160},
+            "uniqueItems": true
+          },
+          "required_test_ids": {
+            "type": "array",
+            "minItems": 1,
+            "items": {"type": "string", "minLength": 1, "maxLength": 240},
+            "uniqueItems": true
+          }
+        }
+      }
+    }
+  }
+}

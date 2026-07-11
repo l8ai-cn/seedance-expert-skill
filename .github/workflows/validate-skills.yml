@@ -3,6 +3,7 @@ name: validate-seedance-skill
 on:
   push:
   pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -30,9 +31,16 @@ jobs:
         run: python scripts/eval_schema_check.py
       - name: Execute JSON Schemas against declared fixtures
         run: python scripts/schema_check.py --strict
+      - name: Validate claim-level evidence and freshness
+        run: >-
+          python tools/evidence_registry.py
+          --enforce-freshness
+          --report /tmp/evidence-registry-report.json
+      - name: Exercise evidence boundary tests
+        run: python -m unittest tests.test_evidence_registry -v
       - name: Audit frontend README and SVG assets
         run: python scripts/design_audit.py
-      - name: Validate source freshness and claim labels
+      - name: Exercise legacy source-registry compatibility entry point
         run: python scripts/source_registry_check.py
       - name: Validate multilingual vocabulary schema
         run: python scripts/vocab_schema_check.py --strict

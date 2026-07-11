@@ -1,8 +1,10 @@
 from __future__ import annotations
 
 import importlib.util
+import http.server
 import json
 import tempfile
+import threading
 import subprocess
 import sys
 import unittest
@@ -114,6 +116,51 @@ class SchemaCheckTests(unittest.TestCase):
         for text in ('{"value": 1, "value": 2}', '{"value": NaN}', '{"value": Infinity}'):
             with self.subTest(text=text), self.assertRaises(ValueError):
                 schema_check.parse_json(text)
+
+    @unittest.skipIf(schema_check.Draft202012Validator is None, "jsonschema dependency is not installed")
+    def test_remote_schema_reference_is_rejected_without_network_access(self) -> None:
+        requested = threading.Event()
+
+        class Handler(http.server.BaseHTTPRequestHandler):
+            def do_GET(self):  # noqa: N802 - stdlib handler contract
+                requested.set()
+                self.send_response(200)
+                self.end_headers()
+                self.wfile.write(b'{"type":"object"}')
+
+            def log_message(self, _format, *_args):
+                return
+
+        server = http.server.ThreadingHTTPServer(("127.0.0.1", 0), Handler)
+        server.timeout = 0.2
+        thread = threading.Thread(target=server.handle_request)
+        thread.start()
+        try:
+            with tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary)
+                (root / "schemas").mkdir()
+                (root / "validation").mkdir()
+                (root / "fixtures").mkdir()
+                (root / "schemas" / "remote.schema.json").write_text(json.dumps({
+                    "$schema": "https://json-schema.org/draft/2020-12/schema",
+                    "$ref": f"http://127.0.0.1:{server.server_port}/leak",
+                }), encoding="utf-8")
+                (root / "fixtures" / "instance.json").write_text("{}", encoding="utf-8")
+                manifest = root / "validation" / "schema-instances.json"
+                manifest.write_text(json.dumps({
+                    "schema_version": 1,
+                    "mappings": [{
+                        "schema": "schemas/remote.schema.json",
+                        "instances": ["fixtures/instance.json"],
+                    }],
+                }), encoding="utf-8")
+                errors, _, _ = schema_check.validate_repository(root, manifest, strict=True)
+                self.assertTrue(any("non-local $ref is forbidden" in error for error in errors), errors)
+            thread.join(timeout=1)
+            self.assertFalse(requested.is_set())
+        finally:
+            server.server_close()
+            thread.join(timeout=1)
 
     def test_cli_fails_closed_when_dependency_is_missing(self) -> None:
         result = subprocess.run(

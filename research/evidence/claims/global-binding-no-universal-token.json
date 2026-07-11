@@ -1,0 +1,95 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/evidence-claim.schema.json",
+  "claim_id": "global.binding.no-universal-token",
+  "claim_text": "Verified provider examples use different reference-binding conventions, so no one prompt token is evidenced as universal across the registered surfaces.",
+  "normalized_key": "reference.binding.universal-token",
+  "value": false,
+  "model_family": "seedance",
+  "model_version": "2.0-series",
+  "claim_class": "workflow",
+  "scope": {
+    "surfaces": [
+      "byteplus.modelark",
+      "fal.reference-to-video",
+      "volcengine.ark"
+    ],
+    "operations": [
+      "reference_generation"
+    ],
+    "locale": "multilingual",
+    "region": "global"
+  },
+  "support_status": "supported",
+  "confidence": "high",
+  "criticality": "critical",
+  "volatility": "volatile",
+  "ttl_days": 7,
+  "agreement_status": "uncontested",
+  "lifecycle_status": "active",
+  "runtime_presence": "not_present",
+  "runtime_status": "candidate",
+  "source_evidence": [
+    {
+      "source_snapshot_id": "byteplus.prompt-guide.2222480.2026-07-11",
+      "source_snapshot_sha256": "721a4df57104731951904c050e5baba76b8cbd10ee9f1e7caece5809118d105b",
+      "capture_sha256": "bb35646a893b540dbbecfba6697b20fd6bd9d26dfed009cc0c6778ea333e900c",
+      "evidence_items": [
+        {
+          "evidence_item_id": "byteplus.prompt.binding-spaced-token",
+          "normalized_evidence_sha256": "be46481d96454430cd1c5b0f1770f2a6eb9a1fb39d17e0334e42de29452c2d74"
+        }
+      ],
+      "relation": "supports"
+    },
+    {
+      "source_snapshot_id": "fal.reference-to-video.2026-07-11",
+      "source_snapshot_sha256": "20865b3d27883770e41f187ea702d3597c02ee641a268c83b2c4673b926e0e9b",
+      "capture_sha256": "ea94e2ee2faeb782053fac380d4fbf8734e7761043e94da52100b9ab472e17af",
+      "evidence_items": [
+        {
+          "evidence_item_id": "fal.reference.binding-arrays",
+          "normalized_evidence_sha256": "1426857f09070f7461fda78ba8482f203b0af409ccad02a1acec0be0b63746d8"
+        }
+      ],
+      "relation": "supports"
+    },
+    {
+      "source_snapshot_id": "volcengine.tutorial.2291680.2026-07-11",
+      "source_snapshot_sha256": "fb3b43c92fc92f9ef9f0cf4839196dd865c17ae963cd6d7a375a3da5169ab801",
+      "capture_sha256": "83d0b45d18998f1451d78a0bedef27f74bcf6d666ad715bbcd07e335ddf9cefb",
+      "evidence_items": [
+        {
+          "evidence_item_id": "volcengine.tutorial.asset-ordinal",
+          "normalized_evidence_sha256": "eccf6e26c7daeb6d69543406e6d8390919f6438cdd6a7c2b10df551b51e61f21"
+        }
+      ],
+      "relation": "supports"
+    }
+  ],
+  "verified_at": "2026-07-11",
+  "expires_at": "2026-07-18",
+  "supersedes": [],
+  "relations": [],
+  "conflict_group": null,
+  "affected_paths": [
+    "references/continuation-handoff.md",
+    "references/reference-transfer-contract.md",
+    "references/reference-workflow.md"
+  ],
+  "affected_profiles": [
+    "byteplus.modelark",
+    "fal.reference-to-video",
+    "volcengine.ark"
+  ],
+  "affected_tests": [
+    "evals/evals.json#exact_reference_tag_preserved",
+    "tests/test_evidence_registry.py#test_runtime_map_exactly_covers_the_runtime_manifest"
+  ],
+  "review": {
+    "status": "pending",
+    "reviewers": [],
+    "decision_at": null,
+    "claim_sha256": null
+  },
+  "notes": "The current runtime's universal compact-token rule is blocked migration debt for V7-05. Additional surfaces can add further scoped conventions without changing this invariant."
+}

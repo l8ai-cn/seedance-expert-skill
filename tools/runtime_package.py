@@ -47,7 +47,9 @@ GENERATED_MANIFEST_KEYS = {
 }
 PAYLOAD_RECORD_KEYS = {"path", "sha256", "size"}
 REQUIRED_PAYLOAD_PATHS = {"LICENSE", "SKILL.md", "agents/openai.yaml"}
-FORBIDDEN_TOP_LEVEL = {".git", ".github", "data", "docs", "evals", "runtime", "tests", "tools"}
+FORBIDDEN_TOP_LEVEL = {
+    ".git", ".github", "data", "docs", "evals", "research", "runtime", "tests", "tools",
+}
 FORBIDDEN_TOP_LEVEL_FILES = {
     ".gitignore",
     "CHANGELOG.md",
@@ -248,6 +250,8 @@ def _validate_runtime_paths(paths: tuple[str, ...], *, require_sorted: bool) -> 
             raise PackageError(f"development-only path cannot enter runtime: {relative}")
         if relative_folded.startswith("references/migrated/"):
             raise PackageError(f"migrated archive cannot enter runtime: {relative}")
+        if relative_folded.startswith("schemas/evidence-"):
+            raise PackageError(f"evidence-control schema cannot enter runtime: {relative}")
         if top_folded == "scripts" and relative not in RUNTIME_SCRIPT_ALLOWLIST:
             raise PackageError(f"development script cannot enter runtime: {relative}")
 
