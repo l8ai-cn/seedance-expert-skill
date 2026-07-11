@@ -14,7 +14,7 @@ This repository has no application frontend. The user-facing frontend is the Git
 ## Asset rules
 
 - Use SVG for simple structural support diagrams.
-- Use generated bitmap images for the README hero, operating-system infographic, skill-map infographic, capability map, CDN delivery map, reference-role map, production-delivery map, and QC stack when the asset needs cinematic texture, real scene depth, or visual storytelling.
+- Use generated bitmap images for the README hero, operating-system infographic, skill-map infographic, capability map, CDN delivery map, production-delivery map, and QC stack when the asset needs cinematic texture, real scene depth, or visual storytelling. Do not restore the retired media-type reference-role graphic; any future authority visual must show target/dimension winners, exclusions, and the separation from surface bindings.
 - Bitmap hero/infographic/map assets should be logo-free, watermark-free, and readable at GitHub README width.
 - Text-rich infographics are allowed when labels are large, short, corrected, and repeated in accessible Markdown next to the image.
 - SVG assets must include `<title>` and `<desc>`.

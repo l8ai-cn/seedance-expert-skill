@@ -15,7 +15,7 @@ Safe language mixing means:
 - Use Chinese for concise role clauses when a surface or collaborator expects it: `锁定主体身份`, `仅参考运镜`; the typed renderer inserts any exact handle separately.
 - Use the target dialogue language only for the spoken line.
 - Use local-language constraints to remove ambiguity, not to soften an unsafe request.
-- If a safe prompt is blocked, rewrite the scene with clearer production context, ownership, age/consent if relevant, non-graphic wording, and narrower reference roles.
+- If a safe prompt is blocked, rewrite the scene with clearer production context, ownership, age/consent if relevant, non-graphic wording, and narrower target/dimension transfer.
 
 ## What Works
 
@@ -31,7 +31,7 @@ Safe language mixing means:
 
 - Do not translate unsafe identity, harm, or adult-content terms into another language to sneak them through a filter.
 - Do not mix multiple style systems in one prompt: cinematic realism, watercolor, anime, claymation, and documentary handheld in one shot usually creates visual mush.
-- Do not let language mixing hide reference roles. If a bound video controls camera, say it controls only camera.
+- Do not let language mixing hide reference authority. If a bound video wins camera motion, name that target/dimension and exclude its identity, set, style, audio, and other observed leakage.
 - Do not mix protected IP names in one language with “generic” wording in another; rewrite the concept into an original world.
 - Do not over-pack multilingual constraints. Five precise constraints beat twenty negative phrases.
 
@@ -103,7 +103,7 @@ Native Korean readers should separate subject lock, camera movement, lighting, a
 
 `binding(product)` + `: референс продукта; сохранить логотип, этикетку, форму и цвет без изменений. Меняется только свет и микродвижение среды: теплый блик проходит по стеклу, капли медленно стекают вниз. Camera: locked medium product shot, slow push-in. Sound: quiet room tone.`
 
-**Reference role map**
+**Reference authority map**
 
 `binding(character)` + `: оригинальный персонаж и плащ. ` + `binding(camera_reference)` + `: only camera rhythm, not people, place, costume, or brand. ` + `binding(tempo_reference)` + `: только темп. Персонаж идет по мокрой улице, останавливается под фонарем, финальный взгляд влево.`
 
@@ -117,7 +117,7 @@ When a multilingual prompt fails, repair in this order:
 
 1. Remove protected identities, brands, and copied scenes in every language.
 2. State the safe production context: staged, original, authorized, non-graphic, no real person.
-3. Narrow each reference to one role.
+3. Choose exactly one winner per applicable target/dimension; one asset may win several compatible dimensions.
 4. Keep dialogue in the speaker language, but keep camera and constraints in the clearest language for the operator.
 5. Reduce the prompt to one visible beat and one camera move.
 6. If it still blocks, change the creative surface, not just the language.
@@ -128,7 +128,7 @@ Use these when the collaborator is not only prompting, but preparing a shot for 
 
 | Language context | Production-safe structure |
 |---|---|
-| Chinese-English shot list | `Shot ID + typed image/video role map + action endpoint + Camera in English + 后期备注: textless/localized copy in post` |
+| Chinese-English shot list | `Shot ID + typed target/dimension authority map + action endpoint + Camera in English + 后期备注: textless/localized copy in post` |
 | Japanese review notes | `ショット目的 + 保持する要素 + 修正する動き + postで追加する字幕/コピー` |
 | Korean dialogue handoff | `대사 + locked framing + speaker tag + 자막/더빙은 후반 작업에서 처리` |
 | Spanish client versioning | `versión 15s/9:16 + producto protegido + texto en post + subtítulos separados` |

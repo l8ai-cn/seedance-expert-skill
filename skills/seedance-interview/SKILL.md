@@ -85,9 +85,9 @@ Each plain question secretly decides a production parameter the user never has t
 | 8 | Do you already have an accepted previous clip or final frame this must continue from? | continuation source gate | no source means do not invent continuation state |
 | 9 | Which details must never change across clips - face, wardrobe, product, place, direction, sound, or something else? | immutable continuity locks | subject identity plus typed bindings and surface policies |
 
-When real material likely exists (a business, product, pet, person, or place the user owns), the reference question takes one of the five slots — swap out question 3, which defaults well: `Do you have photos, clips, or sound of the real [subject]? Real material keeps the video looking like yours.` The batch never exceeds five questions total. Map anything they provide to reference roles via `[ref:reference-workflow]`.
+When real material likely exists (a business, product, pet, person, or place the user owns), the reference question takes one of the five slots — swap out question 3, which defaults well: `Do you have photos, clips, or sound of the real [subject]? Real material keeps the video looking like yours.` The batch never exceeds five questions total. Map anything they provide to target/dimension authority and leakage exclusions via `[ref:reference-workflow]`.
 
-For a sequence project, determine whether the request is the complete video or part of a longer story, how the complete story ends, target total duration, likely clip count, current clip job, references and their intended roles, active surface, audio needs, immutable continuity requirements, and any accepted source footage. Do not add these questions blindly when the answer is already clear.
+For a sequence project, determine whether the request is the complete video or part of a longer story, how the complete story ends, target total duration, likely clip count, current clip job, reference targets and intended control dimensions, active surface, audio needs, immutable continuity requirements, and any accepted source footage. Do not add these questions blindly when the answer is already clear.
 
 ## Feeling-to-Film Translation
 

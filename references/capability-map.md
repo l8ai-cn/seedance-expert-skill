@@ -8,12 +8,12 @@
 |---|---|
 | Multi-shot in one call [official] | `Shot 1:/2:/3:` labels · one action + one camera each · Standard tier · 10–15s/`auto` · shots×seconds budget |
 | Native synced audio [official] | name specific sounds; dialogue as a natural quoted line on-screen; short lines; clean front face ref; SFX>music>dialogue — test dialogue first |
-| Role-separated references [official] | per-asset role **+ exclusion** ("motion only, no appearance") |
+| Reference control [official model-level claim; operation-specific] | assign target/dimension authority **+ exclusions**; the retained claim names camera movement, lighting, performance, and shadow, not a universal priority mechanism |
 | Motion transfer through typed video/image bindings [official/field] | donor clip for choreography/camera rhythm + a separately bound identity image; surface syntax is resolved later |
 | Audio-as-clock via a verified surface binding [field-observed] | typed audio binding + "controls beat timing; the turn lands on the drop" |
-| First/last frame [official] | lock endpoints; prompt initiate→travel→resolve; transformations & match-cuts |
+| First/last frame role designation [official, Volcengine-scoped] | assign verified structured opening/endpoint roles; prompt initiate→travel→resolve; test endpoint fidelity rather than assuming a lock |
 | Literal camera verbs [official] | one motivated move per shot |
-| Physics [official claim] | physical verbs & consequences, not pose adjectives |
+| Causal action staging [heuristic] | initial state → trigger → visible consequence → settled endpoint; verify the camera can observe each required phase |
 | Slow motion [official] | Standard tier; on the single key action |
 | Transformation [field] | endpoint states + the persisting carrier; hard cases → FLF decomposition |
 | 2D/anime [field] | medium grammar: cel over painted bg, sakuga vs held frames, impact frames/speed lines/smears; no lens/DOF talk — full grammar in `[ref:2d-anime-grammar]` |
@@ -22,7 +22,7 @@
 
 ## Design AROUND these
 
-For connected generations, design around continuity drift by keeping each clip small, recording accepted observed state, preserving exact reference roles, and re-anchoring on schedule at the scene's chain-depth cap instead of waiting for visible drift. This is workflow guidance, not a deterministic platform guarantee.
+For connected generations, design around continuity drift by keeping each clip small, recording accepted observed state, preserving exact target/dimension authority and semantic bindings, and re-anchoring on schedule at the scene's chain-depth cap instead of waiting for visible drift. This is workflow guidance, not a deterministic platform guarantee.
 
 Surface duration caps are active-surface facts, not universal Seedance facts; audio is not continuous across separate calls, so score in post when needed [official] · on-screen text → post [official] · negation summons — exclude compositionally [field] · tiny detail (distant faces, hands, logos) degrades [field] · facial micro-acting weakest — stage emotion in body/staging, ration CUs [heuristic] · visible drift after repeated chained generations — re-anchor original refs [field] · character↔prop physics fragile in multi-person shots — keep contact simple or off-screen, use the three-tier action hierarchy [field] · Fast tier behavior is surface-specific [field] · seed = stabilizer, not lock [official].
 

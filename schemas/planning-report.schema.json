@@ -1,0 +1,181 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Emily2040/seedance-2.0/schemas/planning-report.schema.json",
+  "title": "Seedance V7 reference and causal planning report",
+  "$comment": "Deterministic candidate-preview result. Runtime emits this contract only after reference, scene, binding, evidence, expiry, rights, leakage, causality, and observability gates pass. The report contains hashes and stable pointers rather than source prose, secrets, handles, or media values.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schema_version",
+    "status",
+    "profile_id",
+    "profile_status",
+    "preview",
+    "operation",
+    "reference_manifest_sha256",
+    "scene_ir_sha256",
+    "binding_plan_sha256",
+    "selected_asset_ids",
+    "selection_order",
+    "ablation_order",
+    "authority_matrix",
+    "causal_order",
+    "evidence_claim_ids",
+    "evidence_expires_at",
+    "diagnostics"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "https://github.com/Emily2040/seedance-2.0/schemas/planning-report.schema.json"
+    },
+    "schema_version": {"const": 1},
+    "status": {"const": "ready"},
+    "profile_id": {
+      "enum": ["byteplus.modelark", "fal.reference-to-video", "volcengine.ark"]
+    },
+    "profile_status": {"const": "candidate"},
+    "preview": {"const": true},
+    "operation": {
+      "enum": ["reference_generation", "first_last_frame"]
+    },
+    "reference_manifest_sha256": {"$ref": "#/$defs/sha256"},
+    "scene_ir_sha256": {"$ref": "#/$defs/sha256"},
+    "binding_plan_sha256": {"$ref": "#/$defs/sha256"},
+    "selected_asset_ids": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 64,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/id"}
+    },
+    "selection_order": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 64,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/id"}
+    },
+    "ablation_order": {
+      "type": "array",
+      "maxItems": 64,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/id"}
+    },
+    "authority_matrix": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 832,
+      "items": {"$ref": "#/$defs/authority_row"}
+    },
+    "causal_order": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 64,
+      "items": {"$ref": "#/$defs/causal_row"}
+    },
+    "evidence_claim_ids": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 32,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)+$"
+      }
+    },
+    "evidence_expires_at": {"type": "string", "format": "date"},
+    "diagnostics": {
+      "type": "array",
+      "maxItems": 128,
+      "items": {"$ref": "#/$defs/diagnostic"}
+    }
+  },
+  "oneOf": [
+    {
+      "properties": {
+        "profile_id": {"const": "byteplus.modelark"},
+        "operation": {"const": "reference_generation"}
+      }
+    },
+    {
+      "properties": {
+        "profile_id": {"const": "fal.reference-to-video"},
+        "operation": {"const": "reference_generation"}
+      }
+    },
+    {
+      "properties": {
+        "profile_id": {"const": "volcengine.ark"},
+        "operation": {"enum": ["reference_generation", "first_last_frame"]}
+      }
+    }
+  ],
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "dimension": {
+      "enum": [
+        "identity",
+        "face_detail",
+        "wardrobe",
+        "product_object_geometry",
+        "environment",
+        "visual_style",
+        "opening_composition",
+        "subject_motion",
+        "camera_motion",
+        "timing_rhythm",
+        "audio_voice",
+        "endpoint",
+        "text_logo_treatment"
+      ]
+    },
+    "authority_row": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["target_id", "dimension", "winner_asset_id"],
+      "properties": {
+        "target_id": {"$ref": "#/$defs/id"},
+        "dimension": {"$ref": "#/$defs/dimension"},
+        "winner_asset_id": {"$ref": "#/$defs/id"}
+      }
+    },
+    "causal_row": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["shot_id", "event_ids"],
+      "properties": {
+        "shot_id": {"$ref": "#/$defs/id"},
+        "event_ids": {
+          "type": "array",
+          "minItems": 6,
+          "maxItems": 64,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/id"}
+        }
+      }
+    },
+    "diagnostic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "severity", "pointer"],
+      "properties": {
+        "code": {"type": "string", "pattern": "^[A-Z][A-Z0-9_]{2,31}$"},
+        "severity": {"enum": ["info", "warning"]},
+        "pointer": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512,
+          "pattern": "^/(?:[^~]|~[01])*$"
+        }
+      }
+    }
+  }
+}

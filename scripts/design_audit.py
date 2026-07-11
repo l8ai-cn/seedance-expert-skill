@@ -12,7 +12,6 @@ GALLERY_ASSETS = [
     "assets/hero-global-filmmaker-mode.png",
     "assets/infographic-skill-capabilities.png",
     "assets/infographic-cdn-delivery-map.png",
-    "assets/infographic-reference-role-map.png",
     "assets/infographic-production-delivery.png",
     "assets/infographic-professional-qc-stack.png",
 ]
@@ -115,8 +114,11 @@ def main() -> int:
             if required not in text:
                 errors.append(f"README.md missing `{required}`")
         gallery_count = sum(1 for rel in GALLERY_ASSETS if rel in text)
-        if gallery_count < 6:
-            errors.append(f"README.md must reference at least six visual-gallery PNG assets ({gallery_count} found)")
+        if gallery_count < len(GALLERY_ASSETS):
+            errors.append(
+                "README.md must reference every active visual-gallery PNG asset "
+                f"({gallery_count}/{len(GALLERY_ASSETS)} found)"
+            )
         for rel in GALLERY_ASSETS:
             if rel not in text:
                 errors.append(f"README.md missing gallery asset `{rel}`")

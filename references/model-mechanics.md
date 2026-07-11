@@ -22,11 +22,11 @@ Text conditioning moves probability toward every concept it mentions. Negation i
 
 **Consequences:** describe what IS there; exclude compositionally · reserve literal negation for the constraint slot platforms parse (`no on-screen text, no watermark`). **Explains:** negation slop, "negation summons" in the capability map.
 
-### 4. Time is a trajectory prior
+### 4. Causal trajectory is a useful planning heuristic
 
-The model strongly prefers motion that looks like real footage: smooth, momentum-carrying, cause-and-effect. A described cause lets the model compute plausible consequences; a list of disconnected micro-instructions has no trajectory to ride.
+In practice, motion prompts are easier to stage and evaluate when they name an initial state, trigger, visible state change, response, and endpoint. A disconnected list of micro-instructions gives neither the director nor the reviewer a clear event chain. This is a workflow heuristic; it does not establish how Seedance represents time or computes physics internally.
 
-**Consequences:** one physical cause with visible consequences beats five stage directions · unmotivated sudden changes get smoothed away or glitch · declared media change the prior — "hand-drawn 2D" legitimizes held frames that photoreal footage would treat as freezing. **Explains:** physics-forward prompting, the one-action discipline, burst-vs-held grammar in 2D.
+**Consequences:** prefer one trigger with observable consequences over five stage directions · distinguish material contact from a non-material performance or lighting change · give the event a settled endpoint the selected camera can see. **Explains:** causal shot planning, the one-action discipline, and observability checks.
 
 ### 5. Errors compound
 
@@ -34,11 +34,11 @@ Each frame is re-synthesized under the influence of its neighbors; tiny identity
 
 **Consequences:** identity drifts with clip length and chained continuations — re-anchor with the ORIGINAL references, never with outputs · keep fragile anchors locked and clips short · expect the fifth chained generation to need a reset. **Explains:** the ~4–5-generation drift note, extension-degradation repair, preservation language.
 
-### 6. References outrank text where they overlap
+### 6. Overlapping references and text can conflict
 
-Image, video, and audio references are dense conditioning; a still image specifies more about appearance than a paragraph ever could. Text that re-describes a reference creates a second, slightly different instruction for the same pixels — and conflict reads as drift. Reference channels also bleed: a motion donor wants to bring its appearance along.
+Image, video, audio, and text can ask for incompatible attributes. Field-observed donor leakage makes it unsafe to assume that media type, upload order, or prompt emphasis decides which input wins. The exact priority mechanism is not public.
 
-**Consequences:** prompt only what references cannot carry — change over time, camera, sound, constraints · always state what must NOT transfer. **Explains:** intent-vs-precision, role binding with exclusions, "prompt only what the image cannot show."
+**Consequences:** resolve one authority winner for each target/dimension · allow one purposeful asset to own several compatible dimensions · explicitly exclude likely identity, wardrobe, environment, style, camera, audio, or logo leakage from competing assets. **Explains:** intent-vs-precision, target/dimension authority, and transfer exclusions.
 
 ### 7. Detail capacity scales with screen area
 
@@ -69,6 +69,6 @@ Sequence-state failures usually come from compounding error and broken trajector
 | Excluded thing appears | 3 — negation summoned it | describe the positive replacement |
 | Action skipped or mushy | 4 — no trajectory to ride | one cause, visible consequences, an endpoint |
 | Identity decays over time | 5 — compounding error | shorter clip, original-reference re-anchor |
-| Reference fights the prompt | 6 — conflicting conditioning | delete re-description, state non-transfer |
+| Reference fights the prompt | 6 — conflicting inputs | choose one target/dimension winner and exclude that transfer from competing assets |
 | Small detail breaks | 7 — capacity starvation | enlarge it in frame or give it its own shot |
 | Lips or sound desync | 8 — joint constraint overloaded | lock the face, shorten the line, name the sound |

@@ -45,6 +45,25 @@
       "instances": ["validation/fixtures/binding-render.valid.json"]
     },
     {
+      "schema": "schemas/reference-manifest.schema.json",
+      "instances": [
+        "validation/fixtures/reference-manifest.valid.json",
+        "validation/fixtures/reference-manifest.multimodal.valid.json",
+        "validation/fixtures/reference-manifest.structured.valid.json"
+      ]
+    },
+    {
+      "schema": "schemas/scene-ir.schema.json",
+      "instances": [
+        "validation/fixtures/scene-ir.valid.json",
+        "validation/fixtures/scene-ir.nonmaterial.valid.json"
+      ]
+    },
+    {
+      "schema": "schemas/planning-report.schema.json",
+      "instances": ["validation/fixtures/planning-report.valid.json"]
+    },
+    {
       "schema": "schemas/model-profile.schema.json",
       "instances": ["profiles/models/seedance-2.0-model.json"]
     },

@@ -143,9 +143,9 @@ class RuntimePackageTests(unittest.TestCase):
 
     def test_repository_manifest_builds_conservative_runtime_exactly(self) -> None:
         plan = package.package_plan(ROOT)
-        self.assertEqual(plan["payload_file_count"], 114)
-        self.assertEqual(plan["payload_size_bytes"], 645932)
-        self.assertEqual(plan["tree_sha256"], "a6983502f6f3c04a92efae7ae67ffea9cc1f78770d79391674cc4b7f66559443")
+        self.assertEqual(plan["payload_file_count"], 119)
+        self.assertEqual(plan["payload_size_bytes"], 752289)
+        self.assertEqual(plan["tree_sha256"], "563adfa1f77613709aa6c1770daf8b4029bb2a56dcc7a5ffa91966a57af6ec02")
 
         first = self.base / "first"
         second = self.base / "second"
@@ -158,10 +158,15 @@ class RuntimePackageTests(unittest.TestCase):
         self.assertEqual(package.verify_package(first)["tree_sha256"], plan["tree_sha256"])
 
         found = package._scan_plain_tree(first)
-        self.assertEqual(len(found), 115)
+        self.assertEqual(len(found), 120)
         self.assertIn("references/interview-starters.md", found)
         self.assertIn("profiles/profile-index.json", found)
+        self.assertIn("schemas/reference-manifest.schema.json", found)
+        self.assertIn("schemas/scene-ir.schema.json", found)
+        self.assertIn("schemas/planning-report.schema.json", found)
+        self.assertIn("scripts/reference_planner.py", found)
         self.assertIn("scripts/render_surface_bindings.py", found)
+        self.assertIn("scripts/scene_ir_check.py", found)
         self.assertNotIn("README.md", found)
         self.assertFalse(any(path.startswith(("docs/", "evals/", "tests/", "data/", "research/")) for path in found))
         self.assertFalse(any(path.startswith("schemas/evidence-") for path in found))
@@ -196,6 +201,18 @@ class RuntimePackageTests(unittest.TestCase):
             capture_output=True,
         )
         self.assertEqual(binding_tool.returncode, 0, binding_tool.stdout + binding_tool.stderr)
+        scene_tool = subprocess.run(
+            [sys.executable, "-B", str(first / "scripts" / "scene_ir_check.py"), "--self-test"],
+            text=True,
+            capture_output=True,
+        )
+        self.assertEqual(scene_tool.returncode, 0, scene_tool.stdout + scene_tool.stderr)
+        planner_tool = subprocess.run(
+            [sys.executable, "-B", str(first / "scripts" / "reference_planner.py"), "--self-test"],
+            text=True,
+            capture_output=True,
+        )
+        self.assertEqual(planner_tool.returncode, 0, planner_tool.stdout + planner_tool.stderr)
 
     def test_selected_binary_asset_is_exactly_preserved(self) -> None:
         repo = self.base / "repo"

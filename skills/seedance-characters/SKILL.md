@@ -36,7 +36,7 @@ Assign each character a stable semantic label: `Character A`, `Character B`, or 
 | Field | Prompt use |
 |---|---|
 | Tag | `Character A` or a user-provided original name; media binding is a separate typed segment |
-| Identity anchor | Age range, silhouette, hair, wardrobe, or authorized reference role |
+| Identity anchor | Age range, silhouette, hair, wardrobe, or authorized asset that wins the character's identity/face-detail dimension |
 | Position | Foreground/background, left/right, seated/standing |
 | Action | One assigned verb and endpoint |
 | Expression | Observable behavior such as blink, glance, smile, grip, pause |

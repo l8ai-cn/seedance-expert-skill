@@ -1,0 +1,54 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/planning-report.schema.json",
+  "schema_version": 1,
+  "status": "ready",
+  "profile_id": "fal.reference-to-video",
+  "profile_status": "candidate",
+  "preview": true,
+  "operation": "reference_generation",
+  "reference_manifest_sha256": "1dfd3d8176985292abd085145fa9a088ed2ad027c1168986c845da64b3f2d1d4",
+  "scene_ir_sha256": "6f2d7c403377f5836a16bb8362152df9b070002cea2452b7dde05ce4e804e3b2",
+  "binding_plan_sha256": "f05c6afa6964707278b6d3d7418edc301106f925f43f8628856fa594bd4b895a",
+  "selected_asset_ids": ["product"],
+  "selection_order": ["product"],
+  "ablation_order": [],
+  "authority_matrix": [
+    {
+      "target_id": "bottle",
+      "dimension": "product_object_geometry",
+      "winner_asset_id": "product"
+    }
+  ],
+  "causal_order": [
+    {
+      "shot_id": "bottle_tip",
+      "event_ids": [
+        "bottle_initial",
+        "bottle_trigger",
+        "bottle_contact",
+        "bottle_response",
+        "bottle_follow",
+        "bottle_endpoint"
+      ]
+    }
+  ],
+  "evidence_claim_ids": [
+    "bytedance.model.multimodal-inputs",
+    "bytedance.model.reference-control",
+    "global.binding.no-universal-token",
+    "fal.binding.at-ordinal"
+  ],
+  "evidence_expires_at": "2026-07-18",
+  "diagnostics": [
+    {
+      "code": "CANDIDATE_PREVIEW_ONLY",
+      "severity": "warning",
+      "pointer": "/preview"
+    },
+    {
+      "code": "CAUSAL_IR_IS_PLANNING_HEURISTIC",
+      "severity": "info",
+      "pointer": "/causal_order"
+    }
+  ]
+}

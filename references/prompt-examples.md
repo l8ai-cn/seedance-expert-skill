@@ -28,13 +28,13 @@ Use these examples as semantic patterns, not surface-ready scripts. `binding(nam
 
 ## V2V Motion Transfer Without Identity Transfer
 
-**Mode:** V2V. **Why it works:** the reference role is narrow and excludes likeness.
+**Mode:** V2V. **Why it works:** the donor wins only timing and choreography authority; likeness and the other observed dimensions are excluded.
 
 `binding(motion_reference)` + ` provides only the timing and side-step choreography; do not transfer the performer identity, face, costume, room, or logo. New subject is an original masked street dancer in a wet neon alley. The dancer mirrors the step rhythm, pivots left, and stops with one hand raised. Camera: steady waist-level tracking move. Lighting: cyan storefront glow and magenta rim light. Sound: muted bass pulse synced to each footstep.`
 
 ## R2V Multi-Reference Product Ad
 
-**Mode:** R2V. **Why it works:** every reference has a single role.
+**Mode:** R2V. **Why it works:** each applicable product/shot dimension has one winner, and every included reference owns a necessary dimension.
 
 `binding(product)` + ` is the product identity reference; preserve shape, label, logo, and color exactly. ` + `binding(background_mood)` + ` is only the background mood reference: warm wooden bar, low amber practicals. ` + `binding(music_tempo)` + ` provides only music tempo. Product sits on black stone while a thin amber light sweep crosses the label in time with that tempo. Camera: controlled slider move from silhouette to front three-quarter hero angle. Sound: new music at the referenced tempo, soft glass tap on final frame.`
 
@@ -112,7 +112,7 @@ Use these examples as semantic patterns, not surface-ready scripts. `binding(nam
 
 ## Chinese First/Last Frame
 
-**Mode:** FLF2V. **Why it works:** each image has one role and the prompt describes only the transition.
+**Mode:** FLF2V. **Why it works:** the verified request structure assigns opening composition and endpoint to different assets while the prose describes only the transition.
 
 Structured request roles: `opening → first_frame`, `endpoint → last_frame`. Prompt prose: `保持两张给定帧中的同一原创角色、服装和房间布局。角色从椅子上缓慢站起，走到窗边并停在给定尾帧的姿势。动作连续自然，不跳切，不改变脸部、衣服或房间结构。镜头固定中景，仅轻微推镜。声音：安静室内环境声。`
 
@@ -122,9 +122,9 @@ Structured request roles: `opening → first_frame`, `endpoint → last_frame`. 
 
 `binding(product)` + `: первый кадр и референс продукта; сохранить логотип, этикетку, форму, цвет и крышку без изменений. Меняются только свет и небольшое движение среды: теплый источник слева медленно проходит по стеклу, капли соединяются и стекают вниз. Камера: фиксированный средний план с очень медленным наездом на этикетку. Звук: тихий фон, легкий стеклянный щелчок в конце.`
 
-## Russian Reference Role Map
+## Russian Reference Authority Map
 
-**Mode:** R2V. **Why it works:** image, video, and audio references are separated into safe roles.
+**Mode:** R2V. **Why it works:** identity/wardrobe, camera rhythm, and timing have explicit winners, with undeclared transfer excluded.
 
 `binding(character)` + `: оригинальный персонаж и костюм. ` + `binding(camera_reference)` + `: только ритм бокового сопровождения камеры; не копировать людей, место, бренды или узнаваемую сцену. ` + `binding(tempo_reference)` + `: только темп и настроение. Персонаж идет по мокрой вечерней улице, останавливается под фонарем и оборачивается. Камера: плавное боковое сопровождение, затем фиксированный средний план. Звук: дождь, шаги, без музыки.`
 

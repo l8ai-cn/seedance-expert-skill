@@ -46,7 +46,7 @@ Use `Subject + Action + Scene + Camera + Lighting/Style + Audio + Constraints`. 
 
 ## Mode Gate
 
-Choose the mode before drafting. **T2V** needs subject, action, scene, camera, light, style, and constraints because nothing is visible yet. **I2V** starts from the supplied image and adds only motion, time, camera, lighting transition, audio, and preservation. **V2V** maps the supplied video to source clip, camera move, action rhythm, blocking, edit target, or extension anchor rather than accidentally transferring identity. **R2V** lists every semantic binding role and what must not transfer. **FLF2V** assigns explicit first-frame and last-frame roles, then describes only the continuous transition.
+Choose the mode before drafting. **T2V** needs subject, action, scene, camera, light, style, and constraints because nothing is visible yet. **I2V** starts from the supplied image and adds only motion, time, camera, lighting transition, audio, and preservation. **V2V** maps the supplied video to source clip, camera move, action rhythm, blocking, edit target, or extension anchor rather than accidentally transferring identity. **R2V** resolves one winning asset for every applicable target/dimension and states what must not transfer. **FLF2V** assigns verified structured first-frame and last-frame request roles, then describes only the continuous transition.
 
 Before producing prompt prose, load `[ref:surface-prompt-profiles]`. Represent references as typed binding segments: preserve an external handle only for an opaque profile, omit caller syntax for a derived ordinal, and use structured roles without tokens. Never invent a default `@` token from the mode name or upload order.
 
@@ -54,8 +54,8 @@ Before producing prompt prose, load `[ref:surface-prompt-profiles]`. Represent r
 |---|---|---|---|
 | T2V | Build the whole shot in compact layers. | Too many events in one clip. | Keep one visible beat and one endpoint. |
 | I2V | Preserve visible identity; add motion. | Re-describing the image until the product or face drifts. | Bind the supplied image exactly; add only dynamic changes. |
-| V2V | Transfer motion, camera, or timing. | Copying unauthorized likeness or scene details. | Use owned/licensed/authorized references and restrict transfer role. |
-| R2V | Assign separate roles to each asset. | One reference asked to control identity, pose, scene, and style. | Split roles or prioritize the most important role. |
+| V2V | Transfer declared motion, camera, or timing dimensions. | Copying unauthorized likeness or scene details. | Use authorized references and explicitly exclude every undeclared dimension. |
+| R2V | Resolve authority by target and dimension. | Two references competing for one dimension, or an included asset that owns nothing. | Choose exactly one winner per applicable target/dimension and remove purposeless assets. |
 | FLF2V | Move from first frame to last frame. | Treating the last frame as vague mood instead of endpoint. | Assign explicit endpoint roles and make the last frame the final visual target. |
 | Edit | Preserve the source clip while changing one layer. | Rewriting the whole scene and losing continuity. | Bind the actual edit target through the verified edit operation; change only one layer. |
 | Extend | Continue from accepted source footage only. | Starting from a planned ending or inventing the clip state. | Route to `[skill:seedance-continuation]` and use the observed end state. |
@@ -68,18 +68,18 @@ For sequence prompts, preserve `project_id`, `clip_id`, `parent_clip_id`, contin
 
 ## Prompt Build Process
 
-First, identify the single visible beat: reveal, arrival, decision, transformation, contact, pursuit, or disappearance, and name the one intention it serves. Next, assign reference roles before adding adjectives. Then write a compact first draft in the director formula order, keeping camera, light, performance, and sound aimed at that intention. Finally, run a self-check and the directing coherence test from `[ref:directing-engine]`: one main subject, one main action, one motivated main camera move, physically motivated lighting, performance written as a visible gesture rather than an emotion word, assigned character tags, sound intent, and no hollow boosters.
+First, identify the single visible beat: reveal, arrival, decision, transformation, contact, pursuit, or disappearance, and name the one intention it serves. Next, resolve target/dimension reference authority before adding adjectives. Then write a compact first draft in the director formula order, keeping camera, light, performance, and sound aimed at that intention. Finally, run a self-check and the directing coherence test from `[ref:directing-engine]`: one main subject, one main action, one motivated main camera move, physically motivated lighting, performance written as a visible gesture rather than an emotion word, assigned character tags, sound intent, and no hollow boosters.
 
 ## Compression Rules
 
-When the prompt is too long, cut in this order: duplicate style adjectives, generic quality words, background details visible in references, secondary camera moves, secondary actions, and speculative emotional labels. Keep preservation constraints, action timing, and role maps. If a user requests a bilingual or mixed-language prompt, use language mixing only for clarity: reference roles, dialogue language, technical camera terms, and safe production constraints. Do not use another language to hide unsafe intent.
+When the prompt is too long, cut in this order: duplicate style adjectives, generic quality words, background details visible in references, secondary camera moves, secondary actions, and speculative emotional labels. Keep preservation constraints, action timing, and the target/dimension authority map. If a user requests a bilingual or mixed-language prompt, use language mixing only for clarity: authority clauses, dialogue language, technical camera terms, and safe production constraints. Do not use another language to hide unsafe intent.
 
 ## Output Contract
 
 Return:
 
 1. Mode: T2V, I2V, V2V, R2V, FLF2V, edit, or extend.
-2. Reference role map, if any.
+2. Reference authority map by target/dimension, if any; keep structured frame roles and surface bindings separate.
 3. Final prompt under the verified active-surface prompt budget.
 4. Optional Chinese compressed version when useful.
 5. Shot-list or delivery note when the prompt belongs to a professional sequence.

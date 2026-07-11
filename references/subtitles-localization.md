@@ -51,4 +51,4 @@ Ask what must localize: dialogue, product claim, holiday/season, gesture, sign, 
 
 ## Safe False-Positive Repair
 
-Mixed-language wording may clarify benign production context and reference roles, but it must not hide unsafe content. If a blocked prompt includes violence, real-person likeness, protected IP, sexual content, or evasion-like phrasing, repair the underlying issue in every language.
+Mixed-language wording may clarify benign production context and target/dimension reference authority, but it must not hide unsafe content. If a blocked prompt includes violence, real-person likeness, protected IP, sexual content, or evasion-like phrasing, repair the underlying issue in every language.

@@ -1,0 +1,123 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/reference-manifest.schema.json",
+  "schema_version": 1,
+  "profile_id": "volcengine.ark",
+  "operation": "first_last_frame",
+  "task_intent": "Begin at the approved opening composition and complete one continuous action into the approved endpoint.",
+  "targets": [
+    {
+      "target_id": "bottle_tip",
+      "target_kind": "shot",
+      "required_dimensions": ["opening_composition", "endpoint"],
+      "not_applicable_dimensions": [
+        "identity",
+        "face_detail",
+        "wardrobe",
+        "product_object_geometry",
+        "environment",
+        "visual_style",
+        "subject_motion",
+        "camera_motion",
+        "timing_rhythm",
+        "audio_voice",
+        "text_logo_treatment"
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "asset_id": "opening",
+      "media_type": "image",
+      "use": "opening_frame",
+      "selection_status": "required",
+      "subject_selector": "bottle_tip",
+      "subject_locator": {
+        "method": "whole_asset",
+        "description": "The complete supplied image defines the opening frame."
+      },
+      "observed_leakage_dimensions": ["environment", "visual_style"],
+      "preflight_status": "inspected",
+      "preflight": {
+        "inspection_method": "reviewer_attested",
+        "subject_count": 1,
+        "face_visibility": "none",
+        "face_frame_fraction": 0,
+        "body_coverage": "full",
+        "view_layout": "single_scene",
+        "background_complexity": "medium",
+        "has_text": false,
+        "has_logo": false,
+        "occlusion": "none",
+        "composition_use": "opening_frame"
+      },
+      "rights": {
+        "media_use": "user_asserted_authorized",
+        "likeness": "not_applicable",
+        "voice_performance": "not_applicable",
+        "music": "not_applicable",
+        "brand_logo": "not_applicable"
+      }
+    },
+    {
+      "asset_id": "endpoint",
+      "media_type": "image",
+      "use": "endpoint_frame",
+      "selection_status": "required",
+      "subject_selector": "bottle_tip",
+      "subject_locator": {
+        "method": "whole_asset",
+        "description": "The complete supplied image defines the endpoint frame."
+      },
+      "observed_leakage_dimensions": ["environment", "visual_style"],
+      "preflight_status": "inspected",
+      "preflight": {
+        "inspection_method": "reviewer_attested",
+        "subject_count": 1,
+        "face_visibility": "none",
+        "face_frame_fraction": 0,
+        "body_coverage": "full",
+        "view_layout": "single_scene",
+        "background_complexity": "medium",
+        "has_text": false,
+        "has_logo": false,
+        "occlusion": "none",
+        "composition_use": "endpoint_frame"
+      },
+      "rights": {
+        "media_use": "user_asserted_authorized",
+        "likeness": "not_applicable",
+        "voice_performance": "not_applicable",
+        "music": "not_applicable",
+        "brand_logo": "not_applicable"
+      }
+    }
+  ],
+  "authority_assignments": [
+    {
+      "target_id": "bottle_tip",
+      "dimension": "opening_composition",
+      "winner_asset_id": "opening",
+      "excluded_asset_ids": ["endpoint"],
+      "priority": "required",
+      "confidence": "high",
+      "excluded_transfer_dimensions": ["environment", "visual_style"],
+      "leakage_risks": ["environment", "visual_style"],
+      "resolved_leakage": ["environment", "visual_style"],
+      "acceptance_criteria": ["The first visible frame matches the supplied opening composition."]
+    },
+    {
+      "target_id": "bottle_tip",
+      "dimension": "endpoint",
+      "winner_asset_id": "endpoint",
+      "excluded_asset_ids": ["opening"],
+      "priority": "required",
+      "confidence": "high",
+      "excluded_transfer_dimensions": ["environment", "visual_style"],
+      "leakage_risks": ["environment", "visual_style"],
+      "resolved_leakage": ["environment", "visual_style"],
+      "acceptance_criteria": ["The final settled beat reaches the supplied endpoint without treating it as a prompt token."]
+    }
+  ],
+  "selection_order": ["opening", "endpoint"],
+  "ablation_order": []
+}

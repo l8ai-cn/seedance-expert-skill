@@ -27,7 +27,9 @@ FORBIDDEN_RUNTIME_ROOT_FILES = {".gitignore", "CHANGELOG.md", "README.md", "SECU
 RUNTIME_SCRIPT_ALLOWLIST = {
     "scripts/extract_last_frame.py",
     "scripts/project_state_check.py",
+    "scripts/reference_planner.py",
     "scripts/render_surface_bindings.py",
+    "scripts/scene_ir_check.py",
 }
 HELDOUT_RELEASE_GATE_OPERATIONAL = False
 EVAL_SUITE_SCHEMA_URI = "https://github.com/Emily2040/seedance-2.0/evals/eval-suite-v2.schema.json"

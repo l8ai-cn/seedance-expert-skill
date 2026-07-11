@@ -1,0 +1,337 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Emily2040/seedance-2.0/schemas/scene-ir.schema.json",
+  "title": "Seedance V7 causal scene intermediate representation",
+  "$comment": "Candidate-only causal planning contract, not a claim about model internals or physical accuracy. ID uniqueness, contiguous shot/event indexes, phase order, acyclic earlier-only dependencies, reachability, material-response requirements, cross-shot continuity, event-linked observability, and referential integrity are runtime-enforced invariants.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schema_version",
+    "entities",
+    "materials",
+    "shots",
+    "audio_events",
+    "requested_invariants",
+    "known_fragilities",
+    "acceptance_tests",
+    "post_fallbacks"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "https://github.com/Emily2040/seedance-2.0/schemas/scene-ir.schema.json"
+    },
+    "schema_version": {"const": 1},
+    "entities": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 128,
+      "items": {"$ref": "#/$defs/entity"}
+    },
+    "materials": {
+      "type": "array",
+      "maxItems": 128,
+      "items": {"$ref": "#/$defs/material"}
+    },
+    "shots": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 64,
+      "items": {"$ref": "#/$defs/shot"}
+    },
+    "audio_events": {
+      "type": "array",
+      "maxItems": 128,
+      "items": {"$ref": "#/$defs/audio_event"}
+    },
+    "requested_invariants": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 128,
+      "items": {"$ref": "#/$defs/requested_invariant"}
+    },
+    "known_fragilities": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 128,
+      "items": {"$ref": "#/$defs/known_fragility"}
+    },
+    "acceptance_tests": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 128,
+      "items": {"$ref": "#/$defs/acceptance_test"}
+    },
+    "post_fallbacks": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 128,
+      "items": {"$ref": "#/$defs/post_fallback"}
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+    },
+    "bounded_text": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1000,
+      "not": {"pattern": "(?:https?://|file://)"}
+    },
+    "id_array": {
+      "type": "array",
+      "maxItems": 128,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/id"}
+    },
+    "nonempty_id_array": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 128,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/id"}
+    },
+    "entity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["entity_id", "label", "kind", "stable_features"],
+      "properties": {
+        "entity_id": {"$ref": "#/$defs/id"},
+        "label": {"$ref": "#/$defs/bounded_text"},
+        "kind": {"enum": ["character", "product", "object", "environment", "effect", "text"]},
+        "stable_features": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 16,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "not": {"pattern": "(?:https?://|file://)"}
+          }
+        }
+      }
+    },
+    "material": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["material_id", "entity_id", "kind", "response_properties"],
+      "properties": {
+        "material_id": {"$ref": "#/$defs/id"},
+        "entity_id": {"$ref": "#/$defs/id"},
+        "kind": {
+          "enum": ["rigid", "elastic", "fabric", "liquid", "granular", "organic", "smoke", "fire", "other"]
+        },
+        "response_properties": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 16,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "not": {"pattern": "(?:https?://|file://)"}
+          }
+        }
+      }
+    },
+    "event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "event_id",
+        "event_index",
+        "phase",
+        "actor_ids",
+        "target_ids",
+        "depends_on",
+        "visible_state_change",
+        "interaction_kind",
+        "material_ids"
+      ],
+      "properties": {
+        "event_id": {"$ref": "#/$defs/id"},
+        "event_index": {"type": "integer", "minimum": 1, "maximum": 64},
+        "phase": {
+          "enum": [
+            "initial_state",
+            "trigger",
+            "motion_path",
+            "contact_or_state_change",
+            "primary_response",
+            "secondary_response",
+            "follow_through",
+            "settled_endpoint"
+          ]
+        },
+        "actor_ids": {"$ref": "#/$defs/id_array", "maxItems": 16},
+        "target_ids": {"$ref": "#/$defs/id_array", "maxItems": 16},
+        "depends_on": {"$ref": "#/$defs/id_array", "maxItems": 16},
+        "visible_state_change": {"$ref": "#/$defs/bounded_text"},
+        "interaction_kind": {
+          "enum": ["none", "contact", "material_change", "non_material_state_change"]
+        },
+        "material_ids": {
+          "type": "array",
+          "maxItems": 16,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/id"}
+        }
+      },
+      "anyOf": [
+        {"properties": {"actor_ids": {"minItems": 1}}},
+        {"properties": {"target_ids": {"minItems": 1}}}
+      ]
+    },
+    "primary_move": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "start_framing", "path", "speed", "subject_relationship", "endpoint_framing"],
+      "properties": {
+        "kind": {
+          "enum": ["locked", "push_in", "pull_out", "pan", "tilt", "tracking", "orbit", "crane", "dolly", "handheld"]
+        },
+        "start_framing": {"$ref": "#/$defs/bounded_text"},
+        "path": {"$ref": "#/$defs/bounded_text"},
+        "speed": {"$ref": "#/$defs/bounded_text"},
+        "subject_relationship": {"$ref": "#/$defs/bounded_text"},
+        "endpoint_framing": {"$ref": "#/$defs/bounded_text"}
+      }
+    },
+    "observability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "before_state_event_id",
+        "decisive_event_id",
+        "consequence_event_ids",
+        "endpoint_event_id",
+        "occlusion_risks",
+        "mitigations"
+      ],
+      "properties": {
+        "before_state_event_id": {"$ref": "#/$defs/id"},
+        "decisive_event_id": {"$ref": "#/$defs/id"},
+        "consequence_event_ids": {"$ref": "#/$defs/nonempty_id_array", "maxItems": 16},
+        "endpoint_event_id": {"$ref": "#/$defs/id"},
+        "occlusion_risks": {
+          "type": "array",
+          "maxItems": 16,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/bounded_text"}
+        },
+        "mitigations": {
+          "type": "array",
+          "maxItems": 16,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/bounded_text"}
+        }
+      }
+    },
+    "camera": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["primary_move", "observability"],
+      "properties": {
+        "primary_move": {"$ref": "#/$defs/primary_move"},
+        "observability": {"$ref": "#/$defs/observability"}
+      }
+    },
+    "shot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["shot_id", "shot_index", "events", "camera"],
+      "properties": {
+        "shot_id": {"$ref": "#/$defs/id"},
+        "shot_index": {"type": "integer", "minimum": 1, "maximum": 64},
+        "events": {
+          "type": "array",
+          "minItems": 6,
+          "maxItems": 64,
+          "items": {"$ref": "#/$defs/event"}
+        },
+        "camera": {"$ref": "#/$defs/camera"}
+      }
+    },
+    "audio_event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "audio_event_id",
+        "shot_id",
+        "linked_event_id",
+        "source_entity_ids",
+        "temporal_relationship",
+        "semantic_function",
+        "description"
+      ],
+      "properties": {
+        "audio_event_id": {"$ref": "#/$defs/id"},
+        "shot_id": {"$ref": "#/$defs/id"},
+        "linked_event_id": {"$ref": "#/$defs/id"},
+        "source_entity_ids": {"$ref": "#/$defs/id_array", "maxItems": 16},
+        "temporal_relationship": {
+          "enum": [
+            "at_initial_state",
+            "on_trigger",
+            "during_motion",
+            "on_contact_or_state_change",
+            "during_response",
+            "during_follow_through",
+            "at_endpoint",
+            "continuous"
+          ]
+        },
+        "semantic_function": {
+          "enum": ["dialogue", "voiceover", "sound_effect", "ambience", "music", "rhythm", "silence"]
+        },
+        "description": {"$ref": "#/$defs/bounded_text"}
+      }
+    },
+    "requested_invariant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["invariant_id", "entity_ids", "description"],
+      "properties": {
+        "invariant_id": {"$ref": "#/$defs/id"},
+        "entity_ids": {"$ref": "#/$defs/nonempty_id_array", "maxItems": 16},
+        "description": {"$ref": "#/$defs/bounded_text"}
+      }
+    },
+    "known_fragility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fragility_id", "event_ids", "description"],
+      "properties": {
+        "fragility_id": {"$ref": "#/$defs/id"},
+        "event_ids": {"$ref": "#/$defs/nonempty_id_array", "maxItems": 32},
+        "description": {"$ref": "#/$defs/bounded_text"}
+      }
+    },
+    "acceptance_test": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["acceptance_id", "event_ids", "observable", "pass_condition"],
+      "properties": {
+        "acceptance_id": {"$ref": "#/$defs/id"},
+        "event_ids": {"$ref": "#/$defs/nonempty_id_array", "maxItems": 32},
+        "observable": {"$ref": "#/$defs/bounded_text"},
+        "pass_condition": {"$ref": "#/$defs/bounded_text"}
+      }
+    },
+    "post_fallback": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fallback_id", "trigger_acceptance_ids", "action"],
+      "properties": {
+        "fallback_id": {"$ref": "#/$defs/id"},
+        "trigger_acceptance_ids": {"$ref": "#/$defs/nonempty_id_array", "maxItems": 32},
+        "action": {"$ref": "#/$defs/bounded_text"}
+      }
+    }
+  }
+}
