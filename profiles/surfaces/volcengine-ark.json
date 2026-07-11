@@ -1,0 +1,53 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/surface-profile.schema.json",
+  "schema_version": 1,
+  "profile_kind": "surface",
+  "profile_id": "volcengine.ark",
+  "model_profile_id": "seedance-2.0-model",
+  "status": "candidate",
+  "runtime_enabled": false,
+  "fallback_policy": "fail_closed",
+  "operations": [
+    {
+      "operation": "reference_generation",
+      "request_transport": "ordered_content_objects",
+      "prompt_binding": {
+        "kind": "derived_media_ordinal",
+        "position_scope": "per_media_type",
+        "media_formatters": {
+          "image": {"sigil": "", "media_label": "图片", "separator": "", "ordinal_base": 1}
+        }
+      },
+      "allowed_media_types": ["image"],
+      "structured_roles": [],
+      "required_role_set": [],
+      "evidence_pins": [
+        {
+          "claim_id": "global.binding.no-universal-token",
+          "claim_sha256": "94a0035d4b184882182f0916788e2616e9c7c094dedb033fe0aa09cb6485f09e",
+          "expires_at": "2026-07-18"
+        },
+        {
+          "claim_id": "volc.binding.asset-ordinal",
+          "claim_sha256": "7abb7fac0cd19a486d736e401f6b0d2d083cf073e4d28398efbe732fac350c36",
+          "expires_at": "2026-07-18"
+        }
+      ]
+    },
+    {
+      "operation": "first_last_frame",
+      "request_transport": "structured_content_roles",
+      "prompt_binding": {"kind": "none"},
+      "allowed_media_types": ["image"],
+      "structured_roles": ["first_frame", "last_frame"],
+      "required_role_set": ["first_frame", "last_frame"],
+      "evidence_pins": [
+        {
+          "claim_id": "volc.binding.first-last-frame-role",
+          "claim_sha256": "04e775b42c8fc31035393beabd161453765c299e711440b6fbed59ccc2e8f7f7",
+          "expires_at": "2026-07-18"
+        }
+      ]
+    }
+  ]
+}

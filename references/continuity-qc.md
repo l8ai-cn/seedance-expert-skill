@@ -14,7 +14,7 @@ Do not silently change:
 - location;
 - vehicle identity;
 - persistent environment;
-- exact reference tag;
+- exact typed-binding contract and selected surface profile;
 - accepted completed beat status;
 - parent clip lineage.
 
@@ -34,6 +34,6 @@ Before a successor prompt ships, verify:
 - successor `planned_start_state`;
 - completed beats excluded;
 - future beats excluded;
-- exact tags preserved;
+- every semantic binding resolved by the selected surface operation, with opaque handles preserved, derived ordinals computed, and structured roles kept out of prose;
 - successor `felt_intent` present and still served by the compiled prompt's visible choices - continuity-correct but affect-flat fails this check;
 - current prompt covers only current clip.

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/surface-profile.schema.json",
+  "schema_version": 1,
+  "profile_kind": "surface",
+  "profile_id": "fal.reference-to-video",
+  "model_profile_id": "seedance-2.0-model",
+  "status": "candidate",
+  "runtime_enabled": false,
+  "fallback_policy": "fail_closed",
+  "operations": [
+    {
+      "operation": "reference_generation",
+      "request_transport": "typed_media_arrays",
+      "prompt_binding": {
+        "kind": "derived_media_ordinal",
+        "position_scope": "per_media_type",
+        "media_formatters": {
+          "audio": {"sigil": "@", "media_label": "Audio", "separator": "", "ordinal_base": 1},
+          "image": {"sigil": "@", "media_label": "Image", "separator": "", "ordinal_base": 1},
+          "video": {"sigil": "@", "media_label": "Video", "separator": "", "ordinal_base": 1}
+        }
+      },
+      "allowed_media_types": ["audio", "image", "video"],
+      "structured_roles": [],
+      "required_role_set": [],
+      "evidence_pins": [
+        {
+          "claim_id": "global.binding.no-universal-token",
+          "claim_sha256": "94a0035d4b184882182f0916788e2616e9c7c094dedb033fe0aa09cb6485f09e",
+          "expires_at": "2026-07-18"
+        },
+        {
+          "claim_id": "fal.binding.at-ordinal",
+          "claim_sha256": "a651deb46721b54a75280a2437abd15e483abe32a2c281120e90ebcf61d7d0f9",
+          "expires_at": "2026-07-18"
+        }
+      ]
+    }
+  ]
+}

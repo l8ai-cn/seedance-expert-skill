@@ -2,15 +2,17 @@
 
 These are original, safety-screened examples distilled from public multilingual Seedance 2.0 practice. Use them as structures and vocabulary patterns, not copied community prompts.
 
+Binding notation: `binding(name)` denotes a typed segment, never literal prompt text. A selected profile preserves an externally captured handle, derives an evidence-pinned ordinal, or assigns a structured role. Do not attach language-specific particles directly to an unknown opaque handle; separate the rendered binding from its clause with punctuation.
+
 ## Boundary
 
 Language mixing can reduce false positives only when it clarifies a benign creative intent. Do not use another language to hide unsafe content, protected identity copying, real-person imitation, graphic harm, or platform-rule evasion.
 
 Safe language mixing means:
 
-- Keep reference tags literal: `@Image1`, `@Video1`, `@Audio1`, `@图片1`, `@视频1`.
+- Keep each externally supplied opaque handle byte-exact; let an API profile derive its own ordinal; never translate either in language prose.
 - Use English for technical camera terms that creators commonly share across communities: `35mm lens`, `locked medium shot`, `slow dolly-in`, `no text`.
-- Use Chinese for concise role binding when a surface or collaborator expects it: `@图片1锁定主体身份`, `@视频1仅参考运镜`.
+- Use Chinese for concise role clauses when a surface or collaborator expects it: `锁定主体身份`, `仅参考运镜`; the typed renderer inserts any exact handle separately.
 - Use the target dialogue language only for the spoken line.
 - Use local-language constraints to remove ambiguity, not to soften an unsafe request.
 - If a safe prompt is blocked, rewrite the scene with clearer production context, ownership, age/consent if relevant, non-graphic wording, and narrower reference roles.
@@ -29,17 +31,17 @@ Safe language mixing means:
 
 - Do not translate unsafe identity, harm, or adult-content terms into another language to sneak them through a filter.
 - Do not mix multiple style systems in one prompt: cinematic realism, watercolor, anime, claymation, and documentary handheld in one shot usually creates visual mush.
-- Do not let language mixing hide reference roles. If `@Video1` controls camera, say it controls only camera.
+- Do not let language mixing hide reference roles. If a bound video controls camera, say it controls only camera.
 - Do not mix protected IP names in one language with “generic” wording in another; rewrite the concept into an original world.
 - Do not over-pack multilingual constraints. Five precise constraints beat twenty negative phrases.
 
 ## Chinese-English Patterns
 
-Native Chinese readers can start from the role of each reference, then write one visible action and one camera move. Keep imported reference tags literal even inside Chinese sentences.
+Native Chinese readers can start from the role of each reference, then write one visible action and one camera move. Preserve imported surface handles only through typed binding segments, even inside Chinese sentences.
 
 **Official-style role formula**
 
-`@图片1锁定原创角色身份与服装；@图片2仅参考雨夜街道氛围；@视频1仅参考 slow lateral tracking，不复制人物、地点或品牌。原创角色穿过湿润站台，停在一盏闪烁灯下。Camera: locked medium-wide, 35mm lens, one slow side track. Sound: rain, footsteps, no music.`
+`binding(character)` + `：锁定原创角色身份与服装；` + `binding(street_mood)` + `：仅参考雨夜街道氛围；` + `binding(camera_reference)` + `：仅参考 slow lateral tracking，不复制人物、地点或品牌。原创角色穿过湿润站台，停在一盏闪烁灯下。Camera: locked medium-wide, 35mm lens, one slow side track. Sound: rain, footsteps, no music.`
 
 **False-positive repair for safe staged action**
 
@@ -47,7 +49,7 @@ Native Chinese readers can start from the role of each reference, then write one
 
 **Product preservation**
 
-`@Image1为产品参考，严格保持logo、标签、瓶身形状、颜色和盖子不变。Only motion changes: condensation beads merge and slide down the glass. Camera: slow dolly-in to label detail. Sound: soft room tone, single glass tick.`
+`binding(product)` + `：产品参考。严格保持logo、标签、瓶身形状、颜色和盖子不变。Only motion changes: condensation beads merge and slide down the glass. Camera: slow dolly-in to label detail. Sound: soft room tone, single glass tick.`
 
 ## Japanese-English Patterns
 
@@ -55,7 +57,7 @@ Native Japanese readers should keep identity, costume, frame layout, motion endp
 
 **Portrait micro-performance**
 
-`@Image1の人物の顔、髪型、衣装、背景構図を保持。動きは小さく：一度まばたきし、視線を少し下げ、最後に控えめに微笑む。Camera: locked medium close-up, no reframing. Lighting: soft window light from frame right. Sound: quiet room tone.`
+`binding(character)` + `：人物の顔、髪型、衣装、背景構図を保持。動きは小さく：一度まばたきし、視線を少し下げ、最後に控えめに微笑む。Camera: locked medium close-up, no reframing. Lighting: soft window light from frame right. Sound: quiet room tone.`
 
 **Low-angle commercial shot**
 
@@ -85,7 +87,7 @@ Native Korean readers should separate subject lock, camera movement, lighting, a
 
 **Product ad**
 
-`@Image1 es la referencia del producto; conservar forma, etiqueta, logo y color sin cambios. Solo cambia el ambiente: una luz cálida cruza el vidrio y aparecen gotas pequeñas. Camera: slow slider from left to right, locked product scale. Sound: room tone, soft glass tap at the end.`
+`binding(product)` + `: referencia del producto; conservar forma, etiqueta, logo y color sin cambios. Solo cambia el ambiente: una luz cálida cruza el vidrio y aparecen gotas pequeñas. Camera: slow slider from left to right, locked product scale. Sound: room tone, soft glass tap at the end.`
 
 **Three-beat story**
 
@@ -99,11 +101,11 @@ Native Korean readers should separate subject lock, camera movement, lighting, a
 
 **Structured product prompt**
 
-`@Image1 — референс продукта; сохранить логотип, этикетку, форму и цвет без изменений. Меняется только свет и микродвижение среды: теплый блик проходит по стеклу, капли медленно стекают вниз. Camera: locked medium product shot, slow push-in. Sound: quiet room tone.`
+`binding(product)` + `: референс продукта; сохранить логотип, этикетку, форму и цвет без изменений. Меняется только свет и микродвижение среды: теплый блик проходит по стеклу, капли медленно стекают вниз. Camera: locked medium product shot, slow push-in. Sound: quiet room tone.`
 
 **Reference role map**
 
-`@Image1 задает оригинального персонажа и плащ. @Video1 only camera rhythm, not people, place, costume, or brand. @Audio1 задает только темп. Персонаж идет по мокрой улице, останавливается под фонарем, финальный взгляд влево.`
+`binding(character)` + `: оригинальный персонаж и плащ. ` + `binding(camera_reference)` + `: only camera rhythm, not people, place, costume, or brand. ` + `binding(tempo_reference)` + `: только темп. Персонаж идет по мокрой улице, останавливается под фонарем, финальный взгляд влево.`
 
 **Safe staged tension**
 
@@ -126,7 +128,7 @@ Use these when the collaborator is not only prompting, but preparing a shot for 
 
 | Language context | Production-safe structure |
 |---|---|
-| Chinese-English shot list | `Shot ID + @图/@视频 role map + action endpoint + Camera in English + 后期备注: textless/localized copy in post` |
+| Chinese-English shot list | `Shot ID + typed image/video role map + action endpoint + Camera in English + 后期备注: textless/localized copy in post` |
 | Japanese review notes | `ショット目的 + 保持する要素 + 修正する動き + postで追加する字幕/コピー` |
 | Korean dialogue handoff | `대사 + locked framing + speaker tag + 자막/더빙은 후반 작업에서 처리` |
 | Spanish client versioning | `versión 15s/9:16 + producto protegido + texto en post + subtítulos separados` |
@@ -134,11 +136,11 @@ Use these when the collaborator is not only prompting, but preparing a shot for 
 
 ### Chinese-English client shot
 
-`S01_SH02: @图片1锁定产品logo、标签、瓶身比例；@视频1仅参考 slow slider rhythm，不复制环境。产品在黑色亚克力台面上，暖色条形光扫过瓶身，最后停在正面四分之三角度。Camera: locked macro-to-medium push-in. Post: no generated text; add Chinese/English campaign copy in edit.`
+`S01_SH02: ` + `binding(product)` + `：锁定产品logo、标签、瓶身比例；` + `binding(camera_reference)` + `：仅参考 slow slider rhythm，不复制环境。产品在黑色亚克力台面上，暖色条形光扫过瓶身，最后停在正面四分之三角度。Camera: locked macro-to-medium push-in. Post: no generated text; add Chinese/English campaign copy in edit.`
 
 ### Japanese localization handoff
 
-`@Image1の人物と衣装を保持。Character A says "I am ready" in English, locked medium close-up, no head turn. Post note: 日本語字幕と吹替は後処理で作成、画面下部を空ける、焼き込み文字なし。`
+`binding(character)` + `：人物と衣装を保持。Character A says "I am ready" in English, locked medium close-up, no head turn. Post note: 日本語字幕と吹替は後処理で作成、画面下部を空ける、焼き込み文字なし。`
 
 ### Korean social cutdown
 
@@ -146,8 +148,8 @@ Use these when the collaborator is not only prompting, but preparing a shot for 
 
 ### Spanish delivery note
 
-`Versión 15s horizontal y 6s vertical. @Image1 conserva producto, etiqueta y color. No texto generado dentro de la imagen; entregar placa limpia para copy localizado. Subtítulos, claims y CTA se agregan en postproducción.`
+`Versión 15s horizontal y 6s vertical. ` + `binding(product)` + `: conserva producto, etiqueta y color. No texto generado dentro de la imagen; entregar placa limpia para copy localizado. Subtítulos, claims y CTA se agregan en postproducción.`
 
 ### Russian QC handoff
 
-`@Image1 сохраняет оригинального персонажа и костюм; @Audio1 задает только темп. Камера фиксированная, средний план, один короткий жест. Post/QC: отдельные русские субтитры, textless version, проверить липсинк и отсутствие изменений лица.`
+`binding(character)` + `: сохраняет оригинального персонажа и костюм; ` + `binding(tempo_reference)` + `: задает только темп. Камера фиксированная, средний план, один короткий жест. Post/QC: отдельные русские субтитры, textless version, проверить липсинк и отсутствие изменений лица.`

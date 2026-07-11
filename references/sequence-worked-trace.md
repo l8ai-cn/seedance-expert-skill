@@ -1,5 +1,7 @@
 # Sequence Worked Trace
 
+<!-- fixed_handle_audit: synthetic_fixture -->
+
 One project, walked end to end through the full loop - plan, compile, generate, observe, deviate, reconcile, hit the chain cap, re-anchor, break for the night, and resume. The machine half of this trace already lives in `examples/`; this is the prose half that shows how the pieces are actually used. Field schemas without a trace get re-interpreted on every run; this file is the interpretation.
 
 The project: **seq_airport_arrival** (`examples/sequence-airport-arrival/`) - a traveler exits the terminal, enters a waiting car, and the car departs. Deviation-handling details borrow the second fixture, **sequence-observed-deviation** (`examples/sequence-observed-deviation/`), which records a real unexpected-completed-beat event.
@@ -8,7 +10,7 @@ The project: **seq_airport_arrival** (`examples/sequence-airport-arrival/`) - a 
 
 The idea ("my character lands and is driven away") is bigger than one generation, so the Sequence Gate classifies it `sequence_project`. Before Clip 01 exists, the plan fixes: the story promise and final outcome, beats grouped into **scenes**, and per clip a `narrative_job`, a `felt_intent`, and a completed endpoint.
 
-Here everything happens at one location in one time envelope, so the scene map is a single scene: `scene_01`, arc position `release`, canonical anchor `@Image 1` (the traveler's identity - note the internal space in the tag; it is preserved byte-for-byte forever), `max_chain_depth: 2`, and an audio plan of curb ambience and sync SFX per clip with score unified in post. Three clips are assigned: exit terminal and approach the car (Clip 01), enter and close the door (Clip 02), the car departs (Clip 03). See `project-state.json` - `scenes`, `beats`, `clips`.
+Here everything happens at one location in one time envelope, so the scene map is a single scene: `scene_01`, arc position `release`, canonical anchor `@Image 1` (the exact opaque handle supplied by this fixture - note the internal space; it is never a default for new output), `max_chain_depth: 2`, and an audio plan of curb ambience and sync SFX per clip with score unified in post. Three clips are assigned: exit terminal and approach the car (Clip 01), enter and close the door (Clip 02), the car departs (Clip 03). See `project-state.json` - `scenes`, `beats`, `clips`.
 
 Only Clip 01 is compiled. Clips 02-03 stay provisional intent cards, because their opening states do not exist yet.
 

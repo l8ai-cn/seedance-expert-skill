@@ -22,7 +22,7 @@ metadata:
 
 Compress Seedance prompts without losing the production signal. A short prompt still needs mode, subject, action, camera, light, sound when useful, and constraints. Remove filler before removing physical details.
 
-When sequence state is present, compression must preserve continuity locks, exact reference tags, actual opening state, current clip action, endpoint, completed beat exclusions, and reserved future beats. Do not compress away the words that keep a continuation from replaying completed action or leaking future action.
+When sequence state is present, compression must preserve continuity locks, typed bindings and surface policies, actual opening state, current clip action, endpoint, completed beat exclusions, and reserved future beats. Do not compress away the words that keep a continuation from replaying completed action or leaking future action.
 
 ## Intent
 
@@ -32,7 +32,7 @@ Compression is an act of judgment about what the user loves most. What survives 
 
 Preserve in this order:
 
-1. Reference tags and their role.
+1. Typed bindings, selected surface policies, and transfer clauses.
 2. Subject or product identity.
 3. Action verb and visible endpoint.
 4. One camera move.
@@ -50,9 +50,11 @@ For bilingual or mixed-language compression, load `[ref:multilingual-community-e
 | Need | Template |
 |---|---|
 | T2V | `[Subject] [action and endpoint] in [scene]. Camera: [one move]. Light/style: [physical source]. Sound: [cue]. Constraint: [risk/continuity].` |
-| I2V | `@Image1 preserved; only [motion/light/camera] changes. Camera: [one move]. Sound: [cue]. Constraint: [what must not change].` |
-| V2V | `@Video1 controls [motion/camera/timing] only; new subject [anchor]. [Action]. Do not transfer [identity/scene/logo].` |
-| Chinese | `@Image1为参考，严格保持[主体]不变；仅加入[动作/光线/镜头]。声音：[提示]。` |
+| I2V | Typed image binding + `preserved; only [motion/light/camera] changes. Camera: [one move]. Sound: [cue]. Constraint: [what must not change].` |
+| V2V | Typed video binding + `controls [motion/camera/timing] only; new subject [anchor]. [Action]. Do not transfer [identity/scene/logo].` |
+| Chinese | Typed image binding + `为参考，严格保持[主体]不变；仅加入[动作/光线/镜头]。声音：[提示]。` |
+
+“Typed binding” is compiler structure, not literal prompt text. Resolve it through `[ref:surface-prompt-profiles]`; never paste a documentation placeholder or invent a default token.
 
 ## Output Contract
 

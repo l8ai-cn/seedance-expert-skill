@@ -1,6 +1,6 @@
 # Prompt Examples
 
-Use these examples as patterns, not fixed scripts. Preserve reference tags exactly and keep final prompts under the verified active-surface prompt budget. Each example includes the mode and the reason the prompt is stable.
+Use these examples as semantic patterns, not surface-ready scripts. `binding(name)` denotes a typed binding segment and is never literal prompt text. Resolve it through `[ref:surface-prompt-profiles]`: preserve an externally captured opaque handle, derive an evidenced surface ordinal, or use structured roles with no token. Each example includes the mode and the reason the prompt is stable.
 
 ## T2V Product Launch
 
@@ -12,7 +12,7 @@ Use these examples as patterns, not fixed scripts. Preserve reference tags exact
 
 **Mode:** I2V. **Why it works:** visible identity is preserved while motion and light are added.
 
-`@Image1 is the product reference; preserve logo, label, bottle shape, cap geometry, and color exactly. Slow dolly-in from medium product shot to macro label detail. Warm side light slides across the glass, condensation beads form and move downward, background remains dark and still. Sound: soft room tone, single glass chime at the final frame.`
+`binding(product)` + ` is the product reference; preserve logo, label, bottle shape, cap geometry, and color exactly. Slow dolly-in from medium product shot to macro label detail. Warm side light slides across the glass, condensation beads form and move downward, background remains dark and still. Sound: soft room tone, single glass chime at the final frame.`
 
 ## T2V Character Drama
 
@@ -24,19 +24,19 @@ Use these examples as patterns, not fixed scripts. Preserve reference tags exact
 
 **Mode:** I2V. **Why it works:** small controlled facial and hand motion avoids identity drift.
 
-`@Image1 is the portrait reference; preserve facial identity, hairstyle, clothing, and background composition. The subject blinks once, looks down toward the table, then gives a small restrained smile. Camera stays locked, no reframing. Lighting remains the same except for a subtle warm lamp flicker on the cheek. Sound: quiet interior room tone.`
+`binding(portrait)` + ` is the portrait reference; preserve facial identity, hairstyle, clothing, and background composition. The subject blinks once, looks down toward the table, then gives a small restrained smile. Camera stays locked, no reframing. Lighting remains the same except for a subtle warm lamp flicker on the cheek. Sound: quiet interior room tone.`
 
 ## V2V Motion Transfer Without Identity Transfer
 
 **Mode:** V2V. **Why it works:** the reference role is narrow and excludes likeness.
 
-`@Video1 provides only the timing and side-step choreography; do not transfer the performer identity, face, costume, room, or logo. New subject is an original masked street dancer in a wet neon alley. The dancer mirrors the step rhythm, pivots left, and stops with one hand raised. Camera: steady waist-level tracking move. Lighting: cyan storefront glow and magenta rim light. Sound: muted bass pulse synced to each footstep.`
+`binding(motion_reference)` + ` provides only the timing and side-step choreography; do not transfer the performer identity, face, costume, room, or logo. New subject is an original masked street dancer in a wet neon alley. The dancer mirrors the step rhythm, pivots left, and stops with one hand raised. Camera: steady waist-level tracking move. Lighting: cyan storefront glow and magenta rim light. Sound: muted bass pulse synced to each footstep.`
 
 ## R2V Multi-Reference Product Ad
 
 **Mode:** R2V. **Why it works:** every reference has a single role.
 
-`@Image1 is the product identity reference; preserve shape, label, logo, and color exactly. @Image2 is only the background mood reference: warm wooden bar, low amber practicals. @Audio1 provides only music tempo. Product sits on black stone while a thin amber light sweep crosses the label in time with the beat. Camera: controlled slider move from silhouette to front three-quarter hero angle. Sound: music tempo from @Audio1, soft glass tap on final frame.`
+`binding(product)` + ` is the product identity reference; preserve shape, label, logo, and color exactly. ` + `binding(background_mood)` + ` is only the background mood reference: warm wooden bar, low amber practicals. ` + `binding(music_tempo)` + ` provides only music tempo. Product sits on black stone while a thin amber light sweep crosses the label in time with that tempo. Camera: controlled slider move from silhouette to front three-quarter hero angle. Sound: new music at the referenced tempo, soft glass tap on final frame.`
 
 ## Dialogue and Lip-Sync
 
@@ -84,13 +84,13 @@ Use these examples as patterns, not fixed scripts. Preserve reference tags exact
 
 **Mode:** I2V. **Why it works:** product remains rigid while weather moves around it.
 
-`@Image1 is the shoe product reference; preserve silhouette, sole shape, color panels, and logo placement exactly. Rain streaks diagonally behind the shoe, droplets bead on the outsole and run off the tread. Camera: slow lateral slider from heel to toe. Lighting: cool backlight catches water droplets, neutral soft fill keeps logo readable. Sound: rain on concrete, subtle rubber squeak at the final frame.`
+`binding(shoe)` + ` is the shoe product reference; preserve silhouette, sole shape, color panels, and logo placement exactly. Rain streaks diagonally behind the shoe, droplets bead on the outsole and run off the tread. Camera: slow lateral slider from heel to toe. Lighting: cool backlight catches water droplets, neutral soft fill keeps logo readable. Sound: rain on concrete, subtle rubber squeak at the final frame.`
 
 ## Music Beat Sync
 
 **Mode:** R2V. **Why it works:** audio controls rhythm, not unauthorized copying.
 
-`@Audio1 provides only tempo and energy; do not copy any voice or melody. Original neon rehearsal room with three masked dancers. On each downbeat, the dancers hit one simple pose and the back wall light pulses once. Camera: locked wide shot for clean choreography. Lighting: magenta floor glow, cyan rim light. Sound: new percussive electronic beat matching @Audio1 tempo.`
+`binding(tempo_reference)` + ` provides only tempo and energy; do not copy any voice or melody. Original neon rehearsal room with three masked dancers. On each downbeat, the dancers hit one simple pose and the back wall light pulses once. Camera: locked wide shot for clean choreography. Lighting: magenta floor glow, cyan rim light. Sound: a new percussive electronic beat at the referenced tempo.`
 
 ## Troubleshooting Repair: Generic Output
 
@@ -102,43 +102,43 @@ Use these examples as patterns, not fixed scripts. Preserve reference tags exact
 
 **Problem phrase:** `turn this bottle into a futuristic cinematic commercial with lots of transformations`.
 
-**Repair:** `@Image1 is the bottle reference; preserve label, logo, glass shape, cap, and liquid color exactly. No transformation of the bottle. Only the environment changes: a thin cold mist rolls across the table and a narrow white highlight travels from left to right across the label. Camera: locked medium product shot. Sound: soft air hiss, no music.`
+**Repair:** `binding(bottle)` + ` is the bottle reference; preserve label, logo, glass shape, cap, and liquid color exactly. No transformation of the bottle. Only the environment changes: a thin cold mist rolls across the table and a narrow white highlight travels from left to right across the label. Camera: locked medium product shot. Sound: soft air hiss, no music.`
 
 ## Multilingual Chinese Compressed Prompt
 
 **Mode:** I2V. **Why it works:** compact Chinese phrasing keeps preservation and motion clear.
 
-`@Image1为产品参考，严格保持logo、标签、瓶身形状和颜色不变。镜头缓慢推进到标签特写；左侧暖光扫过玻璃，水珠沿瓶身下滑，背景保持暗色静止。声音：轻微环境声，结尾一声清脆玻璃音。`
+`binding(product)` + `：产品参考。严格保持logo、标签、瓶身形状和颜色不变。镜头缓慢推进到标签特写；左侧暖光扫过玻璃，水珠沿瓶身下滑，背景保持暗色静止。声音：轻微环境声，结尾一声清脆玻璃音。`
 
 ## Chinese First/Last Frame
 
 **Mode:** FLF2V. **Why it works:** each image has one role and the prompt describes only the transition.
 
-`@图片1为首帧，@图片2为尾帧。保持同一原创角色、服装和房间布局，角色从椅子上缓慢站起，走到窗边并停在尾帧姿势。动作连续自然，不跳切，不改变脸部、衣服或房间结构。镜头固定中景，仅轻微推镜。声音：安静室内环境声。`
+Structured request roles: `opening → first_frame`, `endpoint → last_frame`. Prompt prose: `保持两张给定帧中的同一原创角色、服装和房间布局。角色从椅子上缓慢站起，走到窗边并停在给定尾帧的姿势。动作连续自然，不跳切，不改变脸部、衣服或房间结构。镜头固定中景，仅轻微推镜。声音：安静室内环境声。`
 
 ## Russian I2V Product Preservation
 
 **Mode:** I2V. **Why it works:** Russian wording keeps the product lock and only changes light and environment motion.
 
-`@Image1 как первый кадр и референс продукта; сохранить логотип, этикетку, форму, цвет и крышку без изменений. Меняются только свет и небольшое движение среды: теплый источник слева медленно проходит по стеклу, капли соединяются и стекают вниз. Камера: фиксированный средний план с очень медленным наездом на этикетку. Звук: тихий фон, легкий стеклянный щелчок в конце.`
+`binding(product)` + `: первый кадр и референс продукта; сохранить логотип, этикетку, форму, цвет и крышку без изменений. Меняются только свет и небольшое движение среды: теплый источник слева медленно проходит по стеклу, капли соединяются и стекают вниз. Камера: фиксированный средний план с очень медленным наездом на этикетку. Звук: тихий фон, легкий стеклянный щелчок в конце.`
 
 ## Russian Reference Role Map
 
 **Mode:** R2V. **Why it works:** image, video, and audio references are separated into safe roles.
 
-`@Image1 задает оригинального персонажа и костюм. @Video1 задает только ритм бокового сопровождения камеры; не копировать людей, место, бренды или узнаваемую сцену. @Audio1 задает только темп и настроение. Персонаж идет по мокрой вечерней улице, останавливается под фонарем и оборачивается. Камера: плавное боковое сопровождение, затем фиксированный средний план. Звук: дождь, шаги, без музыки.`
+`binding(character)` + `: оригинальный персонаж и костюм. ` + `binding(camera_reference)` + `: только ритм бокового сопровождения камеры; не копировать людей, место, бренды или узнаваемую сцену. ` + `binding(tempo_reference)` + `: только темп и настроение. Персонаж идет по мокрой вечерней улице, останавливается под фонарем и оборачивается. Камера: плавное боковое сопровождение, затем фиксированный средний план. Звук: дождь, шаги, без музыки.`
 
 ## Chinese-English Mixed Role Map
 
 **Mode:** R2V. **Why it works:** Chinese binds references compactly while English keeps shared camera terms precise.
 
-`@图片1锁定原创角色身份与服装；@图片2仅参考雨夜街道氛围；@视频1仅参考 slow lateral tracking，不复制人物、地点或品牌。原创角色穿过湿润站台，停在一盏闪烁灯下。Camera: locked medium-wide, 35mm lens, one slow side track. Sound: rain, footsteps, no music.`
+`binding(character)` + `：锁定原创角色身份与服装；` + `binding(street_mood)` + `：仅参考雨夜街道氛围；` + `binding(camera_reference)` + `：仅参考 slow lateral tracking，不复制人物、地点或品牌。原创角色穿过湿润站台，停在一盏闪烁灯下。Camera: locked medium-wide, 35mm lens, one slow side track. Sound: rain, footsteps, no music.`
 
 ## Japanese-English Portrait Control
 
 **Mode:** I2V. **Why it works:** Japanese gives natural performance language while English locks camera behavior.
 
-`@Image1の人物の顔、髪型、衣装、背景構図を保持。動きは小さく：一度まばたきし、視線を少し下げ、最後に控えめに微笑む。Camera: locked medium close-up, no reframing. Lighting: soft window light from frame right. Sound: quiet room tone.`
+`binding(character)` + `：人物の顔、髪型、衣装、背景構図を保持。動きは小さく：一度まばたきし、視線を少し下げ、最後に控えめに微笑む。Camera: locked medium close-up, no reframing. Lighting: soft window light from frame right. Sound: quiet room tone.`
 
 ## Korean-English Melodrama Blocking
 
@@ -150,7 +150,7 @@ Use these examples as patterns, not fixed scripts. Preserve reference tags exact
 
 **Mode:** I2V. **Why it works:** Spanish preservation wording is paired with a simple English camera command.
 
-`@Image1 es la referencia del producto; conservar forma, etiqueta, logo y color sin cambios. Solo cambia el ambiente: una luz cálida cruza el vidrio y aparecen gotas pequeñas. Camera: slow slider from left to right, locked product scale. Sound: room tone, soft glass tap at the end.`
+`binding(product)` + `: referencia del producto; conservar forma, etiqueta, logo y color sin cambios. Solo cambia el ambiente: una luz cálida cruza el vidrio y aparecen gotas pequeñas. Camera: slow slider from left to right, locked product scale. Sound: room tone, soft glass tap at the end.`
 
 ## Multilingual False-Positive Repair
 

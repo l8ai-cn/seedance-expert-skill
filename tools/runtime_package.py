@@ -60,6 +60,7 @@ FORBIDDEN_TOP_LEVEL_FILES = {
 RUNTIME_SCRIPT_ALLOWLIST = {
     "scripts/extract_last_frame.py",
     "scripts/project_state_check.py",
+    "scripts/render_surface_bindings.py",
 }
 REQUIRED_OPERATIONAL_PATHS = {
     "examples/sequence-airport-arrival/clip-01-contract.json",
@@ -73,13 +74,24 @@ REQUIRED_OPERATIONAL_PATHS = {
     "examples/sequence-observed-deviation/project-state-before.json",
     "examples/sequence-observed-deviation/take-review.json",
     "examples/standalone-clip/project-state.json",
+    "profiles/models/seedance-2.0-model.json",
+    "profiles/profile-index.json",
+    "profiles/surfaces/byteplus-modelark.json",
+    "profiles/surfaces/fal-reference-to-video.json",
+    "profiles/surfaces/volcengine-ark.json",
+    "schemas/binding-plan.schema.json",
+    "schemas/binding-render.schema.json",
     "schemas/clip-contract.schema.json",
     "schemas/generation-run.schema.json",
+    "schemas/model-profile.schema.json",
+    "schemas/profile-index.schema.json",
     "schemas/project-state.schema.json",
     "schemas/prompt-spec.schema.json",
+    "schemas/surface-profile.schema.json",
     "schemas/take-review.schema.json",
     "scripts/extract_last_frame.py",
     "scripts/project_state_check.py",
+    "scripts/render_surface_bindings.py",
 }
 REQUIRED_SKILL_PATHS = {
     "skills/seedance-antislop/SKILL.md",
@@ -126,7 +138,7 @@ AUTOLINK = re.compile(r"<([^<>\s]+)>")
 HTML_RESOURCE = re.compile(r"(?i)\b(?:href|src)\s*=\s*[\"']([^\"']+)[\"']")
 YAML_RESOURCE = re.compile(r"(?m)^[ \t]*(?:icon|image|path|resource|file)\s*:[ \t]*[\"']?([^#\s\"']+)")
 INLINE_CODE = re.compile(r"`([^`\n]+)`")
-ROOT_RESOURCE = re.compile(r"(?<![A-Za-z0-9_.-])((?:assets|examples|references|schemas|scripts|skills)/[A-Za-z0-9._/*-]+)")
+ROOT_RESOURCE = re.compile(r"(?<![A-Za-z0-9_.-])((?:assets|examples|profiles|references|schemas|scripts|skills)/[A-Za-z0-9._/*-]+)")
 SHA256 = re.compile(r"^[a-f0-9]{64}$")
 WINDOWS_RESERVED = {
     "CON", "PRN", "AUX", "NUL", "CONIN$", "CONOUT$",
@@ -405,12 +417,12 @@ def validate_link_closure(root: Path, payload_files: tuple[str, ...]) -> None:
             decoded = unquote(split.path)
             suffix = PurePosixPath(decoded).suffix.lower()
             if not (
-                decoded.startswith(("assets/", "examples/", "references/", "schemas/", "scripts/", "skills/"))
+                decoded.startswith(("assets/", "examples/", "profiles/", "references/", "schemas/", "scripts/", "skills/"))
                 or ("/" in decoded and suffix in {".json", ".md", ".png", ".py", ".svg", ".yaml", ".yml"})
             ):
                 continue
             try:
-                if decoded.startswith(("assets/", "examples/", "references/", "schemas/", "scripts/", "skills/")):
+                if decoded.startswith(("assets/", "examples/", "profiles/", "references/", "schemas/", "scripts/", "skills/")):
                     target = decoded
                 else:
                     target = _resolve_local_link(relative, raw_target)
@@ -428,13 +440,13 @@ def validate_link_closure(root: Path, payload_files: tuple[str, ...]) -> None:
                     continue
                 suffix = PurePosixPath(target_text).suffix.lower()
                 looks_like_resource = (
-                    target_text.startswith(("assets/", "examples/", "references/", "schemas/", "scripts/", "skills/"))
+                    target_text.startswith(("assets/", "examples/", "profiles/", "references/", "schemas/", "scripts/", "skills/"))
                     or ("/" in target_text and suffix in {".json", ".md", ".png", ".py", ".svg", ".yaml", ".yml"})
                     or ("*" in target_text and "/" in target_text)
                 )
                 if not looks_like_resource:
                     continue
-                if target_text.startswith(("assets/", "examples/", "references/", "schemas/", "scripts/", "skills/")):
+                if target_text.startswith(("assets/", "examples/", "profiles/", "references/", "schemas/", "scripts/", "skills/")):
                     target = target_text
                 else:
                     try:

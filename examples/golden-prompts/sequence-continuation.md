@@ -6,15 +6,17 @@ Continue Clip 02 of the airport sequence after accepted Clip 01.
 
 ## Internal Prompt Specification
 
-Sequence relation: seamless_continuation. Source: accepted `[Video 1]`. Opening state: observed traveler two steps from open car door. Exclude terminal exit and vehicle departure.
+Sequence relation: seamless_continuation. Internal binding `accepted_clip` is the accepted source; `traveler` preserves identity and wardrobe. Opening state: observed traveler two steps from open car door. Exclude terminal exit and vehicle departure.
 
-## Compiled Natural-Language Prompt
+## Typed Segment Composition
 
-[Video 1] is the accepted continuity source; @Image 1 preserves the traveler identity and charcoal coat. Begin from the observed final frame: she is two steps from the open rear door, still moving left-to-right with the suitcase rolling behind. Continue the same lateral camera and rainy curb ambience. This clip only finishes the two steps, lets her enter the rear seat, and closes the door. Do not replay the terminal exit. Do not show the car departing yet.
+`binding(accepted_clip)` + ` is the accepted continuity source; ` + `binding(traveler)` + ` preserves the traveler identity and charcoal coat. Begin from the observed final frame: she is two steps from the open rear door, still moving left-to-right with the suitcase rolling behind. Continue the same lateral camera and rainy curb ambience. This clip only finishes the two steps, lets her enter the rear seat, and closes the door. Do not replay the terminal exit. Do not show the car departing yet.`
+
+The binding markers are typed plan notation. A continuation-capable surface profile must be evidenced before this specimen can be rendered for a provider.
 
 ## Lint Result
 
-lint: pass
+semantic lint: pass; surface render: unavailable in V7-05
 
 ## Control-Critical Sentences
 

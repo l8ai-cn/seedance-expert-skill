@@ -1,16 +1,16 @@
 # Russian Vocabulary
 
-Use this reference for Russian Seedance prompt wording, role binding, and compact translation. Keep reference tags unchanged: `@Image1`, `@Video1`, and `@Audio1` stay literal.
+Use this reference for Russian Seedance prompt wording, role binding, and compact translation. Binding is a separate typed step: the selected profile preserves an external opaque handle, derives an evidenced media ordinal, or uses structured roles with no token. Never translate provider syntax.
 
 | Function | Russian | English meaning |
 |---|---|---|
-| Role | `@Image1 как первый кадр` | Image 1 is the first frame |
-| Role | `@Image2 как последний кадр` | Image 2 is the final frame |
-| Role | `@Image1 задает персонажа` | Image 1 defines the character |
-| Role | `@Image2 задает атмосферу сцены` | Image 2 defines scene mood |
-| Role | `@Video1 только движение камеры` | Video 1 provides camera movement only |
-| Role | `@Video1 задает ритм действия` | Video 1 provides action rhythm |
-| Role | `@Audio1 задает темп и настроение` | Audio 1 provides tempo and mood |
+| Request role | назначить начальное изображение первым кадром | structured first-frame role; no invented prompt token |
+| Request role | назначить конечное изображение последним кадром | structured last-frame role; no invented prompt token |
+| Binding clause | `задает персонажа` | defines the character |
+| Binding clause | `задает атмосферу сцены` | defines scene mood |
+| Binding clause | `только движение камеры` | provides camera movement only |
+| Binding clause | `задает ритм действия` | provides action rhythm |
+| Binding clause | `задает темп и настроение` | provides tempo and mood |
 | FirstLastFrame | `сохранить первый кадр без изменений` | keep first frame unchanged |
 | FirstLastFrame | `естественный переход к последнему кадру` | natural transition to final frame |
 | FirstLastFrame | `непрерывное движение без монтажного скачка` | continuous motion, no jump cut |
@@ -61,7 +61,7 @@ Use this reference for Russian Seedance prompt wording, role binding, and compac
 
 ## Compact Template
 
-`@Image1 — референс; сохранить [персонажа/продукт/логотип] без изменений. Меняются только [движение/свет/камера]. Камера: [одно движение]. Звук: [аудиосигнал].`
+After the typed reference binding: `— референс; сохранить [персонажа/продукт/логотип] без изменений. Меняются только [движение/свет/камера]. Камера: [одно движение]. Звук: [аудиосигнал].`
 
 ## Russian Dialogue Notes
 

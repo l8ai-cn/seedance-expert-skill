@@ -36,8 +36,12 @@ jobs:
           python tools/evidence_registry.py
           --enforce-freshness
           --report /tmp/evidence-registry-report.json
+      - name: Validate candidate model and surface profiles
+        run: python scripts/profile_check.py
       - name: Exercise evidence boundary tests
         run: python -m unittest tests.test_evidence_registry -v
+      - name: Exercise typed surface-binding boundary tests
+        run: python -m unittest tests.test_surface_bindings -v
       - name: Audit frontend README and SVG assets
         run: python scripts/design_audit.py
       - name: Exercise legacy source-registry compatibility entry point
@@ -60,6 +64,8 @@ jobs:
         run: python scripts/eval_run.py --self-test
       - name: Check frame-extraction tool wiring (offline)
         run: python scripts/extract_last_frame.py --self-test
+      - name: Check surface-binding renderer wiring (offline, candidate preview only)
+        run: python scripts/render_surface_bindings.py --self-test
       - name: Validate deterministic runtime package boundary
         run: python tools/runtime_package.py --dry-run
       - name: Exercise transactional installer and rollback

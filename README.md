@@ -28,6 +28,8 @@ Author: [Iamemily2050 (@iamemily2050)](https://github.com/Emily2040) · [Instagr
 
 Platform context: [ByteDance Seedance 2.0](https://seed.bytedance.com/en/seedance2_0) · Dreamina · Jimeng · Doubao · [Volcengine Ark](https://www.volcengine.com/docs/82379/2291680?lang=zh) · [BytePlus ModelArk](https://docs.byteplus.com/en/docs/ModelArk/2291680) · [Runway Seedance 2](https://docs.dev.runwayml.com/guides/models/) · fal · provider/router surfaces tracked in [`platform-surface-matrix.md`](references/platform-surface-matrix.md)
 
+> **V7 development boundary:** reference syntax is surface- and operation-specific. The candidate renderer preserves externally captured handles, derives only evidence-pinned media ordinals, or emits structured roles without text; all provider profiles remain disabled pending evidence review and later activation. See [`V7_SURFACE_PROFILE_MIGRATION.md`](docs/V7_SURFACE_PROFILE_MIGRATION.md).
+
 Updated: **2026-07-06** · **v6.6.0 the loop closes: frame-extraction observation tooling, state lifecycle for long projects, and the worked end-to-end trace** · plus native quickstarts in six languages, a security policy, and an expanded agent-install matrix
 
 ---
@@ -48,12 +50,12 @@ It then holds one directorial voice across every short clip of a long story, and
 
 ## Native Language Start / 多语言入门 / 多言語スタート / 다국어 시작
 
-Seedance 2.0 Skill OS is English-readable, but the v6 line gives Chinese, Japanese, and Korean readers first-class entry points, active example skills, and native prompt guidance. Keep reference tags exactly as written (`@Image1`, `@Video1`, `@Audio1`, `@图片1`, `@视频1`) in every language.
+Seedance 2.0 Skill OS is English-readable, but the v6 line gives Chinese, Japanese, and Korean readers first-class entry points, active example skills, and native prompt guidance. In every language, resolve typed bindings through the selected surface profile: preserve an externally captured opaque handle byte-for-byte, derive only an evidence-pinned API ordinal, and add no text token for structured media roles.
 
 | Language | Start path | Native reader note |
 |---|---|---|
 | English | [`seedance-prompt`](skills/seedance-prompt/SKILL.md), [`seedance-sequence`](skills/seedance-sequence/SKILL.md), [`references/vocab/en.md`](references/vocab/en.md) | Use precise production English: one visible beat, one camera move, real light, and clear reference roles. |
-| 中文 | [`中文指南`](docs/README.zh.md), [`seedance-vocab-zh`](skills/seedance-vocab-zh/SKILL.md), [`seedance-examples-zh`](skills/seedance-examples-zh/SKILL.md), [`references/vocab/zh.md`](references/vocab/zh.md) | 中文用户可从角色锁定、首尾帧、运镜、动作节奏开始；提示词要短、具体、保留参考标签，不把字幕交给模型生成。 |
+| 中文 | [`中文指南`](docs/README.zh.md), [`seedance-vocab-zh`](skills/seedance-vocab-zh/SKILL.md), [`seedance-examples-zh`](skills/seedance-examples-zh/SKILL.md), [`references/vocab/zh.md`](references/vocab/zh.md) | 中文用户可从角色锁定、首尾帧、运镜、动作节奏开始；提示词要短、具体，通过当前平台配置解析类型化绑定，不把字幕交给模型生成。 |
 | 日本語 | [`日本語ガイド`](docs/README.ja.md), [`seedance-vocab-ja`](skills/seedance-vocab-ja/SKILL.md), [`seedance-examples-ja`](skills/seedance-examples-ja/SKILL.md), [`references/vocab/ja.md`](references/vocab/ja.md) | 日本語では、人物の同一性、衣装、構図、動きの終点を明確に書き、字幕や広告コピーは後処理で追加します。 |
 | 한국어 | [`한국어 가이드`](docs/README.ko.md), [`seedance-vocab-ko`](skills/seedance-vocab-ko/SKILL.md), [`seedance-examples-ko`](skills/seedance-examples-ko/SKILL.md), [`references/vocab/ko.md`](references/vocab/ko.md) | 한국어 프롬프트는 인물 고정, 카메라 움직임, 조명, 사운드를 짧게 분리하고 자막과 문구는 편집 단계에서 넣습니다. |
 
@@ -261,7 +263,7 @@ Concept art for the system, generated and curated. Every image is paired with se
 
 | Reference | Purpose |
 |---|---|
-| [`api-status.md`](references/api-status.md) | Current dated platform and API status. |
+| [`api-status.md`](references/api-status.md) | Dated legacy platform/API snapshot; runtime claims remain blocked until evidence refresh. |
 | [`source-registry.md`](references/source-registry.md) | Legacy runtime source guidance retained during the staged v7 migration. |
 | [`research/evidence/`](research/evidence/README.md) | Canonical non-runtime claim evidence, retained captures, freshness, and closed release policy. |
 | [`research-2026-05-30.md`](references/research-2026-05-30.md) | Dated source and field-observation snapshot. |
@@ -275,8 +277,8 @@ Concept art for the system, generated and curated. Every image is paired with se
 | [`sequence-project-state.md`](references/sequence-project-state.md) | Stateful project model, canon reconciliation, visual state fields, and Project State Capsule. |
 | [`continuation-handoff.md`](references/continuation-handoff.md) | Accepted-source continuation gate, observed state capture, continuation types, and beat exclusions. |
 | [`prompt-compiler.md`](references/prompt-compiler.md) | Compiles project state and current clip contract into one natural-language prompt. |
-| [`reference-transfer-contract.md`](references/reference-transfer-contract.md) | Exact tag preservation, reference role separation, and transfer/ignore clauses. |
-| [`surface-prompt-profiles.md`](references/surface-prompt-profiles.md) | Surface-specific duration, prompt budget, reference role, timeline, edit, extension, and audio constraints. |
+| [`reference-transfer-contract.md`](references/reference-transfer-contract.md) | Surface-specific binding resolution, reference role separation, and transfer/ignore clauses. |
+| [`surface-prompt-profiles.md`](references/surface-prompt-profiles.md) | Candidate request transport, prompt-binding policy, allowed media, structured roles, and evidence boundaries. |
 | [`event-density.md`](references/event-density.md) | Clip-scope firewall for completed, current, reserved, and do-not-show-yet beats. |
 | [`continuity-qc.md`](references/continuity-qc.md) | Boundary checks for immutable and transient continuity across accepted clips. |
 | [`failure-atlas.md`](references/failure-atlas.md) | Sequence and continuation failure diagnoses with one primary repair variable. |
@@ -305,7 +307,7 @@ Concept art for the system, generated and curated. Every image is paired with se
 | [`quick-ref.md`](references/quick-ref.md) | Compact routing and prompt checklist. |
 | [`reference-workflow.md`](references/reference-workflow.md) | How to map image, video, audio, and storyboard references. |
 | [`i2v-guide.md`](references/i2v-guide.md) | Image-to-video best practices. |
-| [`prompt-examples.md`](references/prompt-examples.md) | Safe copy-paste prompt examples. |
+| [`prompt-examples.md`](references/prompt-examples.md) | Semantic prompt patterns that require surface binding resolution before use. |
 | [`genre-guides.md`](references/genre-guides.md) | Genre-specific prompt patterns. |
 | [`storytelling-framework.md`](references/storytelling-framework.md) | Narrative design and visual layering. |
 | [`intent-vs-precision.md`](references/intent-vs-precision.md) | The intent-first philosophy. |

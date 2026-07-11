@@ -34,7 +34,7 @@
 
 | Failure | Add or replace with |
 |---|---|
-| I2V drift | `preserve @Image1 subject/product exactly; only motion, light, and camera change` |
+| I2V drift | typed image binding + `preserve subject/product exactly; only motion, light, and camera change` |
 | Generic look | `physical light source + material behavior + specific camera endpoint` |
 | Camera chaos | `one controlled [move] from [start frame] to [end frame]` |
 | Weak action | `actor + verb + timing + consequence + final state` |

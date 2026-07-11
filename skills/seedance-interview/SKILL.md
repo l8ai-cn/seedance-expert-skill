@@ -65,7 +65,7 @@ Then invite: "Pick one, mix two, or describe your own - or say *surprise me* and
 3. Every question ships with a default. End it with `(not sure? I'll go with [default] - it works well)`. "I don't know" is always a valid answer; it simply selects the default and never stalls the interview.
 4. One question, one decision. Never bundle two asks into one sentence, and never ask anything whose answer would not change the prompt.
 5. Keep their words. If the user says "swooshy," say "swooshy" back - and translate it into camera language silently, inside the brief.
-6. Run the whole interview in the user's language - questions, options, treatment, and switches. Keep imported reference tags literal (`@Image1`, `@Video1`, `@Audio1`, `@图片1`, `@视频1`). For native starting-point menus and feeling-to-craft cues in the six supported languages, load `[ref:interview-starters]`.
+6. Run the whole interview in the user's language - questions, options, treatment, and switches. Keep imported surface handles opaque and byte-exact; never translate, normalize, recase, renumber, or add syntax. Keep semantic binding IDs separate, and use structured roles without textual tokens when the selected operation requires them. For native starting-point menus and feeling-to-craft cues in the six supported languages, load `[ref:interview-starters]`.
 7. Honor professional direction. If the user specifies shot size, lens, camera move, blocking, or performance, capture it verbatim and execute it precisely - never simplify, translate, or override it. Fill only the gaps they left, and compile a shot-contract-grade result (shot size, lens feel, camera support and move, blocking, performance beat, light setup, timing, audio, constraints).
 8. Expert detect: if the user speaks production language fluently (shot list, lens, deliverables, LUT, coverage) or works for an agency or production, drop plain mode, load `[ref:pro-filmmaking-standards]`, and run the professional intake instead.
 
@@ -83,7 +83,7 @@ Each plain question secretly decides a production parameter the user never has t
 | 6 | Is this one complete clip, two or three connected clips, a longer scene that should be divided, or are you unsure? | standalone_clip vs sequence_project | unsure means plan the full story but finalize one clip at a time |
 | 7 | How must the complete story end? | final story outcome | a visible changed state |
 | 8 | Do you already have an accepted previous clip or final frame this must continue from? | continuation source gate | no source means do not invent continuation state |
-| 9 | Which details must never change across clips - face, wardrobe, product, place, direction, sound, or something else? | immutable continuity locks | subject identity and exact reference tags |
+| 9 | Which details must never change across clips - face, wardrobe, product, place, direction, sound, or something else? | immutable continuity locks | subject identity plus typed bindings and surface policies |
 
 When real material likely exists (a business, product, pet, person, or place the user owns), the reference question takes one of the five slots — swap out question 3, which defaults well: `Do you have photos, clips, or sound of the real [subject]? Real material keeps the video looking like yours.` The batch never exceeds five questions total. Map anything they provide to reference roles via `[ref:reference-workflow]`.
 

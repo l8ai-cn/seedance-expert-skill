@@ -20,7 +20,7 @@ metadata:
 
 # seedance-vocab-ru
 
-Use Russian cinematic vocabulary when the user asks for Russian prompt wording, bilingual delivery, compact translation, role binding, first/last-frame workflow, or production vocabulary for camera, lighting, action, VFX, audio, and constraints. Preserve reference tags exactly: `@Image1`, `@Video1`, and `@Audio1` stay unchanged.
+Use Russian cinematic vocabulary when the user asks for Russian prompt wording, bilingual delivery, compact translation, role binding, first/last-frame workflow, or production vocabulary for camera, lighting, action, VFX, audio, and constraints. Binding is a separate typed step: a selected profile preserves an external opaque handle, derives an evidenced ordinal, or uses structured roles with no token.
 
 ## Intent
 
@@ -38,12 +38,12 @@ Load `[ref:vocab/ru]` for dense role-binding, first/last-frame, camera, lighting
 | Lighting | `контровой свет`, `мягкий свет из окна`, `теплый практический источник`, `холодный лунный свет`, `контурная подсветка` |
 | Motion | `медленно поворачивается`, `быстро проходит через кадр`, `капли стекают вниз`, `дым мягко рассеивается` |
 | Audio | `тихий фон помещения`, `короткая реплика`, `мягкий металлический щелчок`, `без музыки` |
-| First/last frame | `@Image1 как первый кадр`, `@Image2 как последний кадр`, `естественный переход к последнему кадру` |
+| First/last frame | assign verified structured endpoint roles; prompt `естественный переход к последнему кадру` without invented tokens |
 | Constraints | `сохранить логотип, этикетку и форму без изменений` |
 
 ## Compact Pattern
 
-`@Image1 — референс; сохранить лицо/форму продукта/логотип без изменений. Меняются только [движение/свет/камера]. Камера: [одно движение]. Звук: [аудиосигнал].`
+After the typed reference binding: `— референс; сохранить лицо/форму продукта/логотип без изменений. Меняются только [движение/свет/камера]. Камера: [одно движение]. Звук: [аудиосигнал].`
 
 ## De-Slop Rule
 
@@ -55,4 +55,4 @@ For spoken Russian, load the Russian Dialogue Notes in `references/vocab/ru.md`:
 
 ## Output Contract
 
-Return Russian prompt wording, optional English gloss when useful, and unchanged reference tags.
+Return Russian prose segments, an optional English gloss, and the unchanged typed binding plan for surface rendering.

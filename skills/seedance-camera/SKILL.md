@@ -50,9 +50,9 @@ Use **locked-off** shots for lip-sync, product identity, and delicate VFX. Use *
 
 ## Continuity Rules
 
-For multi-character scenes, anchor the camera to named tags: `camera holds Character A in foreground while Character B crosses behind`. For I2V, preserve the image composition unless the user explicitly wants a reframing. For reference video, state whether `@Video1` transfers camera movement, action rhythm, or blocking; do not let it transfer identity unless authorized.
+For multi-character scenes, anchor the camera to semantic labels: `camera holds Character A in foreground while Character B crosses behind`. For I2V, preserve the image composition unless the user explicitly wants a reframing. For reference video, use a typed binding segment resolved by `[ref:surface-prompt-profiles]`, then state whether it transfers camera movement, action rhythm, or blocking; do not let it transfer identity unless authorized.
 
-For complex camera movement, a video reference often works better than a long verbal stack. Use `@Video1 controls camera rhythm only; do not transfer performer, room, logo, or identity`.
+For complex camera movement, a video reference often works better than a long verbal stack. After its exact typed binding, append: `controls camera rhythm only; do not transfer performer, room, logo, or identity`. Never paste a documentation placeholder or invent a video token.
 
 ## Conflict Rule
 
@@ -60,7 +60,7 @@ If the user gives several incompatible moves, choose one primary camera move and
 
 ## Sequence State
 
-When sequence state is present, inherit the observed camera phase, screen direction, current clip scope, continuity locks, exact reference tags, and reserved future beats before choosing a move. A continuation camera phrase must begin from the accepted source frame or observed end state; do not restart a pan, focus pull, or tracking move unless an intentional next shot declares the reset.
+When sequence state is present, inherit the observed camera phase, screen direction, current clip scope, continuity locks, typed bindings and surface policies, and reserved future beats before choosing a move. A continuation camera phrase must begin from the accepted source frame or observed end state; do not restart a pan, focus pull, or tracking move unless an intentional next shot declares the reset.
 
 ## Output Contract
 

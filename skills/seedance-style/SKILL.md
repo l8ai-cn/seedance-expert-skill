@@ -65,7 +65,7 @@ The flaw vocabulary is the style: faux-UGC that looks too clean reads as fake tw
 
 ## Sequence State
 
-When sequence state is present, inherit medium grammar, current clip scope, continuity locks, exact reference tags, canonical design, accepted transient state, and reserved future beats. Style may color the clip, but it cannot change identity, wardrobe, product design, surface profile, or events reserved for later.
+When sequence state is present, inherit medium grammar, current clip scope, continuity locks, typed bindings and surface policies, canonical design, accepted transient state, and reserved future beats. Style may color the clip, but it cannot change identity, wardrobe, product design, surface profile, or events reserved for later.
 
 ## Output Contract
 

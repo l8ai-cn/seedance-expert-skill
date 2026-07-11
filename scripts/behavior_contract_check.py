@@ -12,13 +12,13 @@ REQUIRED_SNIPPETS = {
         "[skill:seedance-continuation]",
         "accepted observed state overrides planned state",
         "rejected footage",
-        "exact reference tags",
+        "evidence-pinned surface ordinal",
     ],
     "skills/seedance-sequence/SKILL.md": [
         "Plan globally",
         "final outcome",
         "provisional intent cards",
-        "Clip 01 final Seedance prompt",
+        "Clip 01 surface-rendered prompt",
     ],
     "skills/seedance-continuation/SKILL.md": [
         "Required Input Gate",
@@ -33,8 +33,17 @@ REQUIRED_SNIPPETS = {
         "Do not perform reserved later actions",
     ],
     "references/surface-prompt-profiles.md": [
-        "Do not hardcode duration",
-        "conservative generic profile",
+        "Two Independent Axes",
+        "Unknown profiles and operations fail closed",
+        "Never trim, normalize, translate, recase, renumber, repair spacing, or add an `@` prefix",
+        "activation_enabled: false",
+    ],
+    "scripts/render_surface_bindings.py": [
+        "ACTIVATION_SUPPORTED = False",
+        "PROFILE_CANDIDATE_REQUIRES_PREVIEW",
+        "PROFILE_EVIDENCE_EXPIRED",
+        "STRUCTURED_BINDING_IN_PROMPT",
+        "REFERENCE_TOKEN_IN_TEXT_FORBIDDEN",
     ],
 }
 

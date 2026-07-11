@@ -24,7 +24,11 @@ REFERENCE_PATH = re.compile(r"(?<![A-Za-z0-9_./-])(references/[A-Za-z0-9_./-]+\.
 TEXT_SUFFIXES = {"", ".json", ".jsonl", ".md", ".py", ".txt", ".yaml", ".yml"}
 FORBIDDEN_RUNTIME_TOP_LEVEL = {".git", ".github", "data", "docs", "evals", "runtime", "tests", "tools"}
 FORBIDDEN_RUNTIME_ROOT_FILES = {".gitignore", "CHANGELOG.md", "README.md", "SECURITY.md", "V6_SEQUENCE_PROMPT_COMPILER_MANIFEST.md"}
-RUNTIME_SCRIPT_ALLOWLIST = {"scripts/extract_last_frame.py", "scripts/project_state_check.py"}
+RUNTIME_SCRIPT_ALLOWLIST = {
+    "scripts/extract_last_frame.py",
+    "scripts/project_state_check.py",
+    "scripts/render_surface_bindings.py",
+}
 HELDOUT_RELEASE_GATE_OPERATIONAL = False
 EVAL_SUITE_SCHEMA_URI = "https://github.com/Emily2040/seedance-2.0/evals/eval-suite-v2.schema.json"
 JUDGE_SYSTEM = (

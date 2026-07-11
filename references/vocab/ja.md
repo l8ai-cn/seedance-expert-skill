@@ -1,15 +1,15 @@
 # Japanese Vocabulary
 
-Use this reference for Japanese Seedance prompt wording, role binding, and compact prompt compression. Keep reference tags unchanged: `@Image1`, `@Video1`, and `@Audio1` stay literal.
+Use this reference for Japanese Seedance prompt wording, role binding, and compact prompt compression. Binding is a separate typed step: the selected profile preserves an external opaque handle, derives an evidenced media ordinal, or uses structured roles with no token. Never translate provider syntax.
 
 | Function | Japanese | English meaning |
 |---|---|---|
-| Role | `@Image1を最初のフレームとして使う` | use Image1 as the first frame |
-| Role | `@Image2を最後のフレームとして使う` | use Image2 as the last frame |
-| Role | `@Image1で人物の同一性を固定する` | Image1 locks character identity |
-| Role | `@Video1はカメラの動きのみ参照` | Video1 controls camera movement only |
-| Role | `@Video1は動作リズムのみ参照` | Video1 controls action rhythm only |
-| Role | `@Audio1はテンポと雰囲気のみ参照` | Audio1 controls tempo and mood only |
+| Request role | 提供された開始画像を最初のフレームに設定 | structured first-frame role; no invented prompt token |
+| Request role | 提供された終了画像を最後のフレームに設定 | structured last-frame role; no invented prompt token |
+| Binding clause | `人物の同一性を固定する` | locks character identity |
+| Binding clause | `カメラの動きのみ参照` | controls camera movement only |
+| Binding clause | `動作リズムのみ参照` | controls action rhythm only |
+| Binding clause | `テンポと雰囲気のみ参照` | controls tempo and mood only |
 | FirstLastFrame | `最初のフレームを変更しない` | keep the first frame unchanged |
 | FirstLastFrame | `最後のフレームを最終目標にする` | use the last frame as the final target |
 | FirstLastFrame | `途中の動きを連続させ、ジャンプカットしない` | continuous in-between motion, no jump cut |
@@ -57,11 +57,11 @@ Use this reference for Japanese Seedance prompt wording, role binding, and compa
 
 ## Compact Template
 
-`@Image1を参照として、[被写体/商品/顔/ロゴ]を正確に維持する。変化は[動き/光/カメラ]のみ。カメラ：[一つの動き]。音：[音声指示]。`
+In a separate text segment after the typed binding, avoid attaching a particle to an unknown handle: `：参照素材。[被写体/商品/顔/ロゴ]を正確に維持する。変化は[動き/光/カメラ]のみ。カメラ：[一つの動き]。音：[音声指示]。`
 
 ## Multimodal Template
 
-`@Image1でオリジナル人物を固定する。@Video1はカメラの動きのみ参照し、人物・場所・ブランドはコピーしない。@Audio1はテンポと雰囲気のみ参照する。`
+Compile three typed bindings, each followed by a colon-delimited text segment: `：オリジナル人物の同一性を固定する`; `：カメラの動きのみ参照し、人物・場所・ブランドはコピーしない`; `：テンポと雰囲気のみ参照する`.
 
 ## Sequence and Continuation Phrases
 

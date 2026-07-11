@@ -32,6 +32,7 @@ Behind every API question is a person with a deadline, a budget, and something a
 Always load `[ref:api-status]` for current API and platform claims. Load `[ref:model-name-map]` when a user says Pro, Fast, V2, or a wrapper model ID. Do not rely on old release-status memory.
 Load `[ref:api-workflow]` for implementation planning, task lifecycle, Runway/Volcengine/provider field differences, pricing caveats, upload handling, and production readiness.
 Load `[ref:pro-filmmaking-standards]` for professional film, commercial, agency, localization, post, and delivery workflows. Load `[ref:delivery-qc]` before saying an asset is delivery-ready.
+Load `[ref:surface-prompt-profiles]` before mapping media into any request or prompt. Request transport and prompt-visible binding are separate contracts. Preserve external opaque handles; derive ordinals only through an evidence-pinned surface profile and computed per-media position; never insert an asset ID, URL, or structured frame role into prose. Unregistered, disabled, stale, or mismatched operations fail closed.
 
 ## Workflow Split
 

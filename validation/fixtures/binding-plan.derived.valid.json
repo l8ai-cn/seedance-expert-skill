@@ -1,0 +1,13 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/binding-plan.schema.json",
+  "schema_version": 1,
+  "profile_id": "fal.reference-to-video",
+  "operation": "reference_generation",
+  "segments": [
+    {"kind": "binding", "binding_id": "product"},
+    {"kind": "text", "value": " controls product geometry; preserve its label and proportions."}
+  ],
+  "bindings": [
+    {"binding_id": "product", "media_type": "image"}
+  ]
+}

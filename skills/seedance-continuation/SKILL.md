@@ -45,7 +45,7 @@ Before writing any continuation prompt, require:
 - `observed_end_state`;
 - continuity locks;
 - inherited directorial voice and arc position;
-- exact reference registry;
+- semantic reference registry plus the active surface's opaque, derived-ordinal, or structured binding policy;
 - active surface or conservative surface profile.
 
 If the source is unavailable, say: "I have the story plan, but I do not have the actual ending of the previous generation. Upload the clip or its final frame - `python scripts/extract_last_frame.py <take>` pulls the final frame locally - or describe exactly what is visible at the end. I should not invent the continuation state."

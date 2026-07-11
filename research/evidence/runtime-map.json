@@ -1,7 +1,7 @@
 {
   "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/evidence-runtime-map.schema.json",
   "schema_version": 1,
-  "runtime_manifest_sha256": "6079d6e9df2c616a17d6db898a74337389a382ad6653d046bb6371d6fdbc0ff3",
+  "runtime_manifest_sha256": "747ee6250874d40922055b42152d8ad3a767e7d35b0fe38f95a2ad66e9014c65",
   "files": [
     {
       "path": "LICENSE",
@@ -11,7 +11,7 @@
     },
     {
       "path": "SKILL.md",
-      "sha256": "14a618871c5ddf099b8891889a4d0c04b0d93fb5d388957d882125ed3dcd80c3",
+      "sha256": "28e939b70225ac03502e68495829aa7e493f339fd802de42472c9d0b6e260da2",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
@@ -29,7 +29,7 @@
     },
     {
       "path": "examples/sequence-airport-arrival/clip-01-prompt.md",
-      "sha256": "1bb3a0ac260258a5b69a910c5c324d372ff7c6a418de7a41a2b32d6f1bfb2328",
+      "sha256": "d274c0f080b8c1b7d91d0fdc6454c402ea8518c3f69fd31364fb5c21f78b426f",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
@@ -47,7 +47,7 @@
     },
     {
       "path": "examples/sequence-airport-arrival/clip-02-prompt.md",
-      "sha256": "2f254d810a527b5a77969fe123a99be619ad8a8f45270237ab15e67c63a8e596",
+      "sha256": "b89f231ab908738dd98ee3b2acd97fe03f9f6907b3e003335f670cc3819110ab",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
@@ -59,7 +59,7 @@
     },
     {
       "path": "examples/sequence-airport-arrival/sequence-plan.md",
-      "sha256": "af209f69e8758d794ea545d5697b11e4671fd75b231007dd599e53b72df7133e",
+      "sha256": "42a833ae69d9e2446d6c615c7051c013235044d3e1ff45186ad2b2789ce501ff",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
@@ -88,6 +88,166 @@
       "occurrences": []
     },
     {
+      "path": "profiles/models/seedance-2.0-model.json",
+      "sha256": "c88d295e3f823e0891c529226afbf909afda0edada004cf23a119c1cae33ab04",
+      "audit_status": "mapped_candidate",
+      "occurrences": [
+        {
+          "claim_id": "bytedance.model.multimodal-inputs",
+          "heading": "Model evidence pins",
+          "anchor_text": "\"claim_id\": \"bytedance.model.multimodal-inputs\",",
+          "anchor_sha256": "cc031a197fbfd9433b76611d9302d4edede8454e759392d1a19ecab9b064e3b2",
+          "occurrence_count": 1,
+          "disposition": "supported_candidate",
+          "profile_ids": [
+            "seedance-2.0-model"
+          ],
+          "test_ids": [
+            "tests/test_evidence_registry.py#test_bytedance_claims_remain_model_level"
+          ]
+        },
+        {
+          "claim_id": "bytedance.model.reference-control",
+          "heading": "Model evidence pins",
+          "anchor_text": "\"claim_id\": \"bytedance.model.reference-control\",",
+          "anchor_sha256": "86f88cf2635897f0357baf0e522f5db315bfd618cf0ccf8911a09d4ae2006a2f",
+          "occurrence_count": 1,
+          "disposition": "supported_candidate",
+          "profile_ids": [
+            "seedance-2.0-model"
+          ],
+          "test_ids": [
+            "tests/test_evidence_registry.py#test_bytedance_claims_remain_model_level"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "profiles/profile-index.json",
+      "sha256": "02a98fbf0c9816820ad62cdd2de17f35ab3e3bdf0efbdeb87edde485db8a36b2",
+      "audit_status": "no_volatile_claims",
+      "occurrences": []
+    },
+    {
+      "path": "profiles/surfaces/byteplus-modelark.json",
+      "sha256": "1f3b30221e886e8a8233479639ec23a8356aa1317170150852672d759db91592",
+      "audit_status": "mapped_candidate",
+      "occurrences": [
+        {
+          "claim_id": "global.binding.no-universal-token",
+          "heading": "reference_generation evidence pins",
+          "anchor_text": "\"claim_id\": \"global.binding.no-universal-token\",",
+          "anchor_sha256": "5b8b1be0fd731734e2a9be22842d1e7cf0d83fe2129053c5ff19ae110680d142",
+          "occurrence_count": 1,
+          "disposition": "supported_candidate",
+          "profile_ids": [
+            "byteplus.modelark"
+          ],
+          "test_ids": [
+            "evals/evals.json#exact_reference_tag_preserved"
+          ]
+        },
+        {
+          "claim_id": "bp.binding.spaced-example-token",
+          "heading": "reference_generation evidence pins",
+          "anchor_text": "\"claim_id\": \"bp.binding.spaced-example-token\",",
+          "anchor_sha256": "633bbd6bb25a0291ab9c0eb7cd571d905d398469fed8138e0abad17c94e97f3e",
+          "occurrence_count": 1,
+          "disposition": "supported_candidate",
+          "profile_ids": [
+            "byteplus.modelark"
+          ],
+          "test_ids": [
+            "evals/evals.json#exact_reference_tag_preserved"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "profiles/surfaces/fal-reference-to-video.json",
+      "sha256": "abfcec44bb8b64e1f1a17ebca806efdd529f4addecd61dc9216ce3d96dddad1e",
+      "audit_status": "mapped_candidate",
+      "occurrences": [
+        {
+          "claim_id": "global.binding.no-universal-token",
+          "heading": "reference_generation evidence pins",
+          "anchor_text": "\"claim_id\": \"global.binding.no-universal-token\",",
+          "anchor_sha256": "5b8b1be0fd731734e2a9be22842d1e7cf0d83fe2129053c5ff19ae110680d142",
+          "occurrence_count": 1,
+          "disposition": "supported_candidate",
+          "profile_ids": [
+            "fal.reference-to-video"
+          ],
+          "test_ids": [
+            "evals/evals.json#exact_reference_tag_preserved"
+          ]
+        },
+        {
+          "claim_id": "fal.binding.at-ordinal",
+          "heading": "reference_generation evidence pins",
+          "anchor_text": "\"claim_id\": \"fal.binding.at-ordinal\",",
+          "anchor_sha256": "b971a2b8eb8c168ea5125a1efc88cd45234fe81de88a515b89bac47dac064bff",
+          "occurrence_count": 1,
+          "disposition": "supported_candidate",
+          "profile_ids": [
+            "fal.reference-to-video"
+          ],
+          "test_ids": [
+            "evals/evals.json#exact_reference_tag_preserved"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "profiles/surfaces/volcengine-ark.json",
+      "sha256": "6fc6b9602c1b5d287a5916d5baa8257efdfb2743d8b1582df4a767536eb67483",
+      "audit_status": "mapped_candidate",
+      "occurrences": [
+        {
+          "claim_id": "global.binding.no-universal-token",
+          "heading": "reference_generation evidence pins",
+          "anchor_text": "\"claim_id\": \"global.binding.no-universal-token\",",
+          "anchor_sha256": "5b8b1be0fd731734e2a9be22842d1e7cf0d83fe2129053c5ff19ae110680d142",
+          "occurrence_count": 1,
+          "disposition": "supported_candidate",
+          "profile_ids": [
+            "volcengine.ark"
+          ],
+          "test_ids": [
+            "evals/evals.json#exact_reference_tag_preserved"
+          ]
+        },
+        {
+          "claim_id": "volc.binding.asset-ordinal",
+          "heading": "reference_generation evidence pins",
+          "anchor_text": "\"claim_id\": \"volc.binding.asset-ordinal\",",
+          "anchor_sha256": "3842416fdeb39374f3b3657c9f27eaa47dc94ca25ea8b3ab4393dbeda926845d",
+          "occurrence_count": 1,
+          "disposition": "supported_candidate",
+          "profile_ids": [
+            "volcengine.ark"
+          ],
+          "test_ids": [
+            "evals/evals.json#exact_reference_tag_preserved"
+          ]
+        },
+        {
+          "claim_id": "volc.binding.first-last-frame-role",
+          "heading": "first_last_frame evidence pins",
+          "anchor_text": "\"claim_id\": \"volc.binding.first-last-frame-role\",",
+          "anchor_sha256": "de2e4a74cd5d372d1c384ac001f4aaaf2a86ae7507bd905dc5e9b284c28f5e2d",
+          "occurrence_count": 1,
+          "disposition": "supported_candidate",
+          "profile_ids": [
+            "volcengine.ark"
+          ],
+          "test_ids": [
+            "evals/evals.json#first_last_frame_workflow"
+          ]
+        }
+      ]
+    },
+    {
       "path": "references/2d-anime-grammar.md",
       "sha256": "b1d5c20b9322375e957bd8e6624acd818e4fc5691fd2b3d91d67a9f03da3fa84",
       "audit_status": "legacy_blocked",
@@ -95,7 +255,7 @@
     },
     {
       "path": "references/allocation-model.md",
-      "sha256": "20b9d548ea1e6301f6e2568ee9f0d40907857e64b96ed9995c6943dd8ac049a2",
+      "sha256": "aeba36527b0fd207565ac952c1b2d5e25a13b0e0dd19413c5f547baa36f934c0",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
@@ -107,7 +267,7 @@
     },
     {
       "path": "references/api-status.md",
-      "sha256": "e37edd8d55ad451dcdd5d70e19db5fbddb472e7271641a2d1c37e7f326a6f242",
+      "sha256": "d0dcc9dc19e874437ae2fdf703160f1b5c660165fef29cd32b686ef54b5067d2",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
@@ -125,19 +285,19 @@
     },
     {
       "path": "references/audio-guide.md",
-      "sha256": "0de7f43ff3ace285fb7fd804f198aaf9a78335508ab87a4ccf40be04405bc3b9",
+      "sha256": "3e48620682ad5d735f74f2d0291b5ca6cb335ae2bf534e57203a880f346306bc",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "references/audio-post-delivery.md",
-      "sha256": "b0b4fd9767be70b3348a13885f65eab6a6d43401006995d73688008cc890859e",
+      "sha256": "2bbc055dd5d7f8e3d58e233665ce2d04d138a19416a0a9d3a4e764a8b8cd0b96",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "references/capability-map.md",
-      "sha256": "22e601459b02eaa2535fc59c58293f79f88657a05a4cf7241e61f61e51334d03",
+      "sha256": "ce8c4cb627875ad20ef3ec9dba73aaf8eb055471c169bfa8f58ac229e7c2ebaf",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
@@ -155,13 +315,13 @@
     },
     {
       "path": "references/continuation-handoff.md",
-      "sha256": "c7c24f8079639cfdf7431efe06cb14bc0384862e85e473126525e9603ed0ee50",
+      "sha256": "20c2d2e01bf99f3110c04701ba6560b8d8693a3815ef69985f27ad25e8aa2436",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "references/continuity-qc.md",
-      "sha256": "1199e0233292743e3d36298d371b977dba1cbd8c2859dae93cdd955198516150",
+      "sha256": "69d7c8a53e401a59b5aa6e9bc8afa28cec81ce39521a6e79cb6afdb262fbe812",
       "audit_status": "no_volatile_claims",
       "occurrences": []
     },
@@ -179,7 +339,7 @@
     },
     {
       "path": "references/directing-engine-genre-library.md",
-      "sha256": "db2f48fe8a215bb93202c87f223e50f7b38e70dd0d6c318ef49b4bd89ee45ff2",
+      "sha256": "78fc2617a84f5a1bdf07682cde7bfe247786b82c2f0abfb8994edc1652673056",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
@@ -197,7 +357,7 @@
     },
     {
       "path": "references/examples-by-mode.md",
-      "sha256": "32cd7be32cc0c5f307fb839ea38292c375214da357b63db398dbd15fc5a10f49",
+      "sha256": "550af357a8863165f2508c461f89be2615c6ef4e0c510a0d26d94c79aa2f42c2",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
@@ -209,31 +369,31 @@
     },
     {
       "path": "references/field-observed-tips.md",
-      "sha256": "d63a5869fa2faed961a039b3442b854359400598bd9374d658d07377ab5f8902",
+      "sha256": "5fe74e1c30364a4a07f02c0bd7cd3a4360dc156bf4ff4d2394e8d7e4a9e78388",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "references/filter-vocab.md",
-      "sha256": "21dd32fad88ec88d0afb7df197121bcf01ce6206a2e32a61cca0d20f41984f1e",
+      "sha256": "488e202f1dd446b115674e0f03916811ea238ab0985d828a1f661aa3c4f6e65a",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "references/first-last-frame-guide.md",
-      "sha256": "efd74ef05423be7f0b2c94fbc297848453e58d9154bdc08f17ddbb942fc66006",
+      "sha256": "74d11acc76bd3ab58e94a8b57eeea0252764a3e5c96a4b46035ce340e2c2478d",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "references/genre-guides.md",
-      "sha256": "5c30b790dfac5c3907c2759571c17af51dd48ce94e4e5a3c6b4071c204018dff",
+      "sha256": "7397b892d9fbaf9dc1051b82c2983b9e696020ce27c51011fec078a3f6d5c3e6",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "references/i2v-guide.md",
-      "sha256": "f006ba4ee7ac4f99fe30317e4711f863aa5f3ee88f1e9c4231285ce640f46dbe",
+      "sha256": "1b909c46ae3aec1f62e753c489ce9dbdb169a636c0f29dbd0c16182b9ecfea95",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
@@ -245,13 +405,13 @@
     },
     {
       "path": "references/interview-starters.md",
-      "sha256": "8223c3efccd860ef69e7b529cdaf56f82d7ad17c8e0a85fe8aff3bbbafd90af9",
+      "sha256": "f96eeb7f40fb99ef230b092a5981bc45001af819043fb4bc11070ee7281a833f",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "references/json-schema.md",
-      "sha256": "d937777e1315e808b188ff69e0a0749175f1ad43deffb7a6d85f7d826b50ac64",
+      "sha256": "6b61298a7df178ebfe8c60986aa419be3bc9e716da12af4237bd5db7b4992bf1",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
@@ -263,13 +423,13 @@
     },
     {
       "path": "references/model-name-map.md",
-      "sha256": "a177cc545ccc96e7151d8f0922ce45657850d0d25de9241a0a8e847c0a411879",
+      "sha256": "a7b826b7f22335b1f7edcad5024d3eaa12ce7322f9c3cbd8cf1468b4e0f7b7ba",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "references/multilingual-community-examples.md",
-      "sha256": "60b4378ced62e5e90942c0446156fe0f40a9e7a1c999860bdbdb310e8196e2e2",
+      "sha256": "740d45c6289ec1f8139d790b798884c2808e046ef51e25a2e51e81938119c5b3",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
@@ -287,7 +447,7 @@
     },
     {
       "path": "references/platform-surface-matrix.md",
-      "sha256": "ff047dd9770c8dd9b81d78311207c7337a953d1f1ac2b2e51a73799cece5c782",
+      "sha256": "58a9f0b3649e087c2845d11c9f3e42881b273c10ca192495d3b0b24b6d790b36",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
@@ -299,31 +459,31 @@
     },
     {
       "path": "references/prompt-compiler.md",
-      "sha256": "e97c337f8817780f21275a1ec4dcd0944556218042b8d062a8c9f407d491a299",
+      "sha256": "1debf6733f27c098cc46219491c97a8fb370c91c4f4133f8c685d9d7201d273a",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "references/prompt-examples.md",
-      "sha256": "72687b1891e2daf71ea6482a7b60342d26a10ddf89e2684993d2cf0c09c19153",
+      "sha256": "c1830e09587e32203eafce309c29bf4f9b05345f5efaeaf87a092114306c46a2",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "references/quick-ref.md",
-      "sha256": "2bedb30e9da778f8bf557e92024bc14ac2df6f44711cb32ccc86d4ecc125c3fb",
+      "sha256": "0b6f2d4c68c7a810f009b4b59df21d43c0bd151291bd2c7bf9ad1481be0cac6a",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "references/reference-transfer-contract.md",
-      "sha256": "f8523b810f7be505c6cd978cdafe2313f8ab5a179ad9b707c401d2dfc1f4f252",
+      "sha256": "65ec348887b50f445e2e73e8f5183280e0bef30db088a4c2660e145ece82c052",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "references/reference-workflow.md",
-      "sha256": "d07be861f246882c61c941d7c1e2b929975ef1fb8299a624fe85cc2577408857",
+      "sha256": "5dca08b0641b5703303eca338899ee730d18c34f60482699b62077a42a089032",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
@@ -335,19 +495,19 @@
     },
     {
       "path": "references/sequence-project-state.md",
-      "sha256": "fb6bcbd9cee2fceaa0d209ea8b9cf212cb7111b39534189ee77b565976642a64",
+      "sha256": "8a09d19adb5a3b0c9722ec76a7c08ae30e03be68eed3201bc41b0678f443564e",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "references/sequence-worked-trace.md",
-      "sha256": "c6b0ed8381d1b308f0199d549648f42cd4c890f8b5b0abf63870bb779eada98a",
+      "sha256": "a0508697b6d8a7a3b1dbdc22db4d32566746c4ecd63d7940817a85aaca7fa3db",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "references/shot-list-continuity.md",
-      "sha256": "b5198924d1b1f236860be3568c9e55069f0da4f4a80b3ba3f03e6dc9a8899061",
+      "sha256": "5596a168db5f1efbcd1f0f155524ef8c13cfb692083a487009dbd89903fca354",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
@@ -371,44 +531,56 @@
     },
     {
       "path": "references/surface-prompt-profiles.md",
-      "sha256": "125133c4f1a00fa8a7e51aaae974e7023d1de609b76708a8d906fef66f97569f",
-      "audit_status": "no_volatile_claims",
+      "sha256": "1b42ebf069a8c468cbb6fecfcfb4c719dd26ac5d02412a03e787eb039406ad2d",
+      "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "references/vocab/en.md",
-      "sha256": "aef3415f952474e00c7f5d2d555979140151d71e37d78d5658c002a43bb1f4cb",
+      "sha256": "8b38db70955adcf7554e1f500b525d2388d1bd436ab3ed4408340d4ffb75d135",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "references/vocab/es.md",
-      "sha256": "d5bdc96283d012ba0ae6ffd015a86840dd06264a751bd7811bda660281ada693",
+      "sha256": "2b1d36c97dbe0d5aa1d57e6d051db33f9b2cc4a7aa958aac12b2519323476504",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "references/vocab/ja.md",
-      "sha256": "e8012684528435fb82020641e3c9ea2114ac28014c37f5ad6d0f977279929846",
+      "sha256": "6eb17afbb9f0ed6e9a8c8dd5d943f70b20d0fc02bb517718fd98b99587fcac56",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "references/vocab/ko.md",
-      "sha256": "867b9e0780b293e626f411c61ad70ca863736f7bf006bb90d93dd894f0a91e22",
+      "sha256": "7f635b2f348b1e5ac6748a0cc8bdf97a1d4f3b30a36abdec2d28c4b9cb3263bf",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "references/vocab/ru.md",
-      "sha256": "6fbb427cc5fa85c1df3d7f6469fce1018d3b4538d7d59248ccd7dcbf542ade76",
+      "sha256": "d2dcbb826f07a4fe3427df62e980a2139156326294d421d10c0f31a88c486251",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "references/vocab/zh.md",
-      "sha256": "4cde5635d13cab4baa05eb0a8d95c839f3cdd822d37c7c86095b03b85854b9a4",
+      "sha256": "082e43a4bf474daf792f85d21e72f0c194565433f60c46f1edd934b2554bd161",
       "audit_status": "legacy_blocked",
+      "occurrences": []
+    },
+    {
+      "path": "schemas/binding-plan.schema.json",
+      "sha256": "dbf1bf938a8f4afb6a0688caddb2f8a96097e4975d41319d2e23251f9c7ee380",
+      "audit_status": "no_volatile_claims",
+      "occurrences": []
+    },
+    {
+      "path": "schemas/binding-render.schema.json",
+      "sha256": "b73dba15fbdbe48061fd4b2f176c1e4838c1d55de1c595b1ce0e06e42796bc4f",
+      "audit_status": "no_volatile_claims",
       "occurrences": []
     },
     {
@@ -424,6 +596,18 @@
       "occurrences": []
     },
     {
+      "path": "schemas/model-profile.schema.json",
+      "sha256": "2c3131d8284ea89f7391fa2b6ba73c4f665624ef1d72cf839789edec349604c0",
+      "audit_status": "no_volatile_claims",
+      "occurrences": []
+    },
+    {
+      "path": "schemas/profile-index.schema.json",
+      "sha256": "6773f46ef256551e19a3f1988bcd7327e3b8009308136dd240835c420461ebf6",
+      "audit_status": "no_volatile_claims",
+      "occurrences": []
+    },
+    {
       "path": "schemas/project-state.schema.json",
       "sha256": "eb0a78ddc659cf0e25671be112085b75ac76150512fca1829df267e0abb3bb9a",
       "audit_status": "legacy_blocked",
@@ -432,6 +616,12 @@
     {
       "path": "schemas/prompt-spec.schema.json",
       "sha256": "e5c613610cdfc719e4422ae4300eb0890d79711e55a651bc25c4c7cc08586fc3",
+      "audit_status": "no_volatile_claims",
+      "occurrences": []
+    },
+    {
+      "path": "schemas/surface-profile.schema.json",
+      "sha256": "09f9219d1f9677dc23b7ff096fe181116c9941709b4eb344c7b49a2820246531",
       "audit_status": "no_volatile_claims",
       "occurrences": []
     },
@@ -454,32 +644,38 @@
       "occurrences": []
     },
     {
+      "path": "scripts/render_surface_bindings.py",
+      "sha256": "2533ca12c38e4f3f580164ceec8d1ff8ae29fd8b5a31c2ea6adf00344243f31f",
+      "audit_status": "no_volatile_claims",
+      "occurrences": []
+    },
+    {
       "path": "skills/seedance-antislop/SKILL.md",
-      "sha256": "3303e4ae1de3dc2fcf784e965c4df95b91c8d6522e04a11df9533440d9117eb1",
+      "sha256": "fc7e13458ffa52df64851846fadf1d3a2741fa9c45efc05ca7202d033ec16270",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "skills/seedance-audio/SKILL.md",
-      "sha256": "3a5a906f9775222389520c9b4d426842d0fc3cb9d20621491a91e884d774e424",
+      "sha256": "6c4c37a928350237aac49ba4dca027a1c80e85086cc9352b2e4ffa1b69c836b3",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "skills/seedance-camera/SKILL.md",
-      "sha256": "9785dee770590268ee98eab9fa7b2f7580cce8ad92764ee7b9c4a6613686b4bf",
+      "sha256": "3e0f9befd532266a8d08310542cca59d7892675e3a96fe6c456df5a2b0d9edd1",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "skills/seedance-characters/SKILL.md",
-      "sha256": "355500e3f0e00f789d736438e395501d7eac8136d40bac4b39b1b98a6e271148",
+      "sha256": "b333b1dd8e00820dd665402afe6d7be7b3c579027bbba44237b5eb9f9e39ce76",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "skills/seedance-continuation/SKILL.md",
-      "sha256": "aa855aa046a2b51db6bfdb35b2c118a33aa7cce492b627aaf75a5f610cac4628",
+      "sha256": "92c4f128b2520f53434dd98a71144b1be0ee1e35444182756b1594e50c0caef0",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
@@ -491,19 +687,19 @@
     },
     {
       "path": "skills/seedance-examples-ja/SKILL.md",
-      "sha256": "c0cbabad8ce75228aed356b6f14c8536cf3b64e6efc60c5f3e1cf981fdeaf773",
+      "sha256": "a0d54d91be8e3cb8cc52ee013d4b078310ada8f19e1bed6cefefd940b3fd6d27",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "skills/seedance-examples-ko/SKILL.md",
-      "sha256": "b4e19fd63ca99e8b6233f0070ee8feafb548ae1cd62fb99d887bee49e992f032",
+      "sha256": "9839b72343c297534f69bbb66d296c2faa8ae0f9ba9c0d766f38278ce6c305aa",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "skills/seedance-examples-zh/SKILL.md",
-      "sha256": "e50333a1e52bf84b0b969f01751158b81b16d0dadcee77e2909d685e26d4635a",
+      "sha256": "c825a3fbfdd61bbc983c7ec7f888c2ede067d2a92e7a6df8a586de12641aaf36",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
@@ -521,61 +717,61 @@
     },
     {
       "path": "skills/seedance-interview/SKILL.md",
-      "sha256": "89dd670c284c30eee272aea1d61b8429a349833ae261be9a6ad4f75915671f8c",
+      "sha256": "fa097117f253207c58dad87a8878d7bb1e0fe066025598b5fe67ffcbeea16071",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "skills/seedance-lighting/SKILL.md",
-      "sha256": "8dd249bd1bc380801b624cb90cc37d46ac725ac20e7ec2b8efce02ac67cd21f7",
+      "sha256": "f011ef9ab251aea25100fe0a19dc077c49aa8875665d25cf2ab2a9b795cd520c",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "skills/seedance-motion/SKILL.md",
-      "sha256": "29dcb5b1718fe9742fea8498da3b468f47309d595ad56c9c62d65edccdbf52c7",
+      "sha256": "5a40cf27b5af9bc2391c3e5fe1b128b9cd2642203d4b94248d9233c5496b65d7",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "skills/seedance-pipeline/SKILL.md",
-      "sha256": "0d4bda8cec0a98a82360cd497cf6cf7f3550f74b3794eb5e3272ba773f7d4010",
+      "sha256": "b30b079ffd808bbf6d1ddd75d424764114146003e8bc14df7d79c9d22a115211",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "skills/seedance-prompt-short/SKILL.md",
-      "sha256": "21e643b541bc0f25592a76456bed60d5202968092d2611e1f8b5749af4c7a7d1",
+      "sha256": "fa2442a0b2270fabdd937209c737ab98685e102d9de237bcfde87b884ff82312",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "skills/seedance-prompt/SKILL.md",
-      "sha256": "ce558207516a6408de3425956c911dac4dbaa5da0d024d29ef03a01186d964a6",
+      "sha256": "825da8fa379ba5a9dc07f6905e70f9510d301d05c9f68307337b5638220d13c7",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "skills/seedance-recipes/SKILL.md",
-      "sha256": "428e8efd886399c7f739eabecc97a1fcb76067d15f5e669f3a1e2cc0e6247510",
+      "sha256": "4ca1a6bd8c5c052fd7995656a202c8a29a95d95803e8b08c08d17ddcac383979",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "skills/seedance-sequence/SKILL.md",
-      "sha256": "cbaecde282c0efb73120366dc54628a3f9988919ae545237f6cdd1b2e40f5758",
+      "sha256": "7e692d9490c48d6f21b9977fd4bb8e9e592e4083fa87d22445a01de6ba0eda13",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "skills/seedance-style/SKILL.md",
-      "sha256": "cc2e78fc5dc209a4ee5fa894371d882345ef2f057954210dd4a919d4383d604e",
+      "sha256": "a6a7780177b67e6775a1fe37121c4d434933787da7b4cb8ac766c91b54d1a60a",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "skills/seedance-troubleshoot/SKILL.md",
-      "sha256": "9829ea8901f63e08faf16b620872131eba316aa9ce8bab03407fa6afb00889f5",
+      "sha256": "d9cff30c12199dfb911b1ce61354c9c03ee37ba14d9aa64dad03d1819838b2b6",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
@@ -587,37 +783,37 @@
     },
     {
       "path": "skills/seedance-vocab-en/SKILL.md",
-      "sha256": "d3b7ae13525cccd5234190024be0a7f848cd49aad474593a567a496242f72000",
+      "sha256": "2be79e6f348d3b4e0e1f40dd78e80c2ed48534f7dcf7677e58e68675c0295172",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "skills/seedance-vocab-es/SKILL.md",
-      "sha256": "8e5e5d36441976d047edc23fc7aff7535886e13275f39d1f8eddacabb96ad43f",
+      "sha256": "8c37b61b8cdf16436ae2b870c46558e1b53cf0d9ba2bd193bcde601490107ce4",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "skills/seedance-vocab-ja/SKILL.md",
-      "sha256": "fff19b514a3a467c0e3fd753ea82688ba040d605335e363a885ae8ea1e3f5b21",
+      "sha256": "6d36c824ca2b2d5952a73ce9aae0bd9f13ba515b74fe7484ef094c716daac699",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "skills/seedance-vocab-ko/SKILL.md",
-      "sha256": "c466b1ea9dc607e48d019df6689923dcf9a6e01f7f1f15c8631eeec98e0171d3",
+      "sha256": "5e9b014f114dab90bf61c79f5343a7f41209fc05bf51c78d4e01114055884650",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "skills/seedance-vocab-ru/SKILL.md",
-      "sha256": "c4956e53d4412e146104b5e33b5a95c19348c8bad222f11d2150e7fc9739d1ee",
+      "sha256": "3d506d90a05ced2469d3986b26431e26cc22c202b221a324690649188f1c3b13",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "skills/seedance-vocab-zh/SKILL.md",
-      "sha256": "86d9f382271d6a3d1b41706e5e55904643bd6ef93a1f68f339e5decb049e3aff",
+      "sha256": "0d7e8a1e519c39d22c5d106f02e4326d67027babcb743fe2fe5d337d4a75ecad",
       "audit_status": "legacy_blocked",
       "occurrences": []
     }

@@ -21,7 +21,7 @@
         "properties": {
           "path": {"type": "string", "minLength": 1, "maxLength": 300},
           "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
-          "audit_status": {"enum": ["mapped", "no_volatile_claims", "non_text", "legacy_blocked"]},
+          "audit_status": {"enum": ["mapped", "mapped_candidate", "no_volatile_claims", "non_text", "legacy_blocked"]},
           "occurrences": {
             "type": "array",
             "items": {

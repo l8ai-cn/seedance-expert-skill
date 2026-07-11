@@ -8,9 +8,12 @@ Use this schema when the user wants structured output or when an automation pipe
   "duration": "string",
   "aspect_ratio": "string",
   "references": [
-    {"tag": "Image1", "role": "identity | product | pose | environment | style | first_frame | last_frame | reference_image"},
-    {"tag": "Video1", "role": "motion | camera | pacing | blocking | source_clip | reference_video"},
-    {"tag": "Audio1", "role": "voice | rhythm | ambience | music | tempo | reference_audio"}
+    {
+      "binding_id": "character_identity",
+      "media_type": "image | video | audio",
+      "control_role": "identity | product | pose | environment | style | motion | camera | pacing | blocking | voice | rhythm | ambience | music | tempo | source_clip | first_frame | last_frame",
+      "surface_resolution": "external_opaque_handle | derived_media_ordinal | structured_request_role"
+    }
   ],
   "characters": [],
   "production": {
@@ -81,7 +84,7 @@ Use this schema when the user wants structured output or when an automation pipe
 }
 ```
 
-The JSON wrapper is for planning. The final prompt still needs to read naturally. For professional work, keep the production, shot-list, continuity, localization, audio, color, and delivery fields as handoff metadata; do not cram all of them into the prompt.
+The JSON wrapper is for planning. `binding_id` is semantic and must never contain guessed provider syntax. Resolve it through the selected surface operation: preserve an externally captured handle only where required, derive only an evidence-pinned ordinal, or assign a structured request role with no text token. The final prompt still needs to read naturally. For professional work, keep the production, shot-list, continuity, localization, audio, color, and delivery fields as handoff metadata; do not cram all of them into the prompt.
 
 ## Sequence-State Schemas
 

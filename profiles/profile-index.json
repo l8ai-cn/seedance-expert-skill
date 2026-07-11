@@ -1,0 +1,38 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/profile-index.schema.json",
+  "schema_version": 1,
+  "activation_enabled": false,
+  "unknown_profile_policy": "fail_closed",
+  "models": [
+    {
+      "profile_id": "seedance-2.0-model",
+      "path": "profiles/models/seedance-2.0-model.json",
+      "sha256": "c88d295e3f823e0891c529226afbf909afda0edada004cf23a119c1cae33ab04",
+      "status": "candidate",
+      "runtime_enabled": false
+    }
+  ],
+  "surfaces": [
+    {
+      "profile_id": "byteplus.modelark",
+      "path": "profiles/surfaces/byteplus-modelark.json",
+      "sha256": "1f3b30221e886e8a8233479639ec23a8356aa1317170150852672d759db91592",
+      "status": "candidate",
+      "runtime_enabled": false
+    },
+    {
+      "profile_id": "fal.reference-to-video",
+      "path": "profiles/surfaces/fal-reference-to-video.json",
+      "sha256": "abfcec44bb8b64e1f1a17ebca806efdd529f4addecd61dc9216ce3d96dddad1e",
+      "status": "candidate",
+      "runtime_enabled": false
+    },
+    {
+      "profile_id": "volcengine.ark",
+      "path": "profiles/surfaces/volcengine-ark.json",
+      "sha256": "6fc6b9602c1b5d287a5916d5baa8257efdfb2743d8b1582df4a767536eb67483",
+      "status": "candidate",
+      "runtime_enabled": false
+    }
+  ]
+}

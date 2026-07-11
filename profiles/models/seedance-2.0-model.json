@@ -1,0 +1,28 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/model-profile.schema.json",
+  "schema_version": 1,
+  "profile_kind": "model",
+  "profile_id": "seedance-2.0-model",
+  "model_family": "seedance",
+  "model_version": "2.0",
+  "status": "candidate",
+  "runtime_enabled": false,
+  "binding_contract": {
+    "owner": "surface_profile",
+    "universal_prompt_handle": false
+  },
+  "input_modalities": ["audio", "image", "text", "video"],
+  "reference_control_dimensions": ["camera_movement", "lighting", "performance", "shadow"],
+  "evidence_pins": [
+    {
+      "claim_id": "bytedance.model.multimodal-inputs",
+      "claim_sha256": "fe5df415cea7cf989076e2605f7af9a391dbf3bb7e416cfa9689589aa1229ef3",
+      "expires_at": "2027-01-07"
+    },
+    {
+      "claim_id": "bytedance.model.reference-control",
+      "claim_sha256": "02793804a725ea4dad766489038653b5895d12e5f6d17a73116323829f5a31cc",
+      "expires_at": "2027-01-07"
+    }
+  ]
+}

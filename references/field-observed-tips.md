@@ -23,7 +23,7 @@ These are practitioner patterns gathered from public community material. Treat t
 |---|---|
 | `cinematic, epic, beautiful` | `soft side backlight, wet asphalt reflections, locked medium shot, quiet room tone` |
 | `make it move naturally` | `shoulders rise once with breathing, hand releases the cup, final pose holds for one second` |
-| `use this video as style` | `@Video1 provides only side-tracking camera rhythm; do not transfer performer identity or background` |
+| `use this video as style` | typed video binding + `provides only side-tracking camera rhythm; do not transfer performer identity or background` |
 | `make product luxury` | `narrow warm light sweep across the label, black acrylic table reflection, no label redesign` |
 
 ## High-Risk Areas
@@ -36,7 +36,7 @@ These are practitioner patterns gathered from public community material. Treat t
 - Real-person faces, voices, celebrity likeness, and protected characters.
 - Long script-like prompts that ask for too many cuts, locations, and character turns in one generation.
 - Extension chains without a last-frame anchor; quality and continuity can degrade across retries.
-- Sequence chains where completed beats, reserved beats, or exact reference tags are not logged.
+- Sequence chains where completed beats, reserved beats, or typed binding policies are not logged.
 
 ## Safe Hidden Trick
 

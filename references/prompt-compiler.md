@@ -13,11 +13,13 @@ The compiler turns internal project state into one natural-language Seedance pro
 - continuity locks and allowed changes;
 - prompt budget.
 
+The compiler produces typed text and binding segments before the final join. The selected surface operation owns request transport and prompt-visible syntax; the scene plan never does. Load `[ref:surface-prompt-profiles]` and fail closed when the profile, operation, required external handle, evidenced formatter, or structured role is unavailable.
+
 ## Compile Order
 
 1. Lineage: name `project_id`, `clip_id`, and parent in the user-facing contract or capsule; omit them from the final prompt when they would waste prompt budget.
-2. Source role: identify the active reference tags and what each controls.
-3. Actual opening state: use observed footage for continuations and planned state only for first clips. When the source clip or final frame is attached as a reference, name it by tag and state only what the source cannot carry.
+2. Source role: identify semantic binding IDs, media types, external handles only where required, structured roles, and what each controls. Derived ordinal syntax stays out of the scene plan.
+3. Actual opening state: use observed footage for continuations and planned state only for first clips. When the source clip or final frame is attached, bind it semantically and let the selected operation preserve, derive, or omit prompt-visible syntax; state only what the source cannot carry.
 4. Current clip action: one narrative job with an endpoint.
 5. Felt intent: the clip's one-line `felt_intent` - what the viewer should feel or notice - is the directing engine's intention made persistent in state. It never ships to Seedance as an abstract emotion word; it compiles as the specific camera, light, performance, and sound choices that carry it.
 6. Camera and motion phase: include inherited vectors when continuity matters.
@@ -29,7 +31,7 @@ The compiler turns internal project state into one natural-language Seedance pro
 
 When an accepted source is attached as a reference, the source carries the state and the text carries the delta. Do not re-describe in prose what the attached source already shows: prose restatement spends budget on information the model already has, and where the words disagree with the pixels, the prose becomes a drift instruction.
 
-- Accepted clip attached as a video reference: the clip carries static and dynamic state. Text carries the source role by exact tag, the current action and endpoint, exclusions, and only the continuity locks at known drift risk.
+- Accepted clip attached as a video reference: the clip carries static and dynamic state. A typed binding segment is resolved by the surface policy when that operation uses prompt-visible binding; text carries the role, current action and endpoint, exclusions, and only the continuity locks at known drift risk.
 - Accepted final frame attached as an image reference: the frame carries static state only. Text must still carry what a still cannot show - open motion vectors, camera movement phase, and audio phase - then the current action, endpoint, and exclusions.
 - No visual source attached: write the observed opening state in prose, as for a cross-session continuation where the footage is unavailable.
 
@@ -49,7 +51,7 @@ Use clip-scope language:
 
 When the prompt must shrink, preserve in this order:
 
-1. Exact reference tags and role boundaries.
+1. Typed bindings and selected surface policies, plus role boundaries.
 2. Actual opening state the attached source cannot carry.
 3. Current action and endpoint.
 4. Felt-intent carriers: the specific light, performance, and sound clauses that make the viewer feel what this clip exists to make them feel.

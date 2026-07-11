@@ -15,7 +15,7 @@ Do not write a continuation prompt until these are known:
 - completed beats;
 - reserved future beats;
 - continuity locks;
-- exact reference registry;
+- semantic reference registry plus the active surface's opaque, derived-ordinal, or structured binding policy;
 - active surface or conservative surface profile.
 
 If the source is missing, ask for the clip, final frame, or an exact visible-end description. Do not invent it.
@@ -66,9 +66,9 @@ Use `reanchor_after_drift` when extension depth or visible drift makes the chain
 
 Every continuation prompt must exclude completed beats and reserved future beats. If Clip 01 already exited the terminal, Clip 02 must not show the terminal exit again. If vehicle departure is reserved for Clip 03, Clip 02 must stop before departure.
 
-## Exact Reference Tags
+## Exact Surface Bindings
 
-Preserve tags byte-for-byte: `@Image1`, `@Image 1`, `@Image1`, `[Video 1]`, and interface equivalents must not be normalized, translated, renumbered, re-cased, or reformatted.
+Preserve every externally captured handle byte-for-byte and keep it separate from the semantic asset ID. For a derived ordinal, retain the typed media binding and let the exact surface profile recalculate its position; never carry provider syntax as semantic state. If continuation media uses a structured field, retain that role and do not invent prompt text. Resolve only after selecting the exact surface and operation profile.
 
 ## Acceptance Rule
 

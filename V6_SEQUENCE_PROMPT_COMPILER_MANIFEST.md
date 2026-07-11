@@ -82,7 +82,7 @@ This section records the inspected historical baseline for the original v6 migra
 - Prevents rejected footage from updating canon.
 - Prevents later prompts from replaying completed beats or leaking reserved future beats.
 - Keeps future prompts provisional until the preceding accepted take is reviewed.
-- Preserves exact reference tags byte-for-byte.
+- Resolves each semantic reference through its selected surface operation: opaque handles remain byte-exact, derived ordinals are computed, and structured roles add no prompt token.
 - Keeps final Seedance prompts natural language unless the user requests structured output.
 - Adds a portable Project State Capsule for cross-session continuation.
 

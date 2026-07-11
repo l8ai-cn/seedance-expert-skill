@@ -20,7 +20,7 @@ metadata:
 
 # seedance-examples-ko
 
-Use Korean examples as native prompt patterns, not translated English templates. Preserve reference tags exactly: `@Image1`, `@Image2`, `@Video1`, and `@Audio1` remain unchanged inside Korean sentences.
+Use Korean examples as native prompt patterns, not translated English templates. Resolve every reference through `[ref:surface-prompt-profiles]`: preserve external opaque handles, let API profiles derive evidenced ordinals, and add no token for structured roles. Never attach Korean particles directly to an unknown handle.
 
 ## Intent
 
@@ -37,7 +37,7 @@ Korean examples should turn 감성 into production behavior: the feeling is carr
 
 ## Safe Example Patterns
 
-**Product I2V:** `@Image1은 제품 참조이며 로고, 라벨, 병 모양, 색상을 정확히 유지한다. 변화는 작은 물방울이 표면을 따라 내려가는 움직임과 왼쪽에서 지나가는 따뜻한 프랙티컬 조명만 적용한다. Camera: locked product close-up, slow push-in. Sound: 낮은 실내 환경음, 마지막에 작은 유리 소리.`
+**Product I2V:** After the typed product binding: `: 제품 참조. 로고, 라벨, 병 모양, 색상을 정확히 유지한다. 변화는 작은 물방울이 표면을 따라 내려가는 움직임과 왼쪽에서 지나가는 따뜻한 프랙티컬 조명만 적용한다. Camera: locked product close-up, slow push-in. Sound: 낮은 실내 환경음, 마지막에 작은 유리 소리.`
 
 **Melodrama micro-expression:** `현대 아파트 주방, 두 명의 original adult characters only. Character A lowers a ceramic mug and looks away; Character B stays near the window, no approach. Camera: locked medium-wide, subtle handheld breathing sway. Lighting: warm tungsten practical, faint blue city spill. Sound: refrigerator hum, fabric movement, no music.`
 

@@ -56,7 +56,7 @@ These are NOT Seedance and should not trigger Seedance-specific syntax, specs, o
 | Runway Gen-4.5 | Runway's own video model line | Distinct from Runway *hosting* Seedance 2.0 via its API. Not Seedance. |
 | Hailuo / Vidu / Luma Ray3 / Pika / Wan | Other competing video models | Not Seedance. |
 
-For these, offer general filmmaking craft only — never Seedance reference tags, shot grammar, or surface-specific settings.
+For these, offer general filmmaking craft only — never Seedance surface bindings, shot grammar, or surface-specific settings.
 
 ## Wrapper Names
 

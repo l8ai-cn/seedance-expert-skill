@@ -13,7 +13,7 @@ Each example runs the same procedure: read, intention, voice, coherent setup, pe
 - **Intention:** make the audience covet the craftsmanship. **Voice:** composed classicist.
 - **Setup:** locked slider from a raking silhouette to a front three-quarter hero ending on the dial; gentle compression; one narrow warm key sweeping the brushed case with controlled speculars on black; clean room tone with a single mechanical tick.
 - **Performance:** the watch is the performer - the second hand completes one precise sweep.
-- **Prompt:** `@Image1 is the watch; preserve case, dial, hands, and logo exactly. Slow slider from a raking silhouette to a front three-quarter hero ending on the dial; gentle compression; one narrow warm key sweeps the brushed steel with controlled speculars on a black background; the second hand completes a single smooth sweep; low room tone with one soft mechanical tick; do not alter case shape, dial text, or proportions.`
+- **Prompt:** Typed product binding + `is the watch; preserve case, dial, hands, and logo exactly. Slow slider from a raking silhouette to a front three-quarter hero ending on the dial; gentle compression; one narrow warm key sweeps the brushed steel with controlled speculars on a black background; the second hand completes a single smooth sweep; low room tone with one soft mechanical tick; do not alter case shape, dial text, or proportions.` Resolve the binding through the active surface profile; never send the editorial label itself.
 
 ### Music video beat
 
