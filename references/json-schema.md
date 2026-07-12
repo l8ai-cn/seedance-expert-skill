@@ -97,3 +97,18 @@ Version 6 adds machine-valid state fixtures under `schemas/`:
 - `generation-run.schema.json` for synthetic benchmark and local run records.
 
 These schemas are planning artifacts. The final Seedance prompt remains natural language unless the user explicitly requests structured output.
+
+## V7 Paired-Language Contracts
+
+The candidate English/Simplified Chinese path uses strict nested contracts instead of translating the planning wrapper above:
+
+- `reference-manifest.schema.json` owns target/dimension authority and selected asset order;
+- `scene-ir.schema.json` owns the causal event graph, camera observability, audio links, and requested invariants;
+- `surface-binding-set.schema.json` owns binding-only provider input and contains no prompt prose;
+- `prompt-realization-catalog.schema.json` owns hash-bound `en` and `zh-Hans` catalog forms plus their declared attestation status;
+- `prompt-program.schema.json` records the one ordered, surface-independent semantic trace, including units whose static meaning is assigned to structured frame roles; and
+- `prompt-render.schema.json` records both candidate renders, typed segments, hash-bound binding-to-authority traces, surface bindings, request-carried assignments, evidence, parity hashes, and diagnostics.
+
+Run `scripts/semantic_lint.py` to build and validate the semantic program, then `scripts/prompt_compile.py --preview-candidate` to render the paired prompts. Local schema validity is necessary but not sufficient: the runtime also recomputes source hashes, exact catalog coverage, binding order/media alignment, semantic-unit order, UTF-8 byte-span/value-hash provenance for every resolved catalog atom, request-carried structured-role assignments, compiler and toolchain lineage, evidence expiry, and output hashes. The compiler envelope has a 64 MiB aggregate UTF-8 ceiling even when its nested documents are locally schema-valid. V7-07 rejects dialogue, voiceover, and multi-shot input rather than inventing missing semantic contracts.
+
+The checked-in catalog fixture uses `unattested_fixture` so it cannot be mistaken for a real bilingual approval. Public runtime commands reject that test marker. Production must supply an actual user/reviewer declaration for the catalog rows, then separately review the compiler-authored grammar and final prompt pair.

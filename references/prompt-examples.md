@@ -112,7 +112,7 @@ Use these examples as semantic patterns, not surface-ready scripts. `binding(nam
 
 ## Chinese First/Last Frame
 
-**Mode:** FLF2V. **Why it works:** the verified request structure assigns opening composition and endpoint to different assets while the prose describes only the transition.
+**Mode:** FLF2V. **Why it works:** the validated request structure assigns visible opening state plus opening composition to the first frame, and endpoint plus endpoint framing to the last frame, while the prose describes only the transition and non-static constraints.
 
 Structured request roles: `opening → first_frame`, `endpoint → last_frame`. Prompt prose: `保持两张给定帧中的同一原创角色、服装和房间布局。角色从椅子上缓慢站起，走到窗边并停在给定尾帧的姿势。动作连续自然，不跳切，不改变脸部、衣服或房间结构。镜头固定中景，仅轻微推镜。声音：安静室内环境声。`
 

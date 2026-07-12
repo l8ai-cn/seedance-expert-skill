@@ -65,7 +65,7 @@
     "authority_matrix": {
       "type": "array",
       "minItems": 1,
-      "maxItems": 832,
+      "maxItems": 960,
       "items": {"$ref": "#/$defs/authority_row"}
     },
     "causal_order": {
@@ -128,12 +128,14 @@
         "product_object_geometry",
         "environment",
         "visual_style",
+        "opening_state",
         "opening_composition",
         "subject_motion",
         "camera_motion",
         "timing_rhythm",
         "audio_voice",
         "endpoint",
+        "endpoint_framing",
         "text_logo_treatment"
       ]
     },

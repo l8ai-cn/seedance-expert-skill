@@ -20,17 +20,17 @@ metadata:
 
 # seedance-vocab-zh
 
-Use Chinese vocabulary when the user asks for Chinese prompts, Mandarin cinematic wording, role binding, first/last-frame workflow, or maximum compactness. Chinese prompt wording is often efficient, but it must still preserve mode, typed bindings and selected surface policies, action, camera, lighting, audio, and constraints.
+Use Chinese vocabulary when the user asks for Chinese prompts, Chinese-language production wording, role binding, first/last-frame workflow, or a compact Chinese version. Chinese wording must preserve the same mode, typed bindings and selected surface policies, action, camera, lighting, audio, and constraints as any paired English realization.
 
 ## Intent
 
-Chinese can say in four characters what English needs a sentence for - and the user choosing Chinese is choosing that compression and its culture. Serve the density without losing the directing: every 成语-tight phrase still names something a camera can see.
+Write concise, natural Chinese without treating brevity as proof of better model understanding. Every compact phrase must still name something visible, audible, or operationally testable.
 
 ## Usage Rule
 
 Binding is a separate typed step: a selected profile preserves an external opaque handle, derives an evidenced ordinal, or uses structured roles with no token. Never translate provider syntax. Use short production phrases instead of abstract adjectives.
 
-Load `[ref:vocab/zh]` for dense role-binding, first/last-frame, camera, lighting, audio, edit/extend, constraint, and safety vocabulary.
+Load `[ref:vocab/zh]` for role-binding, first/last-frame, camera, lighting, audio, edit/extend, constraint, and safety vocabulary. When a validated V7 scene IR and paired language catalog are available, let `scripts/prompt_compile.py` realize the Chinese clauses and let `scripts/semantic_lint.py` verify structural parity; do not translate arbitrary IR prose at runtime.
 
 | Function | Chinese wording |
 |---|---|

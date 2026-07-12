@@ -512,6 +512,8 @@ def validate_scene_ir(value: object) -> dict[str, Any]:
             _fail("EVT005_CAMERA_EVENT_UNKNOWN", f"{shot_pointer}/camera/observability")
         if before_id != initial_id or observed_decisive != decisive_id or observed_endpoint != endpoint_id:
             _fail("EVT005_CAMERA_PHASE_MISMATCH", f"{shot_pointer}/camera/observability")
+        if observed_endpoint in consequence_ids:
+            _fail("EVT005_CONSEQUENCE_PHASE_INVALID", f"{shot_pointer}/camera/observability")
         if response_id not in consequence_ids:
             _fail("EVT005_PRIMARY_RESPONSE_NOT_OBSERVED", f"{shot_pointer}/camera/observability")
         if any(PHASE_RANK[local_events[item]["phase"]] < PHASE_RANK["primary_response"] for item in consequence_ids):

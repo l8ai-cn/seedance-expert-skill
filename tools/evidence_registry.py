@@ -148,12 +148,18 @@ V705_CLEAN_RUNTIME_PATHS = (
         "schemas/model-profile.schema.json",
         "schemas/planning-report.schema.json",
         "schemas/profile-index.schema.json",
+        "schemas/prompt-program.schema.json",
+        "schemas/prompt-realization-catalog.schema.json",
+        "schemas/prompt-render.schema.json",
         "schemas/reference-manifest.schema.json",
         "schemas/scene-ir.schema.json",
+        "schemas/surface-binding-set.schema.json",
         "schemas/surface-profile.schema.json",
+        "scripts/prompt_compile.py",
         "scripts/reference_planner.py",
         "scripts/render_surface_bindings.py",
         "scripts/scene_ir_check.py",
+        "scripts/semantic_lint.py",
     }
 )
 V7_AUTHORITIES_SHA256 = "f7f62449d52aa7c096d14e26e21dd4fdcc40d7458cf1d696cf7b4c2949a4c16b"

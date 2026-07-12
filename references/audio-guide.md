@@ -4,63 +4,69 @@ Use this reference for detailed audio, dialogue, beat-sync, ambience, and lip-sy
 
 For professional audio post, stems, M&E, dubbing, loudness, or delivery checks, also load `audio-post-delivery.md`.
 
-## How the audio actually works (reason before you prompt)
+## Evidence boundary before prompting
 
-Field-observed from 2026 community testing across Chinese, Russian, and English sources; test per surface and never promise results. Use these as a reasoning model, not guarantees.
+Audio support, accepted reference types, dialogue synthesis, lip-sync controls, and output behavior are surface- and operation-specific. Field observations can propose a test but cannot reveal the model's internal audiovisual architecture or establish a universal language ranking.
 
-- Audio and video are generated together in one pass, so timing is locked by construction - you are not adding a track, you are asking one model to commit to both at once.
-- The model infers sound from what it sees whether or not you ask: a character on gravel gets footsteps, a street gets traffic. "Generic default audio" is therefore the resting state - you override it by naming the exact sound you want, because a sound cue acts as audio direction.
-- Speech and lip articulation appear tightly coupled: asking for a moving mouth with no voice is unreliable, and the model tends to voice the line anyway. Plan around this instead of expecting silent lip-sync.
-- Lip-sync is not always on by default. On some surfaces (for example Jimeng/即梦) it is a toggle that ships off; confirm the active surface enables voiced dialogue before blaming the prompt.
-- Reliability is probabilistic. Reputable hands-on testing, including Chinese tech press, reports voice scrambling and garbled on-screen text on harder prompts, so budget retakes and keep dialogue simple.
-- Language strength is uneven: field reports rank Mandarin strongest for lip-sync, English a close second, with Japanese, Korean, Russian, and others weaker and sometimes English-accented - a training-data effect, not something prompt wording alone fixes.
+- Confirm that the active surface and operation expose the requested audio or lip-sync control before relying on it.
+- Name the intended ambience, sound effect, dialogue, music, rhythm, or silence as an observable production requirement; review the returned take rather than assuming implicit sound behavior.
+- Treat mouth movement, spoken audio, speaker identity, and timing as separate acceptance checks.
+- Some field reports describe voice confusion, timing drift, or garbled on-screen text on complex tasks. Keep dialogue and competing action small enough to diagnose, then budget retakes or post work.
+- Do not attribute a language difference to training data or another unpublished mechanism. Record it as an observation tied to the exact line, voice path, model, surface, operation, and date.
 
-## Dialogue capacity (field-observed)
+## Dialogue capacity: conservative tests
 
-No official per-language word limit is published; the numbers below are field-observed ranges from 2026 community testing (cross-cited how-to blogs plus Chinese and Russian hands-on reports), not guarantees - test per surface.
+No official cross-surface per-language dialogue limit is retained. The values below are conservative starting tests from field reports, not capability limits and not a ranking between languages.
 
-Two budgets matter, and people confuse them. The acoustic budget is how many words fit at natural pace (English roughly 35-40 in 15 seconds). The reliable-sync budget - how much stays lip-synced and un-garbled - is much lower and is the real limit. "Words" also mislead across languages; the safer unit is one short sentence, about one breath (~1.5-2.5s, one idea).
+Count the actual spoken duration and articulation load, not just prompt words. Word counts do not compare cleanly across languages. Start with one short, performable clause and extend only after the exact surface passes a controlled test.
 
-| Language | Reliable-sync budget, ~15s clip | Per line | Note |
-|---|---|---|---|
-| English | ~16-20 words before the mix compresses | 5-10 words | close-second lip-sync |
-| Mandarin | count in characters/syllables, not words; strongest sync | one short clause | best lip-sync, training-weighted |
-| Japanese | not separately measured; treat as the weaker tier | one short line | mora-timed; word counts mislead |
-| Korean | not separately measured, under-tested | one short line | flag uncertainty, do not assume parity |
-| Russian | ~10-15 words maximum, shorter is better | under 10 words | weak, often English-accented |
+| Spoken-language context | Conservative first test | Review note |
+|---|---|---|
+| English | one line of about 5-10 words | measure duration, articulation, and sync on the selected voice path |
+| Mandarin | one short clause; count spoken syllables and duration | do not infer performance from Chinese prompt compactness |
+| Japanese | one short line | mora timing makes English word-count comparisons unhelpful |
+| Korean | one short line | retained quantitative evidence is limited; report uncertainty |
+| Russian | one short line, initially under 10 words | treat accent and timing as take-level observations, not universal properties |
 
-Past the reliable-sync budget, especially in non-English, use the voice-reference lip-sync path below or plan a post-dub.
+If a line fails, shorten it, simplify concurrent action, test an authorized voice-reference path only where the selected surface supports one, or plan a post-dub.
 
 ## Dialogue
 
 - Keep lines short, preferably one sentence per speaker turn.
 - Put spoken dialogue in quotes.
 - Assign every line to a named speaker.
-- Use stable framing for lip-sync.
-- Avoid head turns, large face movement, extreme camera moves, or busy hand action while mouth accuracy matters.
+- State the spoken language separately from the prompt language.
+- Use stable framing when mouth accuracy matters.
+- Avoid head turns, large face movement, extreme camera moves, or busy hand action while reviewing lip-sync.
 - If the line matters more than the environment, reduce music and SFX during the line.
-- Non-English dialogue: keep lines even shorter - long non-English phrases are a field-reported weak spot. For a fully voiced non-English piece, plan a post-dub instead, and check the language's vocab file for dialogue notes.
-- Inline audio tags (field-observed, surface-specific): some surfaces (for example Jimeng) let you append bracketed cues to the spoken line to steer voice timbre and insert SFX, e.g. `"..." [low warm voice][distant bell]`. Useful but unverified across surfaces - do not assume universal support.
+- For every language, start with a short line and expand only from observed success on the selected surface. For a long localized piece, plan a post-dub.
+- Inline audio tags are field-reported on some surfaces, for example `"..." [low warm voice][distant bell]`. Treat them as surface-specific syntax; use them only when the selected profile or current evidence supports them.
+
+## V7 exact-dialogue boundary
+
+The V7 scene IR's generic audio `description` does not establish an exact speaker, spoken language, or utterance. V7-07 therefore fails closed on `dialogue` and `voiceover`; `scripts/prompt_compile.py` must not invent or translate a line from that description. Later support requires a versioned contract with an exact audio-event link, one resolved speaker, the spoken-language tag, the exact utterance, and an explicit subtitle policy. `scripts/semantic_lint.py` can then check structural alignment and exact dialogue preservation, while a human reviewer still attests the surrounding translation.
+
+Prompt locale and spoken language are independent. An English and a Chinese prompt that direct the same Mandarin line must keep that spoken line byte-identical. Translating the line for a dub creates a new semantic variant rather than a parity rendering. Subtitles, captions, and market copy remain post-production deliverables unless a separately verified workflow says otherwise.
 
 ## Audio reference mapping
 
-An authorized audio reference can guide rhythm, pacing, mood, voice tone, ambience, music texture, or beat timing. Bind it through `[ref:surface-prompt-profiles]`: preserve a captured opaque handle only when that operation requires one, otherwise let the profile derive its evidenced ordinal or assign its structured request role without a token. Do not promise exact playback unless the active platform documents it. If the source contains a real voice or recognizable song, treat it as authorization-sensitive and convert it into broad sonic descriptors when rights are unclear.
+An authorized audio reference can guide rhythm, pacing, mood, voice tone, ambience, music texture, or beat timing where the active operation supports that role. Bind it through `[ref:surface-prompt-profiles]`: preserve a captured opaque handle only when that operation requires one, otherwise let the profile derive its evidenced ordinal or assign its structured request role without a token. Do not promise exact playback. If the source contains a real voice or recognizable song, treat it as authorization-sensitive and convert it into broad sonic descriptors when rights are unclear.
 
-On surfaces that accept a spoken-voice audio reference, field reports describe a stronger role than tempo or mood: attaching an actual voice clip can make the model lip-sync to that audio instead of synthesizing speech itself - effectively a lip-sync compiler. This is the most reliable field-reported path for non-English dialogue: record or commission the line, attach it, and let the model only move the mouth. Use only your own recorded, licensed, or rights-cleared voice; treat a real or recognizable person's voice as authorization-sensitive and route it through `[skill:seedance-copyright]` when rights are unclear. Verify the active surface actually exposes a voice audio reference before relying on this.
+On a surface that explicitly accepts a spoken-voice audio reference for the selected operation, an authorized recording can be tested as the timing and voice source. Do not call this a universal lip-sync compiler or assume exact reproduction. Use only your own recorded, licensed, or rights-cleared voice; route unclear real-person voice rights through `[skill:seedance-copyright]`.
 
-When an audio reference and video reference compete, silence or mute the video reference before upload when the audio should control timing. If the video must keep sound, use separate typed binding clauses: the video controls only camera/motion; the audio controls tempo and energy.
+When audio and video references compete, assign camera motion, subject motion, timing, and audio or voice independently. Exclude timing or audio transfer from a video donor when the audio reference is the selected authority; do not rely on upload order or media type.
 
 | Role | Good wording | Avoid |
 |---|---|---|
 | Tempo | typed audio binding + `provides tempo only; foot taps match the downbeat` | copying a protected performance |
 | Mood | typed audio binding + `provides calm sparse atmosphere` | exact replay claim |
-| Voice tone | `soft, breathy, close-mic delivery` | imitating a named real voice |
+| Voice tone | `soft, close-mic delivery` | imitating a named real voice |
 | Ambience | `rainy street room tone, distant traffic bed` | dense competing sound layers |
-| Conflict repair | typed video binding + `is muted and controls camera only`; typed audio binding + `controls beat timing` | two sources both controlling rhythm |
+| Conflict repair | typed video binding + `controls camera only`; typed audio binding + `controls beat timing` | two sources both controlling rhythm |
 
 ## Multi-character dialogue
 
-Use separate speaker turns when reliability matters. For two-person exchanges, generate controlled single-speaker clips and composite in post when necessary. If two speakers remain in one prompt, write: `Character A says... pause. Character B answers...` and keep the camera locked or gently motivated.
+Use separate speaker turns when reliability matters. For two-person exchanges, generate controlled single-speaker clips and composite in post when necessary. If two speakers remain in one prompt, write `Character A says... pause. Character B answers...` and keep the camera locked or gently motivated. Exact speaker order belongs in the semantic audio contract, not an inferred translation.
 
 ## Sound layer syntax
 
@@ -68,26 +74,26 @@ Use separate speaker turns when reliability matters. For two-person exchanges, g
 
 ## Beat-sync syntax
 
-After the typed audio binding: `provides tempo only. On each downbeat: back wall light pulses once, dancer hits one pose, camera remains locked wide.` Use visible beat changes rather than asking the model to understand an abstract groove.
+After the typed audio binding: `provides tempo only. On each downbeat: back wall light pulses once, dancer hits one pose, camera remains locked wide.` Use one visible event for each requested beat and review the returned alignment.
 
-## Audio as clock
+## Audio as a planning clock
 
-Field-observed technique; test before promising results. Beyond mood and tempo, a bound audio reference can act as the master clock of the edit: `cut on its beat; the turn lands on the drop; the door slams on the final hit.`
+A bound audio reference may be tested as an editorial timing brief: `cut on its beat; the turn lands on the drop; the door closes on the final hit.` This is a requested alignment and review target, not a statement about internal timing architecture.
 
-- Tie each musical landmark to exactly one visible event - a cut, a pose, a light change, an object landing. One event per beat; stacked events smear.
-- Works best with a single strong rhythm (clean drums, a metronomic pulse). Dense mixes or rubato material give the model no clock to follow.
-- When the audio is the clock, make it the only clock: mute video references and avoid a second timing system, such as a timestamp list, in the same prompt.
-- The clock works inside one generation only; audio is not continuous across calls, so multi-clip pieces get their unifying score in post.
+- Tie each musical landmark to exactly one visible event.
+- Start with a single clear rhythm; compare more complex material only after a controlled pass.
+- When audio is the selected timing authority, exclude timing transfer from competing references and avoid a contradictory timestamp system.
+- Verify continuity between calls rather than assuming it; multi-clip pieces normally receive their unifying score in post.
 
 ## Troubleshooting
 
-- Desync: shorten dialogue, stabilize camera, remove head motion, reduce competing sound, and clean up the source audio's role.
-- Wrong speaker: split lines by speaker and use explicit character tags.
-- Audio ignored: remove competing music/SFX instructions and make the bound audio role explicit.
+- Desync: shorten dialogue, stabilize camera, remove head motion, reduce competing sound, and verify the source audio role.
+- Wrong speaker: repair the exact speaker mapping; split lines when needed.
+- Audio ignored: verify operation support, then remove competing music or SFX instructions.
 - Overbusy mix: choose ambience plus one key SFX; remove music if dialogue matters.
-- Lip-sync drift: use a locked medium close-up, no head turn, short quoted line, and simple expression.
-- Audio-reference conflict: mute the video reference, remove competing SFX/music, and describe one visible event per beat.
+- Lip-sync drift: use a locked medium close-up, no head turn, one short quoted line, and a simple expression.
+- Audio-reference conflict: repair target/dimension authority and remove competing timing instructions.
 
-## Post Handoff Boundary
+## Post handoff boundary
 
-Prompt audio can shape performance and visible timing, but final mixes need post-production review. For paid or delivery work, record spoken language, subtitle/dubbing needs, M&E/stem needs, sync cues, and buyer loudness target separately from the prompt.
+Prompt audio can shape the requested performance and timing, but final mixes need post-production review. For paid or delivery work, record spoken language, subtitle and dubbing needs, M&E or stem needs, sync cues, and buyer loudness target separately from the prompt.

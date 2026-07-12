@@ -99,10 +99,238 @@ FORBIDDEN_HANDLE_CODEPOINTS = {
     0x2028, 0x2029,  # line/paragraph separators
     0xFEFF,  # BOM / zero-width no-break space
 }
+# Unicode Default_Ignorable_Code_Point characters can conceal provider-like
+# tokens or make reviewed text differ from what a downstream surface displays.
+# Keep the table local to this lowest rendering boundary so callers cannot
+# bypass it by invoking the surface renderer without the V7-07 semantic layer.
+# Ordinary combining marks are intentionally absent: decomposed caller-owned
+# handles such as ``e\u0301`` remain byte-preserving.
+DEFAULT_IGNORABLE_RANGES = (
+    (0x00AD, 0x00AD),
+    (0x034F, 0x034F),
+    (0x061C, 0x061C),
+    (0x115F, 0x1160),
+    (0x17B4, 0x17B5),
+    (0x180B, 0x180F),
+    (0x200B, 0x200F),
+    (0x202A, 0x202E),
+    (0x2060, 0x206F),
+    (0x3164, 0x3164),
+    (0xFE00, 0xFE0F),
+    (0xFEFF, 0xFEFF),
+    (0xFFA0, 0xFFA0),
+    (0xFFF0, 0xFFF8),
+    (0x1BCA0, 0x1BCA3),
+    (0x1D173, 0x1D17A),
+    (0xE0000, 0xE0FFF),
+)
+DEFAULT_IGNORABLE_CODEPOINTS = frozenset(
+    codepoint
+    for start, end in DEFAULT_IGNORABLE_RANGES
+    for codepoint in range(start, end + 1)
+)
+# U+2800 is not classified Default_Ignorable or whitespace, but its glyph is
+# intentionally blank and can split a provider token without a visible cue.
+UNSAFE_VISUAL_BLANK_CODEPOINTS = frozenset({0x2800})
+# Closed Unicode 17.0 emoji-variation base allowlist. A block-wide range is
+# unsafe here: U+2000..U+2BFF also contains visually blank spacing characters
+# that can hide a provider-token boundary when followed by VS15/VS16.
+EMOJI_VARIATION_BASE_RANGES = (
+    (0xA9, 0xA9),
+    (0xAE, 0xAE),
+    (0x203C, 0x203C),
+    (0x2049, 0x2049),
+    (0x2122, 0x2122),
+    (0x2139, 0x2139),
+    (0x2194, 0x2199),
+    (0x21A9, 0x21AA),
+    (0x231A, 0x231B),
+    (0x2328, 0x2328),
+    (0x23CF, 0x23CF),
+    (0x23E9, 0x23F3),
+    (0x23F8, 0x23FA),
+    (0x24C2, 0x24C2),
+    (0x25AA, 0x25AB),
+    (0x25B6, 0x25B6),
+    (0x25C0, 0x25C0),
+    (0x25FB, 0x25FE),
+    (0x2600, 0x2604),
+    (0x260E, 0x260E),
+    (0x2611, 0x2611),
+    (0x2614, 0x2615),
+    (0x2618, 0x2618),
+    (0x261D, 0x261D),
+    (0x2620, 0x2620),
+    (0x2622, 0x2623),
+    (0x2626, 0x2626),
+    (0x262A, 0x262A),
+    (0x262E, 0x262F),
+    (0x2638, 0x263A),
+    (0x2640, 0x2640),
+    (0x2642, 0x2642),
+    (0x2648, 0x2653),
+    (0x265F, 0x2660),
+    (0x2663, 0x2663),
+    (0x2665, 0x2666),
+    (0x2668, 0x2668),
+    (0x267B, 0x267B),
+    (0x267E, 0x267F),
+    (0x2692, 0x2697),
+    (0x2699, 0x2699),
+    (0x269B, 0x269C),
+    (0x26A0, 0x26A1),
+    (0x26A7, 0x26A7),
+    (0x26AA, 0x26AB),
+    (0x26B0, 0x26B1),
+    (0x26BD, 0x26BE),
+    (0x26C4, 0x26C5),
+    (0x26C8, 0x26C8),
+    (0x26CE, 0x26CF),
+    (0x26D1, 0x26D1),
+    (0x26D3, 0x26D4),
+    (0x26E9, 0x26EA),
+    (0x26F0, 0x26F5),
+    (0x26F7, 0x26FA),
+    (0x26FD, 0x26FD),
+    (0x2702, 0x2702),
+    (0x2705, 0x2705),
+    (0x2708, 0x270D),
+    (0x270F, 0x270F),
+    (0x2712, 0x2712),
+    (0x2714, 0x2714),
+    (0x2716, 0x2716),
+    (0x271D, 0x271D),
+    (0x2721, 0x2721),
+    (0x2728, 0x2728),
+    (0x2733, 0x2734),
+    (0x2744, 0x2744),
+    (0x2747, 0x2747),
+    (0x274C, 0x274C),
+    (0x274E, 0x274E),
+    (0x2753, 0x2755),
+    (0x2757, 0x2757),
+    (0x2763, 0x2764),
+    (0x2795, 0x2797),
+    (0x27A1, 0x27A1),
+    (0x27B0, 0x27B0),
+    (0x27BF, 0x27BF),
+    (0x2934, 0x2935),
+    (0x2B05, 0x2B07),
+    (0x2B1B, 0x2B1C),
+    (0x2B50, 0x2B50),
+    (0x2B55, 0x2B55),
+    (0x3030, 0x3030),
+    (0x303D, 0x303D),
+    (0x3297, 0x3297),
+    (0x3299, 0x3299),
+    (0x1F004, 0x1F004),
+    (0x1F170, 0x1F171),
+    (0x1F17E, 0x1F17F),
+    (0x1F202, 0x1F202),
+    (0x1F21A, 0x1F21A),
+    (0x1F22F, 0x1F22F),
+    (0x1F237, 0x1F237),
+    (0x1F30D, 0x1F30F),
+    (0x1F315, 0x1F315),
+    (0x1F31C, 0x1F31C),
+    (0x1F321, 0x1F321),
+    (0x1F324, 0x1F32C),
+    (0x1F336, 0x1F336),
+    (0x1F378, 0x1F378),
+    (0x1F37D, 0x1F37D),
+    (0x1F393, 0x1F393),
+    (0x1F396, 0x1F397),
+    (0x1F399, 0x1F39B),
+    (0x1F39E, 0x1F39F),
+    (0x1F3A7, 0x1F3A7),
+    (0x1F3AC, 0x1F3AE),
+    (0x1F3C2, 0x1F3C2),
+    (0x1F3C4, 0x1F3C4),
+    (0x1F3C6, 0x1F3C6),
+    (0x1F3CA, 0x1F3CE),
+    (0x1F3D4, 0x1F3E0),
+    (0x1F3ED, 0x1F3ED),
+    (0x1F3F3, 0x1F3F3),
+    (0x1F3F5, 0x1F3F5),
+    (0x1F3F7, 0x1F3F7),
+    (0x1F408, 0x1F408),
+    (0x1F415, 0x1F415),
+    (0x1F41F, 0x1F41F),
+    (0x1F426, 0x1F426),
+    (0x1F43F, 0x1F43F),
+    (0x1F441, 0x1F442),
+    (0x1F446, 0x1F449),
+    (0x1F44D, 0x1F44E),
+    (0x1F453, 0x1F453),
+    (0x1F46A, 0x1F46A),
+    (0x1F47D, 0x1F47D),
+    (0x1F4A3, 0x1F4A3),
+    (0x1F4B0, 0x1F4B0),
+    (0x1F4B3, 0x1F4B3),
+    (0x1F4BB, 0x1F4BB),
+    (0x1F4BF, 0x1F4BF),
+    (0x1F4CB, 0x1F4CB),
+    (0x1F4DA, 0x1F4DA),
+    (0x1F4DF, 0x1F4DF),
+    (0x1F4E4, 0x1F4E6),
+    (0x1F4EA, 0x1F4ED),
+    (0x1F4F7, 0x1F4F7),
+    (0x1F4F9, 0x1F4FB),
+    (0x1F4FD, 0x1F4FD),
+    (0x1F508, 0x1F508),
+    (0x1F50D, 0x1F50D),
+    (0x1F512, 0x1F513),
+    (0x1F549, 0x1F54A),
+    (0x1F550, 0x1F567),
+    (0x1F56F, 0x1F570),
+    (0x1F573, 0x1F579),
+    (0x1F587, 0x1F587),
+    (0x1F58A, 0x1F58D),
+    (0x1F590, 0x1F590),
+    (0x1F5A5, 0x1F5A5),
+    (0x1F5A8, 0x1F5A8),
+    (0x1F5B1, 0x1F5B2),
+    (0x1F5BC, 0x1F5BC),
+    (0x1F5C2, 0x1F5C4),
+    (0x1F5D1, 0x1F5D3),
+    (0x1F5DC, 0x1F5DE),
+    (0x1F5E1, 0x1F5E1),
+    (0x1F5E3, 0x1F5E3),
+    (0x1F5E8, 0x1F5E8),
+    (0x1F5EF, 0x1F5EF),
+    (0x1F5F3, 0x1F5F3),
+    (0x1F5FA, 0x1F5FA),
+    (0x1F610, 0x1F610),
+    (0x1F687, 0x1F687),
+    (0x1F68D, 0x1F68D),
+    (0x1F691, 0x1F691),
+    (0x1F694, 0x1F694),
+    (0x1F698, 0x1F698),
+    (0x1F6AD, 0x1F6AD),
+    (0x1F6B2, 0x1F6B2),
+    (0x1F6B9, 0x1F6BA),
+    (0x1F6BC, 0x1F6BC),
+    (0x1F6CB, 0x1F6CB),
+    (0x1F6CD, 0x1F6CF),
+    (0x1F6E0, 0x1F6E5),
+    (0x1F6E9, 0x1F6E9),
+    (0x1F6F0, 0x1F6F0),
+    (0x1F6F3, 0x1F6F3),
+)
+EMOJI_VARIATION_BASES = frozenset(
+    codepoint
+    for start, end in EMOJI_VARIATION_BASE_RANGES
+    for codepoint in range(start, end + 1)
+)
 REFERENCE_LIKE_TOKEN = re.compile(
-    r"(?P<at>@(?:[Ii][Mm][Aa][Gg][Ee]|[Vv][Ii][Dd][Ee][Oo]|[Aa][Uu][Dd][Ii][Oo])\s*[0-9]+)"
-    r"|(?:^|[^A-Za-z0-9_])(?P<bare>(?:[Ii][Mm][Aa][Gg][Ee]|[Vv][Ii][Dd][Ee][Oo]|[Aa][Uu][Dd][Ii][Oo])\s*[0-9]+)(?=$|[^A-Za-z0-9_])"
-    r"|(?P<cjk>(?:图片|图像|视频|音频)\s*[0-9]+)"
+    r"(?P<at>@(?:image|video|audio)\s*[0-9]+)"
+    r"|(?:^|[^a-z0-9_])(?P<bare>(?:image|video|audio)\s*[0-9]+)(?=$|[^a-z0-9_])"
+    r"|(?P<cjk>(?:图片|圖片|图像|圖像|视频|視頻|影片|音频|音頻|音訊)\s*[0-9]+)",
+    re.IGNORECASE,
+)
+REFERENCE_HANDLE_IDENTITY = re.compile(
+    r"@?(image|video|audio|图片|圖片|图像|圖像|视频|視頻|影片|音频|音頻|音訊)\s*([0-9]+)",
+    re.IGNORECASE,
 )
 DATE_TEXT = re.compile(r"^[0-9]{4}-[0-9]{2}-[0-9]{2}$")
 
@@ -236,8 +464,46 @@ def _valid_emoji_zwj_context(value: str, index: int) -> bool:
     return left is not None and right is not None and pictographic(left) and pictographic(right)
 
 
+def _valid_emoji_variation_context(value: str, index: int) -> bool:
+    """Allow visible emoji presentation selectors, never in-word masks."""
+
+    if ord(value[index]) not in {0xFE0E, 0xFE0F} or index == 0:
+        return False
+    previous_character = value[index - 1]
+    if previous_character in "#*0123456789":
+        return index + 1 < len(value) and ord(value[index + 1]) == 0x20E3
+    return ord(previous_character) in EMOJI_VARIATION_BASES
+
+
+def _guard_default_ignorables(value: str, pointer: str, code: str) -> None:
+    """Reject invisible masks while retaining valid emoji presentation."""
+
+    for index, character in enumerate(value):
+        codepoint = ord(character)
+        if (
+            codepoint not in DEFAULT_IGNORABLE_CODEPOINTS
+            and codepoint not in UNSAFE_VISUAL_BLANK_CODEPOINTS
+        ):
+            continue
+        if codepoint == 0x200D and _valid_emoji_zwj_context(value, index):
+            continue
+        if _valid_emoji_variation_context(value, index):
+            continue
+        _fail(code, pointer)
+
+
 def _binding_delimiter(character: str) -> bool:
     return character.isspace() or unicodedata.category(character).startswith("P")
+
+
+def _reference_comparison_skeleton(value: str) -> str:
+    """Return a comparison-only spelling for provider-token detection.
+
+    Compatibility normalization closes full-width and styled-Latin token
+    spellings without ever rewriting caller text or opaque binding handles.
+    """
+
+    return unicodedata.normalize("NFKC", value).casefold()
 
 
 def _reference_token_spans(value: str) -> list[tuple[int, int]]:
@@ -251,6 +517,7 @@ def _reference_token_spans(value: str) -> list[tuple[int, int]]:
 
 
 def _validate_visible_text(value: str, pointer: str) -> None:
+    _guard_default_ignorables(value, pointer, "UNICODE_FORMAT_CONTROL_FORBIDDEN")
     for index, character in enumerate(value):
         codepoint = ord(character)
         if (codepoint < 0x20 and codepoint not in {0x09, 0x0A, 0x0D}) or 0x7F <= codepoint <= 0x9F:
@@ -259,8 +526,13 @@ def _validate_visible_text(value: str, pointer: str) -> None:
             _fail("UNICODE_FORMAT_CONTROL_FORBIDDEN", pointer)
 
 
-def parse_json_bytes(raw: bytes, label: str = "input") -> Any:
-    if len(raw) > MAX_INPUT_BYTES:
+def parse_json_bytes(
+    raw: bytes,
+    label: str = "input",
+    *,
+    max_bytes: int = MAX_INPUT_BYTES,
+) -> Any:
+    if len(raw) > max_bytes:
         _fail("JSON_TOO_LARGE")
     if raw.startswith(b"\xef\xbb\xbf"):
         _fail("JSON_BOM_FORBIDDEN")
@@ -809,6 +1081,7 @@ def load_registry(root: Path = ROOT) -> ProfileRegistry:
 def _validate_handle(handle: object, pointer: str) -> str:
     if not isinstance(handle, str) or not handle or len(handle) > 512:
         _fail("HANDLE_INVALID", pointer)
+    _guard_default_ignorables(handle, pointer, "HANDLE_UNSAFE_CODEPOINT")
     has_visible_base = False
     for index, character in enumerate(handle):
         codepoint = ord(character)
@@ -838,7 +1111,27 @@ def _handle_collision_key(handle: str) -> str:
     # joined and unjoined spellings as the same review identity while preserving
     # the caller's exact bytes in the rendered prompt.
     visible_identity = "".join(character for character in handle if ord(character) != 0x200D)
-    return unicodedata.normalize("NFC", visible_identity).casefold()
+    normalized = unicodedata.normalize("NFKC", visible_identity).casefold()
+    reference = REFERENCE_HANDLE_IDENTITY.fullmatch(normalized)
+    if reference is not None:
+        label, ordinal = reference.groups()
+        media = {
+            "image": "image",
+            "图片": "image",
+            "圖片": "image",
+            "图像": "image",
+            "圖像": "image",
+            "video": "video",
+            "视频": "video",
+            "視頻": "video",
+            "影片": "video",
+            "audio": "audio",
+            "音频": "audio",
+            "音頻": "audio",
+            "音訊": "audio",
+        }[label]
+        return f"reference:{media}:{ordinal.lstrip('0') or '0'}"
+    return normalized
 
 
 def _operation_profile(profile: LoadedProfile, operation: str) -> dict[str, Any]:
@@ -975,9 +1268,11 @@ def render_plan(
         _fail("STRUCTURED_ROLE_SET_INCOMPLETE", "/bindings")
 
     chunks: list[str] = []
-    binding_spans: list[tuple[int, int]] = []
+    comparison_chunks: list[str] = []
+    comparison_binding_spans: list[tuple[int, int]] = []
     used_bindings: set[str] = set()
     total = 0
+    comparison_total = 0
     previous_kind: str | None = None
     for index, segment in enumerate(plan["segments"]):
         pointer = f"/segments/{index}"
@@ -993,7 +1288,9 @@ def render_plan(
                 _fail("TEXT_SEGMENT_TOO_LARGE", f"{pointer}/value")
             _check_scalar_text(segment["value"], f"{pointer}/value")
             _validate_visible_text(segment["value"], f"{pointer}/value")
-            if REFERENCE_LIKE_TOKEN.search(segment["value"]):
+            if REFERENCE_LIKE_TOKEN.search(
+                _reference_comparison_skeleton(segment["value"])
+            ):
                 _fail("REFERENCE_TOKEN_IN_TEXT_FORBIDDEN", f"{pointer}/value")
             if previous_kind == "binding" and not _binding_delimiter(segment["value"][0]):
                 _fail("BINDING_DELIMITER_REQUIRED", f"{pointer}/value")
@@ -1012,11 +1309,17 @@ def render_plan(
                 _fail("BINDING_DELIMITER_REQUIRED", pointer)
             used_bindings.add(binding_id)
             chunk = prompt_handles[binding_id]
-            binding_spans.append((total, total + len(chunk)))
+        comparison_chunk = _reference_comparison_skeleton(chunk)
+        if kind == "binding":
+            comparison_binding_spans.append(
+                (comparison_total, comparison_total + len(comparison_chunk))
+            )
         total += len(chunk)
+        comparison_total += len(comparison_chunk)
         if total > MAX_RENDERED_PROMPT:
             _fail("RENDERED_PROMPT_TOO_LARGE", "/segments")
         chunks.append(chunk)
+        comparison_chunks.append(comparison_chunk)
         previous_kind = kind
 
     if binding_kind != "none" and used_bindings != set(bindings_by_id):
@@ -1024,8 +1327,12 @@ def render_plan(
     rendered_prompt = "".join(chunks)
     if not rendered_prompt:
         _fail("RENDERED_PROMPT_EMPTY", "/segments")
-    for token_start, token_end in _reference_token_spans(rendered_prompt):
-        if not any(start <= token_start and token_end <= end for start, end in binding_spans):
+    comparison_prompt = "".join(comparison_chunks)
+    for token_start, token_end in _reference_token_spans(comparison_prompt):
+        if not any(
+            start <= token_start and token_end <= end
+            for start, end in comparison_binding_spans
+        ):
             _fail("REFERENCE_TOKEN_PROVENANCE_INVALID", "/segments")
 
     return {

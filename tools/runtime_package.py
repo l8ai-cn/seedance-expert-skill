@@ -59,10 +59,12 @@ FORBIDDEN_TOP_LEVEL_FILES = {
 }
 RUNTIME_SCRIPT_ALLOWLIST = {
     "scripts/extract_last_frame.py",
+    "scripts/prompt_compile.py",
     "scripts/project_state_check.py",
     "scripts/reference_planner.py",
     "scripts/render_surface_bindings.py",
     "scripts/scene_ir_check.py",
+    "scripts/semantic_lint.py",
 }
 REQUIRED_OPERATIONAL_PATHS = {
     "examples/sequence-airport-arrival/clip-01-contract.json",
@@ -89,16 +91,22 @@ REQUIRED_OPERATIONAL_PATHS = {
     "schemas/profile-index.schema.json",
     "schemas/project-state.schema.json",
     "schemas/planning-report.schema.json",
+    "schemas/prompt-program.schema.json",
+    "schemas/prompt-realization-catalog.schema.json",
+    "schemas/prompt-render.schema.json",
     "schemas/prompt-spec.schema.json",
     "schemas/reference-manifest.schema.json",
     "schemas/scene-ir.schema.json",
     "schemas/surface-profile.schema.json",
+    "schemas/surface-binding-set.schema.json",
     "schemas/take-review.schema.json",
     "scripts/extract_last_frame.py",
+    "scripts/prompt_compile.py",
     "scripts/project_state_check.py",
     "scripts/reference_planner.py",
     "scripts/render_surface_bindings.py",
     "scripts/scene_ir_check.py",
+    "scripts/semantic_lint.py",
 }
 REQUIRED_SKILL_PATHS = {
     "skills/seedance-antislop/SKILL.md",

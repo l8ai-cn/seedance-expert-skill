@@ -45,6 +45,8 @@ Delete generic adjectives, duplicate style labels, obvious background details, s
 
 For bilingual or mixed-language compression, load `[ref:multilingual-community-examples]`. Keep only the language mix that clarifies target/dimension authority, dialogue, camera terms, or safe production constraints.
 
+If the prompt came from the V7 paired compiler, do not compress either rendered string independently. Revise both paired catalog forms, renew the attestation declaration for the canonical catalog content, and recompile both locales from the same semantic program. Regenerate `source_sha256` only when its scene-IR source text changed. Opaque handles and structured binding roles are outside language compression and must remain exact.
+
 ## Compact Templates
 
 | Need | Template |
@@ -59,3 +61,5 @@ For bilingual or mixed-language compression, load `[ref:multilingual-community-e
 ## Output Contract
 
 Return one compact prompt, ideally 30-100 English words or an equivalent Chinese prompt when the user asks for Chinese or maximum compression. Include a one-line note only if something important was removed.
+
+This free-form output contract applies outside the closed V7-07 paired-render path. A compiled pair keeps both locale outputs and its structural-parity report.

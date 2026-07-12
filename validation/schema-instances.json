@@ -64,6 +64,22 @@
       "instances": ["validation/fixtures/planning-report.valid.json"]
     },
     {
+      "schema": "schemas/surface-binding-set.schema.json",
+      "instances": ["validation/fixtures/surface-binding-set.valid.json"]
+    },
+    {
+      "schema": "schemas/prompt-realization-catalog.schema.json",
+      "instances": ["validation/fixtures/prompt-realization-catalog.valid.json"]
+    },
+    {
+      "schema": "schemas/prompt-program.schema.json",
+      "instances": ["validation/fixtures/prompt-program.valid.json"]
+    },
+    {
+      "schema": "schemas/prompt-render.schema.json",
+      "instances": ["validation/fixtures/prompt-render.valid.json"]
+    },
+    {
       "schema": "schemas/model-profile.schema.json",
       "instances": ["profiles/models/seedance-2.0-model.json"]
     },

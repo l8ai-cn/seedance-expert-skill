@@ -1,0 +1,446 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Emily2040/seedance-2.0/schemas/prompt-render.schema.json",
+  "title": "Seedance V7 paired English and Chinese prompt render",
+  "$comment": "Candidate-preview compiler output. English and Simplified Chinese are rendered from one surface-independent prompt program, then passed through one exact surface binding profile. Render traces and semantic atoms cover emitted prompt units; hash-bound request_carried records map omitted static semantics to structured frame bindings. Compiler/toolchain lineage, semantic-unit coverage/order, review-only omission, exact UTF-8 byte-span/value-hash atoms, binding-to-unit provenance, and within-render locale parity are compiler-enforced. Cross-profile non-binding invariance is conformance-test-enforced.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schema_version",
+    "status",
+    "preview",
+    "profile_id",
+    "profile_status",
+    "model_profile_id",
+    "model_profile_sha256",
+    "profile_sha256",
+    "profile_index_sha256",
+    "operation",
+    "reference_manifest_sha256",
+    "reference_semantics_sha256",
+    "scene_ir_sha256",
+    "realization_catalog_sha256",
+    "surface_binding_set_sha256",
+    "planning_report_sha256",
+    "prompt_program_sha256",
+    "compiler_sha256",
+    "compiler_toolchain_sha256",
+    "request_carried",
+    "request_carried_sha256",
+    "renders",
+    "request_transport",
+    "request_bindings",
+    "evidence_claim_ids",
+    "evidence_expires_at",
+    "parity",
+    "diagnostics"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "https://github.com/Emily2040/seedance-2.0/schemas/prompt-render.schema.json"
+    },
+    "schema_version": {"const": 1},
+    "status": {"const": "rendered"},
+    "preview": {"const": true},
+    "profile_id": {
+      "enum": ["byteplus.modelark", "fal.reference-to-video", "volcengine.ark"]
+    },
+    "profile_status": {"const": "candidate"},
+    "model_profile_id": {"const": "seedance-2.0-model"},
+    "model_profile_sha256": {"$ref": "#/$defs/sha256"},
+    "profile_sha256": {"$ref": "#/$defs/sha256"},
+    "profile_index_sha256": {"$ref": "#/$defs/sha256"},
+    "operation": {"enum": ["reference_generation", "first_last_frame"]},
+    "reference_manifest_sha256": {"$ref": "#/$defs/sha256"},
+    "reference_semantics_sha256": {"$ref": "#/$defs/sha256"},
+    "scene_ir_sha256": {"$ref": "#/$defs/sha256"},
+    "realization_catalog_sha256": {"$ref": "#/$defs/sha256"},
+    "surface_binding_set_sha256": {"$ref": "#/$defs/sha256"},
+    "planning_report_sha256": {"$ref": "#/$defs/sha256"},
+    "prompt_program_sha256": {"$ref": "#/$defs/sha256"},
+    "compiler_sha256": {"$ref": "#/$defs/sha256"},
+    "compiler_toolchain_sha256": {"$ref": "#/$defs/sha256"},
+    "request_carried": {
+      "type": "array",
+      "maxItems": 4,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/request_carried_record"}
+    },
+    "request_carried_sha256": {"$ref": "#/$defs/sha256"},
+    "renders": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {"$ref": "#/$defs/language_render"},
+      "allOf": [
+        {
+          "contains": {
+            "properties": {"locale": {"const": "en"}},
+            "required": ["locale"]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        {
+          "contains": {
+            "properties": {"locale": {"const": "zh-Hans"}},
+            "required": ["locale"]
+          },
+          "minContains": 1,
+          "maxContains": 1
+        }
+      ]
+    },
+    "request_transport": {
+      "enum": [
+        "external_surface_unresolved",
+        "typed_media_arrays",
+        "ordered_content_objects",
+        "structured_content_roles"
+      ]
+    },
+    "request_bindings": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 64,
+      "items": {"$ref": "#/$defs/request_binding"}
+    },
+    "evidence_claim_ids": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 32,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)+$",
+        "maxLength": 100
+      }
+    },
+    "evidence_expires_at": {"type": "string", "format": "date"},
+    "parity": {"$ref": "#/$defs/parity"},
+    "diagnostics": {
+      "type": "array",
+      "maxItems": 128,
+      "items": {"$ref": "#/$defs/diagnostic"}
+    }
+  },
+  "oneOf": [
+    {
+      "title": "BytePlus external opaque image result",
+      "properties": {
+        "profile_id": {"const": "byteplus.modelark"},
+        "operation": {"const": "reference_generation"},
+        "request_carried": {"maxItems": 0},
+        "request_transport": {"const": "external_surface_unresolved"},
+        "request_bindings": {"items": {"$ref": "#/$defs/unpositioned_image_binding"}}
+      }
+    },
+    {
+      "title": "fal typed per-media ordinal result",
+      "properties": {
+        "profile_id": {"const": "fal.reference-to-video"},
+        "operation": {"const": "reference_generation"},
+        "request_carried": {"maxItems": 0},
+        "request_transport": {"const": "typed_media_arrays"},
+        "request_bindings": {"items": {"$ref": "#/$defs/positioned_media_binding"}}
+      }
+    },
+    {
+      "title": "Volcengine ordered image ordinal result",
+      "properties": {
+        "profile_id": {"const": "volcengine.ark"},
+        "operation": {"const": "reference_generation"},
+        "request_carried": {"maxItems": 0},
+        "request_transport": {"const": "ordered_content_objects"},
+        "request_bindings": {"items": {"$ref": "#/$defs/positioned_image_binding"}}
+      }
+    },
+    {
+      "title": "Volcengine structured first and last frame result",
+      "properties": {
+        "profile_id": {"const": "volcengine.ark"},
+        "operation": {"const": "first_last_frame"},
+        "request_carried": {"minItems": 4, "maxItems": 4},
+        "request_transport": {"const": "structured_content_roles"},
+        "request_bindings": {
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {"$ref": "#/$defs/structured_image_binding"},
+          "allOf": [
+            {
+              "contains": {
+                "properties": {"structured_role": {"const": "first_frame"}},
+                "required": ["structured_role"]
+              },
+              "minContains": 1,
+              "maxContains": 1
+            },
+            {
+              "contains": {
+                "properties": {"structured_role": {"const": "last_frame"}},
+                "required": ["structured_role"]
+              },
+              "minContains": 1,
+              "maxContains": 1
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9._-]{0,127}$"
+    },
+    "text_segment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "value"],
+      "properties": {
+        "kind": {"const": "text"},
+        "value": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 20000,
+          "not": {
+            "pattern": "@(?:[Ii][Mm][Aa][Gg][Ee]|[Vv][Ii][Dd][Ee][Oo]|[Aa][Uu][Dd][Ii][Oo])\\s*[0-9]+|(?:^|[^A-Za-z0-9_])(?:[Ii][Mm][Aa][Gg][Ee]|[Vv][Ii][Dd][Ee][Oo]|[Aa][Uu][Dd][Ii][Oo])\\s*[0-9]+(?:$|[^A-Za-z0-9_])|(?:图片|图像|视频|音频)\\s*[0-9]+"
+          }
+        }
+      }
+    },
+    "binding_segment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "binding_id"],
+      "properties": {
+        "kind": {"const": "binding"},
+        "binding_id": {"$ref": "#/$defs/id"}
+      }
+    },
+    "language_render": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "locale",
+        "typed_segments",
+        "typed_segments_sha256",
+        "rendered_prompt",
+        "rendered_prompt_sha256",
+        "semantic_unit_ids",
+        "binding_unit_trace",
+        "binding_unit_trace_sha256",
+        "semantic_key_trace",
+        "semantic_key_trace_sha256",
+        "resolved_semantic_atoms",
+        "resolved_semantic_atoms_sha256"
+      ],
+      "properties": {
+        "locale": {"enum": ["en", "zh-Hans"]},
+        "typed_segments": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 256,
+          "items": {
+            "oneOf": [
+              {"$ref": "#/$defs/text_segment"},
+              {"$ref": "#/$defs/binding_segment"}
+            ]
+          }
+        },
+        "typed_segments_sha256": {"$ref": "#/$defs/sha256"},
+        "rendered_prompt": {"type": "string", "minLength": 1, "maxLength": 20000},
+        "rendered_prompt_sha256": {"$ref": "#/$defs/sha256"},
+        "semantic_unit_ids": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 5000,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/id"}
+        },
+        "binding_unit_trace": {
+          "type": "array",
+          "maxItems": 64,
+          "items": {"$ref": "#/$defs/binding_unit_record"}
+        },
+        "binding_unit_trace_sha256": {"$ref": "#/$defs/sha256"},
+        "semantic_key_trace": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 20000,
+          "items": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 256,
+            "pattern": "^(?:entity\\.[a-z][a-z0-9._-]{0,63}\\.label|event\\.[a-z][a-z0-9._-]{0,63}\\.visible_state_change|shot\\.[a-z][a-z0-9._-]{0,63}\\.camera\\.(?:start_framing|path|speed|subject_relationship|endpoint_framing)|audio\\.[a-z][a-z0-9._-]{0,63}\\.description|invariant\\.[a-z][a-z0-9._-]{0,63}\\.description)$"
+          }
+        },
+        "semantic_key_trace_sha256": {"$ref": "#/$defs/sha256"},
+        "resolved_semantic_atoms": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 20000,
+          "items": {"$ref": "#/$defs/semantic_atom"}
+        },
+        "resolved_semantic_atoms_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "semantic_atom": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "semantic_unit_id",
+        "semantic_key",
+        "segment_index",
+        "start_utf8_byte",
+        "end_utf8_byte",
+        "value_sha256"
+      ],
+      "properties": {
+        "semantic_unit_id": {"$ref": "#/$defs/id"},
+        "semantic_key": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 256,
+          "pattern": "^(?:entity\\.[a-z][a-z0-9._-]{0,63}\\.label|event\\.[a-z][a-z0-9._-]{0,63}\\.visible_state_change|shot\\.[a-z][a-z0-9._-]{0,63}\\.camera\\.(?:start_framing|path|speed|subject_relationship|endpoint_framing)|audio\\.[a-z][a-z0-9._-]{0,63}\\.description|invariant\\.[a-z][a-z0-9._-]{0,63}\\.description)$"
+        },
+        "segment_index": {"type": "integer", "minimum": 0, "maximum": 255},
+        "start_utf8_byte": {"type": "integer", "minimum": 0, "maximum": 80000},
+        "end_utf8_byte": {"type": "integer", "minimum": 1, "maximum": 80000},
+        "value_sha256": {"$ref": "#/$defs/sha256"}
+      },
+      "$comment": "segment_index addresses typed_segments. start_utf8_byte is inclusive and end_utf8_byte is exclusive in the exact UTF-8 encoding of that text segment; they are not JavaScript UTF-16 String.slice indexes. Runtime verifies the addressed byte slice and value hash."
+    },
+    "binding_unit_record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["semantic_unit_id", "binding_id"],
+      "properties": {
+        "semantic_unit_id": {"$ref": "#/$defs/id"},
+        "binding_id": {"$ref": "#/$defs/id"}
+      }
+    },
+    "request_carried_record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "semantic_unit_id",
+        "semantic_key",
+        "binding_id",
+        "structured_role"
+      ],
+      "properties": {
+        "semantic_unit_id": {"$ref": "#/$defs/id"},
+        "semantic_key": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 256,
+          "pattern": "^(?:event\\.[a-z][a-z0-9._-]{0,63}\\.visible_state_change|shot\\.[a-z][a-z0-9._-]{0,63}\\.camera\\.(?:start_framing|endpoint_framing))$"
+        },
+        "binding_id": {"$ref": "#/$defs/id"},
+        "structured_role": {"enum": ["first_frame", "last_frame"]}
+      }
+    },
+    "request_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["binding_id", "media_type"],
+      "properties": {
+        "binding_id": {"$ref": "#/$defs/id"},
+        "media_type": {"enum": ["audio", "image", "video"]},
+        "request_position": {"type": "integer", "minimum": 1, "maximum": 64},
+        "structured_role": {"enum": ["first_frame", "last_frame"]}
+      }
+    },
+    "unpositioned_image_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["binding_id", "media_type"],
+      "properties": {
+        "binding_id": {"$ref": "#/$defs/id"},
+        "media_type": {"const": "image"}
+      }
+    },
+    "positioned_media_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["binding_id", "media_type", "request_position"],
+      "properties": {
+        "binding_id": {"$ref": "#/$defs/id"},
+        "media_type": {"enum": ["audio", "image", "video"]},
+        "request_position": {"type": "integer", "minimum": 1, "maximum": 64}
+      }
+    },
+    "positioned_image_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["binding_id", "media_type", "request_position"],
+      "properties": {
+        "binding_id": {"$ref": "#/$defs/id"},
+        "media_type": {"const": "image"},
+        "request_position": {"type": "integer", "minimum": 1, "maximum": 64}
+      }
+    },
+    "structured_image_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["binding_id", "media_type", "structured_role"],
+      "properties": {
+        "binding_id": {"$ref": "#/$defs/id"},
+        "media_type": {"const": "image"},
+        "structured_role": {"enum": ["first_frame", "last_frame"]}
+      }
+    },
+    "parity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "semantic_unit_ids_sha256",
+        "en_semantic_unit_ids_sha256",
+        "zh_hans_semantic_unit_ids_sha256",
+        "semantic_key_trace_sha256",
+        "en_semantic_key_trace_sha256",
+        "zh_hans_semantic_key_trace_sha256",
+        "structural_trace_matched",
+        "surface_independent",
+        "catalog_linguistic_equivalence"
+      ],
+      "properties": {
+        "semantic_unit_ids_sha256": {"$ref": "#/$defs/sha256"},
+        "en_semantic_unit_ids_sha256": {"$ref": "#/$defs/sha256"},
+        "zh_hans_semantic_unit_ids_sha256": {"$ref": "#/$defs/sha256"},
+        "semantic_key_trace_sha256": {"$ref": "#/$defs/sha256"},
+        "en_semantic_key_trace_sha256": {"$ref": "#/$defs/sha256"},
+        "zh_hans_semantic_key_trace_sha256": {"$ref": "#/$defs/sha256"},
+        "structural_trace_matched": {"const": true},
+        "surface_independent": {"const": true},
+        "catalog_linguistic_equivalence": {
+          "enum": [
+            "human_asserted_not_machine_verified",
+            "not_attested_fixture"
+          ]
+        }
+      }
+    },
+    "diagnostic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "severity", "pointer"],
+      "properties": {
+        "code": {"type": "string", "pattern": "^[A-Z][A-Z0-9_]{2,63}$"},
+        "severity": {"enum": ["info", "warning"]},
+        "pointer": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512,
+          "pattern": "^/(?:[^~]|~[01])*$"
+        }
+      }
+    }
+  }
+}

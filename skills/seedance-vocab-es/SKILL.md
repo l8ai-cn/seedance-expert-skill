@@ -24,7 +24,7 @@ Use Spanish cinematic vocabulary when the user asks for Spanish prompts, bilingu
 
 ## Intent
 
-Spanish carries rhythm even in technical direction. Serve users who think in Spanish with vocabulary that keeps its musicality while staying camera-precise - they should never feel that directing in their language is a downgrade.
+Give Spanish-speaking users natural, camera-precise production language without treating Spanish as a capability tier or assigning it an inherent style.
 
 ## Usage Rule
 

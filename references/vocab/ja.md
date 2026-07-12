@@ -88,15 +88,15 @@ Use these when the Japanese prompt is part of a v6 sequence project, continuatio
 
 ## Dialogue Notes
 
-Field-observed from 2026 community testing (note.com, Qiita); test per surface, never promise results. Japanese lip-sync is weaker than Mandarin and English.
+Test the exact surface, model version, spoken line, voice path, and framing. The retained evidence does not establish a universal Japanese-vs-other-language ranking or dialogue limit.
 
-- No separate word-count is documented; treat Japanese as the weaker tier. Keep to one short line (一言), about one breath.
+- Start with one short line (一言), about one breath, then expand only after a controlled pass.
 - Japanese is mora-timed, so "word count" misleads - judge by sentence length and clarity, not word number.
-- For reliable Japanese voice, prefer a voice reference (attach the spoken line so the model lip-syncs to it) or plan a post-dub.
+- Where the exact operation supports an authorized spoken-voice reference, test it as a voice/timing source without assuming exact reproduction; otherwise plan a post-dub.
 
 ## Slop Traps
 
-コミュニティの共通認識：抽象的な形容詞は、モデルがどの要素を強調すべきか判断できないため、出力を不安定にする。感覚語は、その感覚を生む物理要素（動作動詞＋速度＋視点、光源＋方向＋挙動）に分解する。
+抽象的な形容詞を、動作動詞＋速度＋視点、光源＋方向＋挙動などの観察可能な要素に置き換えると、指示を比較・修正しやすくなる。生成結果への効果は、同じ入力条件で確認する。
 
 | 決まり文句 | 書き換え |
 |---|---|

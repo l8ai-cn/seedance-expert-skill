@@ -1,74 +1,80 @@
-# Model Mechanics — how the generator thinks
+# Operational Reasoning Model — workflow hypotheses, not hidden mechanics
 
-*A working mental model of why this repo's rules work, so an agent can derive correct guidance for cases no rule covers. Built from public machine-learning knowledge and the public model card; Seedance's exact internals are not published. Evidence label: `internal` reasoning — a thinking tool, never architecture documentation or a platform claim.*
+Use this reference to choose the next test when a prompt or generated take fails. The eight sections below are production hypotheses assembled from scoped documentation, field observations, and general filmmaking practice. They do not describe Seedance's unpublished architecture, training data, attention, denoising process, spatial representation, or internal audio pipeline. A hypothesis earns continued use only when it predicts an observable result on the selected model, surface, operation, and version.
 
-## The eight mechanisms
+## The eight operational hypotheses
 
-### 1. Attention is a budget
+### 1. Prompt scope can become unclear
 
-Every word in the prompt competes for a finite amount of conditioning influence. Words that name something visible spend the budget on pixels; words that name an evaluation ("stunning") spend it on nothing. Earlier clauses tend to win more influence.
+A prompt with many subjects, actions, camera moves, styles, and constraints is harder for a reviewer to prioritize and harder to diagnose after a failed take. Empty evaluators add length without defining an observable target.
 
-**Consequences:** word order is a priority ranking · slop is not just ugly, it is expensive · short dense prompts beat long prose. **Explains:** the anti-slop system, the allocation model, the character-budget discipline, "put subject and action first."
+**Workflow consequence:** put the main subject and visible action first; keep one primary camera move; replace quality claims with measurable direction; remove duplicated clauses. This is information design, not an assertion about an internal attention budget.
 
-### 2. Generation pulls toward the familiar
+### 2. Unusual combinations need stronger staging
 
-The model produces samples near its training distribution. Combinations it has seen millions of times (golden hour + warm rim light) are cheap and stable; rare combinations fight the prior and wobble.
+Some requested combinations fail more often in field testing than familiar, physically legible setups. The retained evidence does not reveal why. Treat rarity as a production risk to test, not as knowledge of the training distribution.
 
-**Consequences:** name dense visual clusters (film noir, cel animation, phone footage), not judgments (beautiful) · expect instability whenever the request is statistically rare, and stage rare ideas as familiar pieces · style flicker between shots is the sampler hopping between nearby clusters — repeat the exact anchor phrase to hold it. **Explains:** style-safe descriptors, the medium-line repetition rule in 2D work, the source-look lock.
+**Workflow consequence:** decompose a difficult effect into visible states, give it a stable carrier, and compare a simple version with the ambitious version. Repeat a required medium or style anchor for continuity only when an A/B test supports that choice.
 
-### 3. There is no NOT
+### 3. Negative constraints can be ambiguous
 
-Text conditioning moves probability toward every concept it mentions. Negation is weak grammar wrapped around a strong activation: "no blood" still summons the concept.
+A long list of possible defects does not clearly describe the desired frame. Some surfaces also reserve specific negative wording for a constraint field, while others accept ordinary prose.
 
-**Consequences:** describe what IS there; exclude compositionally · reserve literal negation for the constraint slot platforms parse (`no on-screen text, no watermark`). **Explains:** negation slop, "negation summons" in the capability map.
+**Workflow consequence:** state the desired positive composition or settled state, then keep only necessary exclusions such as `no on-screen text` in the selected surface's supported constraint form. Do not describe this as a universal inability to understand negation.
 
 ### 4. Causal trajectory is a useful planning heuristic
 
-In practice, motion prompts are easier to stage and evaluate when they name an initial state, trigger, visible state change, response, and endpoint. A disconnected list of micro-instructions gives neither the director nor the reviewer a clear event chain. This is a workflow heuristic; it does not establish how Seedance represents time or computes physics internally.
+Motion is easier to stage and evaluate when the brief names an initial state, trigger, visible state change, response, follow-through, and endpoint. A disconnected list of micro-instructions gives the director and reviewer no stable event chain.
 
-**Consequences:** prefer one trigger with observable consequences over five stage directions · distinguish material contact from a non-material performance or lighting change · give the event a settled endpoint the selected camera can see. **Explains:** causal shot planning, the one-action discipline, and observability checks.
+**Workflow consequence:** prefer one trigger with observable consequences; distinguish material contact from a performance, lighting, or other non-material change; give the event an endpoint the selected camera can see. This does not establish how Seedance represents time or computes physics internally.
 
-### 5. Errors compound
+### 5. Chained workflows can accumulate visible deviation
 
-Each frame is re-synthesized under the influence of its neighbors; tiny identity errors accumulate across a clip, and feeding outputs back as inputs amplifies them generation after generation.
+Repeated continuation or edit passes may diverge from an approved identity, layout, motion phase, or endpoint. This is an observed workflow risk, not proof of a frame-generation mechanism or a universal chain-depth threshold.
 
-**Consequences:** identity drifts with clip length and chained continuations — re-anchor with the ORIGINAL references, never with outputs · keep fragile anchors locked and clips short · expect the fifth chained generation to need a reset. **Explains:** the ~4–5-generation drift note, extension-degradation repair, preservation language.
+**Workflow consequence:** compare each accepted take with canonical authorized references and recorded project state; re-anchor when measured drift appears; keep clips small enough to review. Never promise that a specific generation number will fail.
 
-### 6. Overlapping references and text can conflict
+### 6. Overlapping references and prose can conflict
 
-Image, video, audio, and text can ask for incompatible attributes. Field-observed donor leakage makes it unsafe to assume that media type, upload order, or prompt emphasis decides which input wins. The exact priority mechanism is not public.
+Image, video, audio, and text inputs can request incompatible attributes. Field-observed donor leakage makes it unsafe to assume that media type, upload order, or prose emphasis chooses the winner. The exact priority behavior is not public and can vary by operation.
 
-**Consequences:** resolve one authority winner for each target/dimension · allow one purposeful asset to own several compatible dimensions · explicitly exclude likely identity, wardrobe, environment, style, camera, audio, or logo leakage from competing assets. **Explains:** intent-vs-precision, target/dimension authority, and transfer exclusions.
+**Workflow consequence:** choose one authority winner for each target and controlled dimension; allow one purposeful asset to own several compatible dimensions; explicitly exclude likely leakage from competing assets; test the exact surface profile.
 
-### 7. Detail capacity scales with screen area
+### 7. Small or occluded details are harder to verify
 
-A face occupying 2% of the frame gets roughly 2% of the spatial representation. Small regions cannot hold fine structure, and motion makes it worse.
+Distant faces, hands, logos, text, and brief contact points provide fewer visible pixels to inspect and are often obscured by motion or framing. This is an observability problem even before considering model behavior.
 
-**Consequences:** the hero subject earns its fidelity by being large in frame · distant faces, busy hands, small logos, and on-screen text degrade first · a detail that matters gets its own shot. **Explains:** tiny-detail design-arounds, close-up rationing, text-to-post.
+**Workflow consequence:** make a critical detail large and unobstructed enough to review, or give it a dedicated shot. Do not convert screen-area percentages into claims about internal representation.
 
-### 8. Audio and video are generated together
+### 8. Audio and picture require coordinated direction
 
-Sound is not added afterward; it denoises jointly with the picture. Named sound events give the sampler synchronization targets, and lip-sync is a joint constraint across both streams — every extra head or camera motion tightens it.
+Supported Seedance surfaces may produce picture and audio in the same requested result, but retained public evidence does not expose the internal generation process. Dialogue, sound effects, camera motion, and performance still compete for limited clip time and review attention.
 
-**Consequences:** name each shot's specific sounds — they anchor timing · audio can act as the clock of the edit · dialogue wants a stable face and a short line because the model is solving picture and phonemes simultaneously. **Explains:** audio-as-clock, sound-per-shot in multi-shot grammar, locked framing for dialogue.
+**Workflow consequence:** assign each spoken line to a named speaker; keep important dialogue short; use readable face framing; link each important sound to one visible event; verify lip-sync and mix behavior on the active surface. Do not claim that timing is locked by construction or that audio and video use a particular joint architecture.
 
-## Deriving guidance for novel cases
+## Deriving guidance for a novel case
 
-When no rule covers the request: (1) ask which mechanism dominates; (2) ask what that mechanism predicts; (3) choose the lever that works with the mechanism instead of against it.
+When no existing rule covers the request:
 
-**Worked example — "the mirror reflection should move differently from the subject":** mechanism 2 says this is distribution-rare (training mirrors agree with their subjects), and mechanism 4 says two conflicting trajectories in one region fight the prior. Prediction: wobble, merging, or the reflection syncing back. Levers: stage it as two shots (subject, then mirror as its own subject), or shoot the mirror as the only subject in frame, or accept a brief 2–3s effect window where instability reads as intended. No rule in the repo states this; the mechanics derive it.
+1. Name the observable failure and the exact surface context.
+2. Select the smallest operational hypothesis that could explain it without asserting hidden internals.
+3. Change one variable.
+4. Compare the result against the same acceptance test.
+5. Record the observation as surface-scoped evidence, not a universal mechanism.
 
-## Mechanism-indexed diagnosis
+**Worked example: a mirror reflection should move differently from the subject.** This asks one region to preserve a mirror relationship while violating it. The observable risks are merging, unintended synchronization, or an unreadable transition. Test a simplified shot in which the mirror is the only important region, or split subject and reflection into separate shots. This recommendation follows staging and observability, not a claim about training data or sampling.
 
-Sequence-state failures usually come from compounding error and broken trajectory: a later prompt starts from the planned state instead of the observed state, or repeats a completed action because the project did not log it. The repair is not stronger adjectives; it is a better state handoff.
+## Hypothesis-indexed diagnosis
 
-| Symptom | Dominant mechanism | Lever |
+| Symptom | First hypothesis to test | Conservative lever |
 |---|---|---|
-| Output generic despite long prompt | 1 — attention diluted | cut slop, reorder priorities first |
-| Style or look flickers | 2 — cluster hopping | repeat the exact anchor phrase every shot |
-| Excluded thing appears | 3 — negation summoned it | describe the positive replacement |
-| Action skipped or mushy | 4 — no trajectory to ride | one cause, visible consequences, an endpoint |
-| Identity decays over time | 5 — compounding error | shorter clip, original-reference re-anchor |
-| Reference fights the prompt | 6 — conflicting inputs | choose one target/dimension winner and exclude that transfer from competing assets |
-| Small detail breaks | 7 — capacity starvation | enlarge it in frame or give it its own shot |
-| Lips or sound desync | 8 — joint constraint overloaded | lock the face, shorten the line, name the sound |
+| Output is generic after a long prompt | scope is unclear | remove empty language and secondary instructions |
+| Style or medium varies between shots | continuity anchor is under-specified | keep one exact, observable medium clause and compare |
+| An excluded element appears | desired replacement is not explicit | describe the positive composition and keep one necessary exclusion |
+| Action is skipped or unreadable | causal chain or endpoint is unclear | one trigger, visible response, follow-through, endpoint |
+| Identity or layout drifts in a chain | accepted state diverged from canonical state | measure the difference and re-anchor from authorized originals |
+| A reference changes the wrong attribute | authority or leakage boundary conflicts | repair the target/dimension winner and exclusions |
+| A small detail fails review | detail is too small or occluded | enlarge it, simplify motion, or isolate it in another shot |
+| Dialogue, sound, or lip-sync fails | audiovisual brief is overloaded or unsupported | shorten the line, stabilize framing, simplify sound, verify the surface |
+
+These labels are diagnostic shorthand only. They must never be cited as Seedance architecture.

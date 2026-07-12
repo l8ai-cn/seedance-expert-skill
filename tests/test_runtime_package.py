@@ -3,6 +3,7 @@ from __future__ import annotations
 import contextlib
 import hashlib
 import io
+import importlib.util
 import json
 import os
 import shutil
@@ -11,8 +12,11 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from datetime import date
 from pathlib import Path
 from unittest import mock
+
+from jsonschema import Draft202012Validator, FormatChecker
 
 from scripts import install_codex_skill as installer
 from tools import runtime_package as package
@@ -143,9 +147,9 @@ class RuntimePackageTests(unittest.TestCase):
 
     def test_repository_manifest_builds_conservative_runtime_exactly(self) -> None:
         plan = package.package_plan(ROOT)
-        self.assertEqual(plan["payload_file_count"], 119)
-        self.assertEqual(plan["payload_size_bytes"], 752289)
-        self.assertEqual(plan["tree_sha256"], "563adfa1f77613709aa6c1770daf8b4029bb2a56dcc7a5ffa91966a57af6ec02")
+        self.assertEqual(plan["payload_file_count"], 125)
+        self.assertEqual(plan["payload_size_bytes"], 938971)
+        self.assertEqual(plan["tree_sha256"], "8347f868d505a947e8693972259d850f71ad712b5b88300a8b8f513b1d45170e")
 
         first = self.base / "first"
         second = self.base / "second"
@@ -158,15 +162,21 @@ class RuntimePackageTests(unittest.TestCase):
         self.assertEqual(package.verify_package(first)["tree_sha256"], plan["tree_sha256"])
 
         found = package._scan_plain_tree(first)
-        self.assertEqual(len(found), 120)
+        self.assertEqual(len(found), 126)
         self.assertIn("references/interview-starters.md", found)
         self.assertIn("profiles/profile-index.json", found)
         self.assertIn("schemas/reference-manifest.schema.json", found)
         self.assertIn("schemas/scene-ir.schema.json", found)
         self.assertIn("schemas/planning-report.schema.json", found)
+        self.assertIn("schemas/prompt-program.schema.json", found)
+        self.assertIn("schemas/prompt-realization-catalog.schema.json", found)
+        self.assertIn("schemas/prompt-render.schema.json", found)
+        self.assertIn("schemas/surface-binding-set.schema.json", found)
+        self.assertIn("scripts/prompt_compile.py", found)
         self.assertIn("scripts/reference_planner.py", found)
         self.assertIn("scripts/render_surface_bindings.py", found)
         self.assertIn("scripts/scene_ir_check.py", found)
+        self.assertIn("scripts/semantic_lint.py", found)
         self.assertNotIn("README.md", found)
         self.assertFalse(any(path.startswith(("docs/", "evals/", "tests/", "data/", "research/")) for path in found))
         self.assertFalse(any(path.startswith("schemas/evidence-") for path in found))
@@ -213,6 +223,112 @@ class RuntimePackageTests(unittest.TestCase):
             capture_output=True,
         )
         self.assertEqual(planner_tool.returncode, 0, planner_tool.stdout + planner_tool.stderr)
+        semantic_tool = subprocess.run(
+            [sys.executable, "-B", str(first / "scripts" / "semantic_lint.py"), "--self-test"],
+            text=True,
+            capture_output=True,
+        )
+        self.assertEqual(semantic_tool.returncode, 0, semantic_tool.stdout + semantic_tool.stderr)
+        compiler_tool = subprocess.run(
+            [sys.executable, "-B", str(first / "scripts" / "prompt_compile.py"), "--self-test"],
+            text=True,
+            capture_output=True,
+        )
+        self.assertEqual(compiler_tool.returncode, 0, compiler_tool.stdout + compiler_tool.stderr)
+
+        def source_fixture(name: str) -> dict:
+            return json.loads(
+                (ROOT / "validation" / "fixtures" / name).read_text(encoding="utf-8")
+            )
+
+        catalog = source_fixture("prompt-realization-catalog.valid.json")
+        catalog["attestation"] = {
+            "method": "user_attested",
+            "linguistic_equivalence": "human_asserted",
+            "locales": ["en", "zh-Hans"],
+        }
+        compiler_path = first / "scripts" / "prompt_compile.py"
+        spec = importlib.util.spec_from_file_location(
+            "installed_seedance_prompt_compile",
+            compiler_path,
+        )
+        self.assertIsNotNone(spec)
+        self.assertIsNotNone(spec.loader)
+        installed_scripts = str(first / "scripts")
+        dependency_names = (
+            "reference_planner",
+            "render_surface_bindings",
+            "scene_ir_check",
+            "semantic_lint",
+        )
+        previous_modules = {
+            name: sys.modules.get(name) for name in dependency_names
+        }
+        previous_dont_write_bytecode = sys.dont_write_bytecode
+        for name in dependency_names:
+            sys.modules.pop(name, None)
+        sys.dont_write_bytecode = True
+        sys.path.insert(0, installed_scripts)
+        try:
+            installed_compiler = importlib.util.module_from_spec(spec)
+            sys.modules[spec.name] = installed_compiler
+            spec.loader.exec_module(installed_compiler)
+        finally:
+            sys.modules.pop(spec.name, None)
+            for name, previous in previous_modules.items():
+                if previous is None:
+                    sys.modules.pop(name, None)
+                else:
+                    sys.modules[name] = previous
+            sys.dont_write_bytecode = previous_dont_write_bytecode
+            self.assertEqual(sys.path.pop(0), installed_scripts)
+        report = installed_compiler.compile_request(
+            {
+                "schema_version": 1,
+                "reference_manifest": source_fixture("reference-manifest.valid.json"),
+                "scene_ir": source_fixture("scene-ir.valid.json"),
+                "surface_binding_set": source_fixture("surface-binding-set.valid.json"),
+                "realization_catalog": catalog,
+            },
+            preview_candidate=True,
+            today=date(2026, 7, 12),
+            root=first,
+        )
+        schema = json.loads(
+            (ROOT / "schemas" / "prompt-render.schema.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        Draft202012Validator(
+            schema,
+            format_checker=FormatChecker(),
+        ).validate(report)
+        self.assertEqual(
+            report["compiler_sha256"],
+            hashlib.sha256(
+                compiler_path.read_bytes()
+            ).hexdigest(),
+        )
+        toolchain_components = {
+            name: hashlib.sha256((first / "scripts" / name).read_bytes()).hexdigest()
+            for name in (
+                "prompt_compile.py",
+                "reference_planner.py",
+                "render_surface_bindings.py",
+                "scene_ir_check.py",
+                "semantic_lint.py",
+            )
+        }
+        self.assertEqual(
+            report["compiler_toolchain_sha256"],
+            hashlib.sha256(
+                installed_compiler.bindings.canonical_json(toolchain_components)
+            ).hexdigest(),
+        )
+        self.assertEqual(
+            package.verify_package(first)["tree_sha256"],
+            plan["tree_sha256"],
+        )
 
     def test_selected_binary_asset_is_exactly_preserved(self) -> None:
         repo = self.base / "repo"

@@ -52,7 +52,7 @@
           "actor_ids": ["bottle"],
           "target_ids": ["table"],
           "depends_on": ["bottle_initial"],
-          "visible_state_change": "The bottle begins tipping toward its right side.",
+          "visible_state_change": "The bottle begins tipping toward screen right.",
           "interaction_kind": "none",
           "material_ids": []
         },

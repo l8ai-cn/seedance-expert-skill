@@ -48,7 +48,7 @@ Assign actions separately: `Character A lowers the envelope; Character B remains
 
 ## Three-Tier Action Hierarchy
 
-Field-observed from Chinese production practice; the strongest known stabilizer for multi-person scenes. Give every visible person an action from exactly one tier:
+Use this field-observed blocking pattern as a controlled test for multi-person scenes. Give every visible person an action from exactly one tier:
 
 1. **Persistent micro-motion** - breathing, blinks, slight shoulder movement, hair drift, drifting gaze. Continuous, no gaps; this is the default tier for everyone who is not the focus.
 2. **One focused response** - a single person gets one small reaction with an explicit time window: `Character B's lip corner lifts and she holds a half-second glance`.

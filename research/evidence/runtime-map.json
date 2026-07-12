@@ -1,7 +1,7 @@
 {
   "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/evidence-runtime-map.schema.json",
   "schema_version": 1,
-  "runtime_manifest_sha256": "7f2eef0a3a34f5db9efc2f07757e72b947c19909f3b7a9ce5ddba01f1f0f4e5e",
+  "runtime_manifest_sha256": "2d89da3287d43547a7902ae03852cef12c8334d87424b036e616a43696eb7a37",
   "files": [
     {
       "path": "LICENSE",
@@ -11,7 +11,7 @@
     },
     {
       "path": "SKILL.md",
-      "sha256": "c4591affc06ba9838da68d8f3e965567241d558242959acd72795c2580a61042",
+      "sha256": "620cef0638454491f6ecce1ea3f9296f5b6f8ebf3ecd8bff231298801d07a847",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
@@ -261,7 +261,7 @@
     },
     {
       "path": "references/anti-slop-lexicon.md",
-      "sha256": "62716e4c640d711db832a51d98b0070d38947a172b6cbfaf13c5c88f2d3f0ad8",
+      "sha256": "92893c2d59cddd908b93c22287f8c4f068028351e2b3182f2923bd6f6b648832",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
@@ -285,7 +285,7 @@
     },
     {
       "path": "references/audio-guide.md",
-      "sha256": "3e48620682ad5d735f74f2d0291b5ca6cb335ae2bf534e57203a880f346306bc",
+      "sha256": "52ff84a2c4e652be7dc2f4b2319032a3adcf9cc2a828841792b40f1e73129f3e",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
@@ -297,7 +297,7 @@
     },
     {
       "path": "references/capability-map.md",
-      "sha256": "fff4fb412e45c3d8de2e573e0120318856101f3f1801b697fafb561e0624fb82",
+      "sha256": "ead7006a8f769e26b239e2920772a981ff333dda137b69c37a3ee257fbfb0f67",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
@@ -363,7 +363,7 @@
     },
     {
       "path": "references/failure-atlas.md",
-      "sha256": "cba372a7dc2aeae15423eaf3ac00dac1e4635e7e2b976b8696f110fa45ba25f6",
+      "sha256": "2d9cac76060a86d7624dff1ab8c01a02b2d472d16d30acc9493de5b098af1882",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
@@ -411,13 +411,13 @@
     },
     {
       "path": "references/json-schema.md",
-      "sha256": "6b61298a7df178ebfe8c60986aa419be3bc9e716da12af4237bd5db7b4992bf1",
+      "sha256": "84ef5372dc8726a51eed07a5700176cdaceee546593d7fadcec6ba7eef74d85a",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "references/model-mechanics.md",
-      "sha256": "eea54d312a8abb3f2b7dac5d23c27c686f17ebb3b3ef993f058fe85c6d53e71b",
+      "sha256": "1163949ff879ec2a18f5f644b0b8f1fea3246d48b0e3086876b685991305597f",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
@@ -429,7 +429,7 @@
     },
     {
       "path": "references/multilingual-community-examples.md",
-      "sha256": "e10bb8f04399814d5f14e578c84fc0b0ff38d2e567b8ac921b498f2a77f37f95",
+      "sha256": "c45155bb81e2b2f2655041fdacd90218531e4b364a4f888a3115e8c55a605843",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
@@ -459,31 +459,31 @@
     },
     {
       "path": "references/prompt-compiler.md",
-      "sha256": "1debf6733f27c098cc46219491c97a8fb370c91c4f4133f8c685d9d7201d273a",
+      "sha256": "0dde2aa04a79aec8a3862bfa9ac6d10ca56bc2aaeaae92f4f4eebead12a1b519",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "references/prompt-examples.md",
-      "sha256": "c2ce353a26108c7d5973c911fd56ec32128fd8f23f989fde684c80fa5ec99f51",
+      "sha256": "badc8939878ec1ac067c360fb949826dfe64fa3fe71c323d86c90898a9c5ee2a",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "references/quick-ref.md",
-      "sha256": "e692fae1ed85e59407971b2b3e0d5f9a0ab6a57afecb79c2cd3fac12cda63279",
+      "sha256": "ec25f85d6c5dec8ddb41d63c0908ff22401e4cdf80667298f53ba0b0eda74289",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "references/reference-transfer-contract.md",
-      "sha256": "766e1ed2e5b8297c073aea68a460157d2c65dfaf1100a6eeeb35435b5f9e2b87",
+      "sha256": "f3b2c8d39f6afbf90e0110b35edbfa1dfa5ff5fdf38c86fbf3e08ea47cbb20fa",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "references/reference-workflow.md",
-      "sha256": "7ff68139a726ba8a1924b00ba62f865dcef033eecfc3636492aaca868d4eb572",
+      "sha256": "8e3c3f9300838083d9ae5ea3e0efb0617c2b76e6efd107552bf69814a117f316",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
@@ -519,7 +519,7 @@
     },
     {
       "path": "references/storytelling-framework.md",
-      "sha256": "658099155a600b755da852db13aef7bcd295f1e09f804f041f7f102f8a3398b1",
+      "sha256": "3b45f4231852c6678898f53eb508375f49bc6c023b5010bfab189eda50c3c9dc",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
@@ -537,37 +537,37 @@
     },
     {
       "path": "references/vocab/en.md",
-      "sha256": "8b38db70955adcf7554e1f500b525d2388d1bd436ab3ed4408340d4ffb75d135",
+      "sha256": "4281affdf000cc214e7b2351e04cad2fe2f270807c6ff4dfa2b54386350e3c27",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "references/vocab/es.md",
-      "sha256": "2b1d36c97dbe0d5aa1d57e6d051db33f9b2cc4a7aa958aac12b2519323476504",
+      "sha256": "ce3e34e790861e881afb8a4878113122c2dcb77050109eb99b9418485c16a7fb",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "references/vocab/ja.md",
-      "sha256": "6eb17afbb9f0ed6e9a8c8dd5d943f70b20d0fc02bb517718fd98b99587fcac56",
+      "sha256": "0da99cc7087cc837ea10ddbabbd519726b9a4cdfe888acc778ec32f05340b766",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "references/vocab/ko.md",
-      "sha256": "7f635b2f348b1e5ac6748a0cc8bdf97a1d4f3b30a36abdec2d28c4b9cb3263bf",
+      "sha256": "c2f287528f1fa31a4134e8b6a309421b84fa3f9726fe535d32f84989b0b2d46f",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "references/vocab/ru.md",
-      "sha256": "d2dcbb826f07a4fe3427df62e980a2139156326294d421d10c0f31a88c486251",
+      "sha256": "5b49174f3efdff5340b870354350ee747db93f097223bbe385c3e41432bb46d2",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "references/vocab/zh.md",
-      "sha256": "082e43a4bf474daf792f85d21e72f0c194565433f60c46f1edd934b2554bd161",
+      "sha256": "f1cb660e056cd4d02a486659294a9e88c47cced1febeccc3d477180c505c612e",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
@@ -603,7 +603,7 @@
     },
     {
       "path": "schemas/planning-report.schema.json",
-      "sha256": "761ceae387f1926d1e9d994bf8f2d40e5ce0ef0a6da83dfde2e7858780f53531",
+      "sha256": "ab2780c5b5fa6c4e7bd27f76cd91d53d3e20ed5fe8fd2e29a10c531757d8c9f7",
       "audit_status": "no_volatile_claims",
       "occurrences": []
     },
@@ -620,6 +620,24 @@
       "occurrences": []
     },
     {
+      "path": "schemas/prompt-program.schema.json",
+      "sha256": "1589623a30afcda55fd68fcbe0f4e6b5dc2a0cbe2bf7af8329e2d773d966c53b",
+      "audit_status": "no_volatile_claims",
+      "occurrences": []
+    },
+    {
+      "path": "schemas/prompt-realization-catalog.schema.json",
+      "sha256": "5b45391e2d8afdebcb1bd56354db0062f95ae9c76b805f7324e0dcf0e296642e",
+      "audit_status": "no_volatile_claims",
+      "occurrences": []
+    },
+    {
+      "path": "schemas/prompt-render.schema.json",
+      "sha256": "28f8c6dda5511684b65dff714a8bd76f1de0d7e80f5acf7330924333dfe972cb",
+      "audit_status": "no_volatile_claims",
+      "occurrences": []
+    },
+    {
       "path": "schemas/prompt-spec.schema.json",
       "sha256": "e5c613610cdfc719e4422ae4300eb0890d79711e55a651bc25c4c7cc08586fc3",
       "audit_status": "no_volatile_claims",
@@ -627,13 +645,19 @@
     },
     {
       "path": "schemas/reference-manifest.schema.json",
-      "sha256": "ae0ea918b7d7fc887290306101ed58c085daf9436edeb0b8f73f8032bd1d5007",
+      "sha256": "1e3a4eda265bdc6432fa5206a2e7d70a3d55bfa6f6e445fe748cc4f0dadaf159",
       "audit_status": "no_volatile_claims",
       "occurrences": []
     },
     {
       "path": "schemas/scene-ir.schema.json",
       "sha256": "eb36b1a0c06c07d75489bae694c3dac32c58364814a1d4993e642ed2438a6415",
+      "audit_status": "no_volatile_claims",
+      "occurrences": []
+    },
+    {
+      "path": "schemas/surface-binding-set.schema.json",
+      "sha256": "defb90ac3bb208b7188c790dcfa912bc20e7b0667cbfa705a226dea4f7ef5cc0",
       "audit_status": "no_volatile_claims",
       "occurrences": []
     },
@@ -662,32 +686,44 @@
       "occurrences": []
     },
     {
+      "path": "scripts/prompt_compile.py",
+      "sha256": "d1f88300d2ec6ba695a04c00ac54fa6455b088b82e308f7db10355d0e233a2f0",
+      "audit_status": "no_volatile_claims",
+      "occurrences": []
+    },
+    {
       "path": "scripts/reference_planner.py",
-      "sha256": "b6d19eabb1259e61d52b978478729b919c4f36ebeafb1daaf1b2b68bb3f4acd2",
+      "sha256": "b67052521bcc42e02be47855a456fe729942aed7d483a53d7ea0a69a54287138",
       "audit_status": "no_volatile_claims",
       "occurrences": []
     },
     {
       "path": "scripts/render_surface_bindings.py",
-      "sha256": "2533ca12c38e4f3f580164ceec8d1ff8ae29fd8b5a31c2ea6adf00344243f31f",
+      "sha256": "f994d514ab5bb98ee28d4903f9151b14633526548830cf57b04be26c4911e3fd",
       "audit_status": "no_volatile_claims",
       "occurrences": []
     },
     {
       "path": "scripts/scene_ir_check.py",
-      "sha256": "ad8ab74d9fb04409ea287327d78f3b76eb36367d6e437dd2e61dcf4014449d04",
+      "sha256": "546ba78508e21000e4573f3ad05384bd584ebd52df62a241f923eb20f175bd65",
+      "audit_status": "no_volatile_claims",
+      "occurrences": []
+    },
+    {
+      "path": "scripts/semantic_lint.py",
+      "sha256": "0221e395e39d1211027dabb2ccd320f14bd75d1d295be7f70d6105330b7cabf9",
       "audit_status": "no_volatile_claims",
       "occurrences": []
     },
     {
       "path": "skills/seedance-antislop/SKILL.md",
-      "sha256": "fc7e13458ffa52df64851846fadf1d3a2741fa9c45efc05ca7202d033ec16270",
+      "sha256": "dcd51e925d9fa0dfd40c6d8a65e46901cdfd2e5ac513a005d16b556236348f7e",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "skills/seedance-audio/SKILL.md",
-      "sha256": "05b179ec3e531317a1f203abc3b474a7e27bfc7dfad754df27160ffe847dc357",
+      "sha256": "d2959728f526b047abd7bfe8cd206cb803ae7a8b7ff4f3cf9e9303847892e7ae",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
@@ -699,7 +735,7 @@
     },
     {
       "path": "skills/seedance-characters/SKILL.md",
-      "sha256": "c7b990eebe71e7486ce46eeab0ca456422b71723df9e9a19cd0bb5906c4a167c",
+      "sha256": "f23e730d7f9c49a0de9be45af87f7baba022719c44bd8cfc8e56ddafddb56bc5",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
@@ -729,7 +765,7 @@
     },
     {
       "path": "skills/seedance-examples-zh/SKILL.md",
-      "sha256": "c825a3fbfdd61bbc983c7ec7f888c2ede067d2a92e7a6df8a586de12641aaf36",
+      "sha256": "f146078d51adcec7723fab9501f268be519e8ba7f143ad6e89e774a06dc9db9a",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
@@ -759,7 +795,7 @@
     },
     {
       "path": "skills/seedance-motion/SKILL.md",
-      "sha256": "47bce124e43957fa92cb2455a70a35f56e7b092ed50f21c9fc3fe3a6916fbb0b",
+      "sha256": "4da4a2f7c69627627f772113000bfdebba622a9b34e3aaf027ae59f070cb9c68",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
@@ -771,13 +807,13 @@
     },
     {
       "path": "skills/seedance-prompt-short/SKILL.md",
-      "sha256": "609046b8d746fbf56e3435b3e9527285f49e050171263bc0c3968bb8d893c8dd",
+      "sha256": "3e402c021c5db476cdca4eb6539acf172bdc2e8f5f6ae832e95c4ef503dafca4",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "skills/seedance-prompt/SKILL.md",
-      "sha256": "dfb18b89f4a19a0d29f145e5a17a7e1b1676fd554349bf3be7286b05b7bd7037",
+      "sha256": "64bb89a9f33bf8408c778abb8f6fef228050794d8a8f3ed1e3155e8350e95fde",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
@@ -789,7 +825,7 @@
     },
     {
       "path": "skills/seedance-sequence/SKILL.md",
-      "sha256": "7e692d9490c48d6f21b9977fd4bb8e9e592e4083fa87d22445a01de6ba0eda13",
+      "sha256": "6e400e7632124bb905187ebc917f76661295888e457d3aea471aae171ed4833a",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
@@ -801,7 +837,7 @@
     },
     {
       "path": "skills/seedance-troubleshoot/SKILL.md",
-      "sha256": "be2c2fd65ccdd2291046af832d5c5757def2e76979e2d0c4c425b2436639490b",
+      "sha256": "9324c9ac770ceababdd52beea72a994004841ea583124829f60351cc077c9e85",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
@@ -813,37 +849,37 @@
     },
     {
       "path": "skills/seedance-vocab-en/SKILL.md",
-      "sha256": "2be79e6f348d3b4e0e1f40dd78e80c2ed48534f7dcf7677e58e68675c0295172",
+      "sha256": "0917749fd5aacb5a6df7d9f5ab4a3dfefb38b157821ca68b34c3c32895eb741e",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "skills/seedance-vocab-es/SKILL.md",
-      "sha256": "8c37b61b8cdf16436ae2b870c46558e1b53cf0d9ba2bd193bcde601490107ce4",
+      "sha256": "bd8c63428b297109f66bd0d8a6fbdff22b995cb753a485bc13a4d9c51141e3f9",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "skills/seedance-vocab-ja/SKILL.md",
-      "sha256": "6d36c824ca2b2d5952a73ce9aae0bd9f13ba515b74fe7484ef094c716daac699",
+      "sha256": "4491dca3ef5fa83fd4119420360b1a30bfe9a20cb2d349d35f4cb015866df5b5",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "skills/seedance-vocab-ko/SKILL.md",
-      "sha256": "5e9b014f114dab90bf61c79f5343a7f41209fc05bf51c78d4e01114055884650",
+      "sha256": "df322c2fe05cd4f16e9944f045fd36bdba60c7804ef074422cae1c76bc50e567",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "skills/seedance-vocab-ru/SKILL.md",
-      "sha256": "3d506d90a05ced2469d3986b26431e26cc22c202b221a324690649188f1c3b13",
+      "sha256": "e76a76daec8fd66281caf2c1690dc7335eb0bd1e186d82d37638bc687e7bff5f",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
     {
       "path": "skills/seedance-vocab-zh/SKILL.md",
-      "sha256": "0d7e8a1e519c39d22c5d106f02e4326d67027babcb743fe2fe5d337d4a75ecad",
+      "sha256": "6af40f01ba9176588d97d34370ec0e1f375deaa88d039b9b031b54e200cb4fbb",
       "audit_status": "legacy_blocked",
       "occurrences": []
     }

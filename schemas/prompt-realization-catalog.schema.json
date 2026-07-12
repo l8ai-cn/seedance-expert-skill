@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Emily2040/seedance-2.0/schemas/prompt-realization-catalog.schema.json",
+  "title": "Seedance V7 paired prompt realization catalog",
+  "$comment": "English and Simplified Chinese realizations for the exact localized units that can reach the prompt, with either a declared human assertion or an explicitly unattested test-fixture marker. Public runtime compilation rejects the fixture marker. Presence and source binding are machine-checkable; linguistic equivalence and reviewer identity are not proved by this schema. Stable features and material properties remain review-only scene data. Semantic-key/source-hash uniqueness and exact coverage of the selected scene remain runtime-enforced invariants.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "schema_version", "scene_ir_sha256", "attestation", "entries"],
+  "properties": {
+    "$schema": {
+      "const": "https://github.com/Emily2040/seedance-2.0/schemas/prompt-realization-catalog.schema.json"
+    },
+    "schema_version": {"const": 1},
+    "scene_ir_sha256": {"$ref": "#/$defs/sha256"},
+    "attestation": {"$ref": "#/$defs/attestation"},
+    "entries": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 512,
+      "items": {"$ref": "#/$defs/entry"}
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "attestation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["method", "linguistic_equivalence", "locales"],
+      "properties": {
+        "method": {
+          "enum": ["user_attested", "reviewer_attested", "unattested_fixture"]
+        },
+        "linguistic_equivalence": {
+          "enum": ["human_asserted", "not_attested"]
+        },
+        "locales": {"const": ["en", "zh-Hans"]}
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {"method": {"const": "unattested_fixture"}},
+            "required": ["method"]
+          },
+          "then": {
+            "properties": {
+              "linguistic_equivalence": {"const": "not_attested"}
+            }
+          },
+          "else": {
+            "properties": {
+              "linguistic_equivalence": {"const": "human_asserted"}
+            }
+          }
+        }
+      ]
+    },
+    "semantic_key": {
+      "type": "string",
+      "maxLength": 256,
+      "pattern": "^(?:entity\\.[a-z][a-z0-9._-]{0,63}\\.label|event\\.[a-z][a-z0-9._-]{0,63}\\.visible_state_change|shot\\.[a-z][a-z0-9._-]{0,63}\\.camera\\.(?:start_framing|path|speed|subject_relationship|endpoint_framing)|audio\\.[a-z][a-z0-9._-]{0,63}\\.description|invariant\\.[a-z][a-z0-9._-]{0,63}\\.description)$"
+    },
+    "realization_text": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1000,
+      "not": {"pattern": "(?:https?://|file://)"}
+    },
+    "entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["semantic_key", "source_sha256", "en", "zh_hans"],
+      "properties": {
+        "semantic_key": {"$ref": "#/$defs/semantic_key"},
+        "source_sha256": {"$ref": "#/$defs/sha256"},
+        "en": {"$ref": "#/$defs/realization_text"},
+        "zh_hans": {"$ref": "#/$defs/realization_text"}
+      }
+    }
+  }
+}

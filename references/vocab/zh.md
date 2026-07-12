@@ -1,6 +1,6 @@
 # Chinese Vocabulary
 
-Use this reference for Chinese Seedance prompt wording, role binding, and compact prompt compression. Binding is a separate typed step: the selected profile preserves an external opaque handle, derives an evidenced media ordinal, or uses structured roles with no token. Never translate provider syntax.
+Use this reference when the requested prompt or production handoff is in Chinese. Write concise, observable production direction without assuming that shorter wording is inherently more effective. Binding is a separate typed step: the selected profile preserves an external opaque handle, derives an evidenced media ordinal, or uses structured roles with no token. Never translate provider syntax.
 
 | Function | Chinese | English meaning |
 |---|---|---|
@@ -100,15 +100,19 @@ Use these when the Chinese prompt is part of a v6 sequence project, continuation
 
 ## Dialogue Notes (对白注意事项)
 
-Field-observed from 2026 community testing (即梦官方手册解读、知乎、36氪实测); test per surface, never promise results. Mandarin has the strongest lip-sync, yet hands-on tests still report 语音错乱 / 字幕乱码 - budget retakes.
+Field-observed from 2026 community testing; test the exact surface, model version, spoken language, line, voice path, and framing. The retained evidence does not establish that one language is universally better than another. Hands-on reports still describe 语音错乱 and 字幕乱码 on some tasks, so budget review and retakes.
 
 - 台词格式：角色名 + 动作 + 冒号 + 引号内台词。Count characters/syllables, not "words"; keep to one short clause.
-- 唇形同步在部分界面默认关闭（如即梦需勾选“启用唇形同步”）- confirm it is enabled before blaming the prompt.
-- Inline audio tags are field-reported on some surfaces: 在台词末尾加方括号提示音色与音效，例如 `"领旨" [低沉男声][编钟余音]`。Surface-specific; verify before relying on it.
+- 先确认当前平台与操作是否提供并启用了唇形同步；不要从其他界面的旧截图或教程推断当前开关状态。
+- Inline audio tags are field-reported on some surfaces: 在台词末尾加方括号提示音色与音效，例如 `"领旨" [低沉男声][编钟余音]`。This is surface-specific syntax; use it only when the selected profile or current surface evidence supports it.
+
+## V7 中英文配对边界
+
+当输入包含已验证的 scene IR 与中英文配对目录时，`scripts/prompt_compile.py` 只渲染目录中已审定的中文表达，`scripts/semantic_lint.py` 检查结构一致性。编译器不翻译 scene IR。中英文输出必须保持相同的实体 ID、事件顺序、因果关系、镜头语义、音频关联和约束。V7-07 暂不编译对白或旁白，因为当前 IR 没有精确台词合同。实体名称必须稳定，不得自动省略主语或推断 `他`、`她`。缺少中文表达、语义冲突或角色不明时必须停止。
 
 ## Slop Traps
 
-社区共识：抽象的“感觉词”会让模型无法判断该强调哪个元素。把感觉词拆解成制造这种感觉的物理元素——材质、光线、色彩、空气——画面立即变稳。
+把抽象“感觉词”改写为可观察的材质、光线、色彩、空气和动作，能让提示词更容易审阅、比较和修改。它是否改善某个平台上的生成结果，仍需用相同输入做实际测试。
 
 | 套话 | 改写为 |
 |---|---|

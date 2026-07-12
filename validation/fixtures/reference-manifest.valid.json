@@ -13,15 +13,17 @@
         "identity",
         "face_detail",
         "wardrobe",
-        "environment",
-        "visual_style",
-        "opening_composition",
+      "environment",
+      "visual_style",
+      "opening_state",
+      "opening_composition",
         "subject_motion",
         "camera_motion",
         "timing_rhythm",
-        "audio_voice",
-        "endpoint",
-        "text_logo_treatment"
+      "audio_voice",
+      "endpoint",
+      "endpoint_framing",
+      "text_logo_treatment"
       ]
     }
   ],

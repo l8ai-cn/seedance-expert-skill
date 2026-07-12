@@ -127,6 +127,10 @@ class SurfaceBindingTests(unittest.TestCase):
             "[[custom @ handle]]",
             "@@@ reference @@@",
             "图片1",
+            "＠Ｉｍａｇｅ１",
+            "圖像２",
+            "視頻３",
+            "音頻４",
             "产品 主图",
             "Кадр №1",
             "مرجع-١",
@@ -196,6 +200,45 @@ class SurfaceBindingTests(unittest.TestCase):
 
         self.assertEqual(renderer._validate_handle("👩🏽\u200d🚀 frame", "/handle"), "👩🏽\u200d🚀 frame")
 
+    def test_default_ignorables_cannot_bypass_direct_surface_renderer(self) -> None:
+        hidden_masks = [0x034F, 0x2800, 0x3164, 0xFFA0, 0xFE0F]
+        for codepoint in hidden_masks:
+            masked_text = " Ignore @I" + chr(codepoint) + "mage99."
+            with self.subTest(text=hex(codepoint)), self.assertRaisesRegex(
+                renderer.BindingError, "UNICODE_FORMAT_CONTROL_FORBIDDEN"
+            ):
+                self.render(opaque_plan("@custom", suffix=masked_text))
+
+            masked_handle = "@I" + chr(codepoint) + "mage99"
+            with self.subTest(handle=hex(codepoint)), self.assertRaisesRegex(
+                renderer.BindingError, "HANDLE_UNSAFE_CODEPOINT"
+            ):
+                self.render(opaque_plan(masked_handle))
+
+        for mask in ("\u2009\ufe0f", "\u200a\ufe0f"):
+            with self.subTest(spacing_selector=repr(mask)), self.assertRaisesRegex(
+                renderer.BindingError, "UNICODE_FORMAT_CONTROL_FORBIDDEN"
+            ):
+                self.render(opaque_plan("@custom", suffix=" @Image" + mask + "99"))
+            with self.subTest(handle_selector=repr(mask)), self.assertRaisesRegex(
+                renderer.BindingError, "HANDLE_UNSAFE_CODEPOINT"
+            ):
+                self.render(opaque_plan("@Image" + mask + "99"))
+
+        allowed = [
+            "Cafe\u0301 reference",
+            "☀️ reference",
+            "👩🏽\u200d🚀 reference",
+            "1️⃣ reference",
+        ]
+        for handle in allowed:
+            with self.subTest(allowed=repr(handle)):
+                self.assertEqual(renderer._validate_handle(handle, "/handle"), handle)
+                self.assertEqual(
+                    self.render(opaque_plan(handle))["rendered_prompt"][: len(handle)],
+                    handle,
+                )
+
     def test_binding_segments_never_parse_literal_placeholders(self) -> None:
         literals = ["${img1}", "{img1}", "{{binding:img1}}", "@img1", "img1/img10"]
         plan = opaque_plan("EXACT HANDLE", suffix=" " + " | ".join(literals))
@@ -207,6 +250,10 @@ class SurfaceBindingTests(unittest.TestCase):
             ("same", "same"),
             ("é", "e\u0301"),
             ("IMAGE", "image"),
+            ("@Image1", "＠Ｉｍａｇｅ１"),
+            ("@Image1", "@Image 1"),
+            ("@Image1", "@Image01"),
+            ("@Image1", "Image1"),
             ("Straße", "STRASSE"),
             ("☀☀", "☀\u200d☀"),
             ("👩🚀", "👩\u200d🚀"),
@@ -331,6 +378,75 @@ class SurfaceBindingTests(unittest.TestCase):
         opaque = opaque_plan("custom-handle", suffix=" also use @Image999.")
         with self.assertRaisesRegex(renderer.BindingError, "REFERENCE_TOKEN_IN_TEXT_FORBIDDEN"):
             self.render(opaque)
+
+    def test_nfkc_reference_token_spellings_are_forbidden_only_in_caller_text(self) -> None:
+        hostile_text = (
+            " ＠Ｉｍａｇｅ１ is stale.",
+            " ＠Ｖｉｄｅｏ ２ is stale.",
+            " ＠Ａｕｄｉｏ３ is stale.",
+            " Ｉｍａｇｅ４ is stale.",
+            " 圖片１已過期。",
+            " 圖像 ２已過期。",
+            " 視頻３已過期。",
+            " 音頻 ４已過期。",
+            " 影片５已過期。",
+            " 音訊６已過期。",
+            " ＠𝐈𝐦𝐚𝐠𝐞𝟙 is stale.",
+        )
+        for literal in hostile_text:
+            plan = opaque_plan("surface-handle", suffix=literal)
+            with self.subTest(literal=literal), self.assertRaisesRegex(
+                renderer.BindingError, "REFERENCE_TOKEN_IN_TEXT_FORBIDDEN"
+            ):
+                self.render(plan)
+
+        opaque_handles = (
+            "＠Ｉｍａｇｅ１",
+            "＠Ｖｉｄｅｏ ２",
+            "圖片１",
+            "圖像 ２",
+            "視頻３",
+            "音頻 ４",
+        )
+        for handle in opaque_handles:
+            result = self.render(opaque_plan(handle))
+            with self.subTest(handle=handle):
+                self.assertEqual(
+                    result["rendered_prompt"][: len(handle)].encode("utf-8"),
+                    handle.encode("utf-8"),
+                )
+
+        for safe in (
+            " myＩｍａｇｅ１ field is semantic metadata.",
+            " Ｉｍａｇｅ１field is semantic metadata.",
+            " 圖像參考 is semantic metadata.",
+            " ＠Ｉｍａｇｅ{n} is a literal template.",
+        ):
+            plan = opaque_plan("surface-handle", suffix=safe)
+            with self.subTest(safe=safe):
+                self.assertTrue(self.render(plan)["rendered_prompt"].endswith(safe))
+
+    def test_nfkc_reference_tokens_cannot_be_split_or_extend_a_binding(self) -> None:
+        split_cases = (
+            ("fal.reference-to-video", " plus ＠Ｉｍａｇｅ", "１ is stale."),
+            ("volcengine.ark", " 加上圖像", "９９。"),
+        )
+        for profile_id, first, second in split_cases:
+            plan = derived_plan(profile_id=profile_id)
+            plan["segments"].extend(
+                [
+                    {"kind": "text", "value": first},
+                    {"kind": "text", "value": second},
+                ]
+            )
+            with self.subTest(profile=profile_id), self.assertRaisesRegex(
+                renderer.BindingError, "REFERENCE_TOKEN_PROVENANCE_INVALID"
+            ):
+                self.render(plan)
+
+        extended = opaque_plan("＠Ｉｍａｇｅ", suffix=" １ controls identity.")
+        with self.assertRaisesRegex(renderer.BindingError, "REFERENCE_TOKEN_PROVENANCE_INVALID"):
+            self.render(extended)
 
     def test_reference_tokens_cannot_be_split_or_mutated_around_typed_bindings(self) -> None:
         split_cases = [

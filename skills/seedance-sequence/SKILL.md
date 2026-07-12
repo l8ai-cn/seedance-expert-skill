@@ -66,6 +66,8 @@ Plan scenes before clips. A scene is the re-anchor unit: one location and time e
 9. Compile only the first unresolved clip prompt from the current clip contract.
 10. After generation, require the clip or final frame, record observed start/end state, reconcile canon, and only then compile the next prompt.
 
+V7-07 compiles only a single-shot scene with no dialogue or voiceover. For a sequence, pass only the current unresolved clip when it meets that boundary; never pass the whole scene map or infer cuts between clips. If the current clip contains dialogue, voiceover, or several shots, retain the reviewed sequence contract and report the deferred compiler capability instead of inventing utterances, speakers, transitions, or timestamps.
+
 Use beginner-friendly language. It is valid to say: "This idea needs three connected generations. I will plan the complete story now, but finalize one prompt at a time so each new prompt matches what Seedance actually produced."
 
 ## Sequence Map Fields
