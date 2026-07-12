@@ -42,6 +42,8 @@ jobs:
         run: python -m unittest tests.test_evidence_registry -v
       - name: Exercise typed surface-binding boundary tests
         run: python -m unittest tests.test_surface_bindings -v
+      - name: Exercise paired semantic and prompt-render boundaries
+        run: python -m unittest tests.test_semantic_lint tests.test_prompt_compile -v
       - name: Audit frontend README and SVG assets
         run: python scripts/design_audit.py
       - name: Exercise legacy source-registry compatibility entry point
@@ -70,6 +72,10 @@ jobs:
         run: python scripts/scene_ir_check.py --self-test
       - name: Check reference planner wiring (offline, candidate preview only)
         run: python scripts/reference_planner.py --self-test
+      - name: Check paired semantic lint wiring (offline)
+        run: python scripts/semantic_lint.py --self-test
+      - name: Check paired prompt compiler wiring (offline, candidate preview only)
+        run: python scripts/prompt_compile.py --self-test
       - name: Validate deterministic runtime package boundary
         run: python tools/runtime_package.py --dry-run
       - name: Exercise transactional installer and rollback
@@ -104,9 +110,11 @@ jobs:
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Validate runtime package and transaction safety
-        run: |
-          python tools/runtime_package.py --dry-run
-          python -m unittest tests.test_runtime_package -v
-          python -m unittest tests.test_eval_harness -v
-          python -c "import subprocess, sys; [subprocess.run([sys.executable, 'scripts/eval_run.py', '--self-test'], check=True) for _ in range(10)]"
+      - name: Validate dependency-free runtime package plan
+        run: python -S -B tools/runtime_package.py --dry-run
+      - name: Exercise runtime package and transaction safety
+        run: python -S -B -m unittest tests.test_runtime_package -v
+      - name: Exercise dependency-free eval harness
+        run: python -S -B -m unittest tests.test_eval_harness -v
+      - name: Stress dependency-free eval self-test 10x
+        run: python -S -B -c "import subprocess, sys; [subprocess.run([sys.executable, '-S', '-B', 'scripts/eval_run.py', '--self-test'], check=True) for _ in range(10)]"

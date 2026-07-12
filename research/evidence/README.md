@@ -6,8 +6,8 @@ This is the canonical research control plane for the Seedance v7 rebuild. It rec
 
 - `release-policy.json` schema-locks `activation_enabled` to `false`.
 - Claim `runtime_status` can only be `candidate`, `blocked`, or `research_only`.
-- Every file in the 119-file runtime allowlist is byte-pinned in `runtime-map.json`.
-- The staged audit marks 93 files `legacy_blocked`, 22 files `no_volatile_claims`, and 4 candidate profiles; the release gate must stay red until later migration PRs replace the remaining debt with exact claim occurrences.
+- Every file in the 125-file runtime allowlist is byte-pinned in `runtime-map.json`.
+- The staged audit marks 93 files `legacy_blocked`, 28 files `no_volatile_claims`, and 4 candidate profiles; the release gate must stay red until later migration PRs replace the remaining debt with exact claim occurrences.
 - `research/` and every `schemas/evidence-*` control schema are forbidden from the installable runtime package.
 - No skill, prompt compiler, installer, or runtime script reads this registry.
 - A reviewer approving evidence is not authorizing runtime activation. Activation requires a later policy change, migrated runtime text, passing evals, and separate review.

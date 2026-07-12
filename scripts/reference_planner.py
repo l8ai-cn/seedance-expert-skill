@@ -123,15 +123,18 @@ DIMENSIONS = (
     "product_object_geometry",
     "environment",
     "visual_style",
+    "opening_state",
     "opening_composition",
     "subject_motion",
     "camera_motion",
     "timing_rhythm",
     "audio_voice",
     "endpoint",
+    "endpoint_framing",
     "text_logo_treatment",
 )
 DIMENSION_SET = set(DIMENSIONS)
+MAX_AUTHORITY_ASSIGNMENTS = 64 * len(DIMENSIONS)
 TARGET_KINDS = {"character", "product", "object", "environment", "shot", "audio", "text_logo"}
 ASSET_USES = {
     "identity_reference",
@@ -153,8 +156,10 @@ MEDIA_DIMENSIONS = {
         "product_object_geometry",
         "environment",
         "visual_style",
+        "opening_state",
         "opening_composition",
         "endpoint",
+        "endpoint_framing",
         "text_logo_treatment",
     },
     "video": set(DIMENSIONS),
@@ -186,8 +191,8 @@ USE_DIMENSIONS = {
     "motion_reference": {"subject_motion", "camera_motion", "timing_rhythm"},
     "environment_reference": {"environment", "visual_style", "opening_composition"},
     "style_reference": {"visual_style"},
-    "opening_frame": {"opening_composition"},
-    "endpoint_frame": {"endpoint"},
+    "opening_frame": {"opening_state", "opening_composition"},
+    "endpoint_frame": {"endpoint", "endpoint_framing"},
     "audio_reference": {"audio_voice", "timing_rhythm"},
     "product_reference": {"product_object_geometry", "text_logo_treatment"},
     "text_logo_reference": {"text_logo_treatment"},
@@ -228,7 +233,7 @@ def _array(
     pointer: str,
     *,
     minimum: int = 0,
-    maximum: int = 832,
+    maximum: int = MAX_AUTHORITY_ASSIGNMENTS,
 ) -> list[Any]:
     if not isinstance(value, list) or not minimum <= len(value) <= maximum:
         _fail("ARRAY_BOUNDS_INVALID", pointer)
@@ -506,7 +511,7 @@ def validate_reference_manifest(value: object) -> dict[str, Any]:
             manifest["authority_assignments"],
             "/reference_manifest/authority_assignments",
             minimum=1,
-            maximum=832,
+            maximum=MAX_AUTHORITY_ASSIGNMENTS,
         )
     ):
         pointer = f"/reference_manifest/authority_assignments/{index}"
@@ -570,19 +575,19 @@ def validate_reference_manifest(value: object) -> dict[str, Any]:
         opening_rows = [
             assignment
             for (target_id, dimension), assignment in assignment_by_key.items()
-            if dimension == "opening_composition"
+            if dimension in {"opening_state", "opening_composition"}
         ]
         endpoint_rows = [
             assignment
             for (target_id, dimension), assignment in assignment_by_key.items()
-            if dimension == "endpoint"
+            if dimension in {"endpoint", "endpoint_framing"}
         ]
         if (
-            len(opening_rows) != 1
-            or len(endpoint_rows) != 1
-            or opening_rows[0]["winner_asset_id"] != opening_asset_id
-            or endpoint_rows[0]["winner_asset_id"] != endpoint_asset_id
-            or opening_rows[0]["target_id"] != endpoint_rows[0]["target_id"]
+            len(opening_rows) != 2
+            or len(endpoint_rows) != 2
+            or any(row["winner_asset_id"] != opening_asset_id for row in opening_rows)
+            or any(row["winner_asset_id"] != endpoint_asset_id for row in endpoint_rows)
+            or len({row["target_id"] for row in [*opening_rows, *endpoint_rows]}) != 1
             or target_by_id[opening_rows[0]["target_id"]]["target_kind"] != "shot"
         ):
             _fail(
@@ -653,8 +658,10 @@ def validate_reference_manifest(value: object) -> dict[str, Any]:
                 "face_detail",
                 "wardrobe",
                 "product_object_geometry",
+                "opening_state",
                 "opening_composition",
                 "endpoint",
+                "endpoint_framing",
             }
             and asset["subject_locator"]["method"]
             not in {"position", "role", "visible_feature"}
@@ -723,20 +730,20 @@ def _align_binding_plan(
         opening_rows = [
             item
             for item in manifest["authority_assignments"]
-            if item["dimension"] == "opening_composition"
+            if item["dimension"] in {"opening_state", "opening_composition"}
         ]
         endpoint_rows = [
             item
             for item in manifest["authority_assignments"]
-            if item["dimension"] == "endpoint"
+            if item["dimension"] in {"endpoint", "endpoint_framing"}
         ]
         targets = {target["target_id"]: target for target in manifest["targets"]}
         if (
-            len(opening_rows) != 1
-            or len(endpoint_rows) != 1
-            or opening_rows[0]["winner_asset_id"] != first_id
-            or endpoint_rows[0]["winner_asset_id"] != last_id
-            or opening_rows[0]["target_id"] != endpoint_rows[0]["target_id"]
+            len(opening_rows) != 2
+            or len(endpoint_rows) != 2
+            or any(row["winner_asset_id"] != first_id for row in opening_rows)
+            or any(row["winner_asset_id"] != last_id for row in endpoint_rows)
+            or len({row["target_id"] for row in [*opening_rows, *endpoint_rows]}) != 1
             or targets[opening_rows[0]["target_id"]]["target_kind"] != "shot"
         ):
             _fail("REF003_STRUCTURED_ROLE_AUTHORITY_MISMATCH", "/reference_manifest/authority_assignments")

@@ -31,6 +31,8 @@
 | Clip scope | Completed beats are excluded and reserved future beats stay out. |
 | Causal chain | Fragile action has an ordered initial state, trigger, decisive change, visible response, follow-through, and settled endpoint. |
 | Observability | One primary camera move can show the before-state, decisive event, consequence, and endpoint. |
+| Paired locale source | English and Simplified Chinese forms come from the exact hash-bound scene catalog, not runtime translation. |
+| Locale parity | Both renders preserve the same semantic unit IDs, event order, entities, camera/audio links, invariants, and typed bindings; the catalog carries an unauthenticated human-attestation declaration, and a bilingual human must separately review meaning and naturalness. |
 
 ## Fast repair phrases
 
@@ -48,6 +50,7 @@
 | Reference authority conflict | choose one winner for the exact target/dimension; exclude that dimension from every competing asset |
 | Donor leakage | keep only the donor's assigned motion/camera/timing dimensions; exclude identity, wardrobe, environment, style, audio, and logo as applicable |
 | Invisible consequence | make the trigger, state change, visible response, and endpoint readable from the chosen camera |
+| English/Chinese drift | return to the paired catalog; repair the exact semantic entry and recompile both locales from one program |
 
 ## Reference boundary
 
@@ -56,3 +59,5 @@
 - An appearance image is not a first or last frame unless the verified operation assigns that structured role.
 - Keep semantic binding IDs separate from authority, request transport, and prompt-visible syntax.
 - Treat causal and observability planning as a preflight heuristic, not a Seedance architecture or physics guarantee.
+- The V7-07 paired compiler accepts one shot with no dialogue or voiceover. It fails closed instead of inventing a line, speaker, cut, timeline, translation, or provider token.
+- Do not hand-translate, renumber, normalize, or compress an opaque provider handle. A surface swap may change only the binding realization and request transport, never the semantic authority plan.

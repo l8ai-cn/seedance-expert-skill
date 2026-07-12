@@ -3,12 +3,12 @@
   "schema_version": 1,
   "profile_id": "volcengine.ark",
   "operation": "first_last_frame",
-  "task_intent": "Begin at the approved opening composition and complete one continuous action into the approved endpoint.",
+  "task_intent": "Begin at the approved visible opening state and composition, then complete one continuous action into the approved endpoint and end framing.",
   "targets": [
     {
       "target_id": "bottle_tip",
       "target_kind": "shot",
-      "required_dimensions": ["opening_composition", "endpoint"],
+      "required_dimensions": ["opening_state", "opening_composition", "endpoint", "endpoint_framing"],
       "not_applicable_dimensions": [
         "identity",
         "face_detail",
@@ -95,6 +95,18 @@
   "authority_assignments": [
     {
       "target_id": "bottle_tip",
+      "dimension": "opening_state",
+      "winner_asset_id": "opening",
+      "excluded_asset_ids": ["endpoint"],
+      "priority": "required",
+      "confidence": "high",
+      "excluded_transfer_dimensions": ["environment", "visual_style"],
+      "leakage_risks": ["environment", "visual_style"],
+      "resolved_leakage": ["environment", "visual_style"],
+      "acceptance_criteria": ["The first visible frame matches the supplied visible opening state."]
+    },
+    {
+      "target_id": "bottle_tip",
       "dimension": "opening_composition",
       "winner_asset_id": "opening",
       "excluded_asset_ids": ["endpoint"],
@@ -116,6 +128,18 @@
       "leakage_risks": ["environment", "visual_style"],
       "resolved_leakage": ["environment", "visual_style"],
       "acceptance_criteria": ["The final settled beat reaches the supplied endpoint without treating it as a prompt token."]
+    },
+    {
+      "target_id": "bottle_tip",
+      "dimension": "endpoint_framing",
+      "winner_asset_id": "endpoint",
+      "excluded_asset_ids": ["opening"],
+      "priority": "required",
+      "confidence": "high",
+      "excluded_transfer_dimensions": ["environment", "visual_style"],
+      "leakage_risks": ["environment", "visual_style"],
+      "resolved_leakage": ["environment", "visual_style"],
+      "acceptance_criteria": ["The final visible frame matches the supplied end framing without treating it as a prompt token."]
     }
   ],
   "selection_order": ["opening", "endpoint"],

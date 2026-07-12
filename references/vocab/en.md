@@ -1,10 +1,10 @@
 # English Vocabulary
 
-Use this reference for precise English Seedance prompt wording. English is the default prompting language and the most heavily moderated surface, and it fails in two ways at once: empty quality words ("cinematic, stunning, 8K") add zero signal, and vague threat-adjacent wording trips false-positive filters. Precision fixes both. Binding is a separate typed step: the selected profile preserves an external opaque handle, derives an evidenced media ordinal, or uses structured roles with no token. Never translate provider syntax.
+Use this reference when the requested prompt or production handoff is in English. Replace empty quality words ("cinematic, stunning, 8K") and ambiguous production shorthand with observable direction. Binding is a separate typed step: the selected profile preserves an external opaque handle, derives an evidenced media ordinal, or uses structured roles with no token. Never translate provider syntax.
 
 | Function | English wording | What it decides |
 |---|---|---|
-| Request role | assign the supplied opening image as first frame | locks the opening composition; do not invent prompt text for a structured field |
+| Request role | assign the supplied opening image as first frame | carries the explicitly assigned visible opening state and opening composition; do not invent a prompt token for a structured field |
 | Request role | assign the supplied endpoint image as last frame | sets the final visual target; do not invent prompt text for a structured field |
 | Binding clause | `locks character identity` | face, hair, and wardrobe stay stable |
 | Binding clause | `controls camera movement only` | motion donor, no appearance transfer |
@@ -58,11 +58,15 @@ Use this reference for precise English Seedance prompt wording. English is the d
 
 ## Dialogue Notes
 
-Field-observed from 2026 community testing; test per surface, never promise results. English has the second-strongest lip-sync after Mandarin.
+Test the exact surface, model version, line, voice path, and framing. The retained evidence does not establish a universal ranking or English word-count limit.
 
-- Reliable-sync budget is roughly 16-20 words in a ~15s clip; longer lines compress the mix. Keep each line to 5-10 words.
-- The acoustic budget (~35-40 words in 15s at natural pace) is higher than the reliable-sync budget - stay under the sync budget, not the acoustic one.
-- A written beat between sentences is field-reported to act as a re-sync anchor: `She pauses, then continues:` - test it rather than assume it.
+- Start with one short, performable clause and measure its actual spoken duration and articulation load.
+- Expand only after the same surface, operation, voice path, and framing pass a controlled test.
+- A written beat between sentences is field-reported to help on some surfaces: `She pauses, then continues:`. Treat it as a testable prompt variant, not a synchronization mechanism.
+
+## Paired V7 Realization Boundary
+
+When a validated scene IR and paired English/Chinese catalog are available, `scripts/prompt_compile.py` renders the authored English forms and `scripts/semantic_lint.py` checks structural parity. The compiler does not translate the scene IR. Entity IDs, event order, causal relations, camera semantics, audio links, and requested invariants must stay aligned with the Chinese trace. Keep stable entity names instead of inferring pronouns. V7-07 rejects dialogue and voiceover because the current IR lacks an exact utterance contract. Missing or contradictory language forms fail closed.
 
 ## Slop Traps
 
@@ -83,9 +87,9 @@ English prompts attract empty evaluation words. Each adds tokens and zero signal
 | insanely detailed | the two details that matter, named |
 | trending / viral style | the actual format: vertical, fast hook, caption-safe framing |
 
-## Filter-Trip Repairs
+## Ambiguity Repairs
 
-English carries the heaviest moderation. Use this only for safe prompts being misunderstood - the repair is clarity, not evasion. Genuinely prohibited content routes to a plain refusal via the filter skill.
+Use this only to clarify safe filmmaking language, never to disguise intent or evade a safety decision. Genuinely prohibited content routes to a plain refusal via the filter skill.
 
 | Trigger-prone English | Professional clarification |
 |---|---|

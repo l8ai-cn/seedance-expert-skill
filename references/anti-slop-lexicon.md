@@ -1,6 +1,6 @@
 # Anti-Slop Lexicon
 
-Replace empty evaluation language with observable production language. Field-confirmed across prompting communities in every supported language: abstract quality words destabilize generation because the model cannot tell which element to emphasize; decomposing them into physical elements (camera verb + speed + viewpoint, light source + direction + behavior, material + texture + motion) stabilizes it.
+Replace empty evaluation language with observable production language. Concrete clauses such as camera verb + speed + viewpoint, light source + direction + behavior, and material + texture + motion are easier to review, compare, and revise than abstract quality words. This is an authoring and evaluation rule, not a claim about hidden model processing or a guarantee that one wording will improve every surface.
 
 ## The Six Slop Classes
 
@@ -9,7 +9,7 @@ Replace empty evaluation language with observable production language. Field-con
 | Empty evaluators | `cinematic, epic, stunning, beautiful, dramatic` | convert each to the one observable detail that earns it |
 | Borrowed image-model tokens | `8K, masterpiece, award-winning, trending on ArtStation, Unreal Engine, RAW` | delete; resolution and quality are settings or outcomes, never prose |
 | Tag salad | comma-separated keyword dumps ported from image prompting | rewrite as shooting-brief prose: one sentence per element - subject, action, camera, light, sound |
-| Negation slop | `no blur, no artifacts, no distortion, no extra fingers` | negation summons; exclude compositionally - describe what IS there instead |
+| Negation slop | `no blur, no artifacts, no distortion, no extra fingers` | prefer a positive, observable composition or state; keep only necessary constraint syntax |
 | Adjective stacking | `gorgeous, breathtaking, mesmerizing sunset` | three synonyms make one weak claim; pick the single detail that matters |
 | Feel-suffix words | `电影感 · 雰囲気のある · 감성적인 · atmosférico · атмосферный · vibey` | name the physical cause of the feeling; every vocab file has a language-specific Slop Traps table |
 
@@ -36,11 +36,11 @@ Replace empty evaluation language with observable production language. Field-con
 
 ## Tag Salad Repair
 
-Image-model habits port badly: `girl, sunset, 8K, cinematic, beautiful light, masterpiece, detailed face` gives a video model no action, no camera, no time axis. Rewrite as a brief: `A woman turns from the railing at sunset; the low sun flares behind her hair. Camera: slow push-in to a medium close-up. Sound: wind and distant surf.` One sentence per element beats twenty comma fragments.
+The tag list `girl, sunset, 8K, cinematic, beautiful light, masterpiece, detailed face` does not specify an action, camera move, or time order. Rewrite it as a reviewable brief: `A woman turns from the railing at sunset; the low sun flares behind her hair. Camera: slow push-in to a medium close-up. Sound: wind and distant surf.` Prefer one clear clause per production element to an unordered keyword list.
 
 ## Negation Rule
 
-Naming a flaw plants it. Instead of `no blur, no extra fingers, no watermark text`, lock the positive: `hands rest still on the table`, `clean unbroken label`, `empty sky above the skyline`. Use negation only in the constraint slot where the platform expects it (`no on-screen text, no watermark`), never as quality insurance.
+Prefer the desired observable state to a long list of possible defects. Instead of `no blur, no extra fingers, no watermark text`, write `hands rest still on the table`, `clean unbroken label`, or `empty sky above the skyline`. Keep necessary constraints such as `no on-screen text, no watermark` in the constraint slot. Whether positive wording changes generation behavior is surface-dependent and must be tested.
 
 Rule: if a camera, microphone, light meter, or stopwatch cannot detect it, rewrite it.
 

@@ -24,7 +24,7 @@ Use Russian cinematic vocabulary when the user asks for Russian prompt wording, 
 
 ## Intent
 
-Russian users arrive having already fought the hardest dialogue battle in this model and built workarounds worth respecting. The soul here is honoring that ingenuity: give them the field-tested paths, mark the limits honestly, and never promise what the community has proven fragile.
+Give Russian-speaking users natural, ordered production language while marking surface, voice, and dialogue uncertainty honestly. Do not infer a capability ranking or accent outcome from the prompt language.
 
 ## Usage Rule
 
@@ -51,7 +51,7 @@ When the prompt leans on `кинематографичный`, `эпичный`,
 
 ## Dialogue Rule
 
-For spoken Russian, load the Russian Dialogue Notes in `references/vocab/ru.md`: lines of a few words, one speaker per generation, Cyrillic first with transliteration as the field-reported fallback, and a post-dub plan for fully voiced pieces.
+For spoken Russian, load the Russian Dialogue Notes in `references/vocab/ru.md`: start with one short line and one named speaker, test Cyrillic and transliterated variants as separate operator choices when useful, and keep a post-dub plan for longer voiced pieces.
 
 ## Output Contract
 

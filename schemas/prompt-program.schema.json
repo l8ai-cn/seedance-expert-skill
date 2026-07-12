@@ -1,0 +1,131 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Emily2040/seedance-2.0/schemas/prompt-program.schema.json",
+  "title": "Seedance V7 surface-independent prompt program",
+  "$comment": "Ordered, language- and surface-independent provenance units projected from a validated reference manifest, causal scene IR, and paired realization catalog. Prompt units are rendered as prose, request_carried units assign static semantics to structured frame roles, and review_only units remain hash-bound without emission. Unit-ID uniqueness, source referential integrity, exact semantic coverage, deterministic order, and binding/authority alignment remain runtime-enforced invariants.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schema_version",
+    "operation",
+    "reference_semantics_sha256",
+    "scene_ir_sha256",
+    "realization_catalog_sha256",
+    "asset_order",
+    "units"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "https://github.com/Emily2040/seedance-2.0/schemas/prompt-program.schema.json"
+    },
+    "schema_version": {"const": 1},
+    "operation": {"enum": ["reference_generation", "first_last_frame"]},
+    "reference_semantics_sha256": {"$ref": "#/$defs/sha256"},
+    "scene_ir_sha256": {"$ref": "#/$defs/sha256"},
+    "realization_catalog_sha256": {"$ref": "#/$defs/sha256"},
+    "asset_order": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 64,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/id"}
+    },
+    "units": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 5000,
+      "items": {"$ref": "#/$defs/unit"}
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9._-]{0,127}$"
+    },
+    "semantic_tag": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9._:-]{0,127}$"
+    },
+    "id_array": {
+      "type": "array",
+      "maxItems": 128,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/id"}
+    },
+    "unit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "unit_id",
+        "kind",
+        "source_ids",
+        "entity_ids",
+        "event_ids",
+        "binding_ids",
+        "semantic_tags",
+        "emission"
+      ],
+      "properties": {
+        "unit_id": {"$ref": "#/$defs/id"},
+        "kind": {
+          "enum": [
+            "operation",
+            "authority",
+            "event",
+            "camera",
+            "audio",
+            "invariant",
+            "review"
+          ]
+        },
+        "source_ids": {"$ref": "#/$defs/id_array"},
+        "entity_ids": {"$ref": "#/$defs/id_array"},
+        "event_ids": {"$ref": "#/$defs/id_array"},
+        "binding_ids": {
+          "type": "array",
+          "maxItems": 64,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/id"}
+        },
+        "semantic_tags": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 64,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/semantic_tag"}
+        },
+        "emission": {"enum": ["prompt", "request_carried", "review_only"]}
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {"kind": {"const": "review"}},
+            "required": ["kind"]
+          },
+          "then": {
+            "properties": {"emission": {"const": "review_only"}}
+          },
+          "else": {
+            "if": {
+              "properties": {"kind": {"const": "event"}},
+              "required": ["kind"]
+            },
+            "then": {
+              "properties": {
+                "emission": {"enum": ["prompt", "request_carried"]}
+              }
+            },
+            "else": {
+              "properties": {"emission": {"const": "prompt"}}
+            }
+          }
+        }
+      ]
+    }
+  }
+}

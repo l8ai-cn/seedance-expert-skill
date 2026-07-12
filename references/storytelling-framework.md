@@ -1,6 +1,6 @@
 # Storytelling Framework
 
-A short Seedance clip works best when it has one visible decision or one visible transformation. The model does not need a full plot; it needs a clear before state, action, and changed final state.
+Plan a short Seedance clip around one visible decision or one visible transformation. A compact shot brief needs a clear before state, action, and changed final state rather than a full plot summary. Treat this as a scope and review heuristic, not a guarantee of model behavior.
 
 ## Useful Clip Beats
 

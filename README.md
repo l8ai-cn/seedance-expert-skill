@@ -30,7 +30,11 @@ Platform context: [ByteDance Seedance 2.0](https://seed.bytedance.com/en/seedanc
 
 > **V7 development boundary:** reference syntax is surface- and operation-specific. The candidate renderer preserves externally captured handles, derives only evidence-pinned media ordinals, or emits structured roles without text; all provider profiles remain disabled pending evidence review and later activation.
 >
-> V7-06 adds a preview-only target/dimension authority map and causal-observability preflight—not a claim about hidden model architecture or guaranteed physics. See [`V7_SURFACE_PROFILE_MIGRATION.md`](docs/V7_SURFACE_PROFILE_MIGRATION.md) and [`V7_REFERENCE_CAUSAL_MIGRATION.md`](docs/V7_REFERENCE_CAUSAL_MIGRATION.md).
+> V7-06 adds a preview-only target/dimension authority map and causal-observability preflight—not a claim about hidden model architecture or guaranteed physics.
+>
+> V7-07 adds paired English/Chinese rendering from one hash-bound semantic program. It checks structural parity but leaves translation quality to a declared human attestation.
+>
+> Migration notes: [`surface profiles`](docs/V7_SURFACE_PROFILE_MIGRATION.md), [`reference and causal planning`](docs/V7_REFERENCE_CAUSAL_MIGRATION.md), and [`paired language rendering`](docs/V7_LANGUAGE_RENDERING_MIGRATION.md).
 
 Updated: **2026-07-06** · **v6.6.0 the loop closes: frame-extraction observation tooling, state lifecycle for long projects, and the worked end-to-end trace** · plus native quickstarts in six languages, a security policy, and an expanded agent-install matrix
 
@@ -53,6 +57,9 @@ It then holds one directorial voice across every short clip of a long story, and
 ## Native Language Start / 多语言入门 / 多言語スタート / 다국어 시작
 
 Seedance 2.0 Skill OS is English-readable, but the v6 line gives Chinese, Japanese, and Korean readers first-class entry points, active example skills, and native prompt guidance. In every language, resolve typed bindings through the selected surface profile: preserve an externally captured opaque handle byte-for-byte, derive only an evidence-pinned API ordinal, and add no text token for structured media roles.
+
+The V7-07 candidate compiler does not translate a finished English prompt into Chinese. It renders both `en` and `zh-Hans` from one validated scene and a closed catalog carrying a human-attestation declaration, then verifies that event order, entities, camera semantics, audio links, constraints, and typed bindings stay aligned.
+The declaration is not authenticated; catalog forms, compiler grammar, and final prompts still require publishing review. Exact dialogue/voiceover and multi-shot rendering remain deferred and fail closed.
 
 | Language | Start path | Native reader note |
 |---|---|---|
@@ -129,6 +136,7 @@ For these requests, the skill should not stop at a single prompt. It should retu
 | “This is a longer story / make it three connected clips.” | [`seedance-sequence`](skills/seedance-sequence/SKILL.md) | Full story spine, continuity bible, sequence map, Clip 01 contract, and Clip 01 prompt only. |
 | “Continue this video / make the next part.” | [`seedance-continuation`](skills/seedance-continuation/SKILL.md) | A source-gated continuation from accepted footage or a request for the missing clip/final frame. |
 | “I know the scene I want.” | [`seedance-prompt`](skills/seedance-prompt/SKILL.md) | A production-ready Seedance prompt. |
+| “Give me matched English and Chinese versions without changing the references.” | [`prompt-compiler`](references/prompt-compiler.md), [`V7 language migration`](docs/V7_LANGUAGE_RENDERING_MIGRATION.md) | Paired candidate renders from one semantic program, with exact binding preservation, an unauthenticated human-attestation declaration, and separate final review. |
 | “Make it actually feel directed, not just cinematic.” | [`directing-engine`](references/directing-engine.md) | One intention per scene, a coherent camera/light/blocking/performance/sound setup, and one directorial voice across the story. |
 | “Make it short and strong.” | [`seedance-prompt-short`](skills/seedance-prompt-short/SKILL.md) | A compressed 30–100 word prompt. |
 | “I have an image/video/audio reference.” | [`reference-workflow`](references/reference-workflow.md) | A target/dimension authority map, transfer exclusions, and a surface binding plan. |
@@ -276,7 +284,8 @@ Concept art for the system, generated and curated. Every image is paired with se
 | [`retake-protocol.md`](references/retake-protocol.md) | The iteration economy: take triage, the one-variable rule, attempt budgets, cost awareness, the shot log. |
 | [`sequence-project-state.md`](references/sequence-project-state.md) | Stateful project model, canon reconciliation, visual state fields, and Project State Capsule. |
 | [`continuation-handoff.md`](references/continuation-handoff.md) | Accepted-source continuation gate, observed state capture, continuation types, and beat exclusions. |
-| [`prompt-compiler.md`](references/prompt-compiler.md) | Compiles project state and current clip contract into one natural-language prompt. |
+| [`prompt-compiler.md`](references/prompt-compiler.md) | Compiles one validated semantic program into paired English/Chinese candidate prompts without translating provider bindings. |
+| [`V7_LANGUAGE_RENDERING_MIGRATION.md`](docs/V7_LANGUAGE_RENDERING_MIGRATION.md) | Paired-catalog contract, structural-parity boundary, deferred dialogue/multi-shot scope, and fail-closed diagnostics. |
 | [`reference-transfer-contract.md`](references/reference-transfer-contract.md) | Target/dimension authority, surface-specific binding resolution, and transfer/exclusion clauses. |
 | [`surface-prompt-profiles.md`](references/surface-prompt-profiles.md) | Candidate request transport, prompt-binding policy, allowed media, structured roles, and evidence boundaries. |
 | [`event-density.md`](references/event-density.md) | Clip-scope firewall for completed, current, reserved, and do-not-show-yet beats. |
@@ -411,10 +420,12 @@ python scripts/sequence_eval_check.py
 python scripts/generation_run_check.py
 python scripts/prompt_lint.py --self-test
 python scripts/eval_run.py --self-test
-python scripts/extract_last_frame.py --self-test
-python scripts/render_surface_bindings.py --self-test
-python scripts/scene_ir_check.py --self-test
-python scripts/reference_planner.py --self-test
+python -B scripts/extract_last_frame.py --self-test
+python -B scripts/render_surface_bindings.py --self-test
+python -B scripts/scene_ir_check.py --self-test
+python -B scripts/reference_planner.py --self-test
+python -B scripts/semantic_lint.py --self-test
+python -B scripts/prompt_compile.py --self-test
 python tools/runtime_package.py --dry-run
 python -m unittest discover -s tests -v
 python -m compileall scripts tests
@@ -422,8 +433,9 @@ git diff --check
 ```
 
 The CI workflow runs these checks plus runtime install/rollback and an idempotence rerun; see [the validation workflow](.github/workflows/validate-skills.yml).
+Use `python -B` for tools inside a checksum-verified installation. Python bytecode caches are undeclared extra files and intentionally make later whole-tree verification fail; the runtime package test executes the installed compiler with bytecode writes disabled and verifies the tree again afterward.
 The schema dependency lock is deliberately limited to the release environment above. These checks are deterministic and offline after dependency installation — they prove the package is well-formed.
-Schema-contract migration notes are in [`docs/V7_VALIDATION_MIGRATION.md`](docs/V7_VALIDATION_MIGRATION.md); the claim-evidence activation boundary is in [`docs/V7_EVIDENCE_MIGRATION.md`](docs/V7_EVIDENCE_MIGRATION.md).
+Schema-contract migration notes are in [`docs/V7_VALIDATION_MIGRATION.md`](docs/V7_VALIDATION_MIGRATION.md); the claim-evidence activation boundary is in [`docs/V7_EVIDENCE_MIGRATION.md`](docs/V7_EVIDENCE_MIGRATION.md); paired language rendering is documented in [`docs/V7_LANGUAGE_RENDERING_MIGRATION.md`](docs/V7_LANGUAGE_RENDERING_MIGRATION.md).
 
 The model-in-the-loop harness is development tooling, not proof that the package is good. V7-03 first runs a blind route stage, loads complete allowlisted resources without silent truncation, then uses a different effective judge model. Public development and live-canary cases are never release-eligible. The public CLI refuses external held-out execution; no valid held-out run or quality release gate exists yet.
 

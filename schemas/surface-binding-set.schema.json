@@ -1,0 +1,154 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Emily2040/seedance-2.0/schemas/surface-binding-set.schema.json",
+  "title": "Seedance V7 surface binding set",
+  "$comment": "Binding-only compiler input. It deliberately contains no prompt prose or text segments. Binding-ID uniqueness, binding order, exact asset/media alignment, handle safety, profile evidence, and structured-role closure remain runtime-enforced invariants.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "schema_version", "profile_id", "operation", "bindings"],
+  "properties": {
+    "$schema": {
+      "const": "https://github.com/Emily2040/seedance-2.0/schemas/surface-binding-set.schema.json"
+    },
+    "schema_version": {"const": 1},
+    "profile_id": {
+      "enum": ["byteplus.modelark", "fal.reference-to-video", "volcengine.ark"]
+    },
+    "operation": {
+      "enum": ["reference_generation", "first_last_frame"]
+    },
+    "bindings": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 64,
+      "items": {"$ref": "#/$defs/binding"}
+    }
+  },
+  "oneOf": [
+    {
+      "title": "BytePlus external opaque image bindings",
+      "properties": {
+        "profile_id": {"const": "byteplus.modelark"},
+        "operation": {"const": "reference_generation"},
+        "bindings": {"items": {"$ref": "#/$defs/opaque_image_binding"}}
+      }
+    },
+    {
+      "title": "fal derived per-media ordinal bindings",
+      "properties": {
+        "profile_id": {"const": "fal.reference-to-video"},
+        "operation": {"const": "reference_generation"},
+        "bindings": {"items": {"$ref": "#/$defs/derived_binding"}}
+      }
+    },
+    {
+      "title": "Volcengine derived image ordinal bindings",
+      "properties": {
+        "profile_id": {"const": "volcengine.ark"},
+        "operation": {"const": "reference_generation"},
+        "bindings": {"items": {"$ref": "#/$defs/derived_image_binding"}}
+      }
+    },
+    {
+      "title": "Volcengine structured first and last frame bindings",
+      "properties": {
+        "profile_id": {"const": "volcengine.ark"},
+        "operation": {"const": "first_last_frame"},
+        "bindings": {
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {"$ref": "#/$defs/structured_image_binding"},
+          "allOf": [
+            {
+              "contains": {
+                "properties": {"structured_role": {"const": "first_frame"}},
+                "required": ["structured_role"]
+              },
+              "minContains": 1,
+              "maxContains": 1
+            },
+            {
+              "contains": {
+                "properties": {"structured_role": {"const": "last_frame"}},
+                "required": ["structured_role"]
+              },
+              "minContains": 1,
+              "maxContains": 1
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "binding_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+    },
+    "binding": {
+      "oneOf": [
+        {"$ref": "#/$defs/derived_binding"},
+        {"$ref": "#/$defs/opaque_binding"},
+        {"$ref": "#/$defs/structured_binding"}
+      ]
+    },
+    "derived_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["binding_id", "media_type"],
+      "properties": {
+        "binding_id": {"$ref": "#/$defs/binding_id"},
+        "media_type": {"enum": ["audio", "image", "video"]}
+      }
+    },
+    "derived_image_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["binding_id", "media_type"],
+      "properties": {
+        "binding_id": {"$ref": "#/$defs/binding_id"},
+        "media_type": {"const": "image"}
+      }
+    },
+    "opaque_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["binding_id", "media_type", "prompt_visible_handle"],
+      "properties": {
+        "binding_id": {"$ref": "#/$defs/binding_id"},
+        "media_type": {"enum": ["audio", "image", "video"]},
+        "prompt_visible_handle": {"type": "string", "minLength": 1, "maxLength": 512}
+      }
+    },
+    "opaque_image_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["binding_id", "media_type", "prompt_visible_handle"],
+      "properties": {
+        "binding_id": {"$ref": "#/$defs/binding_id"},
+        "media_type": {"const": "image"},
+        "prompt_visible_handle": {"type": "string", "minLength": 1, "maxLength": 512}
+      }
+    },
+    "structured_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["binding_id", "media_type", "structured_role"],
+      "properties": {
+        "binding_id": {"$ref": "#/$defs/binding_id"},
+        "media_type": {"enum": ["audio", "image", "video"]},
+        "structured_role": {"enum": ["first_frame", "last_frame"]}
+      }
+    },
+    "structured_image_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["binding_id", "media_type", "structured_role"],
+      "properties": {
+        "binding_id": {"$ref": "#/$defs/binding_id"},
+        "media_type": {"const": "image"},
+        "structured_role": {"enum": ["first_frame", "last_frame"]}
+      }
+    }
+  }
+}

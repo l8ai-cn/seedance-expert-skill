@@ -287,6 +287,14 @@ class SceneIRTests(unittest.TestCase):
         wrong_decisive["shots"][0]["camera"]["observability"]["decisive_event_id"] = "cue"
         self.assert_scene_error(wrong_decisive, "EVT005_CAMERA_PHASE_MISMATCH")
 
+        duplicated_endpoint = valid_scene()
+        duplicated_endpoint["shots"][0]["camera"]["observability"][
+            "consequence_event_ids"
+        ].append("endpoint")
+        self.assert_scene_error(
+            duplicated_endpoint, "EVT005_CONSEQUENCE_PHASE_INVALID"
+        )
+
         occluded = valid_scene()
         occluded["shots"][0]["camera"]["observability"]["mitigations"] = []
         self.assert_scene_error(occluded, "EVT005_OCCLUSION_UNMITIGATED")

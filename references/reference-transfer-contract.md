@@ -6,13 +6,13 @@ Use this reference when images, videos, audio, previous clips, final frames, or 
 
 ## Exact Binding Rule
 
-Keep the semantic `binding_id` separate from the surface binding. When a profile requires an externally supplied opaque handle, preserve it byte-for-byte. Never invent, normalize, translate, reformat, renumber, correct spacing, change case, or add a prefix. A value such as `@Image1`, `@Image 1`, `[Video 1]`, or a Chinese/interface-generated name is opaque; its spelling proves nothing about another surface. Derived profiles reject those caller values and construct only their pinned formatter.
+Keep the semantic `binding_id` separate from the surface binding. When a profile requires an externally supplied opaque handle, preserve it byte-for-byte. Never invent, normalize, translate, reformat, renumber, correct spacing, change case, or add a prefix. A value such as `@Image1`, `@Image 1`, `[Video 1]`, or a Chinese/interface-generated name is opaque; its spelling proves nothing about another surface. Collision checks only treat recognized ordinal spellings such as `@Image1`, `@Image 1`, and `@Image01` as one review identity so two different bindings cannot claim an ambiguous tag; emitted bytes remain untouched. Derived profiles reject caller handles and construct only their pinned formatter.
 
 Load `[ref:surface-prompt-profiles]` and render typed text/binding segments through the selected operation profile. Never parse placeholder-looking text. When the API uses structured media roles, keep those roles out of prompt prose and never substitute an asset ID, URL, or filename as a token.
 
 ## Authority Separation
 
-Resolve authority for each `(target, dimension)` pair. Relevant dimensions are identity, face detail, wardrobe, product/object geometry, environment, visual style, opening composition, subject motion, camera motion, timing/rhythm, audio/voice, endpoint, and text/logo treatment.
+Resolve authority for each `(target, dimension)` pair. Relevant dimensions are identity, face detail, wardrobe, product/object geometry, environment, visual style, visible opening state, opening composition, subject motion, camera motion, timing/rhythm, audio/voice, endpoint, endpoint framing, and text/logo treatment.
 
 Exactly one asset wins each applicable target/dimension. One asset may win several dimensions; priority, confidence, media type, filename, and upload order never break a tie. Every other asset that could influence that dimension must be explicitly excluded, and every included asset must own at least one necessary dimension.
 
@@ -24,7 +24,7 @@ Legacy project-state `tag` and single-role values remain v6 compatibility input 
 
 An appearance image controls only its declared dimensions. It is not an opening or endpoint frame unless the exact selected operation supports that structured role and the request assigns it.
 
-For a verified first/last-frame operation, the first role owns opening composition and the last role owns the endpoint. Those roles stay in request structure, not prompt prose. The Volcengine evidence establishes role designation only; it does not promise exact endpoint fidelity or support on another surface.
+For a verified first/last-frame operation, the first role must explicitly win both `opening_state` and `opening_composition`; the last role must explicitly win both `endpoint` and `endpoint_framing`. Those roles stay in request structure, not prompt tokens. The four dimensions are a local planning contract. Volcengine evidence establishes role designation only; it does not prove the declared frame content, promise exact endpoint fidelity, or establish support on another surface.
 
 ## Continuity Source Versus Motion Reference
 

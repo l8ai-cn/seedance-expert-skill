@@ -25,7 +25,7 @@ Before writing prompt prose, identify each target—for example a character, pro
 | Audio | timing, rhythm, ambience, delivery, voice, music texture | voice, song, performance, or likeness authorization |
 | Text brief | action, genre, camera plan, constraints, acceptance criteria | authority over a supplied asset or provider transport |
 
-Use the V7 controlled dimensions: identity, face detail, wardrobe, product/object geometry, environment, visual style, opening composition, subject motion, camera motion, timing/rhythm, audio/voice, endpoint, and text/logo treatment. For every target, each dimension has exactly one winner or is marked not applicable. One asset may own several dimensions. Two assets may not win the same target/dimension.
+Use the V7 controlled dimensions: identity, face detail, wardrobe, product/object geometry, environment, visual style, visible opening state, opening composition, subject motion, camera motion, timing/rhythm, audio/voice, endpoint, endpoint framing, and text/logo treatment. For every target, each dimension has exactly one winner or is marked not applicable. One asset may own several dimensions. Two assets may not win the same target/dimension.
 
 Record typed leakage risks and explicit exclusions. Priority, confidence, media type, filename, and upload order may explain a human decision but never resolve a conflict automatically. Every included asset must win at least one necessary target/dimension; otherwise remove it.
 

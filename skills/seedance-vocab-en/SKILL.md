@@ -21,11 +21,11 @@ metadata:
 
 # seedance-vocab-en
 
-English is the default prompting language and fails in two ways at once: slop (empty evaluation words that add tokens and no signal) and false positives (vague threat-adjacent wording that trips the heaviest moderation surface). The cure for both is concrete production English. Binding is a separate typed step: a selected profile preserves an external opaque handle, derives an evidenced ordinal, or uses structured roles with no token.
+Use English when the user, operator, or delivery workflow requests it. Replace empty evaluation words and ambiguous production shorthand with concrete, observable direction. Binding is a separate typed step: a selected profile preserves an external opaque handle, derives an evidenced ordinal, or uses structured roles with no token.
 
 ## Intent
 
-English is where most users think, and where most prompts quietly rot. The soul of this vocabulary is precision as kindness: give people exact words so their excitement survives contact with the model, and so honest prompts stop being mistaken for dangerous ones.
+The purpose of this vocabulary is precision without padding: give the user exact production language so the intended action, camera, light, sound, and constraint remain reviewable.
 
 ## Usage Rule
 
@@ -45,13 +45,13 @@ Strip quality adjectives before adding anything: `cinematic`, `epic`, `stunning`
 
 ## Filter-Aware Wording
 
-English homonyms read as threats to filters: `shoot the scene`, `kill the lights`, `gun it`, `dead silence`, `blow up the image`. Use the production synonym (`film the take`, `cut the lights to black`, `accelerate hard`, `held silence`, `enlarge to full frame`). This is clarity for safe prompts only — never evasion. Anything genuinely risky (minors, real-person likeness, sexual or graphic content) routes to `[skill:seedance-filter]` for its boundary rule, not to a rewording.
+Some production homonyms are ambiguous outside filmmaking context: `shoot the scene`, `kill the lights`, `gun it`, `dead silence`, `blow up the image`. Use the clearer production synonym (`film the take`, `cut the lights to black`, `accelerate hard`, `held silence`, `enlarge to full frame`). This is clarity for safe prompts only, never evasion. Anything genuinely risky routes to `[skill:seedance-filter]` for its boundary rule, not to a wording substitution.
 
 ## Compact Pattern
 
 After the typed reference binding: `is the reference; keep identity, color, and shape unchanged. Only [motion/light/camera] changes. Camera: [one move]. Sound: [one cue]. Constraints: [lock].`
 
-Load `references/vocab/en.md` for the full function-organized vocabulary, slop traps, and filter-trip repairs. Load `[ref:anti-slop-lexicon]` for the core replacement rule and `[ref:filter-vocab]` for the full false-positive repair table.
+Load `references/vocab/en.md` for the full function-organized vocabulary and ambiguity repairs. Load `[ref:anti-slop-lexicon]` for the core replacement rule and `[ref:filter-vocab]` for the safe-language boundary. When a validated V7 scene IR and paired language catalog are available, let `scripts/prompt_compile.py` realize the English clauses and let `scripts/semantic_lint.py` verify structural parity; do not translate arbitrary IR prose at runtime.
 
 ## Output Contract
 

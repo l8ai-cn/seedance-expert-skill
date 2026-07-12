@@ -13,13 +13,15 @@
         "face_detail",
         "wardrobe",
         "product_object_geometry",
-        "environment",
-        "visual_style",
-        "opening_composition",
+      "environment",
+      "visual_style",
+      "opening_state",
+      "opening_composition",
         "camera_motion",
-        "timing_rhythm",
-        "endpoint",
-        "text_logo_treatment"
+      "timing_rhythm",
+      "endpoint",
+      "endpoint_framing",
+      "text_logo_treatment"
       ]
     }
   ],

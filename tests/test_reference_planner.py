@@ -319,12 +319,22 @@ class ReferencePlannerTests(unittest.TestCase):
             [
                 {
                     "target_id": "bottle_tip",
+                    "dimension": "opening_state",
+                    "winner_asset_id": "opening",
+                },
+                {
+                    "target_id": "bottle_tip",
                     "dimension": "opening_composition",
                     "winner_asset_id": "opening",
                 },
                 {
                     "target_id": "bottle_tip",
                     "dimension": "endpoint",
+                    "winner_asset_id": "endpoint",
+                },
+                {
+                    "target_id": "bottle_tip",
+                    "dimension": "endpoint_framing",
                     "winner_asset_id": "endpoint",
                 },
             ],
@@ -383,6 +393,7 @@ class ReferencePlannerTests(unittest.TestCase):
         )
 
     def test_authority_conflicts_and_incomplete_dimension_partitions_fail(self) -> None:
+        self.assertEqual(planner.MAX_AUTHORITY_ASSIGNMENTS, 960)
         conflict = fixture("reference-manifest.valid.json")
         conflict["authority_assignments"].append(copy.deepcopy(conflict["authority_assignments"][0]))
         self.assert_planning_error(request_for(conflict), "REF002_MULTIPLE_WINNERS")

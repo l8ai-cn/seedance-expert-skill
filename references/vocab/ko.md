@@ -88,14 +88,14 @@ Use these when the Korean prompt is part of a v6 sequence project, continuation,
 
 ## Dialogue Notes
 
-Field-observed and under-tested as of 2026; test per surface, never promise results. Korean dialogue is supported but quantitatively under-reported - do not assume parity with Mandarin or English.
+Test the exact surface, model version, spoken line, voice path, and framing. The retained evidence does not establish a universal Korean-vs-other-language ranking or dialogue limit.
 
-- Keep to one short line, about one breath; treat Korean as the weaker tier until tested on the active surface.
-- For reliable Korean voice, prefer a voice reference (attach the spoken line so the model lip-syncs to it) or plan a post-dub.
+- Start with one short line, about one breath, then expand only after a controlled pass on the active surface.
+- Where the exact operation supports an authorized spoken-voice reference, test it as a voice/timing source without assuming exact reproduction; otherwise plan a post-dub.
 
 ## Slop Traps
 
-커뮤니티 공통 결론: 추상적인 품질 단어는 모델이 어떤 요소를 강조해야 할지 판단하지 못하게 만들어 출력을 불안정하게 한다. 느낌 단어는 그 느낌을 만드는 물리 요소(카메라 동사+속도+시점, 광원+방향+행동)로 분해한다.
+추상적인 품질 단어를 카메라 동사+속도+시점, 광원+방향+행동처럼 관찰 가능한 요소로 바꾸면 지시를 비교하고 수정하기 쉬워진다. 생성 결과에 미치는 효과는 같은 입력 조건에서 확인한다.
 
 | 상투어 | 바꿔 쓰기 |
 |---|---|

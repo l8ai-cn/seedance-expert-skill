@@ -6,26 +6,32 @@ Binding notation: `binding(name)` denotes a typed segment, never literal prompt 
 
 ## Boundary
 
-Language mixing can reduce false positives only when it clarifies a benign creative intent. Do not use another language to hide unsafe content, protected identity copying, real-person imitation, graphic harm, or platform-rule evasion.
+Language mixing is an operator and collaboration choice, not a proven way to improve model understanding or bypass moderation. Use it only when it makes a benign production instruction clearer. Do not use another language to hide unsafe content, protected identity copying, real-person imitation, graphic harm, or platform-rule evasion.
 
 Safe language mixing means:
 
 - Keep each externally supplied opaque handle byte-exact; let an API profile derive its own ordinal; never translate either in language prose.
-- Use English for technical camera terms that creators commonly share across communities: `35mm lens`, `locked medium shot`, `slow dolly-in`, `no text`.
-- Use Chinese for concise role clauses when a surface or collaborator expects it: `锁定主体身份`, `仅参考运镜`; the typed renderer inserts any exact handle separately.
+- Keep technical camera terms in English only when the operator explicitly prefers that shared vocabulary: `35mm lens`, `locked medium shot`, `slow dolly-in`, `no text`.
+- Use Chinese role clauses when a surface or collaborator expects them: `锁定主体身份`, `仅参考运镜`; the typed renderer inserts any exact handle separately.
 - Use the target dialogue language only for the spoken line.
 - Use local-language constraints to remove ambiguity, not to soften an unsafe request.
 - If a safe prompt is blocked, rewrite the scene with clearer production context, ownership, age/consent if relevant, non-graphic wording, and narrower target/dimension transfer.
 
+## V7 paired-language boundary
+
+A paired English/Chinese rendering is not runtime translation. One validated scene IR supplies the IDs, event graph, camera semantics, audio links, and invariants; a closed catalog supplies English and Chinese forms for those exact semantic nodes. `scripts/prompt_compile.py` renders one locale without inventing text, while `scripts/semantic_lint.py` verifies that both outputs carry the same structural trace. The catalog records only an unauthenticated human-attestation declaration. A bilingual reviewer must separately approve translation quality, compiler grammar, and the final pair because matching IDs and placeholders cannot prove that two natural-language clauses mean the same thing.
+
+Keep entity names stable across every event. Do not infer gendered pronouns or omit the Chinese subject when doing so could make the actor unclear. V7-07 rejects dialogue and voiceover because the current IR lacks an exact utterance contract. When a later contract adds dialogue, keep the exact spoken line unchanged between prompt-language variants; a translated dub is a new semantic variant. Missing locale forms, placeholder mismatch, ambiguous speaker identity, unsupported provider syntax, or contradictory event order must fail closed.
+
 ## What Works
 
-| Pattern | Use it for | Why it helps |
+| Pattern | Use it for | Operator rationale |
 |---|---|---|
-| Chinese role binding + English camera | R2V, I2V, FLF2V | Chinese stays compact for references; English keeps lens/camera terms conventional. |
-| Local-language dialogue + English blocking | Lip-sync scenes | The line stays natural while camera and framing remain unambiguous. |
-| English safety/constraint block | Community-shared prompts | `no text`, `no watermark`, `original character`, and `authorized reference` are easy to audit. |
+| Chinese role binding + English camera | R2V, I2V, FLF2V | use only when collaborators have chosen this mixed production vocabulary |
+| Local-language dialogue + English blocking | Lip-sync scenes | preserves the authored spoken line while using the operator's chosen blocking language |
+| English safety/constraint block | Community-shared prompts | use when all reviewers understand these exact terms; otherwise localize them |
 | One-language prompt + bilingual glossary note | Translation work | Avoids mixing grammar when the user needs a polished final prompt. |
-| Bilingual false-positive repair | Safe prompts blocked by ambiguous words | Clarifies that a prop, action beat, or costume is staged, non-graphic, and original. |
+| Bilingual clarification | Safe prompts with ambiguous production terms | records the same benign production meaning in terminology the operator can audit |
 
 ## What To Avoid
 
@@ -37,7 +43,7 @@ Safe language mixing means:
 
 ## Chinese-English Patterns
 
-Native Chinese readers can start from the role of each reference, then write one visible action and one camera move. Preserve imported surface handles only through typed binding segments, even inside Chinese sentences.
+For a Chinese-language workflow, start from the role of each reference, then write one visible action and one camera move. Preserve imported surface handles only through typed binding segments, even inside Chinese sentences.
 
 **Official-style role formula**
 
@@ -53,7 +59,7 @@ Native Chinese readers can start from the role of each reference, then write one
 
 ## Japanese-English Patterns
 
-Native Japanese readers should keep identity, costume, frame layout, motion endpoint, and post-production text handling explicit. Avoid vague quality words unless they are decomposed into camera, light, material, and action.
+For a Japanese-language workflow, keep identity, costume, frame layout, motion endpoint, and post-production text handling explicit. Avoid vague quality words unless they are decomposed into camera, light, material, and action.
 
 **Portrait micro-performance**
 
@@ -69,7 +75,7 @@ Native Japanese readers should keep identity, costume, frame layout, motion endp
 
 ## Korean-English Patterns
 
-Native Korean readers should separate subject lock, camera movement, lighting, audio, and textless delivery. Short dialogue works best when the camera is locked and the head movement stays minimal.
+For a Korean-language workflow, separate subject lock, camera movement, lighting, audio, and textless delivery. Begin dialogue testing with stable framing, minimal head movement, and one short line; do not treat this as a language-specific capability ranking.
 
 **Melodrama micro-expression**
 

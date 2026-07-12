@@ -65,21 +65,21 @@ After the typed reference binding: `— референс; сохранить [п
 
 ## Russian Dialogue Notes
 
-Field-observed from Russian community testing (Habr, vc.ru); test per surface, never promise results. Russian-language coverage reports multi-language dialogue support including Russian, but the official ByteDance pages in the source registry do not enumerate dialogue languages - treat Russian dialogue as field-observed, and long Russian phrases as a reported weak spot.
+Test the exact surface, model version, spoken line, voice path, and framing. The retained evidence does not establish a universal Russian-vs-other-language ranking, dialogue limit, or accent outcome.
 
 | Rule | Practice |
 |---|---|
-| Короткие реплики | Split monologues into lines of a few words: `Она тихо говорит: «Я нашла его»` - long phrases drift into noise |
-| Кириллица vs транслит | The community tested pure Cyrillic, transliteration (`Ya nashla yego`), and hybrids - results vary by surface; try Cyrillic first, transliteration as the field-reported fallback when Cyrillic degrades |
-| Один говорящий | One speaker per generation for reliable lip-sync; locked medium close-up during the line |
-| Полная озвучка | A fully voiced Russian piece is not reliably achievable in-model: generate with room tone or short lines, then dub and lip-sync in post (see `audio-post-delivery.md`) |
-| Доступ из РФ | Access from Russia typically runs through third-party wrappers - treat their model names, prices, and limits as wrapper-specific, never official |
-| Бюджет реплики | ~10-15 words maximum per phrase, fewer is safer; long phrases drift into noise |
-| Аудио-референс | On surfaces that accept a voice clip, attach your own recorded or licensed Russian voice so the model lip-syncs to it instead of synthesizing - the field-reported fix for English-accented articulation |
+| Короткие реплики | Start with one short performable line, such as `Она тихо говорит: «Я нашла его»`, then expand only after a controlled pass |
+| Кириллица vs транслит | Use the user's intended written/spoken form; treat Cyrillic, transliteration, or hybrid variants as separate tests rather than a universal fallback order |
+| Один говорящий | Start with one named speaker and stable face framing while reviewing lip-sync |
+| Полная озвучка | For a long voiced piece, plan a post-dub path and compare it with short in-model tests (see `audio-post-delivery.md`) |
+| Доступ и провайдер | Route region, model-name, price, and availability questions through the current surface/source gate |
+| Длительность реплики | Measure spoken duration and articulation load; no retained universal word maximum is available |
+| Аудио-референс | Where the exact operation supports an authorized spoken-voice reference, test it as a voice/timing source without assuming exact reproduction |
 
 ## Slop Traps
 
-Общий вывод сообщества: абстрактные оценочные слова дестабилизируют генерацию — модель не понимает, какой элемент подчеркнуть. Каждое слово-ощущение разбирается на физические элементы, которые его создают (глагол камеры + скорость + точка зрения, источник света + направление + поведение).
+Заменяйте абстрактные оценки наблюдаемыми элементами (глагол камеры + скорость + точка зрения, источник света + направление + поведение), чтобы указание было легче сравнивать и исправлять. Эффект на генерацию проверяйте при одинаковых входных условиях.
 
 | Штамп | Пишите вместо него |
 |---|---|

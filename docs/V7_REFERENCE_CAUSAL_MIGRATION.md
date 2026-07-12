@@ -44,18 +44,22 @@ Every included asset must have a purposeful use. Authority is resolved on the ke
 
 The planner uses these controlled dimensions:
 
+> V7-07 adds visible opening state and endpoint framing to the unreleased V7-06 candidate partition. Existing candidate manifests must migrate their complete dimension partitions; this is not an active 6.6 contract change.
+
 - identity;
 - face detail;
 - wardrobe;
 - product or object geometry;
 - environment;
 - visual style;
+- visible opening state;
 - opening composition;
 - subject motion;
 - camera motion;
 - timing or rhythm;
 - audio or voice;
 - endpoint;
+- endpoint framing;
 - text or logo treatment.
 
 For each target, every dimension is either assigned exactly one winning asset or marked not applicable. A single asset may legitimately win several dimensions; several assets may not win the same target/dimension. Other assets that could leak into that dimension must be explicitly excluded. Priority and confidence document the human decision but never break a tie automatically.
@@ -75,13 +79,13 @@ Media compatibility is explicit rather than guessed from filenames: images may o
 
 An ordinary image reference may control identity, wardrobe, product geometry, environment, style, or another declared dimension. It does not become a first or last frame merely because it is an image.
 
-A first/last-frame operation is different:
+A first/last-frame operation is different. V7-07 makes all source-carried meaning explicit in the authority matrix:
 
-- the structured first-frame role owns opening composition;
-- the structured last-frame role owns the endpoint; and
+- the structured first-frame role must win both `opening_state` and `opening_composition`;
+- the structured last-frame role must win both `endpoint` and `endpoint_framing`; and
 - the prompt describes the continuous transition between those supplied states.
 
-The retained Volcengine claim `volc.binding.first-last-frame-role` establishes structured role designation only. It does not establish universal syntax, exact pixel preservation, or support on another surface or operation. The claim and associated profile are candidate-only and time-bounded.
+The retained Volcengine claim `volc.binding.first-last-frame-role` establishes structured role designation only. The four semantic authority dimensions are a local validated planning contract, not a provider capability claim. Neither layer establishes universal syntax, exact pixel preservation, or support on another surface or operation. The claim and associated profile are candidate-only and time-bounded.
 
 ## Leakage and rights preflight
 

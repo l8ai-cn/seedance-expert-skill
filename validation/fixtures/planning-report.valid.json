@@ -6,11 +6,15 @@
   "profile_status": "candidate",
   "preview": true,
   "operation": "reference_generation",
-  "reference_manifest_sha256": "1dfd3d8176985292abd085145fa9a088ed2ad027c1168986c845da64b3f2d1d4",
-  "scene_ir_sha256": "6f2d7c403377f5836a16bb8362152df9b070002cea2452b7dde05ce4e804e3b2",
+  "reference_manifest_sha256": "55efb0421ceae0455d0c73ab0c551437af9848ce7157dff7b466dea615741f61",
+  "scene_ir_sha256": "903c0f584010c943e27ae4615b486c216533d48bbd665b5554a3d010db9c0409",
   "binding_plan_sha256": "f05c6afa6964707278b6d3d7418edc301106f925f43f8628856fa594bd4b895a",
-  "selected_asset_ids": ["product"],
-  "selection_order": ["product"],
+  "selected_asset_ids": [
+    "product"
+  ],
+  "selection_order": [
+    "product"
+  ],
   "ablation_order": [],
   "authority_matrix": [
     {

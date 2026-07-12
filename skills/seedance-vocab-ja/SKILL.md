@@ -24,7 +24,7 @@ Use Japanese cinematic vocabulary when the user asks for Japanese prompt wording
 
 ## Intent
 
-The user working in Japanese often lives closest to the anime tradition this model loves to render. Serve both registers - the politeness-shaped natural sentence and the production term - and let the vocabulary feel native, never translated.
+Serve the user's chosen Japanese register with natural sentences and recognizable production terms. Preserve the intended medium—live action, animation, product, or another form—without assuming a model preference from the prompt language.
 
 ## Usage Rule
 

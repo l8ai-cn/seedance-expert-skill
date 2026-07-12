@@ -27,7 +27,7 @@ REQUIRED_SNIPPETS = {
         "Do not hide this uncertainty",
     ],
     "references/prompt-compiler.md": [
-        "natural-language Seedance prompt",
+        "typed natural-language segments",
         "Do not emit internal JSON",
         "Do not replay completed actions",
         "Do not perform reserved later actions",
@@ -44,6 +44,18 @@ REQUIRED_SNIPPETS = {
         "PROFILE_EVIDENCE_EXPIRED",
         "STRUCTURED_BINDING_IN_PROMPT",
         "REFERENCE_TOKEN_IN_TEXT_FORBIDDEN",
+    ],
+    "scripts/semantic_lint.py": [
+        "PRM022_MULTI_SHOT_DEFERRED",
+        "PRM021_DIALOGUE_TEXT_REQUIRED",
+        "PARITY001_SEMANTIC_TRACE_MISMATCH",
+        "reviewer_attested",
+    ],
+    "scripts/prompt_compile.py": [
+        "PROFILE_CANDIDATE_REQUIRES_PREVIEW",
+        "REF001_BINDING_ORDER_MISMATCH",
+        "linguistic_equivalence",
+        "prompt_program_sha256",
     ],
 }
 

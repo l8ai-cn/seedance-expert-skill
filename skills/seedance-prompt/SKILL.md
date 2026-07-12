@@ -70,6 +70,8 @@ For sequence prompts, preserve `project_id`, `clip_id`, `parent_clip_id`, contin
 
 First, identify the single visible beat: reveal, arrival, decision, transformation, contact, pursuit, or disappearance, and name the one intention it serves. Next, resolve target/dimension reference authority before adding adjectives. Then write a compact first draft in the director formula order, keeping camera, light, performance, and sound aimed at that intention. Finally, run a self-check and the directing coherence test from `[ref:directing-engine]`: one main subject, one main action, one motivated main camera move, physically motivated lighting, performance written as a visible gesture rather than an emotion word, assigned character tags, sound intent, and no hollow boosters.
 
+When a complete V7 reference manifest, one-shot causal scene IR, matching surface binding set, and hash-bound English/Chinese realization catalog are present, do not hand-author two final prompts. Run `scripts/prompt_compile.py --preview-candidate` and use its paired renders as candidate output. The compiler preserves one semantic unit order and delegates provider syntax to the selected surface renderer. Missing or stale catalog entries, dialogue/voiceover, more than one shot, binding-order drift, or expired evidence fail closed; do not repair those failures by translating, trimming, renumbering references, or dropping a semantic unit.
+
 ## Compression Rules
 
 When the prompt is too long, cut in this order: duplicate style adjectives, generic quality words, background details visible in references, secondary camera moves, secondary actions, and speculative emotional labels. Keep preservation constraints, action timing, and the target/dimension authority map. If a user requests a bilingual or mixed-language prompt, use language mixing only for clarity: authority clauses, dialogue language, technical camera terms, and safe production constraints. Do not use another language to hide unsafe intent.
@@ -86,3 +88,5 @@ Return:
 6. Safety or copyright note when relevant.
 
 Before finalizing, run an anti-slop pass and remove vague quality boosters.
+
+For a V7 paired render, item 4 is the compiler's matched `zh-Hans` render, not an optional manual translation. Report that structural parity is machine-checked, the catalog carries an unauthenticated human-attestation declaration, and paired meaning plus final grammar still require separate human review.

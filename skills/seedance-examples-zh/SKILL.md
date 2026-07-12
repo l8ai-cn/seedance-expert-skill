@@ -22,6 +22,8 @@ metadata:
 
 Use examples as patterns, not as content to copy blindly. Chinese prompts should stay compact, concrete, and production-oriented. Resolve every reference through `[ref:surface-prompt-profiles]`: preserve external opaque handles, let API profiles derive evidenced ordinals, and add no token for structured roles. Never invent or translate provider syntax from an example.
 
+When a validated V7 scene IR and paired realization catalog are available, examples are no longer the renderer. Use `scripts/prompt_compile.py --preview-candidate` so English and Simplified Chinese come from one semantic program; do not translate a finished English prompt or manually splice an `@` token into the Chinese render. Structural parity is checked by software. The catalog's attestation field is only a declaration; a bilingual human must separately review meaning, naturalness, compiler grammar, and the final pair.
+
 ## Intent
 
 Some users learn by rule, but the ones who come here learn by seeing. The purpose of these examples is recognition - a working prompt close enough to their idea that they can feel the gap and close it themselves. An example that teaches is worth ten instructions.

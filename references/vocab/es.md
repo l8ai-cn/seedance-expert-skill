@@ -65,14 +65,14 @@ Compile three typed bindings with these clauses: `fija el personaje original`; `
 
 ## Dialogue Notes
 
-Field-observed and under-tested for Spanish specifically as of 2026; test per surface, never promise results. Treat Spanish as the non-English/Mandarin tier.
+Test the exact surface, model version, spoken line, voice path, and framing. The retained evidence does not establish a universal Spanish-vs-other-language ranking or dialogue limit.
 
-- Keep to one short clear line, about one breath.
-- For reliable Spanish voice, prefer a voice reference (attach the spoken line so the model lip-syncs to it) or plan a post-dub.
+- Start with one short clear line, about one breath, then expand only after a controlled pass.
+- Where the exact operation supports an authorized spoken-voice reference, test it as a voice/timing source without assuming exact reproduction; otherwise plan a post-dub.
 
 ## Slop Traps
 
-Consenso de la comunidad: los adjetivos de calidad abstractos desestabilizan la generación porque el modelo no sabe qué elemento enfatizar. Convierte cada palabra-sensación en los elementos físicos que la producen (verbo de cámara + velocidad + punto de vista, fuente de luz + dirección + comportamiento).
+Convierte los adjetivos abstractos en elementos observables (verbo de cámara + velocidad + punto de vista, fuente de luz + dirección + comportamiento) para que la instrucción sea más fácil de comparar y corregir. Comprueba su efecto en la generación con las mismas condiciones de entrada.
 
 | Muletilla | Escribe en su lugar |
 |---|---|

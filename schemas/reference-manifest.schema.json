@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/Emily2040/seedance-2.0/schemas/reference-manifest.schema.json",
   "title": "Seedance V7 reference authority manifest",
-  "$comment": "Candidate-only semantic planning contract. Asset/target ID uniqueness, complete 13-dimension partitions, exactly one winner per required target/dimension, asset purpose, binding-plan alignment, rights sufficiency, and resolved leakage are runtime-enforced invariants. The contract intentionally has no handle, URL, path, provider-object, or media-payload field.",
+  "$comment": "Candidate-only semantic planning contract. V7-07 replaces the unreleased V7-06 draft partition with 15 dimensions by adding opening_state and endpoint_framing. Asset/target ID uniqueness, complete partitions, exactly one winner per required target/dimension, asset purpose, binding-plan alignment, rights sufficiency, and resolved leakage are runtime-enforced invariants. The contract intentionally has no handle, URL, path, provider-object, or media-payload field.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -49,7 +49,7 @@
     "authority_assignments": {
       "type": "array",
       "minItems": 1,
-      "maxItems": 832,
+      "maxItems": 960,
       "items": {"$ref": "#/$defs/authority_assignment"}
     },
     "selection_order": {
@@ -105,18 +105,20 @@
         "product_object_geometry",
         "environment",
         "visual_style",
+        "opening_state",
         "opening_composition",
         "subject_motion",
         "camera_motion",
         "timing_rhythm",
         "audio_voice",
         "endpoint",
+        "endpoint_framing",
         "text_logo_treatment"
       ]
     },
     "dimension_set": {
       "type": "array",
-      "maxItems": 13,
+      "maxItems": 15,
       "uniqueItems": true,
       "items": {"$ref": "#/$defs/dimension"}
     },
@@ -137,7 +139,7 @@
         "required_dimensions": {
           "type": "array",
           "minItems": 1,
-          "maxItems": 13,
+          "maxItems": 15,
           "uniqueItems": true,
           "items": {"$ref": "#/$defs/dimension"}
         },

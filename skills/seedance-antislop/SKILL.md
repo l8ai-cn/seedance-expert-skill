@@ -45,7 +45,7 @@ Classify before rewriting - each class has a different repair:
 1. **Empty evaluators** (`cinematic, epic, stunning`) - convert each to the one observable detail that earns it.
 2. **Borrowed image-model tokens** (`8K, masterpiece, trending on ArtStation`) - delete; quality and resolution are settings, not prose.
 3. **Tag salad** (comma keyword dumps ported from image prompting) - rewrite as shooting-brief prose: one sentence per element, with an action and a time axis.
-4. **Negation slop** (`no blur, no artifacts, no extra fingers`) - negation summons; describe what IS there instead, and keep negation only in the constraint slot.
+4. **Negation slop** (`no blur, no artifacts, no extra fingers`) - prefer a positive observable state, and keep only necessary negation in the constraint slot.
 5. **Adjective stacking** (three synonyms for one quality) - pick the single detail that matters.
 6. **Feel-suffix words** (`电影感, 雰囲気のある, 감성적인, atmosférico, атмосферный, vibey`) - name the physical cause of the feeling; every language file in `references/vocab/` has a Slop Traps table for its own community's empty words.
 

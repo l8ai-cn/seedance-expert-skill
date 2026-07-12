@@ -129,7 +129,7 @@ class EvidenceRegistryTests(unittest.TestCase):
         self.assertEqual(report["runtime_coverage_counts"], {
             "legacy_blocked": 93,
             "mapped_candidate": 4,
-            "no_volatile_claims": 22,
+            "no_volatile_claims": 28,
         })
         self.assertEqual(report["review_counts"], {"pending": 17})
         self.assertFalse(report["release_gate_pass"])

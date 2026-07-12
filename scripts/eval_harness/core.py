@@ -26,10 +26,12 @@ FORBIDDEN_RUNTIME_TOP_LEVEL = {".git", ".github", "data", "docs", "evals", "runt
 FORBIDDEN_RUNTIME_ROOT_FILES = {".gitignore", "CHANGELOG.md", "README.md", "SECURITY.md", "V6_SEQUENCE_PROMPT_COMPILER_MANIFEST.md"}
 RUNTIME_SCRIPT_ALLOWLIST = {
     "scripts/extract_last_frame.py",
+    "scripts/prompt_compile.py",
     "scripts/project_state_check.py",
     "scripts/reference_planner.py",
     "scripts/render_surface_bindings.py",
     "scripts/scene_ir_check.py",
+    "scripts/semantic_lint.py",
 }
 HELDOUT_RELEASE_GATE_OPERATIONAL = False
 EVAL_SUITE_SCHEMA_URI = "https://github.com/Emily2040/seedance-2.0/evals/eval-suite-v2.schema.json"
@@ -998,7 +1000,9 @@ def _scan_regular_tree(root: Path, directories: set[str] | None = None) -> set[s
             relative = path.relative_to(root).as_posix()
             if entry.is_symlink() or _is_link_like(path):
                 raise HarnessError(f"bundle contains a link/reparse point: {relative}")
-            metadata = entry.stat(follow_symlinks=False)
+            # DirEntry.stat() reports a zero link count on Windows; path-level
+            # stat returns the real value needed by the hard-link boundary.
+            metadata = path.stat(follow_symlinks=False)
             if stat.S_ISDIR(metadata.st_mode):
                 if _is_mount(path):
                     raise HarnessError(f"bundle contains a nested mount: {relative}")

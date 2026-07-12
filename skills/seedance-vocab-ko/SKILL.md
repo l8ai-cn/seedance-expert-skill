@@ -24,7 +24,7 @@ Use Korean cinematic vocabulary when the user asks for Korean prompt wording, bi
 
 ## Intent
 
-Korean users bring 감성 - a feeling-culture with exacting visual taste. The soul here is making 감성 physical: every mood word the user offers returns as light, framing, and timing they can recognize as exactly what they felt.
+Translate the user's intended feeling into observable light, framing, action, and timing while keeping the Korean natural. Do not infer an aesthetic preference from the user's language.
 
 ## Usage Rule
 
