@@ -175,7 +175,12 @@ def minimal_bundle_records(run_id: str) -> tuple[dict, dict, dict]:
 
 def rebind_bundle(path: Path) -> None:
     artifacts = []
-    for item in sorted(file for file in path.rglob("*") if file.is_file() and file.name not in {"manifest.json", "COMPLETE.json"}):
+    files = (
+        file
+        for file in path.rglob("*")
+        if file.is_file() and file.name not in {"manifest.json", "COMPLETE.json"}
+    )
+    for item in sorted(files, key=lambda file: file.relative_to(path).as_posix()):
         data = item.read_bytes()
         artifacts.append({"path": item.relative_to(path).as_posix(), "size": len(data), "sha256": sha256_bytes(data)})
     manifest = canonical_json({"schema_version": 2, "run_id": path.name, "artifacts": artifacts})
