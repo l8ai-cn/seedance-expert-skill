@@ -1000,7 +1000,9 @@ def _scan_regular_tree(root: Path, directories: set[str] | None = None) -> set[s
             relative = path.relative_to(root).as_posix()
             if entry.is_symlink() or _is_link_like(path):
                 raise HarnessError(f"bundle contains a link/reparse point: {relative}")
-            metadata = entry.stat(follow_symlinks=False)
+            # DirEntry.stat() reports a zero link count on Windows; path-level
+            # stat returns the real value needed by the hard-link boundary.
+            metadata = path.stat(follow_symlinks=False)
             if stat.S_ISDIR(metadata.st_mode):
                 if _is_mount(path):
                     raise HarnessError(f"bundle contains a nested mount: {relative}")

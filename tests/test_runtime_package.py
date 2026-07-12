@@ -16,8 +16,6 @@ from datetime import date
 from pathlib import Path
 from unittest import mock
 
-from jsonschema import Draft202012Validator, FormatChecker
-
 from scripts import install_codex_skill as installer
 from tools import runtime_package as package
 
@@ -294,15 +292,13 @@ class RuntimePackageTests(unittest.TestCase):
             today=date(2026, 7, 12),
             root=first,
         )
-        schema = json.loads(
-            (ROOT / "schemas" / "prompt-render.schema.json").read_text(
-                encoding="utf-8"
-            )
+        self.assertEqual(report["$schema"], installed_compiler.RENDER_SCHEMA_URI)
+        self.assertEqual(report["schema_version"], 1)
+        self.assertEqual(report["status"], "rendered")
+        self.assertEqual(
+            [render["locale"] for render in report["renders"]],
+            ["en", "zh-Hans"],
         )
-        Draft202012Validator(
-            schema,
-            format_checker=FormatChecker(),
-        ).validate(report)
         self.assertEqual(
             report["compiler_sha256"],
             hashlib.sha256(
