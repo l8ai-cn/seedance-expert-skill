@@ -138,38 +138,68 @@ V705_CANDIDATE_PROFILE_PATHS = {
     "profiles/surfaces/fal-reference-to-video.json": "fal.reference-to-video",
     "profiles/surfaces/volcengine-ark.json": "volcengine.ark",
 }
+V709_CANDIDATE_GUIDANCE_PATHS = {
+    "references/multishot-grammar.md",
+    "skills/seedance-motion/SKILL.md",
+}
+V709_CANDIDATE_GUIDANCE_PROFILES = {
+    "bp.timing.exact-caution": "byteplus.modelark",
+    "volc.timing.exact-example": "volcengine.ark",
+}
 V705_CLEAN_RUNTIME_PATHS = (
     V7_CLEAN_RUNTIME_PATHS
     - {"references/surface-prompt-profiles.md"}
     | {
         "profiles/profile-index.json",
         "examples/standalone-clip-v2/project-state-v2.json",
+        "references/audio-guide.md",
+        "references/capability-map.md",
+        "references/json-schema.md",
+        "references/prompt-compiler.md",
+        "references/quick-ref.md",
+        "references/shot-list-continuity.md",
+        "references/subtitles-localization.md",
         "schemas/binding-plan.schema.json",
         "schemas/binding-render.schema.json",
+        "schemas/av-take-review-v1.schema.json",
         "schemas/model-profile.schema.json",
         "schemas/generation-run-v2.schema.json",
         "schemas/planning-report.schema.json",
         "schemas/profile-index.schema.json",
         "schemas/prompt-program.schema.json",
+        "schemas/prompt-compile-request-v2.schema.json",
+        "schemas/prompt-program-v2.schema.json",
         "schemas/prompt-realization-catalog.schema.json",
+        "schemas/prompt-realization-catalog-v2.schema.json",
         "schemas/prompt-render.schema.json",
+        "schemas/prompt-render-v2.schema.json",
         "schemas/prompt-spec-v2.schema.json",
         "schemas/project-state-v2.schema.json",
         "schemas/project-state-v2-migration-map.schema.json",
         "schemas/project-state-v2-migration-report.schema.json",
         "schemas/reference-manifest.schema.json",
         "schemas/scene-ir.schema.json",
+        "schemas/scene-ir-v2.schema.json",
+        "schemas/surface-av-policy.schema.json",
+        "schemas/surface-binding-set-v2.schema.json",
         "schemas/surface-binding-set.schema.json",
         "schemas/surface-profile.schema.json",
         "schemas/take-review-v2.schema.json",
         "scripts/prompt_compile.py",
+        "scripts/prompt_compile_v2.py",
         "scripts/project_state_migrate.py",
         "scripts/project_state_v2_check.py",
         "scripts/reference_planner.py",
         "scripts/render_surface_bindings.py",
         "scripts/scene_ir_check.py",
+        "scripts/scene_ir_v2_check.py",
         "scripts/semantic_lint.py",
+        "scripts/semantic_lint_v2.py",
+        "scripts/av_take_review_check.py",
         "scripts/v2_aux_check.py",
+        "skills/seedance-audio/SKILL.md",
+        "skills/seedance-prompt/SKILL.md",
+        "skills/seedance-sequence/SKILL.md",
     }
 )
 V7_AUTHORITIES_SHA256 = "f7f62449d52aa7c096d14e26e21dd4fdcc40d7458cf1d696cf7b4c2949a4c16b"
@@ -1209,7 +1239,7 @@ def validate_runtime_map(
         path = entry.get("path")
         status_value = entry.get("audit_status")
         counts[status_value] += 1
-        if path in V705_CANDIDATE_PROFILE_PATHS:
+        if path in V705_CANDIDATE_PROFILE_PATHS or path in V709_CANDIDATE_GUIDANCE_PATHS:
             expected_status = "mapped_candidate"
         elif path in V705_CLEAN_RUNTIME_PATHS:
             expected_status = "no_volatile_claims"
@@ -1248,6 +1278,9 @@ def validate_runtime_map(
             if actual_count != occurrence.get("occurrence_count"):
                 errors.append(f"runtime-map/{path}/{claim_id}: expected one exact anchor, found {actual_count}")
             claim = claim_record.data
+            expected_candidate_profile = V705_CANDIDATE_PROFILE_PATHS.get(path)
+            if path in V709_CANDIDATE_GUIDANCE_PATHS:
+                expected_candidate_profile = V709_CANDIDATE_GUIDANCE_PROFILES.get(claim_id)
             if status_value == "mapped" and (
                 claim.get("lifecycle_status") != "active"
                 or claim.get("support_status") != "supported"
@@ -1262,12 +1295,13 @@ def validate_runtime_map(
                 or claim.get("runtime_status") != "candidate"
                 or claim.get("review", {}).get("status") not in {"pending", "approved"}
                 or occurrence.get("disposition") != "supported_candidate"
-                or occurrence.get("profile_ids") != [V705_CANDIDATE_PROFILE_PATHS.get(path)]
+                or expected_candidate_profile is None
+                or occurrence.get("profile_ids") != [expected_candidate_profile]
             ):
                 errors.append(f"runtime-map/{path}/{claim_id}: candidate occurrence is not projection-ready")
             candidate_profile_projection = (
                 status_value == "mapped_candidate"
-                and V705_CANDIDATE_PROFILE_PATHS.get(path) in claim.get("affected_profiles", [])
+                and expected_candidate_profile in claim.get("affected_profiles", [])
             )
             if path not in claim.get("affected_paths", []) and not candidate_profile_projection:
                 errors.append(f"runtime-map/{path}/{claim_id}: path is absent from claim affected_paths")

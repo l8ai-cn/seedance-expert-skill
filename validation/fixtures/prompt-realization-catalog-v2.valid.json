@@ -1,0 +1,148 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/prompt-realization-catalog-v2.schema.json",
+  "schema_version": 2,
+  "scene_ir_sha256": "cabd62ec1ee3c0eb55839793cbd3d3ac6641e25001db690be87bc673853de39f",
+  "attestation": {
+    "method": "unattested_fixture",
+    "linguistic_equivalence": "not_attested",
+    "locales": [
+      "en",
+      "zh-Hans"
+    ]
+  },
+  "entries": [
+    {
+      "semantic_key": "entity.detective.label",
+      "source_sha256": "de6801cf74a247e28335fe980f035d6f64e28fb21c199deeff1aad3a12a657c5",
+      "en": "the detective",
+      "zh_hans": "侦探"
+    },
+    {
+      "semantic_key": "entity.woman.label",
+      "source_sha256": "aec937a0da8a745272476de1494028d3563be0a3040ed7895ac80a6a33630970",
+      "en": "the woman",
+      "zh_hans": "女子"
+    },
+    {
+      "semantic_key": "entity.station.label",
+      "source_sha256": "566a9bf85c5fcd1288eba462831319157c5f8171f1ebd9cf0c8127831f6fdaba",
+      "en": "the station platform",
+      "zh_hans": "车站站台"
+    },
+    {
+      "semantic_key": "speaker.detective_voice.display_name",
+      "source_sha256": "2653ceeec1fd951707a31d9e357218ea41a511db896747a7a41bb6528d927b09",
+      "en": "Detective",
+      "zh_hans": "侦探"
+    },
+    {
+      "semantic_key": "event.shot_01_open.visible_state_change",
+      "source_sha256": "231a01e8a67126533c2ea796e1e71e5de53eb928f0e7c735b21b3c56441712d2",
+      "en": "{entity:detective} faces {entity:woman} beneath the light at {entity:station}",
+      "zh_hans": "{entity:detective}在{entity:station}灯光下正对{entity:woman}"
+    },
+    {
+      "semantic_key": "event.shot_01_end.visible_state_change",
+      "source_sha256": "a74a49bc3d4874d3250e65899cc1175bdc8575e7c16ed949f3ffd4fbac41c3cd",
+      "en": "{entity:detective} finishes the line while holding eye contact with {entity:woman}",
+      "zh_hans": "{entity:detective}说完台词并与{entity:woman}保持对视"
+    },
+    {
+      "semantic_key": "shot.shot_01.camera.start_framing",
+      "source_sha256": "46c7dc43001e7338949b2785aaf35ef7e78c834fb265e5a39ad3c6f30ee3e0ec",
+      "en": "a stable medium close-up of the detective",
+      "zh_hans": "侦探的稳定中近景"
+    },
+    {
+      "semantic_key": "shot.shot_01.camera.path",
+      "source_sha256": "901578dc7c2005d3ae2ec6842d47ed8b636783179985b11fa9c4edf5b1d27cad",
+      "en": "the camera does not translate or rotate",
+      "zh_hans": "镜头不平移也不旋转"
+    },
+    {
+      "semantic_key": "shot.shot_01.camera.speed",
+      "source_sha256": "2053dbbf6ec7135c4e994d3464c478db6f48d3ca21052c8f44915edc96e02c39",
+      "en": "static",
+      "zh_hans": "静止"
+    },
+    {
+      "semantic_key": "shot.shot_01.camera.subject_relationship",
+      "source_sha256": "f4e3995d873ce34cc4ef359fd3a3a4176d7da94dfd6fc71c480f21798ba35c7f",
+      "en": "the detective's mouth remains unobstructed",
+      "zh_hans": "侦探的嘴部始终无遮挡"
+    },
+    {
+      "semantic_key": "shot.shot_01.camera.endpoint_framing",
+      "source_sha256": "c7a23562a9e3e635f484f77941771700c0f0a82545d023fff211275ba5720f09",
+      "en": "the same stable medium close-up",
+      "zh_hans": "保持相同的稳定中近景"
+    },
+    {
+      "semantic_key": "event.shot_02_open.visible_state_change",
+      "source_sha256": "92df4be6a187b94df62d30bfaa58d9ce646cea90d0d423de829d887ba180e231",
+      "en": "the cut reveals {entity:woman} still facing {entity:detective} at {entity:station}",
+      "zh_hans": "切镜后，{entity:woman}仍在{entity:station}面对{entity:detective}"
+    },
+    {
+      "semantic_key": "event.shot_02_end.visible_state_change",
+      "source_sha256": "78844912cc1e37ee9f0e53fe6266558cb62f776000c7cbe19da31b521cd855cd",
+      "en": "{entity:woman} answers {entity:detective} with a restrained half-smile",
+      "zh_hans": "{entity:woman}以克制的浅笑回应{entity:detective}"
+    },
+    {
+      "semantic_key": "shot.shot_02.camera.start_framing",
+      "source_sha256": "5b1b27864c090fe441012230a65ca2380ac1c4ce6432c555f972782fcbe8a67b",
+      "en": "a stable medium close-up of the woman",
+      "zh_hans": "女子的稳定中近景"
+    },
+    {
+      "semantic_key": "shot.shot_02.camera.path",
+      "source_sha256": "901578dc7c2005d3ae2ec6842d47ed8b636783179985b11fa9c4edf5b1d27cad",
+      "en": "the camera does not translate or rotate",
+      "zh_hans": "镜头不平移也不旋转"
+    },
+    {
+      "semantic_key": "shot.shot_02.camera.speed",
+      "source_sha256": "2053dbbf6ec7135c4e994d3464c478db6f48d3ca21052c8f44915edc96e02c39",
+      "en": "static",
+      "zh_hans": "静止"
+    },
+    {
+      "semantic_key": "shot.shot_02.camera.subject_relationship",
+      "source_sha256": "45e4b953f46511a271860e01e1970ef2298794196d169224a8fe7f5bce484fc0",
+      "en": "the woman's reaction remains unobstructed",
+      "zh_hans": "女子的反应始终无遮挡"
+    },
+    {
+      "semantic_key": "shot.shot_02.camera.endpoint_framing",
+      "source_sha256": "c7a23562a9e3e635f484f77941771700c0f0a82545d023fff211275ba5720f09",
+      "en": "the same stable medium close-up",
+      "zh_hans": "保持相同的稳定中近景"
+    },
+    {
+      "semantic_key": "audio.detective_line.description",
+      "source_sha256": "9bc15b3917cc258cb4c01e3c664998d0c6abcff2e55d1997f31a497942863864",
+      "en": "{entity:detective} delivers one short line in a low controlled voice",
+      "zh_hans": "{entity:detective}用低沉克制的声音说出一句短台词"
+    },
+    {
+      "semantic_key": "audio.detective_line.delivery_intent",
+      "source_sha256": "281068d29c8256d073cd896c5f543b800e32396b75ff6d011374130878438836",
+      "en": "low, controlled, and clearly articulated",
+      "zh_hans": "低沉、克制且咬字清晰"
+    },
+    {
+      "semantic_key": "audio.platform_ambience.description",
+      "source_sha256": "d7881de07b3bba69ade7c730e4a5281d7670395616e0fe103652ac3dcd0c4a74",
+      "en": "low room tone and distant rain at {entity:station} continue across the cut",
+      "zh_hans": "{entity:station}的低沉环境底噪与远处雨声贯穿切镜"
+    },
+    {
+      "semantic_key": "invariant.platform_continuity.description",
+      "source_sha256": "663e227798cf97f9e655209f39d2de6ebf3224b69037245049013bfc25b0708f",
+      "en": "{entity:detective}, {entity:woman}, and {entity:station} preserve wardrobe, eyelines, lighting, and rain across the cut",
+      "zh_hans": "切镜前后，{entity:detective}、{entity:woman}与{entity:station}的服装、视线、灯光和雨势保持连续"
+    }
+  ]
+}
+

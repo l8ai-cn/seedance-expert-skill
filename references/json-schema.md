@@ -137,3 +137,20 @@ python -S -B scripts/v2_aux_check.py --self-test
 ```
 
 Migration emits canonical JSON to stdout and never rewrites the source. V7-07 does not ingest project state, so a valid v2 record is not compiler-ready output and carries no V7-07 provenance.
+
+## V7-09 Audio And Multi-Shot Contracts
+
+V7-09 keeps every V7-07/V7-08 schema byte-stable and adds a parallel candidate-preview family:
+
+- `scene-ir-v2.schema.json` owns the state binding, take structure, explicit shots/events/transitions, speakers, exact audio events, subtitle policy, invariants, fragilities, acceptance tests, and fallbacks;
+- `surface-av-policy.schema.json` owns the candidate-only surface/operation grammar and evidence gates; user prose cannot enable a feature;
+- `surface-binding-set-v2.schema.json` binds typed image/video/audio IDs to the exact AV policy hash without importing V7-07 provider-handle or structured-frame grammar;
+- `prompt-compile-request-v2.schema.json` binds the exact scene, policy, catalog, and typed reference inputs;
+- `prompt-realization-catalog-v2.schema.json` localizes non-speech semantics but never stores an utterance;
+- `prompt-program-v2.schema.json` distinguishes localized description/delivery/timing controls, exact speech, voice-to-audio assignment, typed bindings, request-carried, post-only, and review-only units;
+- `prompt-render-v2.schema.json` records paired prompts, exact UTF-8 speech spans/hashes, transition/turn traces, typed bindings, policy/toolchain hashes, and candidate-only status; and
+- `av-take-review-v1.schema.json` is a hash-bound companion to `take-review-v2`, covering speech, speaker, language, lip sync, audio timing, sound events, transitions, continuity, and unexpected in-picture text.
+
+Exact utterances bypass the realization catalog and remain byte-identical across prompt locales. A translated dub is a new semantic variant. `post_dub` and subtitle/caption deliverables are post-only. A final frame cannot prove temporal audio facts.
+
+Use only the V7-09 tools for these contracts. V1 tools reject V2 documents, and V2 tools do not guess or upgrade V1 dialogue or shot boundaries. Candidate output does not activate a provider or clear the blocked `generation-run-v2` contract.

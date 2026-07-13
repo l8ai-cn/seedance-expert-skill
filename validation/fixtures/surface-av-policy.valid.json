@@ -1,0 +1,46 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/surface-av-policy.schema.json",
+  "schema_version": 1,
+  "policy_id": "fixture.av_policy",
+  "policy_kind": "unattested_fixture",
+  "attestation": {
+    "method": "unattested_fixture",
+    "verification_record_sha256": null
+  },
+  "status": "candidate",
+  "runtime_enabled": false,
+  "preview_only": true,
+  "profile_id": "fixture.surface",
+  "operation": "reference_generation",
+  "model_profile_id": "fixture.model",
+  "model_variant": "fixture.variant",
+  "region": "global",
+  "provider_locale": "global",
+  "surface_profile_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+  "model_profile_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+  "prompt_locales": ["en", "zh-Hans"],
+  "multi_shot": {
+    "status": "supported",
+    "grammar": "localized_numbered_shot_labels",
+    "max_shots": 4,
+    "transition_types": ["hard_cut", "match_cut"]
+  },
+  "audio": {
+    "status": "supported",
+    "semantic_functions": ["dialogue", "voiceover", "sound_effect", "ambience", "music", "rhythm", "silence"],
+    "voice_modes": ["generic_synthetic", "post_dub"],
+    "voice_reference_status": "unsupported"
+  },
+  "exact_timing": {
+    "status": "unsupported",
+    "range_unit": null,
+    "evidence_claim_ids": []
+  },
+  "evidence_pins": [
+    {
+      "claim_id": "fixture.av.preview",
+      "claim_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "expires_at": "2099-12-31"
+    }
+  ]
+}

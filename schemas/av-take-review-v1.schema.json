@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Emily2040/seedance-2.0/schemas/av-take-review-v1.schema.json",
+  "title": "Seedance V7-09 candidate AV take-review companion",
+  "$comment": "This companion cannot accept a take by itself. It is hash-bound to a validated take-review-v2 and scene-ir-v2. Audio claims require reviewed video; a final frame cannot prove speech, lip sync, music, ambience, or audio timing.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schema_version",
+    "project_id",
+    "clip_id",
+    "take_id",
+    "take_review_v2_sha256",
+    "scene_ir_v2_sha256",
+    "media_kind",
+    "base_verdict",
+    "required_audio_event_ids",
+    "required_transition_ids",
+    "speech_results",
+    "audio_results",
+    "transition_results",
+    "unexpected_in_picture_text",
+    "av_verdict",
+    "requires_user_confirmation"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "https://github.com/Emily2040/seedance-2.0/schemas/av-take-review-v1.schema.json"
+    },
+    "schema_version": {"const": 1},
+    "project_id": {"$ref": "#/$defs/id"},
+    "clip_id": {"$ref": "#/$defs/id"},
+    "take_id": {"$ref": "#/$defs/id"},
+    "take_review_v2_sha256": {"$ref": "#/$defs/sha256"},
+    "scene_ir_v2_sha256": {"$ref": "#/$defs/sha256"},
+    "media_kind": {"enum": ["video", "final_frame"]},
+    "base_verdict": {"enum": ["accept", "accept_with_deviation", "repair", "reject"]},
+    "required_audio_event_ids": {"$ref": "#/$defs/id_array"},
+    "required_transition_ids": {"$ref": "#/$defs/id_array"},
+    "speech_results": {
+      "type": "array",
+      "maxItems": 128,
+      "items": {"$ref": "#/$defs/speech_result"}
+    },
+    "audio_results": {
+      "type": "array",
+      "maxItems": 128,
+      "items": {"$ref": "#/$defs/audio_result"}
+    },
+    "transition_results": {
+      "type": "array",
+      "maxItems": 63,
+      "items": {"$ref": "#/$defs/transition_result"}
+    },
+    "unexpected_in_picture_text": {"enum": ["absent", "present", "unknown"]},
+    "av_verdict": {"enum": ["pass", "fail", "pending"]},
+    "requires_user_confirmation": {"type": "boolean"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"media_kind": {"const": "final_frame"}}, "required": ["media_kind"]},
+      "then": {
+        "properties": {
+          "av_verdict": {"enum": ["fail", "pending"]},
+          "requires_user_confirmation": {"const": true},
+          "speech_results": {"items": {"properties": {"utterance_status": {"const": "unknown"}, "speaker_status": {"const": "unknown"}, "spoken_language_status": {"const": "unknown"}, "lip_sync_status": {"const": "unknown"}, "timing_status": {"const": "unknown"}}}},
+          "audio_results": {"items": {"properties": {"result": {"const": "unknown"}}}},
+          "transition_results": {"items": {"properties": {"result": {"enum": ["pass", "fail", "unknown"]}}}}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"av_verdict": {"const": "pass"}}, "required": ["av_verdict"]},
+      "then": {
+        "properties": {
+          "media_kind": {"const": "video"},
+          "base_verdict": {"enum": ["accept", "accept_with_deviation"]},
+          "unexpected_in_picture_text": {"const": "absent"},
+          "requires_user_confirmation": {"const": false},
+          "speech_results": {"items": {"properties": {"utterance_status": {"const": "exact"}, "speaker_status": {"const": "pass"}, "spoken_language_status": {"const": "pass"}, "lip_sync_status": {"enum": ["pass", "not_required"]}, "timing_status": {"const": "pass"}}}},
+          "audio_results": {"items": {"properties": {"result": {"const": "pass"}}}},
+          "transition_results": {"items": {"properties": {"result": {"const": "pass"}}}}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"av_verdict": {"const": "pending"}}, "required": ["av_verdict"]},
+      "then": {"properties": {"requires_user_confirmation": {"const": true}}}
+    },
+    {
+      "if": {"properties": {"av_verdict": {"const": "fail"}}, "required": ["av_verdict"]},
+      "then": {"properties": {"requires_user_confirmation": {"const": false}}}
+    }
+  ],
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[a-z][a-z0-9._-]{0,63}$"},
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "id_array": {"type": "array", "maxItems": 128, "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+    "speech_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["audio_event_id", "expected_utterance_sha256", "utterance_status", "speaker_status", "spoken_language_status", "lip_sync_status", "timing_status"],
+      "properties": {
+        "audio_event_id": {"$ref": "#/$defs/id"},
+        "expected_utterance_sha256": {"$ref": "#/$defs/sha256"},
+        "utterance_status": {"enum": ["exact", "mismatch", "unheard", "unknown"]},
+        "speaker_status": {"enum": ["pass", "fail", "unknown"]},
+        "spoken_language_status": {"enum": ["pass", "fail", "unknown"]},
+        "lip_sync_status": {"enum": ["pass", "fail", "not_required", "unknown"]},
+        "timing_status": {"enum": ["pass", "fail", "unknown"]}
+      }
+    },
+    "audio_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["audio_event_id", "result"],
+      "properties": {
+        "audio_event_id": {"$ref": "#/$defs/id"},
+        "result": {"enum": ["pass", "fail", "unknown"]}
+      }
+    },
+    "transition_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["transition_id", "result"],
+      "properties": {
+        "transition_id": {"$ref": "#/$defs/id"},
+        "result": {"enum": ["pass", "fail", "unknown"]}
+      }
+    }
+  }
+}

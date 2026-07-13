@@ -57,3 +57,13 @@ V7-08 is complete only when:
 6. V7-07 compiler/toolchain bytes remain unchanged;
 7. runtime manifest, evidence occurrence map, install/rollback, and cross-platform CI locks are regenerated; and
 8. activation remains disabled with inherited runtime evidence debt reported honestly.
+
+## V7-09 audio and multi-shot boundary
+
+V7-09 separates eight claim classes that legacy wording often bundled together: model audiovisual capability, surface audio input, surface audio output, dialogue, lip sync, voice reference, multi-shot grammar, and returned adherence. No claim in one class enables another.
+
+The retained BytePlus timing caution and Volcengine exact-range example remain qualified, surface/operation-scoped candidate evidence. They prove captured guidance/example syntax, not adherence, duration, shot count, language superiority, or a universal grammar. V7-09 maps their exact active occurrences and keeps provider execution disabled.
+
+No current trusted AV policy ships. `scene_ir_v2_check.py` contains an explicit empty trusted-policy binding table; an arbitrary caller cannot turn a supplied policy into evidence. The checked-in supported policy is marked `unattested_fixture`, accepted only by explicit test opt-in, and every resulting artifact must remain unmistakably fixture/candidate preview. A later evidence-pinned policy requires a reviewed code change binding its policy ID to exact surface profile, model profile, and verification hashes.
+
+V7-09 can validate semantic exact speech, typed editorial cuts, audio continuity, timing mode, subtitle/post policy, and AV review coverage offline. It cannot prove a provider supports those requests or that returned media follows them. Provider activation remains a V7-12 decision requiring refreshed first-party evidence, exact runtime occurrence coverage, protected independent review, and output-backed evaluation.

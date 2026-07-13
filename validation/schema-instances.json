@@ -45,6 +45,10 @@
       "instances": ["validation/fixtures/take-review-v2.valid.json"]
     },
     {
+      "schema": "schemas/av-take-review-v1.schema.json",
+      "instances": ["validation/fixtures/av-take-review-v1.valid.json"]
+    },
+    {
       "schema": "schemas/generation-run.schema.json",
       "jsonl_instances": ["data/generation-runs.example.jsonl"]
     },
@@ -88,6 +92,14 @@
       ]
     },
     {
+      "schema": "schemas/scene-ir-v2.schema.json",
+      "instances": ["validation/fixtures/scene-ir-v2.valid.json"]
+    },
+    {
+      "schema": "schemas/surface-av-policy.schema.json",
+      "instances": ["validation/fixtures/surface-av-policy.valid.json"]
+    },
+    {
       "schema": "schemas/planning-report.schema.json",
       "instances": ["validation/fixtures/planning-report.valid.json"]
     },
@@ -96,16 +108,36 @@
       "instances": ["validation/fixtures/surface-binding-set.valid.json"]
     },
     {
+      "schema": "schemas/surface-binding-set-v2.schema.json",
+      "instances": ["validation/fixtures/surface-binding-set-v2.valid.json"]
+    },
+    {
       "schema": "schemas/prompt-realization-catalog.schema.json",
       "instances": ["validation/fixtures/prompt-realization-catalog.valid.json"]
+    },
+    {
+      "schema": "schemas/prompt-realization-catalog-v2.schema.json",
+      "instances": ["validation/fixtures/prompt-realization-catalog-v2.valid.json"]
+    },
+    {
+      "schema": "schemas/prompt-compile-request-v2.schema.json",
+      "instances": ["validation/fixtures/prompt-compile-request-v2.valid.json"]
     },
     {
       "schema": "schemas/prompt-program.schema.json",
       "instances": ["validation/fixtures/prompt-program.valid.json"]
     },
     {
+      "schema": "schemas/prompt-program-v2.schema.json",
+      "instances": ["validation/fixtures/prompt-program-v2.valid.json"]
+    },
+    {
       "schema": "schemas/prompt-render.schema.json",
       "instances": ["validation/fixtures/prompt-render.valid.json"]
+    },
+    {
+      "schema": "schemas/prompt-render-v2.schema.json",
+      "instances": ["validation/fixtures/prompt-render-v2.valid.json"]
     },
     {
       "schema": "schemas/model-profile.schema.json",

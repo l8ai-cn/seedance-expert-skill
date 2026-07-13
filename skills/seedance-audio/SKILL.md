@@ -1,6 +1,6 @@
 ---
 name: seedance-audio
-description: "This skill should be used when the user asks for Seedance 2.0 audio, dialogue, lip-sync, music, sound effects, ambience, beat-sync, audio-reference mapping, desync troubleshooting, or sound-driven visual timing."
+description: "This skill should be used when the user asks for Seedance 2.0 audio, dialogue, lip-sync, music, sound effects, ambience, beat alignment, audio-reference mapping, desync troubleshooting, or sound-driven visual timing."
 license: MIT
 user-invocable: true
 tags:
@@ -21,46 +21,60 @@ metadata:
 
 # seedance-audio
 
-Use this for dialogue, lip-sync, sound layers, music, ambience, beat-sync, audio-reference mapping, desync troubleshooting, or sound-driven visual timing. Audio should support the visible beat instead of becoming a second competing prompt.
+Use this skill for dialogue, lip-sync review, sound layers, music, ambience, beat-alignment tests, audio-reference roles, and desync troubleshooting.
 
-Load `[ref:audio-guide]` for the evidence boundary, conservative dialogue tests, authorized audio-reference mapping, beat-sync tests, desync repair, audio-reference conflicts, and multi-character workarounds. Load `[ref:audio-post-delivery]` when the user needs stems, M&E, dubbing, loudness, sync, mix, or delivery guidance.
+Load `[ref:audio-guide]` for the evidence boundary, exact-dialogue contract, authorized reference mapping, controlled tests, and repair workflow. Load `[ref:audio-post-delivery]` for stems, M&E, dubbing, loudness, synchronization, mix, or delivery guidance.
 
 ## Intent
 
-Half of every emotion enters through the ears, and users almost always forget sound until its absence makes the clip feel dead. The soul here is giving every scene its sound before being asked - the room's breath, the action's evidence, the line that lands. When they hear it, they realize it was always part of what they meant.
+Turn a sound idea into an evidence-scoped, reviewable production brief without confusing model-level audiovisual capability, surface access, or requested behavior with returned adherence.
 
-## Core Rules
+## Evidence gate
 
-Keep dialogue short, quote spoken lines, and assign every line to a named speaker. Prefer locked or stable framing for lip-sync. Remove head-turning, large face motion, extreme camera moves, or busy hand gestures while mouth accuracy matters. Bind an authorized audio reference through `[ref:surface-prompt-profiles]` for rhythm, pacing, mood, voice tone, or ambience only when the exact operation supports that role. Preserve a captured opaque handle only when the selected operation requires it; otherwise use its derived ordinal or structured request role exactly as the profile defines. Treat a rights-cleared spoken-voice reference as a testable voice/timing source, not a guarantee of exact playback or lip-sync.
+Select the exact model, surface, operation, region, and evidence date before producing provider-ready syntax. Resolve these as separate facts: model audiovisual capability, surface audio input, surface audio output, dialogue, lip-sync, voice reference, multi-shot grammar, and returned adherence. Unknown support fails closed.
 
-The retained evidence does not establish a universal language ranking or per-language dialogue limit. Start every spoken language with one short, performable clause; record the exact line, voice path, model, surface, operation, region, and date; then expand only from observed success. Budget review, retakes, or post-dubbing instead of promising a clean voiced take.
+A model announcement does not activate a surface. An accepted audio upload does not prove audio output, dialogue, voice fidelity, or lip-sync. A provider example does not guarantee adherence or transfer its syntax to another operation.
 
-## Sound Layer Pattern
+## Exact dialogue
 
-Use compact layers: `Dialogue: ... Sound: ... SFX: ... Music: ... Silence: ...`. Include only the layers that matter. Silence is valid when it sharpens drama or avoids confusing lip-sync.
+Before rendering dialogue, require:
 
-| Need | Stable audio direction |
-|---|---|
-| Lip-sync | `Character A, locked medium close-up, says "I found it." Clear dry dialogue, no head turn.` |
-| Product ad | `Sound: low room tone. SFX: magnetic click on lid open, soft glass chime at final frame.` |
-| Beat sync | Typed audio binding + `provides tempo only; light pulses and foot taps match the downbeat.` |
-| Drama | `Distant rain and refrigerator hum; no music during the line.` |
-| Action | `Breathing grows louder, shoe squeak at landing, metal door buzzer at endpoint.` |
+- one resolved speaker per turn;
+- exact quoted utterance;
+- spoken-language tag independent of prompt locale;
+- ordered turn linked to a shot or visible event;
+- delivery direction;
+- subtitle policy;
+- voice-source role and authorization where relevant.
 
-## Multi-Character Dialogue
+Keep the utterance byte-identical across English and Chinese instruction renderings. A translated dub is a new semantic variant. The current generic audio description does not satisfy this contract; until a versioned contract and checker accept it, return a compatibility blocker instead of inventing or translating speech.
 
-Use one speaker per short clip when reliability matters. If two characters must speak, separate turns and keep the camera stable: `Character A says... pause. Character B answers...`. For complex exchanges, recommend generating controlled single-speaker clips and compositing in post.
+## Reference and sound planning
 
-## Failure Fixes
+Assign one reference to one explicit target role, with exclusions. Use the selected surface profile's structured role, evidenced ordinal, or opaque handle exactly; never invent provider syntax or rely on upload order.
 
-If dialogue desyncs, shorten the line, lock the camera, remove head turns, make audio/voice and timing/rhythm authority explicit, and reduce competing SFX. If the wrong speaker talks, assign tags and split lines by speaker. If audio is ignored, remove extra music/SFX instructions and resolve competing audio dimensions.
+Treat tempo, mood, ambience, music, voice character, exact words, speaker identity, and lip-sync as different roles and acceptance checks. A rights-cleared voice input may be tested only where the selected operation accepts it for the named role; do not promise cloning, exact playback, speaker fidelity, or direct lip-sync. Route unclear real-person voice or protected-music rights through `[skill:seedance-copyright]`.
 
-If audio and video references fight each other, mute the reference video before upload when possible, or compile separate typed binding clauses: the video controls camera only; the audio controls tempo and energy.
+Use a compact semantic brief, not a claimed priority ladder: `Dialogue: ... Spoken language: ... Sound: ... SFX: ... Music: ... Silence: ... Subtitles: ...`. Include only story-critical layers. Let the selected surface profile render any operation-specific syntax.
 
-## Sequence State
+## Controlled production heuristics
 
-When sequence state is present, inherit completed dialogue, active dialogue, ambience, music phase, SFX phase, current clip scope, continuity locks, typed bindings and surface policies, and reserved future beats. Do not repeat completed dialogue unless the user explicitly asks for a reprise. Continue or intentionally change the audio phase instead of restarting it by accident.
+- Start with one short, performable clause, one visible speaker, stable framing, and minimal competing action.
+- Review speaker, exact words, intelligibility, mouth movement, event timing, sound presence, and mix separately.
+- For multiple speakers, use short ordered turns; split into controlled single-speaker clips when reliability matters.
+- For beat alignment, request one named cue and one visible event. This is an editorial test, not proof of an audio clock or internal mechanism.
+- When sequence state is present, read completed/active dialogue, ambience, music phase, SFX phase, current scope, bindings, exclusions, surface policy, continuity locks, and reserved future beats. Verify continuity rather than assuming it.
+- Plan post-dubbing, score continuity, subtitles, and final mix where generation cannot pass the required checks.
 
-## Output Contract
+## Failure repair
 
-Return speaker map, quoted dialogue, sound layers, audio/voice and timing/rhythm authority plus exclusions, lip-sync constraints, post/delivery notes if needed, and a compact prompt-ready audio block.
+- Desync: verify operation support, shorten the line, lock framing, remove head turns, and reduce competing sound/action.
+- Wrong speaker or words: repair the exact speaker/utterance/turn contract; split turns.
+- Audio absent: distinguish unsupported output from prompt non-adherence before retrying.
+- Reference conflict: restore one-reference/one-role authority and explicit exclusions.
+- Beat miss: reduce to one cue/event pair and measure the returned error.
+- Overbusy mix: remove nonessential layers according to story priority, not a claimed model priority.
+
+## Output contract
+
+Return the selected scope and evidence status; unresolved boundaries; speaker/utterance/spoken-language/turn/subtitle/rights contract; sound layers; one-reference/one-role mapping and exclusions; lip-sync and timing acceptance checks; prompt-ready output only if a surface profile supports it; and post/delivery notes where needed.

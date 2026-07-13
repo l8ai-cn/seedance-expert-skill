@@ -1,0 +1,39 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/av-take-review-v1.schema.json",
+  "schema_version": 1,
+  "project_id": "migration_watch",
+  "clip_id": "clip_01",
+  "take_id": "take_01",
+  "take_review_v2_sha256": "1d91c8b96f4f28690d5559d0aa152afc521ca9427c80a0e33630c5bf8076307b",
+  "scene_ir_v2_sha256": "cabd62ec1ee3c0eb55839793cbd3d3ac6641e25001db690be87bc673853de39f",
+  "media_kind": "video",
+  "base_verdict": "accept",
+  "required_audio_event_ids": ["detective_line", "platform_ambience"],
+  "required_transition_ids": ["cut_01_02"],
+  "speech_results": [
+    {
+      "audio_event_id": "detective_line",
+      "expected_utterance_sha256": "7a3610a72b4915d3cd7c0932053fd81430c57b5bfb30c02b6f887bd8d4cf3b73",
+      "utterance_status": "exact",
+      "speaker_status": "pass",
+      "spoken_language_status": "pass",
+      "lip_sync_status": "pass",
+      "timing_status": "pass"
+    }
+  ],
+  "audio_results": [
+    {
+      "audio_event_id": "platform_ambience",
+      "result": "pass"
+    }
+  ],
+  "transition_results": [
+    {
+      "transition_id": "cut_01_02",
+      "result": "pass"
+    }
+  ],
+  "unexpected_in_picture_text": "absent",
+  "av_verdict": "pass",
+  "requires_user_confirmation": false
+}

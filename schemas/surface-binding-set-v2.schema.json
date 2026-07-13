@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Emily2040/seedance-2.0/schemas/surface-binding-set-v2.schema.json",
+  "title": "Seedance V7-09 typed AV binding set",
+  "$comment": "Candidate-preview semantic media bindings only. This contract does not derive prompt handles, provider ordinals, structured frame roles, or provider request syntax.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "schema_version", "policy_id", "surface_av_policy_sha256", "profile_id", "operation", "bindings"],
+  "properties": {
+    "$schema": {"const": "https://github.com/Emily2040/seedance-2.0/schemas/surface-binding-set-v2.schema.json"},
+    "schema_version": {"const": 2},
+    "policy_id": {"$ref": "#/$defs/id"},
+    "surface_av_policy_sha256": {"$ref": "#/$defs/sha256"},
+    "profile_id": {"$ref": "#/$defs/id"},
+    "operation": {"enum": ["reference_generation", "first_last_frame"]},
+    "bindings": {
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 64,
+      "items": {"$ref": "#/$defs/binding"}
+    }
+  },
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[a-z][a-z0-9._-]{0,127}$"},
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["binding_id", "media_type"],
+      "properties": {
+        "binding_id": {"$ref": "#/$defs/id"},
+        "media_type": {"enum": ["audio", "image", "video"]}
+      }
+    }
+  }
+}

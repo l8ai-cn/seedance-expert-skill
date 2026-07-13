@@ -79,14 +79,14 @@
     {
       "id": "audio_lipsync",
       "prompt": "A woman says one line while walking through neon rain.",
-      "expected_output": "Speaker-assigned dialogue with lip-sync constraints.",
+      "expected_output": "A surface-independent dialogue brief with one exact speaker/line and stable blocking, plus an explicit blocker until the selected surface-operation has current evidence for dialogue output and required lip sync.",
       "assertions": [
-        "dialogue quoted",
-        "speaker named",
-        "stable framing noted",
-        "head motion limited"
+        "records one exact line and one resolved speaker without claiming it is already provider-ready",
+        "keeps framing stable and head motion limited for the observable lip-sync test",
+        "requires a selected surface and operation with current dialogue and lip-sync evidence before prompt emission",
+        "keeps post-dub as an explicit fallback when native adherence is unknown or fails review"
       ],
-      "failure_mode": "desync",
+      "failure_mode": "prompt-ready lip-sync promise without a surface evidence gate",
       "skills_expected_to_activate": [
         "seedance-audio"
       ]
@@ -395,13 +395,14 @@
     {
       "id": "russian_dialogue_prompt",
       "prompt": "Write a Russian Seedance prompt where the character speaks one short line clearly.",
-      "expected_output": "Russian prompt with quoted short dialogue, stable framing, and lip-sync constraints.",
+      "expected_output": "A Russian-language semantic dialogue brief with a byte-exact spoken line and stable framing, while blocking provider-ready emission until the exact surface-operation policy establishes dialogue and lip-sync support.",
       "assertions": [
-        "uses Russian prompt wording",
-        "quotes one short line",
-        "stabilizes framing for lip-sync"
+        "uses natural Russian directing wording while keeping prompt locale separate from spoken language",
+        "records one byte-exact short line and a resolved speaker",
+        "stabilizes framing for the lip-sync review target",
+        "requires exact surface-operation evidence or routes the line to post-dub"
       ],
-      "failure_mode": "dialogue desync from overactive blocking",
+      "failure_mode": "Russian prompt-ready dialogue or lip-sync promise without surface resolution",
       "skills_expected_to_activate": [
         "seedance-vocab-ru",
         "seedance-audio"
@@ -499,14 +500,15 @@
     {
       "id": "zh_role_binding_multimodal",
       "prompt": "@图1 是原创角色，@视频1 只参考运镜节奏，@音频1 只参考节奏和氛围。写一个紧凑中文 Seedance 提示词。",
-      "expected_output": "Chinese prompt with separate image identity, video camera rhythm, and audio tempo roles.",
+      "expected_output": "Chinese semantic role map that separates image identity, video camera rhythm, and audio tempo, then asks for or verifies the exact surface-operation before choosing any provider token or prompt-ready form.",
       "assertions": [
-        "keeps role bindings in Chinese",
+        "keeps the semantic role bindings in Chinese without treating the supplied labels as universal provider syntax",
         "does not copy identity scene or brand from video reference",
         "limits video reference to camera rhythm or action rhythm",
-        "limits audio reference to tempo mood unless rights are explicit"
+        "limits audio reference to tempo mood unless rights are explicit",
+        "blocks prompt-visible handles until the selected surface operation defines their exact transport"
       ],
-      "failure_mode": "multimodal reference-role leakage",
+      "failure_mode": "multimodal role leakage or invented universal @-tag transport",
       "skills_expected_to_activate": [
         "seedance-vocab-zh",
         "seedance-prompt",
@@ -516,15 +518,15 @@
     {
       "id": "ru_role_binding_multimodal",
       "prompt": "@Image1 задает оригинального персонажа, @Video1 задает только движение камеры, @Audio1 задает темп. Напиши русский Seedance prompt.",
-      "expected_output": "Russian prompt preserving reference tags and binding each asset to one safe role.",
+      "expected_output": "Russian semantic binding plan with one safe role per asset and a fail-closed surface-operation gate before any prompt-visible provider handles are emitted.",
       "assertions": [
-        "keeps Image1 Video1 Audio1 tags unchanged",
         "uses natural Russian production vocabulary",
         "assigns image to character identity only",
         "assigns video to camera movement only",
-        "assigns audio to tempo or mood only"
+        "assigns audio to tempo or mood only",
+        "does not preserve, derive, or invent @ tokens until an exact surface profile authorizes the representation"
       ],
-      "failure_mode": "translated tags or confused reference roles",
+      "failure_mode": "confused reference roles or surface-agnostic @-tag emission",
       "skills_expected_to_activate": [
         "seedance-vocab-ru",
         "seedance-prompt",
@@ -2010,12 +2012,12 @@
     {
       "id": "dense_storyboard_has_completed_shot_endpoints",
       "prompt": "Storyboard a 6-panel action beat inside one Seedance generation: hero kicks the door, rolls in, draws, fires, reloads, exits.",
-      "expected_output": "It gives each labeled shot a completed endpoint, applies a shots-times-seconds budget, and warns if six beats overflow one short generation rather than writing a vague run-on.",
+      "expected_output": "It treats the six panels as a candidate semantic edit with a completed endpoint per shot, asks for or resolves the active surface and operation before rendering provider syntax, and warns that the evidenced duration may require fewer shots rather than applying a universal seconds formula.",
       "assertions": [
-        "assigns each storyboard shot a labeled, completed endpoint state",
-        "applies a shots-times-seconds budget and warns if six beats overflow one short generation",
-        "uses labeled-shot / dense-storyboard grammar",
-        "keeps each panel's action legible rather than blending into a run-on"
+        "assigns each semantic shot a completed, observable endpoint state",
+        "requires current surface-operation duration and multi-shot evidence before rendering labels or ranges",
+        "warns that six beats may require fewer shots or multiple generations without inventing a seconds-per-shot rule",
+        "keeps each panel's action legible rather than blending it into a run-on"
       ],
       "failure_mode": "a dense storyboard whose shots have no completed endpoints and overflow the generation budget",
       "skills_expected_to_activate": [
@@ -2043,12 +2045,12 @@
     {
       "id": "continuous_take_uses_phases_not_shot_labels",
       "prompt": "I want one unbroken 10-second take walking from my front door to the balcony - no cuts. Write it.",
-      "expected_output": "It structures the single take with time phases (for example 0-3s, 3-7s, 7-10s) tied to zones of the walk, not discrete Shot 1 / Shot 2 cut labels.",
+      "expected_output": "It structures one shot with ordered named phases tied to zones of the walk, one continuous camera path, and no editorial transition edges. It does not invent exact ranges unless the selected surface-operation policy evidences them.",
       "assertions": [
-        "structures the unbroken take with time phases (e.g., 0-3s, 3-7s, 7-10s), not Shot 1 / Shot 2 cut labels",
+        "structures the unbroken take with ordered named phases rather than exact ranges or cut labels",
         "keeps one continuous camera path with no implied cuts",
         "ties each phase to a zone of the walk-through",
-        "does not use multishot shot-label grammar for a no-cut take"
+        "does not use multi-shot grammar or invent provider timing syntax for a no-cut take"
       ],
       "failure_mode": "using discrete shot labels that imply cuts for a single continuous no-cut take",
       "skills_expected_to_activate": [
@@ -2076,12 +2078,12 @@
     {
       "id": "multishot_uses_shot_labels_not_continuous_take",
       "prompt": "A three-shot sequence inside one generation: wide of the city, medium of the courier on the bike, close-up of the package in the basket.",
-      "expected_output": "It uses explicit Shot 1 / Shot 2 / Shot 3 labels with cuts between them, each with its framing, rather than collapsing the three framings into one continuous time-phase take.",
+      "expected_output": "It first creates three ordered semantic shots with two explicit editorial transitions and each shot's framing. Because no surface is selected, it asks for or resolves the surface-operation policy before emitting labels, ranges, or a provider-ready prompt.",
       "assertions": [
-        "uses explicit Shot 1 / Shot 2 / Shot 3 labels with cuts between them",
+        "creates three ordered semantic shots with exactly two explicit adjacent editorial transitions",
         "does not collapse the three framings into one continuous no-cut phase structure",
-        "gives each shot its size and framing and a clean cut point",
-        "applies the multishot shots-times-seconds budget"
+        "gives each shot its size, framing, visible endpoint, and transition intent",
+        "does not emit universal Shot N labels, timestamp ranges, or a seconds-per-shot budget without a selected evidenced policy"
       ],
       "failure_mode": "writing a multi-shot cut sequence as a single continuous take with time phases instead of labeled shots",
       "skills_expected_to_activate": [
@@ -2719,12 +2721,12 @@
     {
       "id": "audio_reference_lipsync_non_english",
       "prompt": "I need a character speaking a full paragraph in Russian, perfectly lip-synced, but the synthesized Russian voice comes out English-accented and drifts off the mouth. How do I fix it?",
-      "expected_output": "Recommends the field-observed voice-reference lip-sync path (attach a rights-cleared recorded or licensed Russian voice so the model syncs to it instead of synthesizing) and/or a post-dub, labeled field-observed and surface-specific, with the rights caveat and short lines.",
+      "expected_output": "Separates prompt locale, Russian spoken language, exact utterance, voice rights, audio-input support, dialogue output, and lip-sync adherence. It may propose a short controlled test with an authorized recording only if the selected surface-operation accepts that named role, while recommending post-dub for the full paragraph and never promising direct sync.",
       "assertions": [
-        "offers the voice-reference lip-sync path: attach a real recorded or licensed voice clip so the model lip-syncs to it instead of synthesizing speech",
-        "labels the technique field-observed and surface-specific, not an official guarantee",
-        "treats the voice as rights-sensitive: own, licensed, or cleared voice, never a real or celebrity voice",
-        "keeps lines short and does not promise a clean fully-synthesized Russian voiced take"
+        "requires an exact selected surface and operation before treating an authorized recording as a supported voice or timing input",
+        "states that accepted audio input does not prove direct lip-sync, exact playback, speaker fidelity, or Russian speech quality",
+        "treats voice and likeness as independently rights-sensitive and accepts only owned, licensed, or cleared material",
+        "recommends one short controlled line for evaluation and a post-dub path for the full paragraph"
       ],
       "failure_mode": "promising reliable synthesized non-English voiced dialogue, or suggesting cloning a real or celebrity voice",
       "skills_expected_to_activate": [

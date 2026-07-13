@@ -15,6 +15,6 @@
     "continuation_requires_source_clip",
     "exact_reference_tag_preserved",
     "physical_contact_has_consequence_chain",
-    "audio_reference_lipsync_non_english"
+    "source_freshness_gate"
   ]
 }

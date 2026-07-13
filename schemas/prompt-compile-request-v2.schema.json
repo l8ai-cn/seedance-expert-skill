@@ -1,0 +1,1887 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Emily2040/seedance-2.0/schemas/prompt-compile-request-v2.schema.json",
+  "title": "Seedance V7-09 candidate AV prompt compile request",
+  "$comment": "Nested scene-ir-v2 and surface-av-policy contracts are fully embedded with locally namespaced definitions. Runtime still applies their dependency-free semantic validators; no non-local schema resolution is required.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schema_version",
+    "scene_ir",
+    "surface_av_policy",
+    "surface_binding_set",
+    "realization_catalog"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "https://github.com/Emily2040/seedance-2.0/schemas/prompt-compile-request-v2.schema.json"
+    },
+    "schema_version": {
+      "const": 2
+    },
+    "scene_ir": {
+      "$ref": "#/$defs/scene_root"
+    },
+    "surface_av_policy": {
+      "$ref": "#/$defs/policy_root"
+    },
+    "surface_binding_set": {
+      "$ref": "#/$defs/binding_set"
+    },
+    "realization_catalog": {
+      "$ref": "#/$defs/catalog"
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9._-]{0,127}$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "scene_root": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "$schema",
+        "schema_version",
+        "state_binding",
+        "take_structure",
+        "timing_policy",
+        "entities",
+        "materials",
+        "speakers",
+        "shots",
+        "transitions",
+        "audio_events",
+        "subtitle_policy",
+        "requested_invariants",
+        "known_fragilities",
+        "acceptance_tests",
+        "post_fallbacks"
+      ],
+      "properties": {
+        "$schema": {
+          "const": "https://github.com/Emily2040/seedance-2.0/schemas/scene-ir-v2.schema.json"
+        },
+        "schema_version": {
+          "const": 2
+        },
+        "state_binding": {
+          "$ref": "#/$defs/scene_state_binding"
+        },
+        "take_structure": {
+          "enum": [
+            "single_continuous_take",
+            "edited_multi_shot"
+          ]
+        },
+        "timing_policy": {
+          "enum": [
+            "ordered_phases",
+            "relative_beats",
+            "surface_exact_ranges"
+          ]
+        },
+        "entities": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 128,
+          "items": {
+            "$ref": "#/$defs/scene_entity"
+          }
+        },
+        "materials": {
+          "type": "array",
+          "maxItems": 128,
+          "items": {
+            "$ref": "#/$defs/scene_material"
+          }
+        },
+        "speakers": {
+          "type": "array",
+          "maxItems": 32,
+          "items": {
+            "$ref": "#/$defs/scene_speaker"
+          }
+        },
+        "shots": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 32,
+          "items": {
+            "$ref": "#/$defs/scene_shot"
+          }
+        },
+        "transitions": {
+          "type": "array",
+          "maxItems": 31,
+          "items": {
+            "$ref": "#/$defs/scene_transition"
+          }
+        },
+        "audio_events": {
+          "type": "array",
+          "maxItems": 128,
+          "items": {
+            "$ref": "#/$defs/scene_audio_event"
+          }
+        },
+        "subtitle_policy": {
+          "$ref": "#/$defs/scene_subtitle_policy"
+        },
+        "requested_invariants": {
+          "type": "array",
+          "maxItems": 128,
+          "items": {
+            "$ref": "#/$defs/scene_requested_invariant"
+          }
+        },
+        "known_fragilities": {
+          "type": "array",
+          "maxItems": 128,
+          "items": {
+            "$ref": "#/$defs/scene_known_fragility"
+          }
+        },
+        "acceptance_tests": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 256,
+          "items": {
+            "$ref": "#/$defs/scene_acceptance_test"
+          }
+        },
+        "post_fallbacks": {
+          "type": "array",
+          "maxItems": 128,
+          "items": {
+            "$ref": "#/$defs/scene_post_fallback"
+          }
+        }
+      }
+    },
+    "scene_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+    },
+    "scene_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "scene_nullable_id": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/scene_id"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "scene_nullable_sha": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/scene_sha256"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "scene_bounded_text": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2000,
+      "not": {
+        "pattern": "(?:https?://|file://)"
+      }
+    },
+    "scene_id_array": {
+      "type": "array",
+      "maxItems": 256,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/scene_id"
+      }
+    },
+    "scene_state_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "project_id",
+        "clip_id",
+        "state_revision",
+        "canon_revision",
+        "semantic_state_sha256",
+        "planned_start_snapshot_sha256",
+        "planned_end_snapshot_sha256",
+        "completed_beat_ids",
+        "current_beat_ids",
+        "reserved_future_beat_ids"
+      ],
+      "properties": {
+        "project_id": {
+          "$ref": "#/$defs/scene_id"
+        },
+        "clip_id": {
+          "$ref": "#/$defs/scene_id"
+        },
+        "state_revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "canon_revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "semantic_state_sha256": {
+          "$ref": "#/$defs/scene_sha256"
+        },
+        "planned_start_snapshot_sha256": {
+          "$ref": "#/$defs/scene_sha256"
+        },
+        "planned_end_snapshot_sha256": {
+          "$ref": "#/$defs/scene_sha256"
+        },
+        "completed_beat_ids": {
+          "$ref": "#/$defs/scene_id_array"
+        },
+        "current_beat_ids": {
+          "$ref": "#/$defs/scene_id_array"
+        },
+        "reserved_future_beat_ids": {
+          "$ref": "#/$defs/scene_id_array"
+        }
+      }
+    },
+    "scene_entity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "entity_id",
+        "label",
+        "kind",
+        "stable_features"
+      ],
+      "properties": {
+        "entity_id": {
+          "$ref": "#/$defs/scene_id"
+        },
+        "label": {
+          "$ref": "#/$defs/scene_bounded_text"
+        },
+        "kind": {
+          "enum": [
+            "character",
+            "product",
+            "object",
+            "environment",
+            "effect",
+            "text"
+          ]
+        },
+        "stable_features": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 16,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/scene_bounded_text"
+          }
+        }
+      }
+    },
+    "scene_material": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "material_id",
+        "entity_id",
+        "kind",
+        "response_properties"
+      ],
+      "properties": {
+        "material_id": {
+          "$ref": "#/$defs/scene_id"
+        },
+        "entity_id": {
+          "$ref": "#/$defs/scene_id"
+        },
+        "kind": {
+          "enum": [
+            "rigid",
+            "elastic",
+            "fabric",
+            "liquid",
+            "granular",
+            "organic",
+            "smoke",
+            "fire",
+            "other"
+          ]
+        },
+        "response_properties": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 16,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/scene_bounded_text"
+          }
+        }
+      }
+    },
+    "scene_voice": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "authority_target_id",
+        "asset_id",
+        "authorization_status",
+        "attestation_sha256"
+      ],
+      "properties": {
+        "mode": {
+          "enum": [
+            "generic_synthetic",
+            "authorized_reference",
+            "post_dub"
+          ]
+        },
+        "authority_target_id": {
+          "$ref": "#/$defs/scene_nullable_id"
+        },
+        "asset_id": {
+          "$ref": "#/$defs/scene_nullable_id"
+        },
+        "authorization_status": {
+          "enum": [
+            "not_applicable",
+            "user_attested_authorized",
+            "unknown",
+            "not_authorized"
+          ]
+        },
+        "attestation_sha256": {
+          "$ref": "#/$defs/scene_nullable_sha"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "mode": {
+                "const": "generic_synthetic"
+              }
+            },
+            "required": [
+              "mode"
+            ]
+          },
+          "then": {
+            "properties": {
+              "authority_target_id": {
+                "type": "null"
+              },
+              "asset_id": {
+                "type": "null"
+              },
+              "authorization_status": {
+                "const": "not_applicable"
+              },
+              "attestation_sha256": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "mode": {
+                "const": "authorized_reference"
+              }
+            },
+            "required": [
+              "mode"
+            ]
+          },
+          "then": {
+            "properties": {
+              "authority_target_id": {
+                "$ref": "#/$defs/scene_id"
+              },
+              "asset_id": {
+                "$ref": "#/$defs/scene_id"
+              },
+              "authorization_status": {
+                "const": "user_attested_authorized"
+              },
+              "attestation_sha256": {
+                "$ref": "#/$defs/scene_sha256"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "mode": {
+                "const": "post_dub"
+              }
+            },
+            "required": [
+              "mode"
+            ]
+          },
+          "then": {
+            "properties": {
+              "authority_target_id": {
+                "type": "null"
+              },
+              "asset_id": {
+                "type": "null"
+              },
+              "attestation_sha256": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "scene_speaker": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "speaker_id",
+        "entity_id",
+        "role",
+        "display_name",
+        "voice"
+      ],
+      "properties": {
+        "speaker_id": {
+          "$ref": "#/$defs/scene_id"
+        },
+        "entity_id": {
+          "$ref": "#/$defs/scene_nullable_id"
+        },
+        "role": {
+          "enum": [
+            "onscreen_character",
+            "offscreen_character",
+            "narrator"
+          ]
+        },
+        "display_name": {
+          "$ref": "#/$defs/scene_bounded_text"
+        },
+        "voice": {
+          "$ref": "#/$defs/scene_voice"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "role": {
+                "enum": [
+                  "onscreen_character",
+                  "offscreen_character"
+                ]
+              }
+            },
+            "required": [
+              "role"
+            ]
+          },
+          "then": {
+            "properties": {
+              "entity_id": {
+                "$ref": "#/$defs/scene_id"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "scene_event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "event_id",
+        "event_index",
+        "phase",
+        "actor_ids",
+        "target_ids",
+        "depends_on",
+        "visible_state_change",
+        "beat_ids",
+        "interaction_kind",
+        "material_ids"
+      ],
+      "properties": {
+        "event_id": {
+          "$ref": "#/$defs/scene_id"
+        },
+        "event_index": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 64
+        },
+        "phase": {
+          "enum": [
+            "opening_state",
+            "action",
+            "interaction_or_state_change",
+            "response",
+            "follow_through",
+            "endpoint"
+          ]
+        },
+        "actor_ids": {
+          "$ref": "#/$defs/scene_id_array"
+        },
+        "target_ids": {
+          "$ref": "#/$defs/scene_id_array"
+        },
+        "depends_on": {
+          "$ref": "#/$defs/scene_id_array"
+        },
+        "visible_state_change": {
+          "$ref": "#/$defs/scene_bounded_text"
+        },
+        "beat_ids": {
+          "$ref": "#/$defs/scene_id_array"
+        },
+        "interaction_kind": {
+          "enum": [
+            "none",
+            "contact",
+            "material_change",
+            "non_material_state_change"
+          ]
+        },
+        "material_ids": {
+          "$ref": "#/$defs/scene_id_array"
+        }
+      },
+      "anyOf": [
+        {
+          "properties": {
+            "actor_ids": {
+              "minItems": 1
+            }
+          }
+        },
+        {
+          "properties": {
+            "target_ids": {
+              "minItems": 1
+            }
+          }
+        }
+      ]
+    },
+    "scene_camera": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "move_kind",
+        "start_framing",
+        "path",
+        "speed",
+        "subject_relationship",
+        "endpoint_framing",
+        "observed_event_ids",
+        "occlusion_risks",
+        "mitigations"
+      ],
+      "properties": {
+        "move_kind": {
+          "enum": [
+            "locked",
+            "push_in",
+            "pull_out",
+            "pan",
+            "tilt",
+            "tracking",
+            "orbit",
+            "crane",
+            "dolly",
+            "handheld"
+          ]
+        },
+        "start_framing": {
+          "$ref": "#/$defs/scene_bounded_text"
+        },
+        "path": {
+          "$ref": "#/$defs/scene_bounded_text"
+        },
+        "speed": {
+          "$ref": "#/$defs/scene_bounded_text"
+        },
+        "subject_relationship": {
+          "$ref": "#/$defs/scene_bounded_text"
+        },
+        "endpoint_framing": {
+          "$ref": "#/$defs/scene_bounded_text"
+        },
+        "observed_event_ids": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/scene_id_array"
+            },
+            {
+              "minItems": 2
+            }
+          ]
+        },
+        "occlusion_risks": {
+          "type": "array",
+          "maxItems": 16,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/scene_bounded_text"
+          }
+        },
+        "mitigations": {
+          "type": "array",
+          "maxItems": 16,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/scene_bounded_text"
+          }
+        }
+      }
+    },
+    "scene_shot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "shot_id",
+        "shot_index",
+        "opening_event_id",
+        "endpoint_event_id",
+        "events",
+        "camera"
+      ],
+      "properties": {
+        "shot_id": {
+          "$ref": "#/$defs/scene_id"
+        },
+        "shot_index": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 32
+        },
+        "opening_event_id": {
+          "$ref": "#/$defs/scene_id"
+        },
+        "endpoint_event_id": {
+          "$ref": "#/$defs/scene_id"
+        },
+        "events": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 64,
+          "items": {
+            "$ref": "#/$defs/scene_event"
+          }
+        },
+        "camera": {
+          "$ref": "#/$defs/scene_camera"
+        }
+      }
+    },
+    "scene_transition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "transition_id",
+        "transition_index",
+        "from_shot_id",
+        "to_shot_id",
+        "transition_type",
+        "from_event_id",
+        "to_event_id",
+        "beat_ids",
+        "preserved_invariant_ids",
+        "allowed_change_event_ids",
+        "audio_bridge_event_ids"
+      ],
+      "properties": {
+        "transition_id": {
+          "$ref": "#/$defs/scene_id"
+        },
+        "transition_index": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 31
+        },
+        "from_shot_id": {
+          "$ref": "#/$defs/scene_id"
+        },
+        "to_shot_id": {
+          "$ref": "#/$defs/scene_id"
+        },
+        "transition_type": {
+          "enum": [
+            "hard_cut",
+            "match_cut",
+            "dissolve",
+            "fade"
+          ]
+        },
+        "from_event_id": {
+          "$ref": "#/$defs/scene_id"
+        },
+        "to_event_id": {
+          "$ref": "#/$defs/scene_id"
+        },
+        "beat_ids": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/scene_id_array"
+            },
+            {
+              "minItems": 1
+            }
+          ]
+        },
+        "preserved_invariant_ids": {
+          "$ref": "#/$defs/scene_id_array"
+        },
+        "allowed_change_event_ids": {
+          "$ref": "#/$defs/scene_id_array"
+        },
+        "audio_bridge_event_ids": {
+          "$ref": "#/$defs/scene_id_array"
+        }
+      }
+    },
+    "scene_audio_timing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "start_event_id",
+        "end_event_id",
+        "cue_event_id",
+        "beat_label",
+        "start_seconds",
+        "end_seconds",
+        "evidence_claim_ids"
+      ],
+      "properties": {
+        "mode": {
+          "enum": [
+            "visual_event_window",
+            "continuous_shot",
+            "continuous_sequence",
+            "relative_beat",
+            "surface_exact_range"
+          ]
+        },
+        "start_event_id": {
+          "$ref": "#/$defs/scene_nullable_id"
+        },
+        "end_event_id": {
+          "$ref": "#/$defs/scene_nullable_id"
+        },
+        "cue_event_id": {
+          "$ref": "#/$defs/scene_nullable_id"
+        },
+        "beat_label": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "start_seconds": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 60
+        },
+        "end_seconds": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "exclusiveMinimum": 0,
+          "maximum": 60
+        },
+        "evidence_claim_ids": {
+          "type": "array",
+          "maxItems": 32,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)+$"
+          }
+        }
+      }
+    },
+    "scene_speech": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "speaker_id",
+        "spoken_language",
+        "utterance",
+        "utterance_sha256",
+        "turn_index",
+        "overlap_policy",
+        "lip_sync",
+        "delivery_intent"
+      ],
+      "properties": {
+        "speaker_id": {
+          "$ref": "#/$defs/scene_id"
+        },
+        "spoken_language": {
+          "type": "string",
+          "maxLength": 63,
+          "pattern": "^[a-z]{2,8}(?:-[A-Z][a-z]{3})?(?:-(?:[A-Z]{2}|[0-9]{3}))?(?:-(?:[a-z0-9]{5,8}|[0-9][a-z0-9]{3}))*$"
+        },
+        "utterance": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "utterance_sha256": {
+          "$ref": "#/$defs/scene_sha256"
+        },
+        "turn_index": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 128
+        },
+        "overlap_policy": {
+          "enum": [
+            "no_overlap",
+            "overlap_allowed"
+          ]
+        },
+        "lip_sync": {
+          "enum": [
+            "required",
+            "not_required",
+            "post_only"
+          ]
+        },
+        "delivery_intent": {
+          "$ref": "#/$defs/scene_bounded_text"
+        }
+      }
+    },
+    "scene_audio_event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "audio_event_id",
+        "audio_event_index",
+        "semantic_function",
+        "shot_ids",
+        "beat_ids",
+        "source_entity_ids",
+        "timing",
+        "description",
+        "speech"
+      ],
+      "properties": {
+        "audio_event_id": {
+          "$ref": "#/$defs/scene_id"
+        },
+        "audio_event_index": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 128
+        },
+        "semantic_function": {
+          "enum": [
+            "dialogue",
+            "voiceover",
+            "sound_effect",
+            "ambience",
+            "music",
+            "rhythm",
+            "silence"
+          ]
+        },
+        "shot_ids": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/scene_id_array"
+            },
+            {
+              "minItems": 1,
+              "maxItems": 32
+            }
+          ]
+        },
+        "beat_ids": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/scene_id_array"
+            },
+            {
+              "minItems": 1
+            }
+          ]
+        },
+        "source_entity_ids": {
+          "$ref": "#/$defs/scene_id_array"
+        },
+        "timing": {
+          "$ref": "#/$defs/scene_audio_timing"
+        },
+        "description": {
+          "$ref": "#/$defs/scene_bounded_text"
+        },
+        "speech": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/scene_speech"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "semantic_function": {
+                "enum": [
+                  "dialogue",
+                  "voiceover"
+                ]
+              }
+            },
+            "required": [
+              "semantic_function"
+            ]
+          },
+          "then": {
+            "properties": {
+              "speech": {
+                "$ref": "#/$defs/scene_speech"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "speech": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "scene_subtitle_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "target_language_tags",
+        "picture_policy"
+      ],
+      "properties": {
+        "mode": {
+          "enum": [
+            "none",
+            "post_subtitles",
+            "post_sdh_captions",
+            "post_forced_narrative"
+          ]
+        },
+        "target_language_tags": {
+          "type": "array",
+          "maxItems": 16,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "maxLength": 63,
+            "pattern": "^[a-z]{2,8}(?:-[A-Z][a-z]{3})?(?:-(?:[A-Z]{2}|[0-9]{3}))?(?:-(?:[a-z0-9]{5,8}|[0-9][a-z0-9]{3}))*$"
+          }
+        },
+        "picture_policy": {
+          "enum": [
+            "clean_picture",
+            "not_applicable"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "mode": {
+                "const": "none"
+              }
+            },
+            "required": [
+              "mode"
+            ]
+          },
+          "then": {
+            "properties": {
+              "target_language_tags": {
+                "maxItems": 0
+              },
+              "picture_policy": {
+                "const": "not_applicable"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "target_language_tags": {
+                "minItems": 1
+              },
+              "picture_policy": {
+                "const": "clean_picture"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "scene_requested_invariant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "invariant_id",
+        "entity_ids",
+        "description"
+      ],
+      "properties": {
+        "invariant_id": {
+          "$ref": "#/$defs/scene_id"
+        },
+        "entity_ids": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/scene_id_array"
+            },
+            {
+              "minItems": 1
+            }
+          ]
+        },
+        "description": {
+          "$ref": "#/$defs/scene_bounded_text"
+        }
+      }
+    },
+    "scene_known_fragility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fragility_id",
+        "event_ids",
+        "audio_event_ids",
+        "transition_ids",
+        "description"
+      ],
+      "properties": {
+        "fragility_id": {
+          "$ref": "#/$defs/scene_id"
+        },
+        "event_ids": {
+          "$ref": "#/$defs/scene_id_array"
+        },
+        "audio_event_ids": {
+          "$ref": "#/$defs/scene_id_array"
+        },
+        "transition_ids": {
+          "$ref": "#/$defs/scene_id_array"
+        },
+        "description": {
+          "$ref": "#/$defs/scene_bounded_text"
+        }
+      },
+      "anyOf": [
+        {
+          "properties": {
+            "event_ids": {
+              "minItems": 1
+            }
+          }
+        },
+        {
+          "properties": {
+            "audio_event_ids": {
+              "minItems": 1
+            }
+          }
+        },
+        {
+          "properties": {
+            "transition_ids": {
+              "minItems": 1
+            }
+          }
+        }
+      ]
+    },
+    "scene_acceptance_test": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "acceptance_id",
+        "event_ids",
+        "audio_event_ids",
+        "transition_ids",
+        "observable",
+        "pass_condition"
+      ],
+      "properties": {
+        "acceptance_id": {
+          "$ref": "#/$defs/scene_id"
+        },
+        "event_ids": {
+          "$ref": "#/$defs/scene_id_array"
+        },
+        "audio_event_ids": {
+          "$ref": "#/$defs/scene_id_array"
+        },
+        "transition_ids": {
+          "$ref": "#/$defs/scene_id_array"
+        },
+        "observable": {
+          "$ref": "#/$defs/scene_bounded_text"
+        },
+        "pass_condition": {
+          "$ref": "#/$defs/scene_bounded_text"
+        }
+      },
+      "anyOf": [
+        {
+          "properties": {
+            "event_ids": {
+              "minItems": 1
+            }
+          }
+        },
+        {
+          "properties": {
+            "audio_event_ids": {
+              "minItems": 1
+            }
+          }
+        },
+        {
+          "properties": {
+            "transition_ids": {
+              "minItems": 1
+            }
+          }
+        }
+      ]
+    },
+    "scene_post_fallback": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fallback_id",
+        "trigger_acceptance_ids",
+        "action"
+      ],
+      "properties": {
+        "fallback_id": {
+          "$ref": "#/$defs/scene_id"
+        },
+        "trigger_acceptance_ids": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/scene_id_array"
+            },
+            {
+              "minItems": 1
+            }
+          ]
+        },
+        "action": {
+          "$ref": "#/$defs/scene_bounded_text"
+        }
+      }
+    },
+    "policy_root": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "$schema",
+        "schema_version",
+        "policy_id",
+        "policy_kind",
+        "attestation",
+        "status",
+        "runtime_enabled",
+        "preview_only",
+        "profile_id",
+        "operation",
+        "model_profile_id",
+        "model_variant",
+        "region",
+        "provider_locale",
+        "surface_profile_sha256",
+        "model_profile_sha256",
+        "prompt_locales",
+        "multi_shot",
+        "audio",
+        "exact_timing",
+        "evidence_pins"
+      ],
+      "properties": {
+        "$schema": {
+          "const": "https://github.com/Emily2040/seedance-2.0/schemas/surface-av-policy.schema.json"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "policy_id": {
+          "$ref": "#/$defs/policy_id"
+        },
+        "policy_kind": {
+          "enum": [
+            "evidence_pinned",
+            "unattested_fixture"
+          ]
+        },
+        "attestation": {
+          "$ref": "#/$defs/policy_attestation"
+        },
+        "status": {
+          "const": "candidate"
+        },
+        "runtime_enabled": {
+          "const": false
+        },
+        "preview_only": {
+          "const": true
+        },
+        "profile_id": {
+          "$ref": "#/$defs/policy_id"
+        },
+        "operation": {
+          "enum": [
+            "reference_generation",
+            "first_last_frame"
+          ]
+        },
+        "model_profile_id": {
+          "$ref": "#/$defs/policy_id"
+        },
+        "model_variant": {
+          "$ref": "#/$defs/policy_id"
+        },
+        "region": {
+          "oneOf": [
+            {
+              "enum": [
+                "global",
+                "unknown"
+              ]
+            },
+            {
+              "type": "string",
+              "pattern": "^[A-Z]{2}$"
+            }
+          ]
+        },
+        "provider_locale": {
+          "enum": [
+            "global",
+            "cn",
+            "unknown"
+          ]
+        },
+        "surface_profile_sha256": {
+          "$ref": "#/$defs/policy_sha256"
+        },
+        "model_profile_sha256": {
+          "$ref": "#/$defs/policy_sha256"
+        },
+        "prompt_locales": {
+          "const": [
+            "en",
+            "zh-Hans"
+          ]
+        },
+        "multi_shot": {
+          "$ref": "#/$defs/policy_multi_shot"
+        },
+        "audio": {
+          "$ref": "#/$defs/policy_audio"
+        },
+        "exact_timing": {
+          "$ref": "#/$defs/policy_exact_timing"
+        },
+        "evidence_pins": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 32,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/policy_evidence_pin"
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "policy_kind": {
+                "const": "evidence_pinned"
+              }
+            },
+            "required": [
+              "policy_kind"
+            ]
+          },
+          "then": {
+            "properties": {
+              "attestation": {
+                "properties": {
+                  "method": {
+                    "const": "evidence_registry"
+                  },
+                  "verification_record_sha256": {
+                    "$ref": "#/$defs/policy_sha256"
+                  }
+                }
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "attestation": {
+                "properties": {
+                  "method": {
+                    "const": "unattested_fixture"
+                  },
+                  "verification_record_sha256": {
+                    "type": "null"
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "policy_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+    },
+    "policy_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "policy_claim_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)+$",
+      "maxLength": 100
+    },
+    "policy_support_status": {
+      "enum": [
+        "supported",
+        "unsupported",
+        "unknown"
+      ]
+    },
+    "policy_attestation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "method",
+        "verification_record_sha256"
+      ],
+      "properties": {
+        "method": {
+          "enum": [
+            "evidence_registry",
+            "unattested_fixture"
+          ]
+        },
+        "verification_record_sha256": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/policy_sha256"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "policy_multi_shot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "grammar",
+        "max_shots",
+        "transition_types"
+      ],
+      "properties": {
+        "status": {
+          "$ref": "#/$defs/policy_support_status"
+        },
+        "grammar": {
+          "enum": [
+            "none",
+            "ascii_numbered_shot_labels",
+            "localized_numbered_shot_labels",
+            "ordered_paragraphs"
+          ]
+        },
+        "max_shots": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 2,
+          "maximum": 32
+        },
+        "transition_types": {
+          "type": "array",
+          "maxItems": 4,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "hard_cut",
+              "match_cut",
+              "dissolve",
+              "fade"
+            ]
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "supported"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "grammar": {
+                "not": {
+                  "const": "none"
+                }
+              },
+              "max_shots": {
+                "type": "integer"
+              },
+              "transition_types": {
+                "minItems": 1
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "grammar": {
+                "const": "none"
+              },
+              "max_shots": {
+                "type": "null"
+              },
+              "transition_types": {
+                "maxItems": 0
+              }
+            }
+          }
+        }
+      ]
+    },
+    "policy_audio": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "semantic_functions",
+        "voice_modes",
+        "voice_reference_status"
+      ],
+      "properties": {
+        "status": {
+          "$ref": "#/$defs/policy_support_status"
+        },
+        "semantic_functions": {
+          "type": "array",
+          "maxItems": 7,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "dialogue",
+              "voiceover",
+              "sound_effect",
+              "ambience",
+              "music",
+              "rhythm",
+              "silence"
+            ]
+          }
+        },
+        "voice_modes": {
+          "type": "array",
+          "maxItems": 3,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "generic_synthetic",
+              "authorized_reference",
+              "post_dub"
+            ]
+          }
+        },
+        "voice_reference_status": {
+          "$ref": "#/$defs/policy_support_status"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "supported"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "semantic_functions": {
+                "minItems": 1
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "semantic_functions": {
+                "maxItems": 0
+              },
+              "voice_modes": {
+                "maxItems": 0
+              },
+              "voice_reference_status": {
+                "not": {
+                  "const": "supported"
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "voice_reference_status": {
+                "const": "supported"
+              }
+            },
+            "required": [
+              "voice_reference_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "status": {
+                "const": "supported"
+              },
+              "voice_modes": {
+                "contains": {
+                  "const": "authorized_reference"
+                }
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "voice_modes": {
+                "not": {
+                  "contains": {
+                    "const": "authorized_reference"
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "policy_exact_timing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "range_unit",
+        "evidence_claim_ids"
+      ],
+      "properties": {
+        "status": {
+          "$ref": "#/$defs/policy_support_status"
+        },
+        "range_unit": {
+          "enum": [
+            "seconds",
+            null
+          ]
+        },
+        "evidence_claim_ids": {
+          "type": "array",
+          "maxItems": 32,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/policy_claim_id"
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "supported"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "range_unit": {
+                "const": "seconds"
+              },
+              "evidence_claim_ids": {
+                "minItems": 1
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "range_unit": {
+                "type": "null"
+              },
+              "evidence_claim_ids": {
+                "maxItems": 0
+              }
+            }
+          }
+        }
+      ]
+    },
+    "policy_evidence_pin": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "claim_id",
+        "claim_sha256",
+        "expires_at"
+      ],
+      "properties": {
+        "claim_id": {
+          "$ref": "#/$defs/policy_claim_id"
+        },
+        "claim_sha256": {
+          "$ref": "#/$defs/policy_sha256"
+        },
+        "expires_at": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "binding_set": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "$schema",
+        "schema_version",
+        "policy_id",
+        "surface_av_policy_sha256",
+        "profile_id",
+        "operation",
+        "bindings"
+      ],
+      "properties": {
+        "$schema": {
+          "const": "https://github.com/Emily2040/seedance-2.0/schemas/surface-binding-set-v2.schema.json"
+        },
+        "schema_version": {
+          "const": 2
+        },
+        "policy_id": {
+          "$ref": "#/$defs/binding_v2_id"
+        },
+        "surface_av_policy_sha256": {
+          "$ref": "#/$defs/binding_v2_sha256"
+        },
+        "profile_id": {
+          "$ref": "#/$defs/binding_v2_id"
+        },
+        "operation": {
+          "enum": [
+            "reference_generation",
+            "first_last_frame"
+          ]
+        },
+        "bindings": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 64,
+          "items": {
+            "$ref": "#/$defs/binding_v2_binding"
+          }
+        }
+      }
+    },
+    "binding_v2_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9._-]{0,127}$"
+    },
+    "binding_v2_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "binding_v2_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "binding_id",
+        "media_type"
+      ],
+      "properties": {
+        "binding_id": {
+          "$ref": "#/$defs/binding_v2_id"
+        },
+        "media_type": {
+          "enum": [
+            "audio",
+            "image",
+            "video"
+          ]
+        }
+      }
+    },
+    "semantic_key": {
+      "type": "string",
+      "pattern": "^(?:entity\\.[a-z][a-z0-9._-]{0,63}\\.label|speaker\\.[a-z][a-z0-9._-]{0,63}\\.display_name|event\\.[a-z][a-z0-9._-]{0,63}\\.visible_state_change|shot\\.[a-z][a-z0-9._-]{0,63}\\.camera\\.(?:start_framing|path|speed|subject_relationship|endpoint_framing)|audio\\.[a-z][a-z0-9._-]{0,63}\\.(?:description|delivery_intent)|invariant\\.[a-z][a-z0-9._-]{0,63}\\.description)$"
+    },
+    "catalog_entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "semantic_key",
+        "source_sha256",
+        "en",
+        "zh_hans"
+      ],
+      "properties": {
+        "semantic_key": {
+          "$ref": "#/$defs/semantic_key"
+        },
+        "source_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "en": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000
+        },
+        "zh_hans": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000
+        }
+      }
+    },
+    "catalog": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "$schema",
+        "schema_version",
+        "scene_ir_sha256",
+        "attestation",
+        "entries"
+      ],
+      "properties": {
+        "$schema": {
+          "const": "https://github.com/Emily2040/seedance-2.0/schemas/prompt-realization-catalog-v2.schema.json"
+        },
+        "schema_version": {
+          "const": 2
+        },
+        "scene_ir_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "attestation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "method",
+            "linguistic_equivalence",
+            "locales"
+          ],
+          "properties": {
+            "method": {
+              "enum": [
+                "user_attested",
+                "reviewer_attested",
+                "unattested_fixture"
+              ]
+            },
+            "linguistic_equivalence": {
+              "enum": [
+                "human_asserted",
+                "not_attested"
+              ]
+            },
+            "locales": {
+              "const": [
+                "en",
+                "zh-Hans"
+              ]
+            }
+          }
+        },
+        "entries": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 1024,
+          "items": {
+            "$ref": "#/$defs/catalog_entry"
+          }
+        }
+      }
+    }
+  }
+}
+
