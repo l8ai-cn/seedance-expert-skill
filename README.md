@@ -15,7 +15,7 @@ An agent that directs Seedance 2.0 like a filmmaker — reading each scene befor
 [![Version](https://img.shields.io/badge/version-6.6.0-E2A75E?style=flat-square&labelColor=14110B)](#changelog)
 [![Sub-skills](https://img.shields.io/badge/sub--skills-28-4A4438?style=flat-square&labelColor=14110B)](#skill-map)
 [![References](https://img.shields.io/badge/references-60-4A4438?style=flat-square&labelColor=14110B)](#reference-library)
-[![Evals](https://img.shields.io/badge/evals-138-4A4438?style=flat-square&labelColor=14110B)](#validation)
+[![Evals](https://img.shields.io/badge/evals-145-4A4438?style=flat-square&labelColor=14110B)](#validation)
 [![License](https://img.shields.io/badge/license-MIT-4A4438?style=flat-square&labelColor=14110B)](LICENSE)
 
 [Start here](#start-here) · [Skill map](#skill-map) · [Reference library](#reference-library) · [Visual gallery](#visual-gallery) · [Install](#install)
@@ -38,9 +38,11 @@ Platform context: [ByteDance Seedance 2.0](https://seed.bytedance.com/en/seedanc
 >
 > V7-09 adds a parallel, offline candidate-preview contract for exact speech and explicit editorial cuts. It keeps prompt locale separate from spoken language, preserves utterance bytes across English/Chinese wrappers, rejects inferred provider grammar, and adds AV review without clearing V7-08 execution blockers or activating a provider. No trusted AV surface policy ships in this stage; the supported fixture is default-closed and visibly marked.
 >
-> Migration notes: [`surface profiles`](docs/V7_SURFACE_PROFILE_MIGRATION.md), [`reference and causal planning`](docs/V7_REFERENCE_CAUSAL_MIGRATION.md), [`paired language rendering`](docs/V7_LANGUAGE_RENDERING_MIGRATION.md), [`physics, motion, and state v2`](docs/V7_PHYSICS_MOTION_STATE_MIGRATION.md), and [`audio/dialogue/multi-shot v2`](docs/V7_AUDIO_MULTISHOT_MIGRATION.md).
+> V7-10 adds an offline evaluation programme: 145 blind public behavior cases, six declared metamorphic relations, exact ten-attempt non-release benchmark manifests, atomic provenance-bound media annotations, and failure-first double-review aggregation across all 22 observable dimensions. The checked-in records are synthetic contract fixtures; no provider, held-out release gate, reviewer authentication, or model-quality claim is enabled.
+>
+> Migration notes: [`surface profiles`](docs/V7_SURFACE_PROFILE_MIGRATION.md), [`reference and causal planning`](docs/V7_REFERENCE_CAUSAL_MIGRATION.md), [`paired language rendering`](docs/V7_LANGUAGE_RENDERING_MIGRATION.md), [`physics, motion, and state v2`](docs/V7_PHYSICS_MOTION_STATE_MIGRATION.md), [`audio/dialogue/multi-shot v2`](docs/V7_AUDIO_MULTISHOT_MIGRATION.md), and [`evaluation coverage v2`](docs/V7_EVALUATION_MIGRATION.md).
 
-Updated: **2026-07-06** · **v6.6.0 the loop closes: frame-extraction observation tooling, state lifecycle for long projects, and the worked end-to-end trace** · plus native quickstarts in six languages, a security policy, and an expanded agent-install matrix
+Updated: **2026-07-13** · Active release remains **v6.6.0**; V7-10 evaluation coverage is a non-release candidate and does not activate a provider or quality gate.
 
 ---
 
@@ -99,7 +101,7 @@ This skill package turns Seedance 2.0 work into a repeatable assistant workflow:
 - Handles safe false-positive repairs by clarifying benign production context, not by hiding unsafe intent.
 - Rewrites unsafe celebrity, protected IP, private-person, brand, logo, song, or voice requests into safer creative equivalents.
 - Diagnoses failed outputs with concrete repair levers: camera, lighting, motion, reference authority, causal order, observability, duration, framing, audio, or safety wording.
-- Ships validation scripts, eval cases, source data, and design checks so maintainers can review changes before release.
+- Ships validation scripts, 145 blind public behavior cases, declared metamorphic oracles, non-release returned-output review contracts, source data, and design checks so maintainers can review changes before release.
 
 ## Making Videos Longer Than One Generation
 
@@ -413,6 +415,7 @@ Run these checks before every release:
 python scripts/validate_skills.py --strict
 python scripts/content_audit.py
 python scripts/eval_schema_check.py
+python -B scripts/evaluation_program_check.py --self-test
 python scripts/mechanics_claim_audit.py
 # Reproducible release environment only: Linux x86-64, CPython 3.12.
 python -m pip install --require-hashes --requirement requirements-validation.lock
@@ -453,6 +456,7 @@ Migration notes are split by contract boundary:
 - paired language rendering: [`docs/V7_LANGUAGE_RENDERING_MIGRATION.md`](docs/V7_LANGUAGE_RENDERING_MIGRATION.md)
 - physics, motion, and state v2: [`docs/V7_PHYSICS_MOTION_STATE_MIGRATION.md`](docs/V7_PHYSICS_MOTION_STATE_MIGRATION.md)
 - exact speech and editorial cuts: [`docs/V7_AUDIO_MULTISHOT_MIGRATION.md`](docs/V7_AUDIO_MULTISHOT_MIGRATION.md)
+- evaluation coverage: [`docs/V7_EVALUATION_MIGRATION.md`](docs/V7_EVALUATION_MIGRATION.md)
 
 The model-in-the-loop harness is development tooling, not proof that the package is good. V7-03 first runs a blind route stage, loads complete allowlisted resources without silent truncation, then uses a different effective judge model. Public development and live-canary cases are never release-eligible. The public CLI refuses external held-out execution; no valid held-out run or quality release gate exists yet.
 
@@ -463,6 +467,9 @@ python scripts/eval_run.py --self-test
 Networked execution is explicit, requires distinct requested and returned responder/judge identities plus an egress acknowledgement, and writes a no-overwrite, checksum-manifested private bundle outside the repository. POSIX runs enforce owner-only output permissions; Windows users must choose a directory protected by an appropriate private ACL.
 
 Binary attachments are hash-only in V7-03, so these are text-behavior checks rather than multimodal/video-quality measurements. See [`docs/V7_EVAL_HARNESS_MIGRATION.md`](docs/V7_EVAL_HARNESS_MIGRATION.md). The old [`evals/eval-run-ledger.md`](evals/eval-run-ledger.md) is retained only as a historical unscored placeholder.
+
+V7-10 separately defines how externally returned media must be preregistered and reviewed: ten retained attempts per condition, exact provenance and media hashes, one observable per annotation, primary/secondary review, adjudication on disagreement, and failure-first aggregation.
+The public fixture and in-memory probes are synthetic, reviewer identity is unauthenticated, and every aggregate remains non-release and prohibited from supporting a quality claim. See [`docs/V7_EVALUATION_MIGRATION.md`](docs/V7_EVALUATION_MIGRATION.md).
 
 ## Design Standard
 

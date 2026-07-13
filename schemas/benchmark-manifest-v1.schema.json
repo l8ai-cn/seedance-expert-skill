@@ -1,0 +1,462 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Emily2040/seedance-2.0/schemas/benchmark-manifest-v1.schema.json",
+  "title": "Seedance V7-10 offline non-release benchmark manifest",
+  "$comment": "This manifest describes one exact ten-attempt condition for offline review. It grants no provider-execution or release authority, and it cannot support a model-quality claim. Hashes establish internal identity, not publisher, runner, reviewer, or artifact authenticity. Reviewer separation is an unauthenticated declaration.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schema_version",
+    "benchmark_id",
+    "manifest_status",
+    "execution_mode",
+    "release_eligible",
+    "quality_claim_status",
+    "is_synthetic_fixture",
+    "evaluated_on",
+    "generator_identity_sha256",
+    "model",
+    "surface",
+    "operation",
+    "protocol",
+    "condition",
+    "required_attempt_count",
+    "retention_policy",
+    "attempts",
+    "reviewers",
+    "review_policy"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "https://github.com/Emily2040/seedance-2.0/schemas/benchmark-manifest-v1.schema.json"
+    },
+    "schema_version": {"const": 1},
+    "benchmark_id": {"$ref": "#/$defs/id"},
+    "manifest_status": {"const": "offline_candidate"},
+    "execution_mode": {"const": "offline_review_only"},
+    "release_eligible": {"const": false},
+    "quality_claim_status": {"const": "prohibited"},
+    "is_synthetic_fixture": {"type": "boolean"},
+    "evaluated_on": {"type": "string", "format": "date"},
+    "generator_identity_sha256": {"$ref": "#/$defs/sha256"},
+    "model": {"$ref": "#/$defs/model"},
+    "surface": {"$ref": "#/$defs/surface"},
+    "operation": {"$ref": "#/$defs/operation"},
+    "protocol": {"$ref": "#/$defs/protocol"},
+    "condition": {"$ref": "#/$defs/condition"},
+    "required_attempt_count": {"const": 10},
+    "retention_policy": {"const": "all_attempts_retained"},
+    "attempts": {
+      "type": "array",
+      "minItems": 10,
+      "maxItems": 10,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/attempt"}
+    },
+    "reviewers": {"$ref": "#/$defs/reviewers"},
+    "review_policy": {"$ref": "#/$defs/review_policy"}
+  },
+  "allOf": [
+    {
+      "if": {
+        "required": ["is_synthetic_fixture"],
+        "properties": {"is_synthetic_fixture": {"const": true}}
+      },
+      "then": {
+        "properties": {
+          "attempts": {
+            "items": {
+              "properties": {"attempt_status": {"const": "synthetic_fixture"}}
+            }
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "attempts": {
+            "items": {
+              "properties": {
+                "attempt_status": {"enum": ["returned", "failed"]}
+              }
+            }
+          }
+        }
+      }
+    },
+    {"properties": {"attempts": {"contains": {"properties": {"attempt_index": {"const": 1}}, "required": ["attempt_index"]}, "minContains": 1, "maxContains": 1}}},
+    {"properties": {"attempts": {"contains": {"properties": {"attempt_index": {"const": 2}}, "required": ["attempt_index"]}, "minContains": 1, "maxContains": 1}}},
+    {"properties": {"attempts": {"contains": {"properties": {"attempt_index": {"const": 3}}, "required": ["attempt_index"]}, "minContains": 1, "maxContains": 1}}},
+    {"properties": {"attempts": {"contains": {"properties": {"attempt_index": {"const": 4}}, "required": ["attempt_index"]}, "minContains": 1, "maxContains": 1}}},
+    {"properties": {"attempts": {"contains": {"properties": {"attempt_index": {"const": 5}}, "required": ["attempt_index"]}, "minContains": 1, "maxContains": 1}}},
+    {"properties": {"attempts": {"contains": {"properties": {"attempt_index": {"const": 6}}, "required": ["attempt_index"]}, "minContains": 1, "maxContains": 1}}},
+    {"properties": {"attempts": {"contains": {"properties": {"attempt_index": {"const": 7}}, "required": ["attempt_index"]}, "minContains": 1, "maxContains": 1}}},
+    {"properties": {"attempts": {"contains": {"properties": {"attempt_index": {"const": 8}}, "required": ["attempt_index"]}, "minContains": 1, "maxContains": 1}}},
+    {"properties": {"attempts": {"contains": {"properties": {"attempt_index": {"const": 9}}, "required": ["attempt_index"]}, "minContains": 1, "maxContains": 1}}},
+    {"properties": {"attempts": {"contains": {"properties": {"attempt_index": {"const": 10}}, "required": ["attempt_index"]}, "minContains": 1, "maxContains": 1}}}
+  ],
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9._-]{0,127}$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "nullable_sha256": {
+      "oneOf": [
+        {"$ref": "#/$defs/sha256"},
+        {"type": "null"}
+      ]
+    },
+    "nullable_id": {
+      "oneOf": [
+        {"$ref": "#/$defs/id"},
+        {"type": "null"}
+      ]
+    },
+    "model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["model_id", "model_version", "model_profile_sha256"],
+      "properties": {
+        "model_id": {"$ref": "#/$defs/id"},
+        "model_version": {"type": "string", "minLength": 1, "maxLength": 128},
+        "model_profile_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "surface": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["surface_id", "surface_version", "region", "surface_profile_sha256", "surface_av_policy_sha256"],
+      "properties": {
+        "surface_id": {"$ref": "#/$defs/id"},
+        "surface_version": {"type": "string", "minLength": 1, "maxLength": 128},
+        "region": {"$ref": "#/$defs/id"},
+        "surface_profile_sha256": {"$ref": "#/$defs/sha256"},
+        "surface_av_policy_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "operation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["operation_id", "operation_kind", "operation_contract_sha256"],
+      "properties": {
+        "operation_id": {"$ref": "#/$defs/id"},
+        "operation_kind": {
+          "enum": [
+            "text_to_video",
+            "image_to_video",
+            "reference_to_video",
+            "first_last_frame",
+            "edit",
+            "extend",
+            "audio_video",
+            "multi_shot"
+          ]
+        },
+        "operation_contract_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "protocol": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["benchmark_protocol_sha256", "rubric_sha256", "annotation_schema_sha256"],
+      "properties": {
+        "benchmark_protocol_sha256": {"$ref": "#/$defs/sha256"},
+        "rubric_sha256": {"$ref": "#/$defs/sha256"},
+        "annotation_schema_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "condition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "condition_id",
+        "variant_id",
+        "condition_sha256",
+        "semantic_program_sha256",
+        "prompt_render_sha256",
+        "input_manifest_sha256",
+        "request_variance_policy",
+        "observable_catalog"
+      ],
+      "properties": {
+        "condition_id": {"$ref": "#/$defs/id"},
+        "variant_id": {"$ref": "#/$defs/id"},
+        "condition_sha256": {"$ref": "#/$defs/sha256"},
+        "semantic_program_sha256": {"$ref": "#/$defs/sha256"},
+        "prompt_render_sha256": {"$ref": "#/$defs/sha256"},
+        "input_manifest_sha256": {"$ref": "#/$defs/sha256"},
+        "request_variance_policy": {"$ref": "#/$defs/request_variance_policy"},
+        "observable_catalog": {
+          "type": "array",
+          "minItems": 22,
+          "maxItems": 64,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/observable_catalog_item"}
+        }
+      },
+      "allOf": [
+        {"properties": {"observable_catalog": {"contains": {"required": ["observable_dimension"], "properties": {"observable_dimension": {"const": "operation_correctness"}}}, "minContains": 1}}},
+        {"properties": {"observable_catalog": {"contains": {"required": ["observable_dimension"], "properties": {"observable_dimension": {"const": "binding_integrity"}}}, "minContains": 1}}},
+        {"properties": {"observable_catalog": {"contains": {"required": ["observable_dimension"], "properties": {"observable_dimension": {"const": "identity_adherence"}}}, "minContains": 1}}},
+        {"properties": {"observable_catalog": {"contains": {"required": ["observable_dimension"], "properties": {"observable_dimension": {"const": "composition_adherence"}}}, "minContains": 1}}},
+        {"properties": {"observable_catalog": {"contains": {"required": ["observable_dimension"], "properties": {"observable_dimension": {"const": "subject_motion"}}}, "minContains": 1}}},
+        {"properties": {"observable_catalog": {"contains": {"required": ["observable_dimension"], "properties": {"observable_dimension": {"const": "camera_motion"}}}, "minContains": 1}}},
+        {"properties": {"observable_catalog": {"contains": {"required": ["observable_dimension"], "properties": {"observable_dimension": {"const": "causal_order"}}}, "minContains": 1}}},
+        {"properties": {"observable_catalog": {"contains": {"required": ["observable_dimension"], "properties": {"observable_dimension": {"const": "physical_consequence"}}}, "minContains": 1}}},
+        {"properties": {"observable_catalog": {"contains": {"required": ["observable_dimension"], "properties": {"observable_dimension": {"const": "material_response"}}}, "minContains": 1}}},
+        {"properties": {"observable_catalog": {"contains": {"required": ["observable_dimension"], "properties": {"observable_dimension": {"const": "settled_endpoint"}}}, "minContains": 1}}},
+        {"properties": {"observable_catalog": {"contains": {"required": ["observable_dimension"], "properties": {"observable_dimension": {"const": "temporal_audio_sync"}}}, "minContains": 1}}},
+        {"properties": {"observable_catalog": {"contains": {"required": ["observable_dimension"], "properties": {"observable_dimension": {"const": "semantic_audio_sync"}}}, "minContains": 1}}},
+        {"properties": {"observable_catalog": {"contains": {"required": ["observable_dimension"], "properties": {"observable_dimension": {"const": "speaker_assignment"}}}, "minContains": 1}}},
+        {"properties": {"observable_catalog": {"contains": {"required": ["observable_dimension"], "properties": {"observable_dimension": {"const": "dialogue_exactness"}}}, "minContains": 1}}},
+        {"properties": {"observable_catalog": {"contains": {"required": ["observable_dimension"], "properties": {"observable_dimension": {"const": "spoken_language"}}}, "minContains": 1}}},
+        {"properties": {"observable_catalog": {"contains": {"required": ["observable_dimension"], "properties": {"observable_dimension": {"const": "dialogue_intelligibility"}}}, "minContains": 1}}},
+        {"properties": {"observable_catalog": {"contains": {"required": ["observable_dimension"], "properties": {"observable_dimension": {"const": "lip_sync"}}}, "minContains": 1}}},
+        {"properties": {"observable_catalog": {"contains": {"required": ["observable_dimension"], "properties": {"observable_dimension": {"const": "audio_continuity"}}}, "minContains": 1}}},
+        {"properties": {"observable_catalog": {"contains": {"required": ["observable_dimension"], "properties": {"observable_dimension": {"const": "editorial_cut"}}}, "minContains": 1}}},
+        {"properties": {"observable_catalog": {"contains": {"required": ["observable_dimension"], "properties": {"observable_dimension": {"const": "multishot_continuity"}}}, "minContains": 1}}},
+        {"properties": {"observable_catalog": {"contains": {"required": ["observable_dimension"], "properties": {"observable_dimension": {"const": "unexpected_text_logo"}}}, "minContains": 1}}},
+        {"properties": {"observable_catalog": {"contains": {"required": ["observable_dimension"], "properties": {"observable_dimension": {"const": "overall_usable_take"}}}, "minContains": 1}}}
+      ]
+    },
+    "request_variance_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "request_template_sha256",
+        "generation_settings_sha256",
+        "allowed_varying_fields",
+        "seed_policy",
+        "seed_value"
+      ],
+      "properties": {
+        "request_template_sha256": {"$ref": "#/$defs/sha256"},
+        "generation_settings_sha256": {"$ref": "#/$defs/sha256"},
+        "allowed_varying_fields": {
+          "type": "array",
+          "prefixItems": [{"const": "attempt_id"}],
+          "minItems": 1,
+          "maxItems": 1
+        },
+        "seed_policy": {"enum": ["not_requested", "fixed"]},
+        "seed_value": {
+          "oneOf": [
+            {"type": "integer", "minimum": 0, "maximum": 2147483647},
+            {"type": "null"}
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {"required": ["seed_policy"], "properties": {"seed_policy": {"const": "not_requested"}}},
+          "then": {"properties": {"seed_value": {"type": "null"}}}
+        },
+        {
+          "if": {"required": ["seed_policy"], "properties": {"seed_policy": {"const": "fixed"}}},
+          "then": {"properties": {"seed_value": {"type": "integer", "minimum": 0, "maximum": 2147483647}}}
+        }
+      ]
+    },
+    "observable_catalog_item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["observable_id", "observable_dimension", "rubric_item_sha256"],
+      "properties": {
+        "observable_id": {"$ref": "#/$defs/id"},
+        "observable_dimension": {"$ref": "#/$defs/observable_dimension"},
+        "rubric_item_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "observable_dimension": {
+      "enum": [
+        "operation_correctness",
+        "binding_integrity",
+        "identity_adherence",
+        "composition_adherence",
+        "subject_motion",
+        "camera_motion",
+        "causal_order",
+        "physical_consequence",
+        "material_response",
+        "settled_endpoint",
+        "temporal_audio_sync",
+        "semantic_audio_sync",
+        "speaker_assignment",
+        "dialogue_exactness",
+        "spoken_language",
+        "dialogue_intelligibility",
+        "lip_sync",
+        "audio_continuity",
+        "editorial_cut",
+        "multishot_continuity",
+        "unexpected_text_logo",
+        "overall_usable_take"
+      ]
+    },
+    "attempt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "attempt_id",
+        "attempt_index",
+        "condition_id",
+        "generation_record_sha256",
+        "input_manifest_sha256",
+        "request_sha256",
+        "request_template_sha256",
+        "generation_settings_sha256",
+        "requested_seed",
+        "prompt_render_sha256",
+        "attempt_status",
+        "output_id",
+        "output_media_sha256",
+        "media_kind",
+        "media_metadata_sha256",
+        "duration_ms",
+        "frame_count",
+        "audio_present",
+        "failure_record_sha256",
+        "retained"
+      ],
+      "properties": {
+        "attempt_id": {"$ref": "#/$defs/id"},
+        "attempt_index": {"type": "integer", "minimum": 1, "maximum": 10},
+        "condition_id": {"$ref": "#/$defs/id"},
+        "generation_record_sha256": {"$ref": "#/$defs/sha256"},
+        "input_manifest_sha256": {"$ref": "#/$defs/sha256"},
+        "request_sha256": {"$ref": "#/$defs/sha256"},
+        "request_template_sha256": {"$ref": "#/$defs/sha256"},
+        "generation_settings_sha256": {"$ref": "#/$defs/sha256"},
+        "requested_seed": {
+          "oneOf": [
+            {"type": "integer", "minimum": 0, "maximum": 2147483647},
+            {"type": "null"}
+          ]
+        },
+        "prompt_render_sha256": {"$ref": "#/$defs/sha256"},
+        "attempt_status": {"enum": ["synthetic_fixture", "returned", "failed"]},
+        "output_id": {"$ref": "#/$defs/nullable_id"},
+        "output_media_sha256": {"$ref": "#/$defs/nullable_sha256"},
+        "media_kind": {
+          "oneOf": [
+            {"const": "video"},
+            {"type": "null"}
+          ]
+        },
+        "media_metadata_sha256": {"$ref": "#/$defs/nullable_sha256"},
+        "duration_ms": {
+          "oneOf": [
+            {"type": "integer", "minimum": 1, "maximum": 3600000},
+            {"type": "null"}
+          ]
+        },
+        "frame_count": {
+          "oneOf": [
+            {"type": "integer", "minimum": 2, "maximum": 10000000},
+            {"type": "null"}
+          ]
+        },
+        "audio_present": {"type": ["boolean", "null"]},
+        "failure_record_sha256": {"$ref": "#/$defs/nullable_sha256"},
+        "retained": {"const": true}
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": ["attempt_status"],
+            "properties": {"attempt_status": {"enum": ["synthetic_fixture", "returned"]}}
+          },
+          "then": {
+            "properties": {
+              "output_id": {"$ref": "#/$defs/id"},
+              "output_media_sha256": {"$ref": "#/$defs/sha256"},
+              "media_kind": {"const": "video"},
+              "media_metadata_sha256": {"$ref": "#/$defs/sha256"},
+              "duration_ms": {"type": "integer", "minimum": 1, "maximum": 3600000},
+              "frame_count": {"type": "integer", "minimum": 2, "maximum": 10000000},
+              "audio_present": {"type": "boolean"},
+              "failure_record_sha256": {"type": "null"}
+            }
+          }
+        },
+        {
+          "if": {
+            "required": ["attempt_status"],
+            "properties": {"attempt_status": {"const": "failed"}}
+          },
+          "then": {
+            "properties": {
+              "output_id": {"type": "null"},
+              "output_media_sha256": {"type": "null"},
+              "media_kind": {"type": "null"},
+              "media_metadata_sha256": {"type": "null"},
+              "duration_ms": {"type": "null"},
+              "frame_count": {"type": "null"},
+              "audio_present": {"type": "null"},
+              "failure_record_sha256": {"$ref": "#/$defs/sha256"}
+            }
+          }
+        }
+      ]
+    },
+    "reviewer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reviewer_id", "reviewer_identity_sha256", "role", "identity_assurance", "generator_relation"],
+      "properties": {
+        "reviewer_id": {"$ref": "#/$defs/id"},
+        "reviewer_identity_sha256": {"$ref": "#/$defs/sha256"},
+        "role": {"enum": ["primary", "secondary", "adjudicator"]},
+        "identity_assurance": {"const": "unauthenticated_declaration"},
+        "generator_relation": {"const": "declared_separate"}
+      }
+    },
+    "reviewers": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["primary", "secondary", "adjudicator"],
+      "properties": {
+        "primary": {
+          "allOf": [
+            {"$ref": "#/$defs/reviewer"},
+            {"properties": {"role": {"const": "primary"}}}
+          ]
+        },
+        "secondary": {
+          "allOf": [
+            {"$ref": "#/$defs/reviewer"},
+            {"properties": {"role": {"const": "secondary"}}}
+          ]
+        },
+        "adjudicator": {
+          "allOf": [
+            {"$ref": "#/$defs/reviewer"},
+            {"properties": {"role": {"const": "adjudicator"}}}
+          ]
+        }
+      }
+    },
+    "review_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "primary_secondary_required",
+        "adjudication_on_disagreement",
+        "reviewer_ids_declared_distinct",
+        "generator_reviewer_separation",
+        "independence_authentication"
+      ],
+      "properties": {
+        "primary_secondary_required": {"const": true},
+        "adjudication_on_disagreement": {"const": true},
+        "reviewer_ids_declared_distinct": {"const": true},
+        "generator_reviewer_separation": {"const": "declared_separate"},
+        "independence_authentication": {"const": "not_established"}
+      }
+    }
+  }
+}

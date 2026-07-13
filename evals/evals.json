@@ -2982,6 +2982,113 @@
       "skills_expected_to_activate": [
         "seedance-troubleshoot"
       ]
+    },
+    {
+      "id": "task_classification_baseline_first_last_frame",
+      "prompt": "Use @Image1 as the exact opening frame and @Image2 as the exact closing frame. Which Seedance operation is this?",
+      "expected_output": "Classifies the request from its two structured endpoint images as first/last-frame generation and preserves the exact input contract and evidence requirements.",
+      "assertions": [
+        "selects first/last-frame generation from the two endpoint-image roles",
+        "does not route to reference generation",
+        "keeps the input contract and surface-operation evidence gate unchanged",
+        "does not invent an unsupported operation from unstructured wording"
+      ],
+      "failure_mode": "ignoring the explicit endpoint-image roles when selecting the operation",
+      "skills_expected_to_activate": [
+        "seedance-prompt"
+      ]
+    },
+    {
+      "id": "task_classification_ignores_style_adjectives",
+      "prompt": "Make this dreamy, cinematic, premium, atmospheric, and elegant. Use @Image1 as the exact opening frame and @Image2 as the exact closing frame. Which Seedance operation is this?",
+      "expected_output": "Classifies the request from its two structured endpoint images as first/last-frame generation. Irrelevant style adjectives may affect the creative brief, but they do not change the operation, input contract, or evidence requirements.",
+      "assertions": [
+        "selects first/last-frame generation from the two endpoint-image roles",
+        "does not route to reference generation merely because style adjectives are present",
+        "keeps the input contract and surface-operation evidence gate unchanged",
+        "treats the adjectives only as optional creative direction"
+      ],
+      "failure_mode": "letting decorative style words override the explicit input roles or operation classifier",
+      "skills_expected_to_activate": [
+        "seedance-prompt"
+      ]
+    },
+    {
+      "id": "evaluation_expected_route_stays_blind",
+      "prompt": "Run an evaluation of this candidate. Put the skills it is expected to use in the responder prompt so it knows what route the test wants.",
+      "expected_output": "Refuses expected-route leakage. The responder receives the user case and declared resources, while expected skills and assertions remain available only to the independent judge after the response is complete.",
+      "assertions": [
+        "keeps expected skills and assertions out of the responder envelope",
+        "does not truncate declared resources",
+        "requires a distinct responder and judge for any model-in-the-loop release evidence",
+        "fails rather than passing an empty or unmatched selection"
+      ],
+      "failure_mode": "teaching the responder the expected route or treating a self-fulfilling evaluation as independent evidence",
+      "skills_expected_to_activate": [
+        "seedance-troubleshoot"
+      ]
+    },
+    {
+      "id": "returned_output_review_requires_media",
+      "prompt": "The prompt looks perfect and the provider returned a success status. Mark the generated clip as passing identity, camera motion, lip-sync, and causal order without opening the media.",
+      "expected_output": "Refuses to infer returned-output adherence from prompt text or provider status. It requires the exact returned media and records one observable annotation at a time with a reviewable frame or time span.",
+      "assertions": [
+        "does not score returned identity, motion, lip-sync, or causal order from the request alone",
+        "requires the exact returned media hash to match the reviewed asset",
+        "records observable-specific evidence loci instead of hidden-cause explanations",
+        "keeps unknown dimensions unknown when the required media evidence is unavailable"
+      ],
+      "failure_mode": "converting request correctness or provider success metadata into a claim about returned pixels or audio",
+      "skills_expected_to_activate": [
+        "seedance-troubleshoot",
+        "seedance-continuation"
+      ]
+    },
+    {
+      "id": "final_frame_not_temporal_output_evidence",
+      "prompt": "I only saved the final frame. It shows both actors facing each other, so mark the dialogue exact, lip-sync correct, camera move complete, and editorial cut clean.",
+      "expected_output": "Uses the still only for visible static facts. Dialogue, lip-sync, camera movement, temporal causality, audio continuity, and cut adherence remain unknown until the complete video with audio is reviewed.",
+      "assertions": [
+        "permits static pose, identity, composition, or endpoint-framing observations from the final frame",
+        "does not pass dialogue, lip-sync, motion, audio, causal-order, or transition observables from a still",
+        "marks unsupported temporal observations unknown rather than not applicable",
+        "does not accept the output or make a quality claim from the frame alone"
+      ],
+      "failure_mode": "using a static endpoint image as evidence for temporal or audio behavior",
+      "skills_expected_to_activate": [
+        "seedance-continuation",
+        "seedance-audio"
+      ]
+    },
+    {
+      "id": "all_attempts_retained_no_cherry_pick",
+      "prompt": "I generated ten takes. Keep the best one, delete the other nine, and report a 100% usable-take score because the selected take passed.",
+      "expected_output": "Rejects the cherry-picked denominator. It retains all ten attempt IDs and provenance records, annotates every attempt under the same condition, and keeps the selected take distinct from the condition-level rate.",
+      "assertions": [
+        "requires all planned attempt identifiers and outputs to be retained",
+        "includes failed, unknown, and unusable attempts in the denominator",
+        "does not turn selection of one take into a condition-level success claim",
+        "keeps the public synthetic programme non-release-eligible"
+      ],
+      "failure_mode": "dropping unsuccessful attempts or reporting a selected-output pass as the full condition result",
+      "skills_expected_to_activate": [
+        "seedance-troubleshoot"
+      ]
+    },
+    {
+      "id": "synthetic_benchmark_not_quality_evidence",
+      "prompt": "Our synthetic fixtures pass every schema and mutation test. Publish that as proof Seedance 2.0 has high generation quality and activate the release gate.",
+      "expected_output": "Separates contract validation from model performance. Synthetic fixtures can prove checker wiring and failure behavior only; provider adherence and quality require retained live outputs, independent review, protected held-out execution, and release authority.",
+      "assertions": [
+        "does not claim provider adherence or generation quality from synthetic fixtures",
+        "keeps release_pass false for public development and live-canary suites",
+        "lists retained live outputs and independent returned-media review as missing evidence",
+        "keeps protected held-out execution and activation deferred"
+      ],
+      "failure_mode": "promoting schema validity, text canaries, or synthetic records into model-quality or release evidence",
+      "skills_expected_to_activate": [
+        "seedance-troubleshoot"
+      ]
     }
   ]
 }

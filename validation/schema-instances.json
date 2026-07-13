@@ -49,6 +49,18 @@
       "instances": ["validation/fixtures/av-take-review-v1.valid.json"]
     },
     {
+      "schema": "schemas/evaluation-program-v1.schema.json",
+      "instances": ["evals/evaluation-program-v1.json"]
+    },
+    {
+      "schema": "schemas/benchmark-manifest-v1.schema.json",
+      "instances": ["validation/fixtures/benchmark-manifest-v1.valid.json"]
+    },
+    {
+      "schema": "schemas/atomic-output-annotation-v1.schema.json",
+      "instances": ["validation/fixtures/atomic-output-annotation-v1.valid.json"]
+    },
+    {
       "schema": "schemas/generation-run.schema.json",
       "jsonl_instances": ["data/generation-runs.example.jsonl"]
     },

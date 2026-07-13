@@ -4,7 +4,7 @@ V7-03 replaces the v6 model-in-the-loop script because its responder was given `
 
 ## Trust labels
 
-- **Development:** 126 public cases. Assertion-blinded, not held out, and never release-eligible.
+- **Development:** 145 public cases. Assertion-blinded, not held out, and never release-eligible.
 - **Live canary:** eight public cases sent through the configured provider. Detects provider/model/judge drift; it does not generate or score Seedance video and is not a quality release gate.
 - **Held out:** a sealed external case pack intended for a future protected release gate. V7-03 can validate its contract in offline tests, but the public CLI refuses to execute external suites and hard-locks `release_pass` to false. A self-declared flag cannot establish a trusted runner.
 
@@ -38,6 +38,8 @@ Each provider stage is checkpointed as it completes. The run directory is reserv
 The Markdown ledger is no longer an evidence source. A completed v2 bundle is no-overwrite, checksum-manifested, completion-bound, and includes candidate commit/tree state, hashes of the harness files actually executing, Python/platform provenance, suite/rubric/runtime hashes, requested and returned models, provider endpoint/settings, resources, asset declarations, timings, usage, IDs, attempts, seed-support status, honest unknown-cost status, raw bytes, parsed judgments, and the locally derived verdict. Bundle verification checks strict schemas and internal semantic consistency; checksums are not signatures or protected-runner attestations, so a malicious party able to rewrite a bundle can recompute them.
 
 `asset_paths` are recorded as hash-only declarations in V7-03; no image, video, or audio bytes are sent to the provider. Development/live results therefore test text behavior and wiring, not Seedance video quality or multimodal understanding.
+
+V7-10 adds a separate offline contract for preregistering and reviewing externally returned media. Its checked-in benchmark and annotation records are synthetic fixtures, not generated results, and every aggregate remains non-release. See [`V7_EVALUATION_MIGRATION.md`](V7_EVALUATION_MIGRATION.md).
 
 ## v6 to v7 CLI map
 

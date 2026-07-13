@@ -1,0 +1,193 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Emily2040/seedance-2.0/schemas/evaluation-program-v1.schema.json",
+  "title": "Seedance V7-10 candidate evaluation program",
+  "$comment": "This public, offline contract inventories development checks. It cannot establish provider adherence, model quality, reviewer independence, or release eligibility.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schema_version",
+    "program_id",
+    "program_date",
+    "candidate_base_commit",
+    "status",
+    "network_policy",
+    "release_gate",
+    "quality_claims_allowed",
+    "public_corpora",
+    "deterministic_suites",
+    "mutation_campaigns",
+    "metamorphic_relations",
+    "output_review_policy",
+    "deferred_release_requirements"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "https://github.com/Emily2040/seedance-2.0/schemas/evaluation-program-v1.schema.json"
+    },
+    "schema_version": {"const": 1},
+    "program_id": {"const": "v7_10_evaluation_candidate"},
+    "program_date": {"type": "string", "format": "date"},
+    "candidate_base_commit": {"$ref": "#/$defs/commit"},
+    "status": {"const": "candidate_non_release"},
+    "network_policy": {"const": "forbidden"},
+    "release_gate": {"const": false},
+    "quality_claims_allowed": {"const": false},
+    "public_corpora": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "development_release_eligible",
+        "live_canary_release_eligible",
+        "held_out_execution"
+      ],
+      "properties": {
+        "development_release_eligible": {"const": false},
+        "live_canary_release_eligible": {"const": false},
+        "held_out_execution": {"const": "blocked_without_protected_runner"}
+      }
+    },
+    "deterministic_suites": {
+      "type": "array",
+      "minItems": 7,
+      "maxItems": 32,
+      "items": {"$ref": "#/$defs/deterministic_suite"}
+    },
+    "mutation_campaigns": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 8,
+      "items": {"$ref": "#/$defs/mutation_campaign"}
+    },
+    "metamorphic_relations": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 32,
+      "items": {"$ref": "#/$defs/metamorphic_relation"}
+    },
+    "output_review_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "benchmark_manifest_schema",
+        "atomic_annotation_schema",
+        "minimum_attempts_per_condition",
+        "retain_all_attempts",
+        "distinct_generator_and_reviewer",
+        "required_observables",
+        "temporal_observables"
+      ],
+      "properties": {
+        "benchmark_manifest_schema": {"const": "schemas/benchmark-manifest-v1.schema.json"},
+        "atomic_annotation_schema": {"const": "schemas/atomic-output-annotation-v1.schema.json"},
+        "minimum_attempts_per_condition": {"type": "integer", "minimum": 10},
+        "retain_all_attempts": {"const": true},
+        "distinct_generator_and_reviewer": {"const": true},
+        "required_observables": {
+          "type": "array",
+          "minItems": 22,
+          "maxItems": 32,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/id"}
+        },
+        "temporal_observables": {
+          "type": "array",
+          "minItems": 18,
+          "maxItems": 32,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/id"}
+        }
+      }
+    },
+    "deferred_release_requirements": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 16,
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "protected_runner",
+          "approved_held_out_digest",
+          "private_held_out_corpus",
+          "independent_reviewer_attestation",
+          "live_provider_outputs",
+          "complete_attempt_retention",
+          "provider_adherence_review",
+          "release_authority_approval"
+        ]
+      }
+    }
+  },
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[a-z][a-z0-9._-]{0,95}$"},
+    "path": {
+      "type": "string",
+      "pattern": "^(evals|scripts|tests|schemas|validation)/[A-Za-z0-9][A-Za-z0-9._/-]{0,255}$"
+    },
+    "commit": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+    "deterministic_suite": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["suite_id", "coverage", "entrypoints"],
+      "properties": {
+        "suite_id": {"$ref": "#/$defs/id"},
+        "coverage": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 16,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/id"}
+        },
+        "entrypoints": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 16,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/path"}
+        }
+      }
+    },
+    "mutation_campaign": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["campaign_id", "target", "minimum_detection_rate", "mutation_ids"],
+      "properties": {
+        "campaign_id": {"$ref": "#/$defs/id"},
+        "target": {"$ref": "#/$defs/path"},
+        "minimum_detection_rate": {"type": "number", "minimum": 0.9, "maximum": 1},
+        "mutation_ids": {
+          "type": "array",
+          "minItems": 10,
+          "maxItems": 64,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/id"}
+        }
+      }
+    },
+    "metamorphic_relation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["relation_id", "execution", "oracle_path", "oracle_ids", "invariants"],
+      "properties": {
+        "relation_id": {"$ref": "#/$defs/id"},
+        "execution": {"enum": ["offline_deterministic", "development_model_only"]},
+        "oracle_path": {"$ref": "#/$defs/path"},
+        "oracle_ids": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 4,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/id"}
+        },
+        "invariants": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 12,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/id"}
+        }
+      }
+    }
+  }
+}
