@@ -470,13 +470,26 @@ def _read_stable_bytes(path: Path, max_bytes: int = MAX_JSON_BYTES) -> bytes:
             value.st_mtime_ns,
             value.st_ctime_ns,
         )
-        if first != second or identity(opened) != identity(first_metadata) or identity(opened) != identity(second_metadata):
+        if (
+            first != second
+            or len(first) != opened.st_size
+            or identity(opened) != identity(first_metadata)
+            or identity(opened) != identity(second_metadata)
+        ):
             raise ValueError("file changed during read")
         try:
             final_path = path.lstat()
         except OSError as exc:
             raise ValueError("file changed during read") from exc
-        if identity(opened) != identity(final_path):
+        final_attributes = getattr(final_path, "st_file_attributes", 0)
+        if (
+            not stat.S_ISREG(final_path.st_mode)
+            or final_path.st_nlink != 1
+            or stat.S_ISLNK(final_path.st_mode)
+            or bool(final_attributes & getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0x400))
+            or (final_path.st_dev, final_path.st_ino) != (opened.st_dev, opened.st_ino)
+            or identity(before) != identity(final_path)
+        ):
             raise ValueError("file changed during read")
         return first
     finally:

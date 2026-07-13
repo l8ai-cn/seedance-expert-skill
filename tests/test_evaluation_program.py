@@ -3,11 +3,14 @@ from __future__ import annotations
 import copy
 import json
 import os
+import stat
 import subprocess
 import sys
 import tempfile
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
+from unittest import mock
 
 try:
     from jsonschema import Draft202012Validator, FormatChecker
@@ -544,6 +547,50 @@ class EvaluationProgramTests(unittest.TestCase):
                 path.write_bytes(payload)
                 with self.assertRaises((ValueError, UnicodeError)):
                     checker.strict_load_json(path)
+
+    def test_stable_snapshot_handles_distinct_path_and_descriptor_stat_views(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            path = Path(temporary) / "value.json"
+            path.write_text("{}\n", encoding="utf-8")
+            real_lstat = Path.lstat
+
+            def stat_view(metadata: os.stat_result, **overrides: int) -> SimpleNamespace:
+                fields = {
+                    "st_mode": metadata.st_mode,
+                    "st_nlink": metadata.st_nlink,
+                    "st_dev": metadata.st_dev,
+                    "st_ino": metadata.st_ino,
+                    "st_size": metadata.st_size,
+                    "st_mtime_ns": metadata.st_mtime_ns,
+                    "st_ctime_ns": metadata.st_ctime_ns,
+                    "st_file_attributes": getattr(metadata, "st_file_attributes", 0),
+                }
+                fields.update(overrides)
+                return SimpleNamespace(**fields)
+
+            def windows_lstat(candidate: Path) -> SimpleNamespace | os.stat_result:
+                metadata = real_lstat(candidate)
+                if candidate == path:
+                    return stat_view(metadata, st_mode=metadata.st_mode ^ stat.S_IWUSR)
+                return metadata
+
+            with mock.patch.object(Path, "lstat", windows_lstat):
+                self.assertEqual(checker.strict_load_json(path), {})
+
+            calls = 0
+
+            def changing_lstat(candidate: Path) -> SimpleNamespace | os.stat_result:
+                nonlocal calls
+                metadata = real_lstat(candidate)
+                if candidate != path:
+                    return metadata
+                calls += 1
+                return stat_view(metadata, st_size=metadata.st_size + int(calls > 1))
+
+            with mock.patch.object(Path, "lstat", changing_lstat), self.assertRaisesRegex(
+                ValueError, "file changed during read"
+            ):
+                checker.strict_load_json(path)
 
     def test_manifest_snapshot_cannot_detach_value_or_digest_from_raw_bytes(self) -> None:
         with self.assertRaises(TypeError):
