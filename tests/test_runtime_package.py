@@ -145,9 +145,9 @@ class RuntimePackageTests(unittest.TestCase):
 
     def test_repository_manifest_builds_conservative_runtime_exactly(self) -> None:
         plan = package.package_plan(ROOT)
-        self.assertEqual(plan["payload_file_count"], 125)
-        self.assertEqual(plan["payload_size_bytes"], 938971)
-        self.assertEqual(plan["tree_sha256"], "8347f868d505a947e8693972259d850f71ad712b5b88300a8b8f513b1d45170e")
+        self.assertEqual(plan["payload_file_count"], 135)
+        self.assertEqual(plan["payload_size_bytes"], 1191761)
+        self.assertEqual(plan["tree_sha256"], "6909a37229ef40aee24438bf43cd3b58af50801758084c23d79cc43a0f58fb80")
 
         first = self.base / "first"
         second = self.base / "second"
@@ -160,7 +160,7 @@ class RuntimePackageTests(unittest.TestCase):
         self.assertEqual(package.verify_package(first)["tree_sha256"], plan["tree_sha256"])
 
         found = package._scan_plain_tree(first)
-        self.assertEqual(len(found), 126)
+        self.assertEqual(len(found), 136)
         self.assertIn("references/interview-starters.md", found)
         self.assertIn("profiles/profile-index.json", found)
         self.assertIn("schemas/reference-manifest.schema.json", found)
@@ -169,12 +169,21 @@ class RuntimePackageTests(unittest.TestCase):
         self.assertIn("schemas/prompt-program.schema.json", found)
         self.assertIn("schemas/prompt-realization-catalog.schema.json", found)
         self.assertIn("schemas/prompt-render.schema.json", found)
+        self.assertIn("schemas/project-state-v2.schema.json", found)
+        self.assertIn("schemas/project-state-v2-migration-map.schema.json", found)
+        self.assertIn("schemas/project-state-v2-migration-report.schema.json", found)
+        self.assertIn("schemas/take-review-v2.schema.json", found)
+        self.assertIn("schemas/prompt-spec-v2.schema.json", found)
+        self.assertIn("schemas/generation-run-v2.schema.json", found)
         self.assertIn("schemas/surface-binding-set.schema.json", found)
         self.assertIn("scripts/prompt_compile.py", found)
+        self.assertIn("scripts/project_state_migrate.py", found)
+        self.assertIn("scripts/project_state_v2_check.py", found)
         self.assertIn("scripts/reference_planner.py", found)
         self.assertIn("scripts/render_surface_bindings.py", found)
         self.assertIn("scripts/scene_ir_check.py", found)
         self.assertIn("scripts/semantic_lint.py", found)
+        self.assertIn("scripts/v2_aux_check.py", found)
         self.assertNotIn("README.md", found)
         self.assertFalse(any(path.startswith(("docs/", "evals/", "tests/", "data/", "research/")) for path in found))
         self.assertFalse(any(path.startswith("schemas/evidence-") for path in found))
@@ -190,6 +199,7 @@ class RuntimePackageTests(unittest.TestCase):
         state_tool = subprocess.run(
             [
                 sys.executable,
+                "-S",
                 "-B",
                 str(first / "scripts" / "project_state_check.py"),
                 str(first),
@@ -198,6 +208,50 @@ class RuntimePackageTests(unittest.TestCase):
             capture_output=True,
         )
         self.assertEqual(state_tool.returncode, 0, state_tool.stdout + state_tool.stderr)
+        state_v2_tool = subprocess.run(
+            [
+                sys.executable,
+                "-S",
+                "-B",
+                str(first / "scripts" / "project_state_v2_check.py"),
+                "--self-test",
+            ],
+            text=True,
+            capture_output=True,
+        )
+        self.assertEqual(
+            state_v2_tool.returncode,
+            0,
+            state_v2_tool.stdout + state_v2_tool.stderr,
+        )
+        migration_tool = subprocess.run(
+            [
+                sys.executable,
+                "-S",
+                "-B",
+                str(first / "scripts" / "project_state_migrate.py"),
+                "--self-test",
+            ],
+            text=True,
+            capture_output=True,
+        )
+        self.assertEqual(
+            migration_tool.returncode,
+            0,
+            migration_tool.stdout + migration_tool.stderr,
+        )
+        aux_tool = subprocess.run(
+            [
+                sys.executable,
+                "-S",
+                "-B",
+                str(first / "scripts" / "v2_aux_check.py"),
+                "--self-test",
+            ],
+            text=True,
+            capture_output=True,
+        )
+        self.assertEqual(aux_tool.returncode, 0, aux_tool.stdout + aux_tool.stderr)
         binding_tool = subprocess.run(
             [
                 sys.executable,

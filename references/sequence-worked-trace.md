@@ -2,7 +2,7 @@
 
 <!-- fixed_handle_audit: synthetic_fixture -->
 
-One project, walked end to end through the full loop - plan, compile, generate, observe, deviate, reconcile, hit the chain cap, re-anchor, break for the night, and resume. The machine half of this trace already lives in `examples/`; this is the prose half that shows how the pieces are actually used. Field schemas without a trace get re-interpreted on every run; this file is the interpretation.
+One legacy version-1 project, walked end to end through the full loop - plan, compile, generate, observe, deviate, reconcile, apply its project-selected re-anchor policy, break for the night, and resume. The machine half of this trace already lives in `examples/`; this is the prose half that shows how the compatibility fields are used. The numeric policy in this fixture is not a Seedance limit or default for new projects.
 
 The project: **seq_airport_arrival** (`examples/sequence-airport-arrival/`) - a traveler exits the terminal, enters a waiting car, and the car departs. Deviation-handling details borrow the second fixture, **sequence-observed-deviation** (`examples/sequence-observed-deviation/`), which records a real unexpected-completed-beat event.
 
@@ -10,7 +10,7 @@ The project: **seq_airport_arrival** (`examples/sequence-airport-arrival/`) - a 
 
 The idea ("my character lands and is driven away") is bigger than one generation, so the Sequence Gate classifies it `sequence_project`. Before Clip 01 exists, the plan fixes: the story promise and final outcome, beats grouped into **scenes**, and per clip a `narrative_job`, a `felt_intent`, and a completed endpoint.
 
-Here everything happens at one location in one time envelope, so the scene map is a single scene: `scene_01`, arc position `release`, canonical anchor `@Image 1` (the exact opaque handle supplied by this fixture - note the internal space; it is never a default for new output), `max_chain_depth: 2`, and an audio plan of curb ambience and sync SFX per clip with score unified in post. Three clips are assigned: exit terminal and approach the car (Clip 01), enter and close the door (Clip 02), the car departs (Clip 03). See `project-state.json` - `scenes`, `beats`, `clips`.
+Here everything happens at one location in one time envelope, so the scene map is a single scene: `scene_01`, arc position `release`, canonical anchor `@Image 1` (the exact opaque handle supplied by this fixture - note the internal space; it is never a default for new output), a legacy-v1 `max_chain_depth: 2` chosen as this project's conservative local policy, and an audio plan of curb ambience and sync SFX per clip with score unified in post. Three clips are assigned: exit terminal and approach the car (Clip 01), enter and close the door (Clip 02), the car departs (Clip 03). See `project-state.json` - `scenes`, `beats`, `clips`.
 
 Only Clip 01 is compiled. Clips 02-03 stay provisional intent cards, because their opening states do not exist yet.
 
@@ -32,9 +32,9 @@ Clip 02 (`clip-02-continuation-contract.json`) is a `seamless_continuation` insi
 
 The second fixture shows the mirror-image deviation. A rooftop courier take planned only "unlock the case" - but the accepted footage shows the case unlocked **and opened** (`take-review.json`: "case opened one clip earlier than planned"). Reconciliation removes the now-completed `beat_open_case` from the future (compare `project-state-before.json` with `project-state-after.json`: three planned clips become two, and the next clip's job becomes "Light the already visible signal device"). The rule in both directions is the same: **accepted observed state overrides planned state** - whether the take fell short or ran ahead.
 
-## 5 - The chain cap and the scene boundary
+## 5 - The local re-anchor policy and the scene boundary
 
-Clip 03 chains from Clip 02's accepted footage: `extension_depth: 2` - exactly at `scene_01`'s `max_chain_depth`. That is legal, and it is also the end of the chain: a third output-sourced generation would exceed the cap, and the validator (`scripts/project_state_check.py`) fails it with instructions to open from canonical references instead. This is scheduled re-anchoring: identity decays along output-sourced chains, so the reset is routine, planned at the scene boundary - an intentional cut, opened from `@Image 1`, depth back to 0 - not an emergency repair after drift is visible. If drift appears **before** the cap, that is an immediate `reanchor_after_drift` instead.
+Clip 03 chains from Clip 02's accepted footage: `extension_depth: 2`, exactly at this fixture's explicit `max_chain_depth`. The legacy-v1 validator therefore requires this project to open the next shot from canonical references. That enforcement proves only that the record follows its chosen local policy; it does not predict drift or establish a universal chain threshold. At the planned scene boundary the next shot would be an intentional cut opened from `@Image 1`, with depth back to 0. A named continuity failure at any earlier point triggers `reanchor_after_drift`; absent such a failure or an explicit project policy, depth alone is context rather than a reason to reset.
 
 ## 6 - Break for the night, resume tomorrow
 
@@ -42,4 +42,4 @@ Sessions end; canon must not. The Project State Capsule (template in `[ref:seque
 
 ## 7 - Close out
 
-Clip 03 ends the scene and the story: the car departs, the final outcome is met, the scene closes (its line in the capsule compresses to its outcome), and the take log archives. Total user effort per cycle after the plan: attach the take, confirm the agent's observation record, approve the intent echo, generate. The loop's guarantees did the rest: nothing replayed, nothing leaked early, nothing invented, and the story the user accepted is the story the state remembers.
+Clip 03 ends the scene and the story: the car departs, the final outcome is met, the scene closes (its line in the capsule compresses to its outcome), and the take log archives. Total user effort per cycle after the plan: attach the take, confirm the agent's observation record, approve the intent echo, generate. The state checks keep replay, future-beat leakage, and unsupported observations visible for review; they do not guarantee generated-video behavior.

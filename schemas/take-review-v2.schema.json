@@ -1,0 +1,352 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Emily2040/seedance-2.0/schemas/take-review-v2.schema.json",
+  "title": "Seedance take review v2",
+  "$comment": "Only decision_status=final can enter terminal canon. A pending_confirmation decision records a proposed verdict and remains reviewed until the required user confirmation resolves uncertainty. Canonical hashes use sorted compact UTF-8 JSON with one trailing LF.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schema_version",
+    "project_id",
+    "clip_id",
+    "take_id",
+    "decision_status",
+    "source_status",
+    "verdict",
+    "media_kind",
+    "accepted_media_sha256",
+    "observed_start_snapshot_sha256",
+    "observed_end_snapshot_sha256",
+    "endpoint_states",
+    "completed_beat_ids",
+    "incomplete_beat_ids",
+    "unexpected_completed_beat_ids",
+    "continuity_break_ids",
+    "accepted_deviation_ids",
+    "observation_confidence",
+    "uncertainties",
+    "requires_user_confirmation"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "https://github.com/Emily2040/seedance-2.0/schemas/take-review-v2.schema.json"
+    },
+    "schema_version": {"const": 2},
+    "project_id": {"$ref": "#/$defs/id"},
+    "clip_id": {"$ref": "#/$defs/id"},
+    "take_id": {"$ref": "#/$defs/id"},
+    "decision_status": {"enum": ["final", "pending_confirmation"]},
+    "source_status": {
+      "enum": ["reviewed", "accepted", "accepted_with_deviation", "repair", "rejected"]
+    },
+    "verdict": {
+      "enum": ["accept", "accept_with_deviation", "repair", "reject"]
+    },
+    "media_kind": {
+      "enum": ["video", "final_frame", "user_description", "legacy_description"]
+    },
+    "accepted_media_sha256": {"$ref": "#/$defs/nullable_sha"},
+    "observed_start_snapshot_sha256": {"$ref": "#/$defs/nullable_sha"},
+    "observed_end_snapshot_sha256": {"$ref": "#/$defs/nullable_sha"},
+    "endpoint_states": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 512,
+      "items": {"$ref": "#/$defs/endpoint_state"}
+    },
+    "completed_beat_ids": {"$ref": "#/$defs/id_array"},
+    "incomplete_beat_ids": {"$ref": "#/$defs/id_array"},
+    "unexpected_completed_beat_ids": {"$ref": "#/$defs/id_array"},
+    "continuity_break_ids": {"$ref": "#/$defs/id_array"},
+    "accepted_deviation_ids": {"$ref": "#/$defs/id_array"},
+    "observation_confidence": {"enum": ["low", "medium", "high", "unknown"]},
+    "uncertainties": {
+      "type": "array",
+      "maxItems": 128,
+      "items": {"type": "string", "minLength": 1, "maxLength": 2000}
+    },
+    "requires_user_confirmation": {"type": "boolean"}
+  },
+  "allOf": [
+    {
+      "if": {
+        "required": ["decision_status"],
+        "properties": {"decision_status": {"const": "pending_confirmation"}}
+      },
+      "then": {
+        "properties": {
+          "source_status": {"const": "reviewed"},
+          "accepted_media_sha256": {"type": "null"},
+          "requires_user_confirmation": {"const": true}
+        }
+      }
+    },
+    {
+      "if": {
+        "required": ["decision_status"],
+        "properties": {"decision_status": {"const": "final"}}
+      },
+      "then": {
+        "properties": {"requires_user_confirmation": {"const": false}}
+      }
+    },
+    {
+      "if": {
+        "required": ["decision_status", "verdict"],
+        "properties": {
+          "decision_status": {"const": "final"},
+          "verdict": {"const": "accept"}
+        }
+      },
+      "then": {
+        "properties": {
+          "source_status": {"const": "accepted"},
+          "media_kind": {"enum": ["video", "final_frame"]},
+          "accepted_media_sha256": {"$ref": "#/$defs/sha256"},
+          "observation_confidence": {"enum": ["low", "medium", "high"]},
+          "incomplete_beat_ids": {"maxItems": 0},
+          "unexpected_completed_beat_ids": {"maxItems": 0},
+          "continuity_break_ids": {"maxItems": 0},
+          "accepted_deviation_ids": {"maxItems": 0}
+        }
+      }
+    },
+    {
+      "if": {
+        "required": ["decision_status", "verdict"],
+        "properties": {
+          "decision_status": {"const": "final"},
+          "verdict": {"const": "accept_with_deviation"}
+        }
+      },
+      "then": {
+        "properties": {
+          "source_status": {"const": "accepted_with_deviation"},
+          "media_kind": {"enum": ["video", "final_frame"]},
+          "accepted_media_sha256": {"$ref": "#/$defs/sha256"},
+          "observation_confidence": {"enum": ["low", "medium", "high"]},
+          "incomplete_beat_ids": {"maxItems": 0},
+          "unexpected_completed_beat_ids": {"maxItems": 0},
+          "continuity_break_ids": {"maxItems": 0},
+          "accepted_deviation_ids": {"minItems": 1}
+        }
+      }
+    },
+    {
+      "if": {
+        "required": ["decision_status", "verdict"],
+        "properties": {
+          "decision_status": {"const": "final"},
+          "verdict": {"const": "repair"}
+        }
+      },
+      "then": {
+        "properties": {
+          "source_status": {"const": "repair"},
+          "accepted_media_sha256": {"type": "null"},
+          "accepted_deviation_ids": {"maxItems": 0}
+        }
+      }
+    },
+    {
+      "if": {
+        "required": ["decision_status", "verdict"],
+        "properties": {
+          "decision_status": {"const": "final"},
+          "verdict": {"const": "reject"}
+        }
+      },
+      "then": {
+        "properties": {
+          "source_status": {"const": "rejected"},
+          "accepted_media_sha256": {"type": "null"},
+          "accepted_deviation_ids": {"maxItems": 0}
+        }
+      }
+    },
+    {
+      "if": {
+        "required": ["media_kind"],
+        "properties": {"media_kind": {"const": "video"}}
+      },
+      "then": {
+        "properties": {
+          "observed_start_snapshot_sha256": {"$ref": "#/$defs/sha256"},
+          "observed_end_snapshot_sha256": {"$ref": "#/$defs/sha256"}
+        }
+      }
+    },
+    {
+      "if": {
+        "required": ["media_kind"],
+        "properties": {"media_kind": {"const": "final_frame"}}
+      },
+      "then": {
+        "properties": {
+          "observed_start_snapshot_sha256": {"type": "null"},
+          "observed_end_snapshot_sha256": {"$ref": "#/$defs/sha256"}
+        }
+      }
+    },
+    {
+      "if": {
+        "required": ["media_kind"],
+        "properties": {"media_kind": {"enum": ["user_description", "legacy_description"]}}
+      },
+      "then": {
+        "properties": {
+          "observed_start_snapshot_sha256": {"type": "null"},
+          "observed_end_snapshot_sha256": {"type": "null"},
+          "accepted_media_sha256": {"type": "null"}
+        }
+      }
+    },
+    {
+      "if": {
+        "required": ["decision_status", "media_kind"],
+        "properties": {
+          "decision_status": {"const": "final"},
+          "media_kind": {"enum": ["user_description", "legacy_description"]}
+        }
+      },
+      "then": {
+        "properties": {
+          "verdict": {"enum": ["repair", "reject"]},
+          "accepted_media_sha256": {"type": "null"}
+        }
+      }
+    },
+    {
+      "if": {
+        "required": ["source_status"],
+        "properties": {
+          "source_status": {"enum": ["accepted", "accepted_with_deviation"]}
+        }
+      },
+      "then": {
+        "properties": {
+          "decision_status": {"const": "final"},
+          "requires_user_confirmation": {"const": false},
+          "endpoint_states": {
+            "not": {
+              "contains": {
+                "required": ["completion_mode"],
+                "properties": {
+                  "completion_mode": {"enum": ["incomplete", "unknown"]}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": ["verdict", "endpoint_states"],
+        "properties": {
+          "verdict": {"enum": ["accept", "accept_with_deviation"]},
+          "endpoint_states": {
+            "contains": {
+              "required": ["completion_mode"],
+              "properties": {
+                "completion_mode": {"enum": ["incomplete", "unknown"]}
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {"decision_status": {"const": "pending_confirmation"}}
+      }
+    },
+    {
+      "if": {
+        "required": ["decision_status", "media_kind"],
+        "properties": {
+          "decision_status": {"const": "final"},
+          "media_kind": {"const": "final_frame"}
+        }
+      },
+      "then": {
+        "properties": {
+          "endpoint_states": {
+            "not": {
+              "contains": {
+                "required": ["completion_mode"],
+                "properties": {
+                  "completion_mode": {
+                    "enum": [
+                      "completed_with_motion",
+                      "dissipated_or_resolved",
+                      "frame_exit",
+                      "cyclic_phase_boundary",
+                      "open_handoff",
+                      "incomplete",
+                      "unknown"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "nullable_sha": {
+      "oneOf": [
+        {"$ref": "#/$defs/sha256"},
+        {"type": "null"}
+      ]
+    },
+    "id_array": {
+      "type": "array",
+      "maxItems": 4096,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/id"}
+    },
+    "endpoint_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "endpoint_id",
+        "owner_kind",
+        "owner_id",
+        "completion_mode",
+        "carry_forward",
+        "description"
+      ],
+      "properties": {
+        "endpoint_id": {"$ref": "#/$defs/id"},
+        "owner_kind": {
+          "enum": ["character", "product", "object", "environment", "camera", "lighting", "audio", "shot"]
+        },
+        "owner_id": {"$ref": "#/$defs/id"},
+        "completion_mode": {
+          "enum": [
+            "held_static",
+            "dissipated_or_resolved",
+            "completed_with_motion",
+            "frame_exit",
+            "cyclic_phase_boundary",
+            "open_handoff",
+            "incomplete",
+            "unknown"
+          ]
+        },
+        "carry_forward": {"type": "boolean"},
+        "description": {"type": "string", "minLength": 1, "maxLength": 2000}
+      }
+    }
+  }
+}

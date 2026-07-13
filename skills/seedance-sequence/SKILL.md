@@ -47,18 +47,18 @@ If the surface is unknown, stay in conservative planning and ask for the actual 
 
 Plan scenes before clips. A scene is the re-anchor unit: one location and time envelope whose clips may chain from each other's accepted footage.
 
-- Seamless continuation is legal only inside a scene. A scene boundary is an intentional cut that opens from canonical references and resets `extension_depth` to 0.
-- Cap consecutive output-sourced generations at the scene's `max_chain_depth` (default 2, hard ceiling 3). Schedule re-anchors in the plan; identity decays with chained generations, so a scheduled reset is routine and a drift repair is expensive.
+- This workflow classifies seamless continuation only inside a scene. A scene boundary defaults to an intentional cut opened from canonical references and resets `extension_depth` to 0; this is local production policy, not a model limit.
+- Track consecutive output-sourced generations, but do not infer identity decay or a universal cap from the count. Re-anchor when a named continuity check fails or under an explicitly documented project policy selected by the owner.
 - Map the arc to scenes: each scene carries one `arc_position` and its clips inherit it.
 - Cuts are the cheapest continuity tool. The audience expects frame continuity only inside a chained shot, not across an editorial cut. A five-minute story usually resolves to several scenes of two to five clips, not one long extension chain.
-- Audio: clips carry ambience, sync SFX, and on-camera dialogue; unify music and score in post because audio is not continuous across separate generations.
+- Audio: clips may request ambience, sync SFX, and on-camera dialogue where supported. Verify continuity between calls; use post for a predictable unified score when the project requires it.
 
 ## Build Process
 
 1. Establish the story promise and final outcome before Clip 01.
 2. Identify the character, product, or narrative objective, and with `[ref:directing-engine]` set one directorial voice for the whole project and plan the long-form spine - how shot scale, camera movement, light contrast, and sound should progress from open to climax to release, and which single clip breaks the pattern to mark the turn.
 3. Extract ordered beats and assign each beat a status: planned, current, completed, omitted, or replaced.
-4. Group beats into scenes: assign each scene one location and time envelope, one `arc_position`, canonical `anchor_source` references, `max_chain_depth` (default 2), and an audio plan.
+4. Group beats into scenes: assign each scene one location and time envelope, one `arc_position`, canonical `anchor_source` references, an audio plan, and any project-selected re-anchor policy. During version-1 compatibility, `max_chain_depth` is explicit local policy and has no universal default.
 5. Divide each scene into generation-sized clips using the active surface budget or conservative assumption; chain clips from accepted footage only inside a scene, and open every scene from canonical references.
 6. Give every clip one narrative job, one `felt_intent` - a single line naming what the viewer should feel or notice, the directing engine's intention made persistent in state - and one completed endpoint.
 7. Define planned opening state, planned ending state, continuity locks, allowed changes, and extension-friendly handoff requirements.
@@ -66,7 +66,7 @@ Plan scenes before clips. A scene is the re-anchor unit: one location and time e
 9. Compile only the first unresolved clip prompt from the current clip contract.
 10. After generation, require the clip or final frame, record observed start/end state, reconcile canon, and only then compile the next prompt.
 
-V7-07 compiles only a single-shot scene with no dialogue or voiceover. For a sequence, pass only the current unresolved clip when it meets that boundary; never pass the whole scene map or infer cuts between clips. If the current clip contains dialogue, voiceover, or several shots, retain the reviewed sequence contract and report the deferred compiler capability instead of inventing utterances, speakers, transitions, or timestamps.
+V7-07 compiles only a single-shot scene with no dialogue or voiceover. It remains byte-stable and does not consume version-2 project, motion, or endpoint state. For a legacy-compatible sequence input, pass only a supported current scene; never pass the whole scene map or infer cuts between clips. Every v2 clip is `compile_required: true`, so dialogue, voiceover, several shots, exact surface timing, or v2 owner-scoped motion returns a compiler blocker instead of invented or hand-edited prose. No v2 human-bypass path carries compiler provenance.
 
 Use beginner-friendly language. It is valid to say: "This idea needs three connected generations. I will plan the complete story now, but finalize one prompt at a time so each new prompt matches what Seedance actually produced."
 
@@ -74,7 +74,7 @@ Use beginner-friendly language. It is valid to say: "This idea needs three conne
 
 Each clip card must include `clip_id`, `scene_id`, `sequence_index`, `parent_clip_id`, `narrative_job`, `felt_intent`, `target_duration_sec`, `generation_mode`, `shot_structure`, `already_happened`, `this_clip_only`, `reserved_for_later`, `planned_start_state`, `planned_end_state`, `transition_in`, `transition_out`, `continuity_locks`, `allowed_changes`, `arc_position`, and `status`. The `arc_position` (open, rising, turn, climax, or release) is inherited from the clip's scene and records where it sits on the directorial spine so its scale, movement, light, and sound trends inherit the project voice.
 
-Each scene card must include `scene_id`, `scene_index`, `narrative_function`, `arc_position`, `location`, `time_of_day`, `anchor_source`, `max_chain_depth`, `audio_plan`, `assigned_clip_ids`, `transition_out`, and `status`.
+Version-1 scene cards include `scene_id`, `scene_index`, `narrative_function`, `arc_position`, `location`, `time_of_day`, `anchor_source`, `max_chain_depth`, `audio_plan`, `assigned_clip_ids`, `transition_out`, and `status`. Treat `max_chain_depth` as user/project-selected compatibility policy. Project-state v2 instead records measured drift decisions and owner-scoped motion without asserting a model threshold.
 
 Clip 01 can plan "exit terminal and reach open car door" with the endpoint "subject beside the open rear door" while reserving "entering the car" and "vehicle departure" for later clips. Do not paste all planned clips into one generation prompt.
 

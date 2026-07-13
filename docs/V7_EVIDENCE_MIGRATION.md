@@ -8,7 +8,7 @@ V7-04 installs the evidence control plane without changing runtime advice. It re
 2. **V7-05 — provider contracts:** replace universal reference-token advice with surface profiles and map every affected occurrence.
 3. **V7-06 — reference selection:** migrate role assignment, identity/reference budgets, and first/last-frame rules.
 4. **V7-07 — prompt compiler:** project only approved surface-scoped claims into prompt planning and compilation.
-5. **V7-08 — physics and motion:** separate observed prompting heuristics from model-architecture claims and add failure-focused evals.
+5. **V7-08 — physics, motion, and state:** separate observable prompting/review heuristics from model-architecture claims; add owner-scoped state migration and failure-focused evals without activating a provider.
 6. **V7-09 — audio and multi-shot:** re-verify provider behavior, remove unsupported mechanics, and complete runtime occurrence coverage.
 7. **V7-10 — evaluation:** expand deterministic, metamorphic, and model-output review coverage.
 8. **V7-11 — frontend and design:** rebuild the public documentation and images from the verified information architecture.
@@ -40,3 +40,20 @@ No step may silently convert `candidate` evidence into runtime guidance. A migra
 V7-04 itself is complete when the registry is structurally valid, all source/capture/item byte pins are internally consistent and re-fetch limits are documented, all 103 runtime files are accounted for, the package boundary excludes the control plane, scheduled automation is least-privilege and offline, negative tests fail closed, and the release gate reports the inherited blockers rather than hiding them.
 
 It is not a V7-04 exit criterion to make the release gate green. Doing so before V7-05 through V7-09 would erase known evidence debt and create false confidence.
+
+## V7-08 candidate boundary
+
+V7-08 adds a separate project-state-v2 contract, non-destructive explicit-map migration, owner-scoped motion/endpoints, blocked timing decisions, mechanics-claim auditing, and public failure-focused development evals. It does not promote any evidence claim, establish generated-video physics, select a trusted provider binding, or change V7-07 compiler bytes.
+
+Every v2 clip remains `compile_required`. Until a later versioned compiler consumes the exact state contract, the v2 prompt/run records can represent only planning and a blocked/not-run receipt. A valid state or migration report is not a valid prompt, provider request, generation, or quality result.
+
+V7-08 is complete only when:
+
+1. schema and dependency-free validator behavior agree on every supported field and conditional;
+2. migration preserves the source and fails on every unmapped or silently lossy semantic field;
+3. open motion and local endpoint ownership survive validated continuation handoffs;
+4. still-frame, timing, reference, provenance, and compiler boundaries fail closed;
+5. failure-focused tests and adversarial malformed-input tests pass in ten fresh processes;
+6. V7-07 compiler/toolchain bytes remain unchanged;
+7. runtime manifest, evidence occurrence map, install/rollback, and cross-platform CI locks are regenerated; and
+8. activation remains disabled with inherited runtime evidence debt reported honestly.

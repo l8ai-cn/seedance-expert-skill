@@ -22,7 +22,7 @@
 
 ## Design AROUND these
 
-For connected generations, design around continuity drift by keeping each clip small, recording accepted observed state, preserving exact target/dimension authority and semantic bindings, and re-anchoring on schedule at the scene's chain-depth cap instead of waiting for visible drift. This is workflow guidance, not a deterministic platform guarantee.
+For connected generations, design around continuity drift by keeping each clip small, recording accepted observed state, preserving exact target/dimension authority and semantic bindings, and re-anchoring when a named continuity failure is measured. A project may declare its own local review or re-anchor cap, but the skill does not impose a universal chain-depth schedule. This is workflow guidance, not a deterministic platform guarantee.
 
 Surface duration caps are active-surface facts, not universal Seedance facts; audio continuity across separate calls needs explicit verification, so score in post when needed · on-screen text → post where the selected workflow requires a clean plate · prefer positive observable states to long defect lists [heuristic] · tiny details such as distant faces, hands, logos, and text require close review [field] · stage fragile facial performance with readable blocking [heuristic] · re-anchor chained generations from authorized canonical references when drift is observed [field] · simplify character-to-prop contact in crowded shots [heuristic] · Fast-tier behavior is surface-specific [field] · a seed may aid repeatability where exposed, but is not a fidelity guarantee.
 

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/take-review-v2.schema.json",
+  "schema_version": 2,
+  "project_id": "migration_watch",
+  "clip_id": "clip_01",
+  "take_id": "take_01",
+  "decision_status": "final",
+  "source_status": "accepted",
+  "verdict": "accept",
+  "media_kind": "video",
+  "accepted_media_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+  "observed_start_snapshot_sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+  "observed_end_snapshot_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+  "endpoint_states": [{"endpoint_id": "watch.endpoint", "owner_kind": "product", "owner_id": "watch", "completion_mode": "completed_with_motion", "carry_forward": false, "description": "The product action is complete although the wider shot may retain motion."}],
+  "completed_beat_ids": ["beat_hold"],
+  "incomplete_beat_ids": [],
+  "unexpected_completed_beat_ids": [],
+  "continuity_break_ids": [],
+  "accepted_deviation_ids": [],
+  "observation_confidence": "high",
+  "uncertainties": [],
+  "requires_user_confirmation": false
+}

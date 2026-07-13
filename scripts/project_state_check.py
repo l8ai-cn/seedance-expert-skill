@@ -47,10 +47,17 @@ REQUIRED_TAKE_REVIEW_FIELDS = {
     "observation_confidence", "uncertainties", "requires_user_confirmation",
 }
 ACCEPTED = {"accepted", "accepted_with_deviation"}
+V2_SCHEMA_URI = "https://github.com/Emily2040/seedance-2.0/schemas/project-state-v2.schema.json"
 
 
 def load_json(path: Path) -> object:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def is_v2_document(data: object, path: Path) -> bool:
+    if isinstance(data, dict) and (data.get("$schema") == V2_SCHEMA_URI or data.get("schema_version") == 2):
+        return True
+    return "project-state-v2" in path.name.casefold() or "take-review-v2" in path.name.casefold()
 
 
 def check_required(obj: dict, required: set[str], label: str, errors: list[str]) -> None:
@@ -62,7 +69,14 @@ def check_required(obj: dict, required: set[str], label: str, errors: list[str])
 def sequence_paths(root: Path) -> list[Path]:
     paths = []
     for path in (root / "examples").rglob("*.json") if (root / "examples").exists() else []:
-        if "project-state" in path.name:
+        if "project-state" not in path.name:
+            continue
+        try:
+            data = load_json(path)
+        except (OSError, UnicodeError, json.JSONDecodeError):
+            paths.append(path)
+            continue
+        if not is_v2_document(data, path):
             paths.append(path)
     return sorted(paths)
 
@@ -88,6 +102,8 @@ def validate_project(path: Path, root: Path) -> list[str]:
     check_required(data["story"], REQUIRED_STORY_FIELDS, f"{rel}: story", errors)
 
     clip_ids = set()
+    clip_indexes = {}
+    sequence_indexes = set()
     accepted_ids = set()
     scene_ids = set()
     scene_depth_caps = {}
@@ -136,6 +152,14 @@ def validate_project(path: Path, root: Path) -> list[str]:
         if cid in clip_ids:
             errors.append(f"{rel}: duplicate clip_id {cid}")
         clip_ids.add(cid)
+        sequence_index = clip.get("sequence_index")
+        if not isinstance(sequence_index, int) or isinstance(sequence_index, bool) or sequence_index < 1:
+            errors.append(f"{rel}: clip {cid} sequence_index must be an integer >= 1")
+        elif sequence_index in sequence_indexes:
+            errors.append(f"{rel}: duplicate clip sequence_index {sequence_index}")
+        else:
+            sequence_indexes.add(sequence_index)
+            clip_indexes[cid] = sequence_index
         sid = clip.get("scene_id")
         clip_scene[cid] = sid
         depth = clip.get("extension_depth")
@@ -162,11 +186,18 @@ def validate_project(path: Path, root: Path) -> list[str]:
     for clip in data["clips"]:
         cid = clip.get("clip_id")
         parent = clip.get("parent_clip_id")
-        if clip.get("sequence_index", 1) > 1:
+        sequence_index = clip.get("sequence_index")
+        if sequence_index == 1 and parent is not None:
+            errors.append(f"{rel}: first clip {cid} must not have parent_clip_id")
+        if isinstance(sequence_index, int) and not isinstance(sequence_index, bool) and sequence_index > 1:
             if not parent:
                 errors.append(f"{rel}: later clip {cid} missing parent_clip_id")
             elif parent not in clip_ids:
                 errors.append(f"{rel}: later clip {cid} parent {parent} is missing")
+            elif parent == cid:
+                errors.append(f"{rel}: clip {cid} cannot parent itself")
+            elif parent in clip_indexes and cid in clip_indexes and clip_indexes[parent] >= clip_indexes[cid]:
+                errors.append(f"{rel}: clip {cid} parent {parent} must have a lower sequence_index")
             elif clip.get("status") != "planned" and parent not in accepted_ids:
                 errors.append(f"{rel}: later clip {cid} parent {parent} is not accepted")
         overlap_current_future = set(clip.get("this_clip_only", [])) & set(clip.get("reserved_for_later", []))
@@ -176,11 +207,45 @@ def validate_project(path: Path, root: Path) -> list[str]:
         if overlap_done_current:
             errors.append(f"{rel}: clip {cid} replays completed beats: {sorted(overlap_done_current)}")
 
+    beat_ids = set()
+    beat_dependencies = {}
     for beat in data["beats"]:
         check_required(beat, REQUIRED_BEAT_FIELDS, f"{rel}: beat", errors)
+        beat_id = beat.get("beat_id")
+        if beat_id in beat_ids:
+            errors.append(f"{rel}: duplicate beat_id {beat_id}")
+        beat_ids.add(beat_id)
+        dependencies = beat.get("dependencies", [])
+        if isinstance(dependencies, list):
+            beat_dependencies[beat_id] = dependencies
         assigned = beat.get("assigned_clip_id")
         if assigned is not None and assigned not in clip_ids:
-            errors.append(f"{rel}: beat {beat.get('beat_id')} assigned to missing clip {assigned}")
+            errors.append(f"{rel}: beat {beat_id} assigned to missing clip {assigned}")
+
+    for beat_id, dependencies in beat_dependencies.items():
+        for dependency in dependencies:
+            if dependency == beat_id:
+                errors.append(f"{rel}: beat {beat_id} cannot depend on itself")
+            elif dependency not in beat_ids:
+                errors.append(f"{rel}: beat {beat_id} depends on missing beat {dependency}")
+
+    visiting = set()
+    visited = set()
+
+    def visit_beat(beat_id: object) -> bool:
+        if beat_id in visiting:
+            return True
+        if beat_id in visited or beat_id not in beat_dependencies:
+            return False
+        visiting.add(beat_id)
+        cyclic = any(visit_beat(dependency) for dependency in beat_dependencies[beat_id] if dependency in beat_ids)
+        visiting.remove(beat_id)
+        visited.add(beat_id)
+        return cyclic
+
+    for beat_id in sorted((item for item in beat_ids if isinstance(item, str))):
+        if visit_beat(beat_id):
+            errors.append(f"{rel}: beat dependency cycle includes {beat_id}")
 
     assignment_owners = {}
     for sid, assigned_set in scene_assigned.items():
@@ -229,6 +294,8 @@ def main() -> int:
             continue
         if not isinstance(obj, dict):
             errors.append(f"{rel}: JSON example must be an object")
+            continue
+        if is_v2_document(obj, path):
             continue
         if "contract" in path.name:
             check_required(obj, REQUIRED_CLIP_CONTRACT_FIELDS, rel, errors)

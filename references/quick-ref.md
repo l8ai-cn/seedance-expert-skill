@@ -19,8 +19,8 @@
 | Mode | T2V, I2V, V2V, or R2V is explicit. |
 | References | Every applicable target/dimension has exactly one winning asset; every included asset owns at least one necessary dimension and lists likely leakage exclusions. |
 | Subject | Main subject appears in the first clause and has stable tags if needed. |
-| Action | One visible beat has an observable endpoint. |
-| Camera | One primary move has start, speed, subject relationship, and endpoint. |
+| Action | One visible beat has a reviewable local endpoint; unrelated owners need not stop. |
+| Camera | One primary move has start, qualitative speed/trend, subject relationship, and its own endpoint or open handoff. |
 | Lighting | Source, direction, color, atmosphere, or transition is physical. |
 | Audio | Dialogue, ambience, SFX, music, or silence is intentional. |
 | Safety | Protected identity, IP, and unsafe wording are rewritten or authorization-gated. |
@@ -29,8 +29,10 @@
 | Sequence lineage | Sequence prompts have `project_id`, `clip_id`, and parent when continuing. |
 | Actual state | Continuations start from accepted observed state, not planned state. |
 | Clip scope | Completed beats are excluded and reserved future beats stay out. |
-| Causal chain | Fragile action has an ordered initial state, trigger, decisive change, visible response, follow-through, and settled endpoint. |
-| Observability | One primary camera move can show the before-state, decisive event, consequence, and endpoint. |
+| Causal chain | Fragile action has an ordered initial state, trigger, decisive change, visible response, follow-through, and owner-scoped endpoint. |
+| Observability | The plan declares camera coverage for the before-state, decisive event, consequence, and endpoint; only returned-pixel review proves visibility. |
+| Motion ownership | Subject, prop, camera, and environment motion are separate; a still never establishes velocity, motion phase, or audio phase. |
+| V2 compile gate | Every v2 clip is `compile_required` and may be rendered only by a compiler that accepts that exact contract; V7-07 is not such a compiler. |
 | Paired locale source | English and Simplified Chinese forms come from the exact hash-bound scene catalog, not runtime translation. |
 | Locale parity | Both renders preserve the same semantic unit IDs, event order, entities, camera/audio links, invariants, and typed bindings; the catalog carries an unauthenticated human-attestation declaration, and a bilingual human must separately review meaning and naturalness. |
 
@@ -56,8 +58,10 @@
 
 - Authority is `(target, dimension)`, not one role per file. A single asset may control several compatible dimensions.
 - Media type, upload order, priority, confidence, and legacy project-state tags never choose a winner.
+- Version-1 tags and roles migrate only through an explicit binding map; unresolved fields remain diagnostics, never guesses.
 - An appearance image is not a first or last frame unless the verified operation assigns that structured role.
 - Keep semantic binding IDs separate from authority, request transport, and prompt-visible syntax.
 - Treat causal and observability planning as a preflight heuristic, not a Seedance architecture or physics guarantee.
+- Treat `extension_depth` as lineage context, not a universal drift predictor. Re-anchor on a named continuity failure or an explicit project policy.
 - The V7-07 paired compiler accepts one shot with no dialogue or voiceover. It fails closed instead of inventing a line, speaker, cut, timeline, translation, or provider token.
 - Do not hand-translate, renumber, normalize, or compress an opaque provider handle. A surface swap may change only the binding realization and request transport, never the semantic authority plan.

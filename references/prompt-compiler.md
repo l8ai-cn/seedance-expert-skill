@@ -1,8 +1,10 @@
 # Prompt Compiler
 
-The compiler turns validated internal project state into typed natural-language segments for the current clip only. JSON or YAML can organize planning, but the final prompt stays readable prose unless the user explicitly asks for structured output. Compilation is not provider activation and does not translate arbitrary scene-IR prose.
+This reference separates a conceptual project-to-prompt planning order from the executable V7-07 paired renderer. JSON or YAML can organize planning, but the final prompt stays readable prose unless the user explicitly asks for structured output. Compilation is not provider activation and does not translate arbitrary scene-IR prose.
 
-## Inputs
+V7-07 remains byte-stable and accepts exactly a version-1 `reference_manifest`, `scene_ir`, `surface_binding_set`, and `realization_catalog`. It does not ingest project state or a clip contract and cannot claim project-state provenance. Project-state-v2, owner-scoped motion handoffs, typed local endpoint modes, dialogue, multi-shot transitions, and surface-exact timing are not silently flattened into that renderer. Every v2 clip is `compile_required: true`; return a compatibility blocker until a compiler accepts the exact v2 contract, and never hand-edit a V7-07 paired render while retaining its provenance claim.
+
+## Conceptual planning inputs
 
 - project state;
 - current clip contract;
@@ -13,9 +15,13 @@ The compiler turns validated internal project state into typed natural-language 
 - continuity locks and allowed changes;
 - prompt budget.
 
-The compiler produces typed text and binding segments before the final join. The selected surface operation owns request transport and prompt-visible syntax; the scene plan never does. Load `[ref:surface-prompt-profiles]` and fail closed when the profile, operation, required external handle, evidenced formatter, or structured role is unavailable. The V7 contracts are split deliberately: `scripts/prompt_compile.py` realizes a closed language catalog, while `scripts/semantic_lint.py` checks semantic coverage and cross-language structural parity.
+These inputs guide a human or future state-aware compiler; they are not the stdin contract of `scripts/prompt_compile.py`.
 
-## Compile Order
+## Executable V7-07 inputs
+
+The V7-07 request contains only `schema_version`, `reference_manifest`, `scene_ir`, `surface_binding_set`, and `realization_catalog`. The renderer produces typed natural-language segments and binding segments before the final join. The selected surface operation owns request transport and prompt-visible syntax; the scene plan never does. Load `[ref:surface-prompt-profiles]` and fail closed when the profile, operation, required external handle, evidenced formatter, or structured role is unavailable. The V7 contracts are split deliberately: `scripts/prompt_compile.py` realizes a closed language catalog, while `scripts/semantic_lint.py` checks semantic coverage and cross-language structural parity.
+
+## Conceptual planning order
 
 1. Lineage: name `project_id`, `clip_id`, and parent in the user-facing contract or capsule; omit them from the final prompt when they would waste prompt budget.
 2. Source role: identify semantic binding IDs, media types, external handles only where required, structured roles, and what each controls. Derived ordinal syntax stays out of the scene plan.
@@ -27,13 +33,13 @@ The compiler produces typed text and binding segments before the final join. The
 8. Exclusions: completed beats and reserved future beats.
 9. Endpoint: the completed state this clip must reach.
 
-## Source-Carries-State Rule
+## Source-state authority heuristic
 
-When an accepted source is attached as a reference, the source carries the state and the text carries the delta. Do not re-describe in prose what the attached source already shows: prose restatement spends budget on information the model already has, and where the words disagree with the pixels, the prose becomes a drift instruction.
+When an accepted source is attached and explicitly assigned opening-state authority, ask the selected operation to preserve those declared dimensions and let text describe the delta. Avoid unnecessary visual restatement; this simplifies the instruction and reduces source/prose conflict, but it does not prove that the model will preserve the source. When words and pixels disagree, treat the request as ambiguous and repair it before generation rather than predicting a specific drift mechanism.
 
-- Accepted clip attached as a video reference: the clip carries static and dynamic state. A typed binding segment is resolved by the surface policy when that operation uses prompt-visible binding; text carries the role, current action and endpoint, exclusions, and only the continuity locks at known drift risk.
-- Accepted prior clip's final frame attached as the next shot's opening source: the frame carries that opening static state only. Text must still carry what a still cannot show - open motion vectors, camera movement phase, and audio phase - then the current action, endpoint, and exclusions.
-- Structured first/last-frame target operation: the first-frame binding carries the initial visible state and opening framing; the last-frame binding carries the settled endpoint and end framing. Text carries the transition, intermediate causal events, camera path/speed/subject relationship, audio, invariants, and exclusions without restating those four static fields.
+- Accepted clip attached as a video reference: request the declared visible static and dynamic opening-state dimensions from the clip. A typed binding segment is resolved by the surface policy when that operation uses prompt-visible binding; text states the role, current action and endpoint, exclusions, and necessary review locks.
+- Accepted prior clip's final frame attached as the next shot's opening source: assign only visible static opening-state dimensions to the still. State any known open motion, camera movement phase, and audio phase from a supporting clip or user attestation; otherwise mark them unknown.
+- Structured first/last-frame target operation: assign initial visible state/opening framing to the first-frame request role and endpoint/end framing to the last-frame role. Text requests the transition, intermediate events, camera path/speed/subject relationship, audio, invariants, and exclusions without redundantly restating those four static fields.
 - No visual source attached: write the observed opening state in prose, as for a cross-session continuation where the footage is unavailable.
 
 ## Natural-Language Prompt Rules

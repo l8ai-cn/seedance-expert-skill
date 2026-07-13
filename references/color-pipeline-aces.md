@@ -4,7 +4,7 @@ Use this reference when Seedance output must enter a professional edit, grade, H
 
 ## Honest Boundary
 
-Seedance prompts can describe color intent, lighting motivation, contrast, palette, material response, and mood. They cannot replace measured color management, calibrated monitoring, conform, grade, legal-range checks, or delivery transforms. Keep prompt language creative; keep pipeline language as metadata for post.
+Seedance prompts can request visible color intent, lighting motivation, contrast, palette, surface highlight behavior, and mood. The returned take must still be reviewed; prompt wording cannot replace measured color management, calibrated monitoring, conform, grade, legal-range checks, or delivery transforms. Keep prompt language creative; keep pipeline language as metadata for post.
 
 ## Prompt-Level Color Intent
 
@@ -13,7 +13,7 @@ Use:
 - source light: tungsten practical, overcast daylight, sodium streetlight, neon sign, cool moon rim;
 - contrast: soft low contrast, hard noir contrast, clean product contrast, high-key beauty;
 - palette: restrained warm/cool split, muted winter palette, saturated music-video palette;
-- material response: brushed metal highlight, skin rolloff, glossy acrylic reflection, wet asphalt speculars;
+- visible surface behavior: brushed metal highlight, skin rolloff, glossy acrylic reflection, wet asphalt speculars;
 - transition: practical lamp warms the face, lightning briefly hardens the silhouette.
 
 Avoid:
@@ -40,7 +40,7 @@ For professional handoff, record:
 
 When a user asks for ACES, respond with a two-layer answer:
 
-1. Prompt: visible color and lighting instructions that Seedance can understand.
+1. Prompt: visible color and lighting instructions to test on the selected surface.
 2. Handoff: ACES/AMF/color notes for the editor or colorist to verify outside Seedance.
 
 Example:

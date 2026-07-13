@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Emily2040/seedance-2.0/schemas/project-state-v2-migration-map.schema.json",
+  "title": "Explicit legacy project-state to v2 migration map",
+  "$comment": "Legacy role text never grants authority. Every mapping is user-confirmed and hash-bound to the source.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "schema_version", "source_raw_sha256", "source_project_state_sha256", "reanchor_policy", "timing_policy", "reference_mappings", "id_mappings", "state_atom_mappings", "motion_mappings", "clip_mappings", "legacy_dispositions"],
+  "properties": {
+    "$schema": {"const": "https://github.com/Emily2040/seedance-2.0/schemas/project-state-v2-migration-map.schema.json"},
+    "schema_version": {"const": 1},
+    "source_project_state_sha256": {"$ref": "#/$defs/sha256"},
+    "source_raw_sha256": {"$ref": "#/$defs/sha256"},
+    "reanchor_policy": {"$ref": "#/$defs/reanchor_policy"},
+    "timing_policy": {"$ref": "#/$defs/timing_policy"},
+    "reference_mappings": {"type": "array", "maxItems": 64, "items": {"$ref": "#/$defs/reference_mapping"}},
+    "id_mappings": {"type": "array", "maxItems": 5377, "items": {"$ref": "#/$defs/id_mapping"}},
+    "state_atom_mappings": {"type": "array", "maxItems": 4096, "items": {"$ref": "#/$defs/state_mapping"}},
+    "motion_mappings": {"type": "array", "maxItems": 4096, "items": {"$ref": "#/$defs/motion_mapping"}},
+    "clip_mappings": {"type": "array", "maxItems": 1024, "items": {"$ref": "#/$defs/clip_mapping"}}
+    ,"legacy_dispositions": {"type": "array", "maxItems": 16384, "items": {"$ref": "#/$defs/disposition"}}
+  },
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[a-z][a-z0-9._-]{0,63}$"},
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "reference_mapping": {
+      "type": "object", "additionalProperties": false,
+      "required": ["legacy_registry_index", "tag_sha256", "role_sha256", "binding_id", "media_type", "source_kind", "source_take_id", "media_sha256", "description"],
+      "properties": {
+        "legacy_registry_index": {"type": "integer", "minimum": 0, "maximum": 63}, "tag_sha256": {"$ref": "#/$defs/sha256"}, "role_sha256": {"$ref": "#/$defs/sha256"},
+        "binding_id": {"$ref": "#/$defs/id"}, "media_type": {"enum": ["image", "video", "audio"]}, "source_kind": {"enum": ["user_asset", "accepted_take", "extracted_frame"]},
+        "source_take_id": {"oneOf": [{"$ref": "#/$defs/id"}, {"type": "null"}]}, "media_sha256": {"oneOf": [{"$ref": "#/$defs/sha256"}, {"type": "null"}]}, "description": {"type": "string", "minLength": 1, "maxLength": 2000}
+      },
+      "allOf": [{"if": {"properties": {"source_kind": {"enum": ["accepted_take", "extracted_frame"]}}}, "then": {"properties": {"source_take_id": {"$ref": "#/$defs/id"}, "media_sha256": {"$ref": "#/$defs/sha256"}}}}, {"if": {"properties": {"source_kind": {"const": "user_asset"}}}, "then": {"properties": {"source_take_id": {"type": "null"}}}}]
+    },
+    "id_mapping": {
+      "type": "object", "additionalProperties": false,
+      "required": ["entity_kind", "source_pointer", "source_value_sha256", "target_id"],
+      "properties": {
+        "entity_kind": {"enum": ["project", "scene", "beat", "clip"]},
+        "source_pointer": {"type": "string", "pattern": "^/(?:project_id|scenes/[0-9]+/scene_id|beats/[0-9]+/beat_id|clips/[0-9]+/clip_id)$", "maxLength": 1000},
+        "source_value_sha256": {"$ref": "#/$defs/sha256"}, "target_id": {"$ref": "#/$defs/id"}
+      }
+    },
+    "state_mapping": {
+      "type": "object", "additionalProperties": false,
+      "required": ["source_pointer", "source_value_sha256", "replacement_value", "atom_id", "owner_kind", "owner_id", "dimension", "confidence"],
+      "properties": {
+        "source_pointer": {"type": "string", "pattern": "^/(?:[^/~]|~[01])+(?:/(?:[^/~]|~[01])+)*$", "maxLength": 1000},
+        "source_value_sha256": {"$ref": "#/$defs/sha256"}, "replacement_value": {"type": "string", "minLength": 1, "maxLength": 20000},
+        "atom_id": {"$ref": "#/$defs/id"}, "owner_kind": {"enum": ["character", "product", "object", "environment", "camera", "lighting", "audio", "shot"]},
+        "owner_id": {"$ref": "#/$defs/id"}, "dimension": {"$ref": "#/$defs/id"}, "confidence": {"enum": ["low", "medium", "high", "unknown"]}
+      }
+    },
+    "motion_mapping": {
+      "type": "object", "additionalProperties": false,
+      "required": ["clip_id", "legacy_index", "value_sha256", "destination_snapshot", "basis", "motion_id", "owner_kind", "owner_id", "domain", "coordinate_frame", "description", "phase", "direction", "speed", "speed_trend", "continuity", "observability", "source_kind", "confidence", "uncertainty"],
+      "properties": {
+        "clip_id": {"type": "string", "minLength": 1, "maxLength": 20000}, "legacy_index": {"type": "integer", "minimum": 0, "maximum": 4095}, "value_sha256": {"$ref": "#/$defs/sha256"}, "destination_snapshot": {"enum": ["planned_start_state", "planned_end_state", "observed_start_state", "observed_end_state"]},
+        "basis": {"enum": ["planned", "observed"]}, "motion_id": {"$ref": "#/$defs/id"}, "owner_kind": {"enum": ["character", "product", "object", "environment", "camera", "lighting", "audio", "shot"]},
+        "owner_id": {"$ref": "#/$defs/id"}, "domain": {"enum": ["subject", "camera", "prop", "environment", "cloth_hair", "vehicle", "material", "audio"]}, "coordinate_frame": {"enum": ["screen", "camera", "subject", "world", "unknown"]},
+        "description": {"type": "string", "minLength": 1, "maxLength": 2000}, "phase": {"enum": ["stationary", "starting", "continuing", "accelerating", "decelerating", "settling", "complete", "unknown"]},
+        "direction": {"type": ["string", "null"], "maxLength": 500}, "speed": {"type": ["string", "null"], "maxLength": 500}, "speed_trend": {"enum": ["accelerating", "decelerating", "constant", "stopping", "unknown"]}, "continuity": {"enum": ["open", "settled", "unknown"]},
+        "observability": {"enum": ["observed_in_video", "inferred_from_frame", "user_attested", "planned", "unknown"]}, "source_kind": {"enum": ["project_plan", "accepted_video", "accepted_final_frame", "user_description", "legacy_state_description"]}, "confidence": {"enum": ["low", "medium", "high", "unknown"]}, "uncertainty": {"type": ["string", "null"], "maxLength": 2000}
+      }
+    },
+    "continuity_rule": {
+      "type": "object", "additionalProperties": false, "required": ["rule_id", "atom_id", "policy", "from_value_sha256", "to_value_sha256", "scope", "reason"],
+      "properties": {"rule_id": {"$ref": "#/$defs/id"}, "atom_id": {"$ref": "#/$defs/id"}, "policy": {"enum": ["locked", "allowed_change"]}, "from_value_sha256": {"$ref": "#/$defs/sha256"}, "to_value_sha256": {"$ref": "#/$defs/sha256"}, "scope": {"enum": ["next_clip", "scene", "project"]}, "reason": {"type": "string", "minLength": 1, "maxLength": 2000}}
+    },
+    "endpoint_state": {"type": "object", "additionalProperties": false, "required": ["endpoint_id", "owner_kind", "owner_id", "completion_mode", "carry_forward", "description"], "properties": {"endpoint_id": {"$ref": "#/$defs/id"}, "owner_kind": {"enum": ["character", "product", "object", "environment", "camera", "lighting", "audio", "shot"]}, "owner_id": {"$ref": "#/$defs/id"}, "completion_mode": {"enum": ["held_static", "dissipated_or_resolved", "completed_with_motion", "frame_exit", "cyclic_phase_boundary", "open_handoff", "incomplete", "unknown"]}, "carry_forward": {"type": "boolean"}, "description": {"type": "string", "minLength": 1, "maxLength": 2000}}},
+    "clip_mapping": {
+      "type": "object", "additionalProperties": false,
+      "required": ["clip_id", "target_status", "sequence_relation", "planned_endpoint_states", "observed_endpoint_states", "execution_readiness", "continuity_rules"],
+      "properties": {
+        "clip_id": {"type": "string", "minLength": 1, "maxLength": 20000}, "sequence_relation": {"enum": ["standalone", "sequence_first_clip", "seamless_continuation", "intentional_next_shot", "bridge_between_known_states", "repair_tail", "reanchor_after_drift"]},
+        "target_status": {"enum": ["planned", "generated", "reviewed", "accepted", "accepted_with_deviation", "repair", "rejected"]},
+        "planned_endpoint_states": {"type": "array", "maxItems": 512, "items": {"$ref": "#/$defs/endpoint_state"}}, "observed_endpoint_states": {"type": "array", "maxItems": 512, "items": {"$ref": "#/$defs/endpoint_state"}},
+        "execution_readiness": {"enum": ["migration_review", "planning_required", "blocked"]},
+        "continuity_rules": {"type": "array", "maxItems": 512, "items": {"$ref": "#/$defs/continuity_rule"}}
+      }
+    },
+    "reanchor_policy": {"type": "object", "additionalProperties": false, "required": ["status", "trigger_extension_depth", "reason"], "properties": {"status": {"enum": ["not_selected", "selected"]}, "trigger_extension_depth": {"type": ["integer", "null"], "minimum": 1}, "reason": {"type": ["string", "null"], "maxLength": 2000}}},
+    "timing_policy": {"type": "object", "additionalProperties": false, "required": ["mode", "status", "evidence_claim_ids", "evidence_expires_at", "block_reason"], "properties": {"mode": {"enum": ["ordered_phases", "relative_beats", "surface_exact_ranges"]}, "status": {"enum": ["selected", "blocked"]}, "evidence_claim_ids": {"type": "array", "maxItems": 32, "uniqueItems": true, "items": {"type": "string"}}, "evidence_expires_at": {"type": ["string", "null"]}, "block_reason": {"type": ["string", "null"], "maxLength": 2000}}, "allOf": [{"if": {"properties": {"mode": {"const": "surface_exact_ranges"}}}, "then": {"properties": {"status": {"const": "blocked"}, "evidence_claim_ids": {"maxItems": 0}, "evidence_expires_at": {"type": "null"}, "block_reason": {"type": "string", "minLength": 1}}}, "else": {"properties": {"status": {"const": "selected"}, "evidence_claim_ids": {"maxItems": 0}, "evidence_expires_at": {"type": "null"}, "block_reason": {"type": "null"}}}}]},
+    "disposition": {"type": "object", "additionalProperties": false, "required": ["source_pointer", "source_value_sha256", "disposition", "reason", "target_pointer", "target_value_sha256"], "properties": {"source_pointer": {"type": "string", "minLength": 1, "maxLength": 1000}, "source_value_sha256": {"$ref": "#/$defs/sha256"}, "disposition": {"enum": ["mapped", "retired_with_reason", "blocked"]}, "reason": {"type": "string", "minLength": 1, "maxLength": 2000}, "target_pointer": {"type": ["string", "null"], "maxLength": 1000}, "target_value_sha256": {"oneOf": [{"$ref": "#/$defs/sha256"}, {"type": "null"}]}}, "allOf": [{"if": {"properties": {"disposition": {"const": "mapped"}}}, "then": {"properties": {"target_pointer": {"type": "string", "minLength": 1}, "target_value_sha256": {"$ref": "#/$defs/sha256"}}}, "else": {"properties": {"target_pointer": {"type": "null"}, "target_value_sha256": {"type": "null"}}}}]}
+  }
+}

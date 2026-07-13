@@ -112,3 +112,28 @@ The candidate English/Simplified Chinese path uses strict nested contracts inste
 Run `scripts/semantic_lint.py` to build and validate the semantic program, then `scripts/prompt_compile.py --preview-candidate` to render the paired prompts. Local schema validity is necessary but not sufficient: the runtime also recomputes source hashes, exact catalog coverage, binding order/media alignment, semantic-unit order, UTF-8 byte-span/value-hash provenance for every resolved catalog atom, request-carried structured-role assignments, compiler and toolchain lineage, evidence expiry, and output hashes. The compiler envelope has a 64 MiB aggregate UTF-8 ceiling even when its nested documents are locally schema-valid. V7-07 rejects dialogue, voiceover, and multi-shot input rather than inventing missing semantic contracts.
 
 The checked-in catalog fixture uses `unattested_fixture` so it cannot be mistaken for a real bilingual approval. Public runtime commands reject that test marker. Production must supply an actual user/reviewer declaration for the catalog rows, then separately review the compiler-authored grammar and final prompt pair.
+
+## V7-08 State And Motion Contracts
+
+V7-08 leaves every version-1 schema unchanged and adds six closed candidate contracts:
+
+- `project-state-v2.schema.json` separates planned/observed snapshots, binds state atoms and sourced motion vectors to owners and coordinate frames, records owner-local endpoints, leaves reference authority unresolved pending a hash-bound planning manifest, and requires every clip to remain `compile_required`;
+- `project-state-v2-migration-map.schema.json` carries explicit legacy-to-v2 decisions without guessing from tags, roles, order, filenames, or prose;
+- `project-state-v2-migration-report.schema.json` records redacted inspection/verification diagnostics plus raw-byte and canonical source hashes;
+- `take-review-v2.schema.json` distinguishes final decisions from nonterminal pending confirmation and does not promote a still into temporal endpoint proof;
+- `prompt-spec-v2.schema.json` records the blocked pre-compile state and binds accepted-parent openings to take/review/snapshot/media provenance; and
+- `generation-run-v2.schema.json` records only a blocked/not-run receipt, never compiler, submission, render, provider-response, or output provenance.
+
+An endpoint is local to an owner. The contract distinguishes `held_static`, `dissipated_or_resolved`, `completed_with_motion`, `frame_exit`, `cyclic_phase_boundary`, `open_handoff`, `incomplete`, and `unknown`. Carry-forward is an independent explicit decision that requires a matching open motion vector; `open_handoff` always carries, while a locally completed moving/exit/cyclic owner may remain open without requiring a seamless successor. `extension_depth` has no universal ceiling; an optional re-anchor policy must be explicitly selected and reasoned. `surface_exact_ranges` remains blocked in V7-08 because the runtime has no trusted evidence registry.
+
+Validate and migrate with the dependency-free tools:
+
+```bash
+python -S -B scripts/project_state_v2_check.py < project-state-v2.json
+python -S -B scripts/project_state_migrate.py inspect project-state-v1.json
+python -S -B scripts/project_state_migrate.py migrate project-state-v1.json --map migration-map.json
+python -S -B scripts/project_state_migrate.py verify project-state-v1.json project-state-v2.json --map migration-map.json
+python -S -B scripts/v2_aux_check.py --self-test
+```
+
+Migration emits canonical JSON to stdout and never rewrites the source. V7-07 does not ingest project state, so a valid v2 record is not compiler-ready output and carries no V7-07 provenance.

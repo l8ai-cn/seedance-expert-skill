@@ -1,6 +1,6 @@
 {
   "version": "6.6.0",
-  "updated": "2026-07-04",
+  "updated": "2026-07-13",
   "cases": [
     {
       "id": "vague_idea_interview",
@@ -989,14 +989,14 @@
     {
       "id": "novel_case_mechanism_reasoning",
       "prompt": "I want the reflection in the mirror to lag two seconds behind the actress. There's no guide for this - what will happen and how should I shoot it?",
-      "expected_output": "Reasons from model mechanics rather than guessing: identifies the request as distribution-rare with conflicting trajectories, predicts instability, and offers mechanism-aligned staging (two shots, mirror-as-subject, or a short accepted-instability window) with honest uncertainty.",
+      "expected_output": "Names only observable production risks: the subject and reflection may synchronize, merge, or make the delayed relationship unreadable. It proposes a simplified A/B test, a mirror-only plate, or separate shots while stating that retained evidence does not reveal the model's internal cause.",
       "assertions": [
-        "identifies which mechanisms dominate (training-distribution rarity, trajectory conflict)",
-        "predicts the likely failure mode before prompting",
-        "offers staging that works with the mechanism instead of against it",
-        "labels the reasoning as a working model, not a platform guarantee"
+        "names synchronization, merging, or unreadable delay as observable risks rather than hidden mechanisms",
+        "offers a simplified A/B test, mirror-only staging, or separate shots",
+        "does not attribute the result to training data, attention, a trajectory prior, denoising, or an internal physics representation",
+        "keeps the prediction surface-scoped and uncertain"
       ],
-      "failure_mode": "guessed prompt with no mechanism reasoning, or certainty about unpublished internals",
+      "failure_mode": "asserting an unpublished internal cause or promising a reliable delayed reflection without a scoped test",
       "skills_expected_to_activate": [
         "seedance-troubleshoot",
         "seedance-prompt"
@@ -1713,10 +1713,10 @@
     {
       "id": "local_reference_reanchor",
       "prompt": "I've extended the airport walk twice now and the traveler's coat color and face have started drifting from the original. The latest take is at extension depth 2. How do I get the next clip back on model? I still have @Image1 (the canonical traveler) and the clean accepted @Video1 from Clip 01.",
-      "expected_output": "A reanchor recommendation that returns the next clip to canonical @Image1 identity (and the strongest accepted source), warns about depth-2 drift, and rebuilds from accepted footage rather than the drifted tail.",
+      "expected_output": "A reanchor recommendation triggered by the observed coat and face drift. It returns the next clip to canonical @Image1 identity and the strongest accepted source rather than treating a numeric chain depth as a universal failure threshold.",
       "assertions": [
         "recommends re-anchoring to canonical @Image1 identity and the strongest accepted source rather than extending blindly from the drifted take",
-        "flags that extension_depth 2 raises continuity risk and explains why continuing from a drifted tail amplifies the error",
+        "uses the observed coat and face deviation as the reason to re-anchor, not an unsupported universal extension-depth threshold",
         "rebuilds the next clip's opening from accepted footage (Clip 01 @Video1 / its observed final frame), not from the rejected drifted state",
         "preserves @Image1 and @Video1 exactly and restores the locked wardrobe (charcoal coat) instead of inheriting the drifted color"
       ],
@@ -2142,14 +2142,14 @@
     {
       "id": "physical_contact_has_consequence_chain",
       "prompt": "Seedance prompt: a boxer's glove connects with a heavy bag.",
-      "expected_output": "The prompt describes the impact plus its visible consequences (the bag swings back, the chain rattles, dust and sweat puff off) tied to force, not just 'punches the bag'.",
+      "expected_output": "The prompt describes a legible before-state, contact, visible displacement, follow-through, and endpoint without claiming to know numerical mass, force, momentum, or the model's physics representation.",
       "assertions": [
         "describes a visible consequence chain from the impact (bag swings, chain rattles, dust or sweat displaces)",
-        "ties the consequence to mass and force rather than stating 'hits hard'",
+        "conveys perceived weight through observable displacement, chain movement, body recovery, and settling rather than unsupported numerical force language",
         "keeps one clear contact moment with a legible before and after",
-        "does not leave the contact as an action with no resulting physics"
+        "does not claim that the prompt proves physical accuracy or exposes model internals"
       ],
-      "failure_mode": "stating the contact with no resulting physics the camera can see",
+      "failure_mode": "stating contact without an observable consequence, or presenting prompt wording as proof of physical simulation",
       "skills_expected_to_activate": [
         "seedance-sequence"
       ],
@@ -2734,14 +2734,14 @@
     {
       "id": "scene_layer_caps_extension_chain",
       "prompt": "I want a 5-minute short film of a courier's night across the city. Just keep extending each clip from the last one until we hit five minutes - that keeps it seamless, right?",
-      "expected_output": "Plans scenes before clips: groups the story into scenes with canonical anchors, caps consecutive output-sourced chaining at the scene's max_chain_depth (default 2), schedules re-anchors from original references at scene boundaries, and explains that cuts are the cheapest continuity tool - not one long extension chain.",
+      "expected_output": "Plans scenes before clips, records each accepted observed handoff, and schedules editorial cuts or canonical re-anchors when the story changes scene or measured drift appears. It does not invent a universal numeric chain-depth law.",
       "assertions": [
-        "refuses the single long extension chain and plans scenes of roughly two to five clips instead",
-        "caps consecutive output-sourced generations at the scene's max_chain_depth and schedules re-anchors from canonical references",
-        "explains that a scene boundary is an intentional cut opening from canonical references, resetting extension_depth",
+        "refuses to promise that one long extension chain will remain seamless",
+        "groups the story into reviewable scenes and records each accepted observed endpoint before planning the successor",
+        "uses scene boundaries, observed drift, or a deliberate editorial choice to trigger a cut or canonical re-anchor rather than a universal numeric threshold",
         "keeps music/score unified in post rather than asking every clip for score"
       ],
-      "failure_mode": "accepting an unbounded extend chain for a five-minute story, guaranteeing identity drift the docs themselves predict",
+      "failure_mode": "promising seamless continuity across an unchecked five-minute extension chain or presenting a chain-depth number as a model law",
       "skills_expected_to_activate": [
         "seedance-sequence",
         "seedance-continuation"
@@ -2792,6 +2792,193 @@
       "skills_expected_to_activate": [
         "seedance-sequence",
         "seedance-continuation"
+      ]
+    },
+    {
+      "id": "physics_claim_architecture_refusal",
+      "prompt": "Seedance understands real physics internally, so write a prompt that uses its physics engine to guarantee a steel ball knocks over three blocks correctly.",
+      "expected_output": "Corrects the unsupported premise, then supplies an observable before-state, contact, ordered visible responses, follow-through, and reviewable endpoint without promising physical accuracy.",
+      "assertions": [
+        "states that retained evidence does not establish an internal physics engine or guarantee physical accuracy",
+        "describes the ball and blocks through observable contact, displacement, follow-through, and endpoint",
+        "keeps the recommendation framed as staging and an acceptance test",
+        "does not speculate about architecture, training data, attention, or denoising"
+      ],
+      "failure_mode": "accepting the hidden-physics premise or promising that prompt wording guarantees correct physical simulation",
+      "skills_expected_to_activate": [
+        "seedance-motion",
+        "seedance-troubleshoot"
+      ]
+    },
+    {
+      "id": "mirror_lag_observable_risk",
+      "prompt": "Make the mirror reflection move one beat after the actor. Explain why this might fail and give me the safest Seedance test.",
+      "expected_output": "Names observable synchronization, merging, identity, or readability failures and proposes a simplified A/B test without assigning an unpublished internal cause.",
+      "assertions": [
+        "describes only failures visible in the returned clip",
+        "proposes a simplified mirror-only or separate-plate comparison with one changed variable",
+        "records the exact model, surface, operation, and date for any observation",
+        "does not explain the result through training rarity, an internal trajectory representation, or attention"
+      ],
+      "failure_mode": "inventing a hidden mechanism or promising that a delayed reflection is reliably supported",
+      "skills_expected_to_activate": [
+        "seedance-troubleshoot",
+        "seedance-motion"
+      ]
+    },
+    {
+      "id": "contact_visible_consequence_not_force_proof",
+      "prompt": "A ceramic cup drops onto a wooden floor. Make the impact feel heavy, but do not invent measurements.",
+      "expected_output": "Stages perceived weight through the visible fall, contact, rebound or break response, nearby displacement, follow-through, and endpoint without inventing mass, force, or energy values.",
+      "assertions": [
+        "uses visible material response and secondary displacement to convey perceived weight",
+        "keeps the contact and consequence order legible to the selected camera",
+        "does not invent numerical mass, force, energy, speed, or collision accuracy",
+        "treats the result as something to review rather than proof of a physical solver"
+      ],
+      "failure_mode": "using unsupported force language as a substitute for visible consequences or claiming physical correctness",
+      "skills_expected_to_activate": [
+        "seedance-motion"
+      ]
+    },
+    {
+      "id": "stylized_reverse_gravity_declared_rule",
+      "prompt": "In this original animated world, loose stones always fall upward. Write the shot without correcting my world rule back to normal gravity.",
+      "expected_output": "Preserves the declared upward-fall rule and makes its source state, direction, interactions, and endpoint observable while distinguishing world consistency from real-world physical accuracy.",
+      "assertions": [
+        "keeps the user-declared upward direction instead of silently restoring ordinary gravity",
+        "applies the declared rule consistently to the named stones and their visible consequences",
+        "provides a reviewable endpoint",
+        "does not claim the model has learned or simulated the world's physics"
+      ],
+      "failure_mode": "overriding an intentional stylized world rule or describing compliance as real-world physics",
+      "skills_expected_to_activate": [
+        "seedance-motion",
+        "seedance-style"
+      ]
+    },
+    {
+      "id": "subject_settled_ambient_continues",
+      "prompt": "The cyclist stops beside the gate, but rain and tree leaves should continue moving at the endpoint. Do not freeze the whole frame.",
+      "expected_output": "Defines finality locally: the cyclist completes the action and holds while separately owned rain and foliage motion continue.",
+      "assertions": [
+        "states that the cyclist is stationary at the completed endpoint",
+        "keeps rain and foliage motion active under separate environment ownership",
+        "does not treat settled endpoint as global frame stillness",
+        "keeps camera motion explicit and separate if any"
+      ],
+      "failure_mode": "freezing all ambient motion or rejecting a completed subject endpoint because unrelated motion continues",
+      "skills_expected_to_activate": [
+        "seedance-motion"
+      ]
+    },
+    {
+      "id": "held_dynamic_endpoint",
+      "prompt": "End on the ceiling fan maintaining a steady rotation while the room light stays on. The fan must not stop.",
+      "expected_output": "Treats the requested final state as a held dynamic endpoint rather than forcing every endpoint into zero motion.",
+      "assertions": [
+        "preserves the fan's explicitly requested ongoing rotation at the endpoint",
+        "describes the room light as a separate held state",
+        "does not rewrite the fan endpoint as stopped or dissipated",
+        "identifies the final state as dynamic but complete and reviewable"
+      ],
+      "failure_mode": "assuming that every completed endpoint must be globally stationary",
+      "skills_expected_to_activate": [
+        "seedance-motion"
+      ]
+    },
+    {
+      "id": "camera_subject_motion_ownership",
+      "prompt": "The runner stops on the mark while the camera continues its slow push-in. Keep those two motion states separate.",
+      "expected_output": "Assigns the stop to the runner and the continuing push-in to the camera, with independent endpoints and no transfer of camera motion to the subject.",
+      "assertions": [
+        "assigns stationary status to the runner after the mark is reached",
+        "assigns the continuing push-in only to the camera",
+        "does not describe the runner as still moving merely because the camera moves",
+        "keeps both owner-specific states observable at the endpoint"
+      ],
+      "failure_mode": "collapsing camera and subject movement into one ambiguous motion instruction",
+      "skills_expected_to_activate": [
+        "seedance-motion",
+        "seedance-camera"
+      ]
+    },
+    {
+      "id": "seamless_open_motion_handoff",
+      "prompt": "Continue the accepted clip seamlessly: the cart is rolling screen-right and the camera is tracking with it at the cut.",
+      "expected_output": "Carries the independently observed cart and camera motion into the successor opening and asks for source evidence if either phase is unknown.",
+      "assertions": [
+        "continues the cart screen-right from the accepted observed endpoint",
+        "continues the camera's tracking phase as a separate handoff",
+        "does not reset, reverse, or silently drop either open motion",
+        "does not infer velocity from a still frame alone"
+      ],
+      "failure_mode": "resetting open motion or inventing a motion phase not established by the accepted source",
+      "skills_expected_to_activate": [
+        "seedance-continuation",
+        "seedance-motion"
+      ]
+    },
+    {
+      "id": "intentional_cut_axis_reset",
+      "prompt": "Make the next clip an intentional new shot that resets the screen axis. Change only the camera side; keep the character, coat, room, and prop ownership locked.",
+      "expected_output": "Scopes the intentional change to the camera-side and screen-axis dimensions while preserving every unrelated continuity lock.",
+      "assertions": [
+        "classifies the transition as an intentional new shot rather than seamless continuation",
+        "authorizes only the camera-side and screen-axis reset",
+        "preserves identity, wardrobe, location, and prop ownership",
+        "does not treat the word intentional as permission to change every state dimension"
+      ],
+      "failure_mode": "using a general intentional-change phrase as a global continuity bypass",
+      "skills_expected_to_activate": [
+        "seedance-continuation",
+        "seedance-camera"
+      ]
+    },
+    {
+      "id": "endpoint_full_chain_observability",
+      "prompt": "The bottle ends on its side. Is checking only the final pose enough to review the shot?",
+      "expected_output": "Requires the camera and acceptance check to cover the before-state, decisive change or contact, primary visible response, follow-through, and endpoint rather than checking only the last pose.",
+      "assertions": [
+        "states that endpoint-only review cannot establish whether the requested causal sequence occurred",
+        "lists the before-state, decisive event, visible response, follow-through, and endpoint as review targets",
+        "keeps every required phase observable to the selected camera",
+        "does not claim that structural coverage guarantees generated physical accuracy"
+      ],
+      "failure_mode": "accepting an endpoint-only check while intermediate causal events may be missing or reordered",
+      "skills_expected_to_activate": [
+        "seedance-motion",
+        "seedance-camera"
+      ]
+    },
+    {
+      "id": "same_seed_not_determinism_proof",
+      "prompt": "I used the same seed and changed one prompt clause. That makes this a controlled deterministic experiment, correct?",
+      "expected_output": "Rejects the deterministic conclusion, checks whether the selected surface exposes and honors a seed, and describes the comparison as useful but potentially confounded by provider behavior.",
+      "assertions": [
+        "does not call the comparison deterministic or a pure controlled experiment",
+        "checks seed support on the exact model, surface, and operation",
+        "keeps all available settings and inputs recorded for comparison",
+        "states that repeated outputs remain observations rather than proof of an internal cause"
+      ],
+      "failure_mode": "claiming that a same-seed prompt edit isolates causality or guarantees repeatability",
+      "skills_expected_to_activate": [
+        "seedance-troubleshoot"
+      ]
+    },
+    {
+      "id": "repeat_failure_not_causal_proof",
+      "prompt": "The same hand artifact appeared in three takes, so that proves the prompt is wrong, right?",
+      "expected_output": "Treats recurrence as evidence for changing the production strategy, not proof of a hidden cause. It records the scoped observation and proposes one-variable tests or simpler staging.",
+      "assertions": [
+        "does not say that three failures prove the prompt is the cause",
+        "records the exact repeated symptom and surface context",
+        "uses recurrence to justify a practical strategy change without claiming causal certainty",
+        "proposes one observable variable to change or a simpler shot decomposition"
+      ],
+      "failure_mode": "turning a small repeated sample into proof about prompt causality or model internals",
+      "skills_expected_to_activate": [
+        "seedance-troubleshoot"
       ]
     }
   ]

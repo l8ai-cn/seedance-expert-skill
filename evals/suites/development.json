@@ -4,7 +4,7 @@
   "suite_id": "development-v7",
   "kind": "development",
   "case_file": "evals/evals.json",
-  "expected_case_count": 126,
+  "expected_case_count": 138,
   "release_eligible": false,
   "description": "Public assertion-blinded regression corpus. Useful for development; never evidence of generalization."
 }

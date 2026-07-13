@@ -1,0 +1,244 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Emily2040/seedance-2.0/schemas/prompt-spec-v2.schema.json",
+  "title": "Surface-independent state projection for a future v2 compiler",
+  "$comment": "This contract carries no natural-language prompt, provider handle, surface binding, render hash, or compiler claim. V7-08 emits compile_required only.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schema_version",
+    "status",
+    "prompt_spec_id",
+    "project_id",
+    "clip_id",
+    "state_revision",
+    "canon_revision",
+    "semantic_state_sha256",
+    "sequence_relation",
+    "opening_source",
+    "parent_clip_id",
+    "planned_start_snapshot_sha256",
+    "planned_end_snapshot_sha256",
+    "observed_source_snapshot_sha256",
+    "accepted_source_media_sha256",
+    "source_take_id",
+    "source_take_review_sha256",
+    "source_accepted_deviation_ids",
+    "endpoint_states_sha256",
+    "carry_forward_motion_bindings",
+    "completed_beat_ids",
+    "reserved_future_beat_ids",
+    "continuity_rule_ids",
+    "motion_snapshot_sha256",
+    "reference_binding_ids",
+    "planning_status",
+    "reference_manifest_sha256",
+    "scene_ir_sha256",
+    "planning_report_sha256"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "https://github.com/Emily2040/seedance-2.0/schemas/prompt-spec-v2.schema.json"
+    },
+    "schema_version": {"const": 2},
+    "status": {"const": "compile_required"},
+    "prompt_spec_id": {"$ref": "#/$defs/id"},
+    "project_id": {"$ref": "#/$defs/id"},
+    "clip_id": {"$ref": "#/$defs/id"},
+    "state_revision": {"type": "integer", "minimum": 1},
+    "canon_revision": {"type": "integer", "minimum": 1},
+    "semantic_state_sha256": {"$ref": "#/$defs/sha256"},
+    "sequence_relation": {
+      "enum": [
+        "standalone",
+        "sequence_first_clip",
+        "seamless_continuation",
+        "intentional_next_shot",
+        "bridge_between_known_states",
+        "repair_tail",
+        "reanchor_after_drift"
+      ]
+    },
+    "opening_source": {
+      "enum": [
+        "planned_start",
+        "accepted_parent_video",
+        "accepted_parent_final_frame",
+        "user_description",
+        "legacy_description"
+      ]
+    },
+    "parent_clip_id": {"$ref": "#/$defs/nullable_id"},
+    "planned_start_snapshot_sha256": {"$ref": "#/$defs/sha256"},
+    "planned_end_snapshot_sha256": {"$ref": "#/$defs/sha256"},
+    "observed_source_snapshot_sha256": {"$ref": "#/$defs/nullable_sha"},
+    "accepted_source_media_sha256": {"$ref": "#/$defs/nullable_sha"},
+    "source_take_id": {"$ref": "#/$defs/nullable_id"},
+    "source_take_review_sha256": {"$ref": "#/$defs/nullable_sha"},
+    "source_accepted_deviation_ids": {"$ref": "#/$defs/id_array"},
+    "endpoint_states_sha256": {"$ref": "#/$defs/sha256"},
+    "carry_forward_motion_bindings": {
+      "type": "array",
+      "maxItems": 512,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/carry_forward_motion_binding"}
+    },
+    "completed_beat_ids": {"$ref": "#/$defs/id_array"},
+    "reserved_future_beat_ids": {"$ref": "#/$defs/id_array"},
+    "continuity_rule_ids": {"$ref": "#/$defs/id_array"},
+    "motion_snapshot_sha256": {"$ref": "#/$defs/sha256"},
+    "reference_binding_ids": {"$ref": "#/$defs/id_array"},
+    "planning_status": {"const": "planning_required"},
+    "reference_manifest_sha256": {"type": "null"},
+    "scene_ir_sha256": {"type": "null"},
+    "planning_report_sha256": {"type": "null"}
+  },
+  "allOf": [
+    {
+      "if": {
+        "required": ["opening_source"],
+        "properties": {"opening_source": {"const": "planned_start"}}
+      },
+      "then": {
+        "properties": {
+          "observed_source_snapshot_sha256": {"type": "null"},
+          "accepted_source_media_sha256": {"type": "null"},
+          "parent_clip_id": {"type": "null"},
+          "source_take_id": {"type": "null"},
+          "source_take_review_sha256": {"type": "null"},
+          "source_accepted_deviation_ids": {"maxItems": 0}
+        }
+      }
+    },
+    {
+      "if": {
+        "required": ["opening_source"],
+        "properties": {
+          "opening_source": {
+            "enum": ["accepted_parent_video", "accepted_parent_final_frame"]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "observed_source_snapshot_sha256": {"$ref": "#/$defs/sha256"},
+          "accepted_source_media_sha256": {"$ref": "#/$defs/sha256"},
+          "parent_clip_id": {"$ref": "#/$defs/id"},
+          "source_take_id": {"$ref": "#/$defs/id"},
+          "source_take_review_sha256": {"$ref": "#/$defs/sha256"}
+        }
+      }
+    },
+    {
+      "if": {
+        "required": ["opening_source"],
+        "properties": {
+          "opening_source": {"enum": ["user_description", "legacy_description"]}
+        }
+      },
+      "then": {
+        "properties": {
+          "observed_source_snapshot_sha256": {"type": "null"},
+          "accepted_source_media_sha256": {"type": "null"},
+          "parent_clip_id": {"type": "null"},
+          "source_take_id": {"type": "null"},
+          "source_take_review_sha256": {"type": "null"},
+          "source_accepted_deviation_ids": {"maxItems": 0}
+        }
+      }
+    },
+    {
+      "if": {
+        "required": ["sequence_relation"],
+        "properties": {
+          "sequence_relation": {"enum": ["standalone", "sequence_first_clip"]}
+        }
+      },
+      "then": {
+        "properties": {
+          "opening_source": {"enum": ["planned_start", "user_description", "legacy_description"]}
+        }
+      }
+    },
+    {
+      "if": {
+        "required": ["sequence_relation"],
+        "properties": {
+          "sequence_relation": {
+            "enum": ["seamless_continuation", "bridge_between_known_states", "reanchor_after_drift"]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "opening_source": {"enum": ["accepted_parent_video", "accepted_parent_final_frame"]}
+        }
+      }
+    },
+    {
+      "if": {
+        "required": ["sequence_relation"],
+        "properties": {"sequence_relation": {"const": "repair_tail"}}
+      },
+      "then": {
+        "properties": {"opening_source": {"const": "accepted_parent_video"}}
+      }
+    },
+    {
+      "if": {
+        "required": ["sequence_relation"],
+        "properties": {"sequence_relation": {"const": "intentional_next_shot"}}
+      },
+      "then": {
+        "properties": {
+          "opening_source": {
+            "enum": ["planned_start", "accepted_parent_video", "accepted_parent_final_frame"]
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+    },
+    "nullable_id": {
+      "oneOf": [
+        {"$ref": "#/$defs/id"},
+        {"type": "null"}
+      ]
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "nullable_sha": {
+      "oneOf": [
+        {"$ref": "#/$defs/sha256"},
+        {"type": "null"}
+      ]
+    },
+    "id_array": {
+      "type": "array",
+      "maxItems": 4096,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/id"}
+    },
+    "carry_forward_motion_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["endpoint_id", "owner_kind", "owner_id", "parent_motion_id", "opening_motion_id"],
+      "properties": {
+        "endpoint_id": {"$ref": "#/$defs/id"},
+        "owner_kind": {
+          "enum": ["character", "product", "object", "environment", "camera", "lighting", "audio", "shot"]
+        },
+        "owner_id": {"$ref": "#/$defs/id"},
+        "parent_motion_id": {"$ref": "#/$defs/id"},
+        "opening_motion_id": {"$ref": "#/$defs/id"}
+      }
+    }
+  }
+}

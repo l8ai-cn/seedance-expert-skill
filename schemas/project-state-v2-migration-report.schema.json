@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Emily2040/seedance-2.0/schemas/project-state-v2-migration-report.schema.json",
+  "title": "Project state v2 migration inspection report",
+  "type": "object", "additionalProperties": false,
+  "required": ["$schema", "schema_version", "status", "source_raw_sha256", "source_project_state_sha256", "reference_occurrences", "id_occurrences", "state_leaf_occurrences", "motion_occurrences", "legacy_field_occurrences", "diagnostics"],
+  "properties": {
+    "$schema": {"const": "https://github.com/Emily2040/seedance-2.0/schemas/project-state-v2-migration-report.schema.json"}, "schema_version": {"const": 1}, "status": {"enum": ["ready", "blocked"]},
+    "source_raw_sha256": {"$ref": "#/$defs/sha256"}, "source_project_state_sha256": {"$ref": "#/$defs/sha256"}, "reference_occurrences": {"type": "array", "maxItems": 64, "items": {"$ref": "#/$defs/reference"}},
+    "id_occurrences": {"type": "array", "maxItems": 5377, "items": {"$ref": "#/$defs/leaf"}},
+    "state_leaf_occurrences": {"type": "array", "maxItems": 4096, "items": {"$ref": "#/$defs/leaf"}}, "motion_occurrences": {"type": "array", "maxItems": 4096, "items": {"$ref": "#/$defs/motion"}},
+    "legacy_field_occurrences": {"type": "array", "maxItems": 16384, "items": {"$ref": "#/$defs/leaf"}}, "diagnostics": {"type": "array", "maxItems": 128, "items": {"$ref": "#/$defs/diagnostic"}}
+  },
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[a-z][a-z0-9._-]{0,63}$"}, "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "reference": {"type": "object", "additionalProperties": false, "required": ["legacy_registry_index", "tag_sha256", "role_sha256", "mapped"], "properties": {"legacy_registry_index": {"type": "integer", "minimum": 0}, "tag_sha256": {"$ref": "#/$defs/sha256"}, "role_sha256": {"$ref": "#/$defs/sha256"}, "mapped": {"type": "boolean"}}},
+    "leaf": {"type": "object", "additionalProperties": false, "required": ["pointer", "value_sha256", "mapped"], "properties": {"pointer": {"type": "string", "minLength": 1}, "value_sha256": {"$ref": "#/$defs/sha256"}, "mapped": {"type": "boolean"}}},
+    "motion": {"type": "object", "additionalProperties": false, "required": ["clip_id_sha256", "legacy_index", "value_sha256", "mapped"], "properties": {"clip_id_sha256": {"$ref": "#/$defs/sha256"}, "legacy_index": {"type": "integer", "minimum": 0}, "value_sha256": {"$ref": "#/$defs/sha256"}, "mapped": {"type": "boolean"}}},
+    "diagnostic": {"type": "object", "additionalProperties": false, "required": ["code", "pointer"], "properties": {"code": {"type": "string", "pattern": "^[A-Z][A-Z0-9_]+$"}, "pointer": {"type": "string", "minLength": 1}}}
+  }
+}

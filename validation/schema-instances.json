@@ -11,6 +11,22 @@
       ]
     },
     {
+      "schema": "schemas/project-state-v2.schema.json",
+      "instances": [
+        "validation/fixtures/project-state-v2.valid.json",
+        "validation/fixtures/project-state-v2.migration-golden.json",
+        "examples/standalone-clip-v2/project-state-v2.json"
+      ]
+    },
+    {
+      "schema": "schemas/project-state-v2-migration-map.schema.json",
+      "instances": ["validation/fixtures/project-state-v2-migration-map.valid.json"]
+    },
+    {
+      "schema": "schemas/project-state-v2-migration-report.schema.json",
+      "instances": ["validation/fixtures/project-state-v2-migration-report.valid.json"]
+    },
+    {
       "schema": "schemas/clip-contract.schema.json",
       "instances": [
         "examples/sequence-airport-arrival/clip-01-contract.json",
@@ -25,12 +41,24 @@
       ]
     },
     {
+      "schema": "schemas/take-review-v2.schema.json",
+      "instances": ["validation/fixtures/take-review-v2.valid.json"]
+    },
+    {
       "schema": "schemas/generation-run.schema.json",
       "jsonl_instances": ["data/generation-runs.example.jsonl"]
     },
     {
+      "schema": "schemas/generation-run-v2.schema.json",
+      "instances": ["validation/fixtures/generation-run-v2.valid.json"]
+    },
+    {
       "schema": "schemas/prompt-spec.schema.json",
       "instances": ["validation/fixtures/prompt-spec.valid.json"]
+    },
+    {
+      "schema": "schemas/prompt-spec-v2.schema.json",
+      "instances": ["validation/fixtures/prompt-spec-v2.valid.json"]
     },
     {
       "schema": "schemas/binding-plan.schema.json",

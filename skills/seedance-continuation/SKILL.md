@@ -50,25 +50,25 @@ Before writing any continuation prompt, require:
 
 If the source is unavailable, say: "I have the story plan, but I do not have the actual ending of the previous generation. Upload the clip or its final frame - `python scripts/extract_last_frame.py <take>` pulls the final frame locally - or describe exactly what is visible at the end. I should not invent the continuation state."
 
-Once a frame or clip is attached, run the Observation Fast Path from `[ref:continuation-handoff]`: the agent fills the observation record from what is visible and asks only about what the attachment cannot show (for a still: open motion, camera movement phase, audio phase). Never hand the sensing work back to the user when the pixels are already in hand.
+Once a frame or clip is attached, run the Observation Fast Path from `[ref:continuation-handoff]`: fill only what the attachment can establish and ask about the remaining gaps. A still can show pose and framing but cannot establish owner velocity, camera movement phase, or audio phase. Never invent those fields.
 
 Do not hide this uncertainty by writing a speculative prompt.
 
 ## Continuation Types
 
-`seamless_continuation`: same shot, same geography, same open motion, same or motivated camera continuation, and accepted previous footage as the source.
+`seamless_continuation`: requested continuation of the same shot and geography, carrying the accepted source's observable owner-scoped open motion. This is a handoff contract, not a fidelity guarantee.
 
 `intentional_next_shot`: an editorial cut is appropriate. Story continuity matters, but exact frame continuity is not promised. Do not call it seamless.
 
 `bridge_between_known_states`: a defined start state and end state must be connected, often with first/last-frame generation when the active surface supports it.
 
-`repair_tail`: the previous final seconds failed. Repair, edit, or regenerate the tail before continuing because continuing from a failed tail amplifies the error.
+`repair_tail`: the previous final seconds failed their named acceptance checks. Repair, edit, or regenerate the tail before continuing so the next opening does not canonize a rejected state.
 
 `reanchor_after_drift`: identity, detail, geography, motion, audio, or world continuity degraded. Return to canonical identity, the strongest accepted final frame, a stable source clip, or a new intentional shot using canonical references.
 
 ## Scene Boundary Rule
 
-Crossing a scene boundary defaults to `intentional_next_shot` opening from canonical references. Do not promise `seamless_continuation` across a scene boundary; if the user explicitly asks for one, record the reason and treat the result as high drift risk.
+Crossing a scene boundary defaults to `intentional_next_shot` opening from canonical references. Do not label a cross-scene request `seamless_continuation`; it conflicts with this workflow's scene contract. If the user explicitly asks for continuity across the boundary, record the reason and plan a separately reviewed bridge or intentional transition without predicting drift from the boundary alone.
 
 ## Canon Rule
 
@@ -76,7 +76,11 @@ Accepted observed footage overrides planned state. If the plan says the subject 
 
 Rejected footage never updates canon and never becomes a parent source.
 
-Track `extension_depth` as consecutive output-sourced generations since the last canonical re-anchor; it resets to 0 when a clip opens from canonical references. At the scene's `max_chain_depth` (default 2, hard ceiling 3), re-anchor by schedule instead of extending again. Visible drift before the cap is an immediate `reanchor_after_drift`.
+Track `extension_depth` as consecutive output-sourced generations since the last canonical re-anchor; it resets to 0 when a clip opens from canonical references. The count is review context, not a failure threshold. Re-anchor when a named identity, layout, motion, endpoint, audio, or world-continuity check fails, or under an explicitly documented project policy chosen by the owner. No universal default or hard ceiling is supported.
+
+Record motion and endpoints per owner. A subject may reach `held_static` while rain continues; a camera may remain `open_handoff` after the subject completes its action. Use one endpoint mode per relevant owner: `held_static`, `dissipated_or_resolved`, `completed_with_motion`, `frame_exit`, `cyclic_phase_boundary`, or `open_handoff`. Record `carry_forward` separately: it requires a matching open vector, and the successor must preserve that owner's domain, coordinate frame, direction, and speed trend exactly unless the transition is reclassified as a cut.
+
+Every project-state-v2 clip declares `compile_required: true`. Use only a compiler compatible with that exact state contract. V7-07 remains byte-stable and does not support v2 motion/endpoint state; return a blocker rather than flattening it into hand-edited paired prompts. No v2 human-bypass path or provider activation exists in this contract.
 
 ## Output Contract
 

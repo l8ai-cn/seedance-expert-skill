@@ -1,50 +1,50 @@
-# Allocation Model — decide where the prompt spends its budget
+# Allocation Model — decide what the take must prove
 
-*The operational companion to `intent-vs-precision.md`: every generation has a finite fidelity budget, and a prompt that demands everything gets mediocrity everywhere. Decide where the budget goes before writing a word. Labels: [field] = practitioner-reported · [heuristic] = default to test. Craft guidance compiled 2026-06-11; no platform-availability claims.*
+*The operational companion to `intent-vs-precision.md`. This is a review-priority heuristic, not a model resource, attention, token, or capacity theory. Decide what the take must prove before writing. Labels: [field] = practitioner-reported, scoped observation · [heuristic] = default to test. Craft guidance compiled 2026-06-11; no platform-availability claims.*
 
-## The premise [field]
+## The premise [heuristic]
 
-Identity fidelity, motion boldness, and scene density compete for the same generation budget. The known fragile areas — detail stability, multi-subject consistency, text rendering, facial micro-acting — are where overdrawn budgets fail first. A shot that needs a perfect face, a backflip, a crowded market, and a spoken line in one call will land none of them cleanly.
+Identity fidelity, motion boldness, and scene density create different review risks. Asking one take to prove all three makes diagnosis difficult because several things can fail at once. This is not a hidden model-resource or capacity theory. Start with one primary acceptance target, test the exact surface, and record what actually failed.
 
-## The three spends
+## The three review priorities
 
-| Spend | What it buys | What it strains |
+| Review priority | What the take must prove | What to simplify for diagnosis |
 |---|---|---|
-| Identity fidelity | stable faces, products, logos, costumes | motion range; every bold move risks drift |
-| Motion boldness | committed action, physics, choreography | close-up identity detail, especially faces and hands |
-| Scene density | crowds, layered environments, weather, props | per-subject stability; tiny background detail degrades |
+| Identity fidelity | the returned face, product, logo, or costume passes its lock | secondary action and background activity |
+| Motion legibility | the authored action and visible response can be ordered | fragile detail, extra performers, and competing events |
+| Scene readability | geography, crowd, weather, and props read as intended | tiny per-subject acceptance targets |
 
 ## Allocation method [heuristic]
 
-1. Name the primary spend — the one thing this shot is for. One per generation.
-2. Pick one secondary; economize everything else on purpose.
-3. Offload fidelity to references: identity carried by a bound image is budget the text no longer spends, freeing prose for motion and timing. Resolve its exact handle or structured role through the surface profile.
-4. Pay for the primary out of the others: bold motion buys down facial detail, so stage emotion in the body and ration close-ups; dense scenes buy down subject precision, so keep hero subjects large in frame and few in number.
-5. Re-anchor across a series: chained generations drift, so respend on identity (original references, not outputs) every few clips.
+1. Name the primary acceptance target, the one thing this shot is for. Start with one per generation.
+2. Pick one secondary target; simplify everything else on purpose.
+3. Use references only for their declared target/dimension authority. A reference can reduce prose duplication, but it does not reserve hidden model capacity or guarantee fidelity. Resolve its exact handle or structured role through the surface profile.
+4. Simplify non-primary requirements so a reviewer can identify why the take passed or failed. This is diagnostic simplification, not a controlled experiment or a claim that bold motion consumes facial detail or that dense scenes consume subject precision.
+5. Across a series, compare every accepted take with canonical references and re-anchor when a named continuity check fails. Do not infer a universal re-anchor interval from extension count.
 
-## Worked allocations [field]
+## Worked review priorities [heuristic]
 
-| Shot | Primary | Secondary | Economized |
+| Shot | Primary acceptance target | Secondary target | Simplified for this test |
 |---|---|---|---|
-| Product ad | product identity (ref-anchored) | one material motion beat | scene density, crowd, weather |
-| Dance / action | motion boldness from a bound donor video | identity via a bound canonical-image re-anchor | facial close-ups, set dressing |
+| Product ad | product identity (reference-authorized) | one material motion beat | crowd and weather |
+| Dance / action | legible motion from a bound donor video | identity from its declared canonical image | facial close-ups and set dressing |
 | Establishing world shot | scene density and atmosphere | camera move | character identity (no close subjects) |
 | Dialogue close-up | facial stability (locked camera) | the spoken line | motion, background activity |
 
-## Trade table [field]
+## Diagnostic simplification table [heuristic]
 
-| If the shot needs | It pays with |
+| If the shot needs | Conservative test design |
 |---|---|
-| Bold motion and a close-up face | choose one; put the emotion in posture and staging, or cut to a separate close-up shot |
-| Many subjects | per-subject identity precision; pick one hero and let the rest read as shapes |
-| Readable on-screen text | nothing — move text to post |
-| A crowded frame and a tiny product detail | the detail; isolate the product beat in its own shot |
+| Bold motion and a close-up face | test the movement and identity criteria separately before combining them, or cut to a close-up |
+| Many subjects | identify one hero and give every required subject a separate observable criterion |
+| Readable on-screen text | use post when the selected workflow cannot demonstrate stable text |
+| A crowded frame and a tiny product detail | isolate the product proof in its own shot |
 
 ## Pre-write checklist [heuristic]
 
-For sequence projects, allocate the current clip before allocating the full story. The full story owns objective and final outcome; the current clip owns one action, one endpoint, and the continuity locks needed for the next handoff. Future beats are not part of the current prompt budget.
+For sequence projects, set the current clip's acceptance priority before planning the full story in prompt prose. The full story owns objective and final outcome; the current clip owns one action, one endpoint, and the continuity locks needed for the next handoff. Future beats are not part of the current prompt.
 
 1. What is this shot for — identity, motion, or world?
-2. Which references carry fidelity so the text does not have to?
-3. What is deliberately economized, and is that written as a constraint?
+2. Which references have explicit authority for the target being reviewed?
+3. What is deliberately simplified, and is that reflected in the acceptance test?
 4. If the answer to 1 is "all three," which beats split into separate shots or generations?

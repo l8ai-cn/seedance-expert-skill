@@ -1,38 +1,42 @@
-# Multi-Shot Grammar — real cuts inside one generation
+# Multi-Shot Grammar — candidate cut planning inside one generation
 
-*Seedance 2.0's defining capability over 1.x: a single 10–15s call can contain 2–3 shots with genuine editorial cuts. Labels: [official] = ByteDance/fal docs · [field] = practitioner-reported. Last verified 2026-06-09.*
+*Use only after selecting a surface and operation whose current evidence supports multi-shot prompting. Labels: [provider example] = syntax observed in the named provider material, not an adherence guarantee; [field] = scoped practitioner report; [heuristic] = planning default to test. V7-09 must re-verify the provider behavior before activation.*
 
-## The grammar [official]
-Label every cut explicitly — `Shot 1:` / `Shot 2:` / `Shot 3:` — in plain prose. The labels are what give the model cut points; long unlabeled prompts tend to render as one continuous take. Per shot: **one primary action + one camera move**, plus its sound. Order inside each shot: subject + action → camera → sound.
+## The grammar [provider example + heuristic]
+When the selected surface's current examples use them, explicit `Shot 1:` / `Shot 2:` labels can state the requested cut structure. The labels express editorial intent; they do not create or guarantee cut points. Per shot, start by testing one primary action, one camera plan, and its sound. Keep subject, action, camera, and sound ownership readable.
 
-## The budget [official]
-Shots cost seconds. Plan ≈4–6s per shot: two shots want ~10s, three want 12–15s. Ask for four shots in 5s and the model compresses or skips beats. `duration: auto` lets the model size the clip to the prompt's complexity — a strong default for multi-shot; set an explicit duration only when the edit demands it.
+## The duration budget [heuristic]
+Every shot needs enough returned time for its authored event and endpoint to be reviewed. Do not use a universal seconds-per-shot formula. Verify the selected operation's duration field, allowed values, and `auto` semantics before use, then reduce shot count when the returned cut or action is compressed.
 
-## Requirements [official + field]
-- **Standard tier [field].** Official fal docs give fast endpoints the same schema and multi-shot support, but field reports say fast tiers do not reliably honor multi-shot (or slow-motion or dolly moves) on the first try.
-- **10–15s or `auto` [official].** Multi-shot below ~10s starves the beats.
+## Surface requirements
+- A shared request schema does not prove equal behavior across standard, fast, mini, or routed variants. Treat tier comparisons as field tests tied to the exact endpoint and date.
+- Duration, shot count, audio behavior, and `auto` remain separate surface facts. Unknown values fail closed rather than inheriting a generic Seedance default.
 
-## Timestamps: secondary on Western surfaces, primary on Chinese surfaces [official + field]
-Prefer `Shot N:` labels as the structure — clear and portable across surfaces. fal's reference-to-video docs additionally accept timestamp pacing phrases ("At 5 seconds…", "Cut scene to…"); use them sparingly as *hints inside* a labeled shot, never as bracketed `[0-6s]` blocks replacing the labels.
+## Timing syntax is surface-scoped
+Choose one evidenced timing policy for the active surface and operation:
 
-Surface exception [field]: on Dreamina/Jimeng, Chinese community practice structures longer prompts (over ~8s) with a bracketed timeline as the primary skeleton — `【时间轴】0-3s: … / 3-6s: … / 6-10s: …` — each segment carrying its own 画面/镜头/音效 (frame, camera, sound). Match the convention of the active surface; do not mix both skeletons in one prompt.
+- `ordered_phases`: causal or editorial order without exact ranges;
+- `relative_beats`: actions tied to a named beat or cue; or
+- `surface_exact_ranges`: exact ranges only when current provider evidence for that operation permits them.
 
-## Dialogue & audio placement [official + field]
-A spoken line goes inside the shot where the speaker is on-screen, written naturally in quotes; keep lines short. Name each shot's specific sounds — they anchor the audio pass. Audio is generated per call, not across calls: multi-block pieces get their unifying score in post.
+The retained BytePlus claim cautions against strict ranges for its scoped multi-shot workflow, while a retained Volcengine example uses exact ranges. Neither establishes a universal language or regional rule. V7-07 rejects unevidenced ranges and remains byte-stable; do not hand-edit a compiled pair to work around that boundary.
 
-## The single-take alternative [official]
-For an unbroken take, say so: "single continuous take, no cuts" — otherwise a long action description may get cut up.
+## Dialogue and audio placement [heuristic]
+A spoken line belongs to its resolved speaker and shot. Keep important lines short enough to review and name each requested sound. Verify cross-call audio continuity instead of assuming it; a unifying score can be planned in post.
+
+## The single-take alternative [heuristic]
+For an unbroken take, request `single continuous take, no cuts` and review the returned structure. This states intent; it does not guarantee the absence of cuts.
 
 ## Worked shapes
-*Three-shot commercial (≈15s):* Shot 1: extreme close-up of condensation sliding down a glass bottle, ice clinking. Shot 2: the bottle rises from crushed ice, camera tilting up into a backlit halo. Shot 3: a hand grabs it against a sunset rooftop, the city humming below. *(Paraphrased from the official demo shape.)*
+*Three-shot commercial shape:* Shot 1: extreme close-up of condensation sliding down a glass bottle, ice clinking. Shot 2: the bottle rises from crushed ice, camera tilting up into a backlit halo. Shot 3: a hand grabs it against a sunset rooftop, the city humming below. Set duration only from the active surface contract.
 
-*Two-shot dialogue beat (≈10s):* Shot 1: close on the detective under a flickering platform light, rain on his shoulders — he says quietly, "You were never on that train." Shot 2: cut to the woman's face as the train doors close behind her, a half-smile; the departure chime swallows the silence.
+*Two-shot dialogue shape:* Shot 1: close on the detective under a flickering platform light, rain on his shoulders; he says quietly, "You were never on that train." Shot 2: cut to the woman's face as the train doors close behind her, a half-smile; the departure chime swallows the silence.
 
 ## Failure → fix [field]
 | Symptom | Fix |
 |---|---|
-| Renders as one continuous take | clearer `Shot N:` labels · reduce to two shots · Standard tier |
-| A shot's action skipped/compressed | fewer shots · raise duration / `auto` · one action per shot |
+| Renders as one continuous take | verify that the operation supports multi-shot, use its evidenced labels, or reduce shot count |
+| A shot's action skipped/compressed | fewer shots, an eligible longer duration, or one action per shot |
 | Cut lands mid-action | end each shot's sentence on the completed beat; let the next shot open the new one |
 | Atmosphere breaks between shots | declare the persisting effect once for the whole piece: "thin mist throughout, every shot" (全程薄雾) |
 
