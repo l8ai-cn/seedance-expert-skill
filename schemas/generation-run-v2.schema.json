@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Emily2040/seedance-2.0/schemas/generation-run-v2.schema.json",
+  "title": "Blocked V7-08 generation-run receipt",
+  "$comment": "V7-08 has no stateful v2 compiler. This record binds an exact project state and prompt specification but cannot claim submission, rendering, provider execution, or compiler provenance. Canonical hashes use sorted compact UTF-8 JSON with one trailing LF.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schema_version",
+    "run_id",
+    "project_id",
+    "clip_id",
+    "state_revision",
+    "canon_revision",
+    "semantic_state_sha256",
+    "project_state_sha256",
+    "prompt_spec_id",
+    "prompt_spec_sha256",
+    "execution_status",
+    "result_status",
+    "is_synthetic_fixture",
+    "block_reason"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "https://github.com/Emily2040/seedance-2.0/schemas/generation-run-v2.schema.json"
+    },
+    "schema_version": {"const": 2},
+    "run_id": {"$ref": "#/$defs/id"},
+    "project_id": {"$ref": "#/$defs/id"},
+    "clip_id": {"$ref": "#/$defs/id"},
+    "state_revision": {"type": "integer", "minimum": 1},
+    "canon_revision": {"type": "integer", "minimum": 1},
+    "semantic_state_sha256": {"$ref": "#/$defs/sha256"},
+    "project_state_sha256": {"$ref": "#/$defs/sha256"},
+    "prompt_spec_id": {"$ref": "#/$defs/id"},
+    "prompt_spec_sha256": {"$ref": "#/$defs/sha256"},
+    "execution_status": {"enum": ["compile_required", "blocked"]},
+    "result_status": {"const": "not_run_fixture"},
+    "is_synthetic_fixture": {"const": true},
+    "block_reason": {
+      "enum": ["v2_compiler_not_available", "planning_required", "migration_review_required"]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "required": ["execution_status"],
+        "properties": {"execution_status": {"const": "compile_required"}}
+      },
+      "then": {
+        "properties": {"block_reason": {"const": "v2_compiler_not_available"}}
+      }
+    },
+    {
+      "if": {
+        "required": ["execution_status"],
+        "properties": {"execution_status": {"const": "blocked"}}
+      },
+      "then": {
+        "properties": {"block_reason": {"enum": ["planning_required", "migration_review_required"]}}
+      }
+    },
+    {
+      "if": {
+        "required": ["block_reason"],
+        "properties": {"block_reason": {"const": "v2_compiler_not_available"}}
+      },
+      "then": {
+        "properties": {"execution_status": {"const": "compile_required"}}
+      }
+    },
+    {
+      "if": {
+        "required": ["block_reason"],
+        "properties": {"block_reason": {"enum": ["planning_required", "migration_review_required"]}}
+      },
+      "then": {
+        "properties": {"execution_status": {"const": "blocked"}}
+      }
+    }
+  ],
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  }
+}

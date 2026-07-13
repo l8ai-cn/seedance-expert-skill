@@ -1,0 +1,19 @@
+{
+  "schema_version": "6.6.0",
+  "state_revision": 1,
+  "project_id": "migration_watch",
+  "project_mode": "standalone_clip",
+  "surface": {"name": "unknown", "profile": "conservative_generic", "verified_at": null},
+  "clip_budget_sec": null,
+  "prompt_budget": null,
+  "story": {"logline": "A watch remains readable during a restrained light change.", "story_promise": "A controlled product study.", "objective": "Preserve the watch.", "initial_condition": "The watch rests on a table.", "final_outcome": "The watch remains still and readable.", "target_duration_sec": null, "tone": "restrained", "medium": "product film"},
+  "world_bible": {"location": "black acrylic product table"},
+  "reference_registry": [{"tag": "@Image1", "role": "watch identity", "preserve_exact_tag": true}],
+  "scenes": [{"scene_id": "scene_01", "scene_index": 1, "narrative_function": "product study", "arc_position": "open", "location": "black acrylic product table", "time_of_day": "studio", "anchor_source": ["@Image1"], "max_chain_depth": 2, "audio_plan": "quiet room tone", "assigned_clip_ids": ["clip_01"], "transition_out": "cut", "status": "current"}],
+  "beats": [{"beat_id": "beat_hold", "description": "The watch remains still and readable.", "narrative_function": "product clarity", "status": "current", "assigned_clip_id": "clip_01", "dependencies": []}],
+  "clips": [{"clip_id": "clip_01", "parent_clip_id": null, "scene_id": "scene_01", "sequence_index": 1, "prompt_version": "6.6.0", "generation_mode": "I2V", "source_clip_tag": null, "status": "ready", "narrative_job": "Hold the product clearly.", "felt_intent": "The viewer trusts the product's physical presence.", "already_happened": [], "this_clip_only": ["beat_hold"], "reserved_for_later": [], "planned_start_state": {"product_identity": "watch from @Image1", "reference_tags": ["@Image1"]}, "planned_end_state": {"product_identity": "watch from @Image1", "reference_tags": ["@Image1"]}, "observed_start_state": null, "observed_end_state": null, "continuity_locks": ["product identity"], "allowed_changes": ["light direction"], "continuity_breaks": [], "accepted_deviations": [], "transition_in": "standalone opening", "transition_out": "clean cut", "open_motion_vectors": ["the watch remains stationary"], "handoff_requirements": [], "extension_depth": 0}],
+  "take_history": [],
+  "current_clip_id": "clip_01",
+  "canon_revision": 1,
+  "updated_at": "2026-07-13"
+}

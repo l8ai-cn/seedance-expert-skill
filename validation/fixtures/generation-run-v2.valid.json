@@ -1,0 +1,17 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/generation-run-v2.schema.json",
+  "schema_version": 2,
+  "run_id": "fixture_migration_watch",
+  "project_id": "migration_watch",
+  "clip_id": "clip_01",
+  "state_revision": 1,
+  "canon_revision": 1,
+  "semantic_state_sha256": "c86ab543a6bb3c2e43215fe8b551edfa8d62a4f8a006d27a91315cfdaedb94f8",
+  "project_state_sha256": "3cb6ada004d39e16de46cce9db8a84bb73918eca11f54a61d247e018adc07deb",
+  "prompt_spec_id": "migration_watch.clip_01.spec_01",
+  "prompt_spec_sha256": "d893145ae1db1cc75c9fd0322aaad6a1533ad13152d96b242c04106e320f0d5b",
+  "execution_status": "blocked",
+  "result_status": "not_run_fixture",
+  "is_synthetic_fixture": true,
+  "block_reason": "planning_required"
+}

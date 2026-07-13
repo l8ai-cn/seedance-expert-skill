@@ -9,24 +9,25 @@ Use this reference when sequence or continuation output fails.
 | Future event appears early | Reserved beat leaked into prompt. | Remove future beat from prompt and endpoint. |
 | Identity drifts through extensions | Continuity source displaced canonical identity reference. | Re-anchor identity from canonical image. |
 | Screen direction flips | Axis was not locked or reset intentionally. | State screen direction or declare axis reset. |
-| Open motion stops | Motion vector was not inherited. | Carry subject/camera speed and direction. |
+| Open motion stops | Owner-scoped handoff state was missing or the request became an intentional reset. | Carry the observed subject/camera owner, coordinate frame, direction, qualitative speed/trend, phase, and confidence; otherwise classify a cut. |
 | Camera phase restarts | Camera endpoint from parent was missing. | Start from observed camera phase. |
 | Prop contradicts prior clip | Prop owner/position/condition was not tracked. | Add prop state handoff. |
 | Dialogue repeats | Completed dialogue was not logged. | Mark line completed and continue audio phase. |
-| Extension quality degrades | Extension depth and drift were ignored. | Re-anchor or create intentional next shot. |
+| Continuity degrades after extensions | The returned take failed a named identity, layout, motion, endpoint, audio, or world-continuity check. Extension depth is lineage context only. | Re-anchor or create an intentional next shot from the measured failure. |
 | Two references fight over one attribute | The same target/dimension has multiple authority winners. | Choose one winner; exclude that dimension from every competing asset. |
 | Donor identity, room, style, audio, or logo leaks | Leakage risks were not mapped to explicit exclusions. | Keep the donor's intended dimensions and exclude each observed competing dimension. |
 | Extra reference makes the result less stable | The asset owns no necessary target/dimension. | Remove it; add references only to fill a documented authority gap. |
 | Appearance image behaves like an endpoint request | Appearance authority was conflated with a structured first/last-frame role. | Select the exact supported operation and keep frame roles in request structure. |
-| Contact happens but nothing visibly changes | The decisive event has no observable response. | Add one visible consequence and a settled endpoint. |
+| Contact happens but nothing visibly changes | The decisive event has no authored observable response. | Add one visible consequence and a clip endpoint; do not claim that wording guarantees physical accuracy. |
+| A material response suppresses a performer's reaction | Material and non-material responses were forced into one owner/type. | Keep the contacted material response and the performer's visible reaction as separate owner-scoped consequences. |
 | Action order collapses | Events lack backward dependencies or a reachable causal chain. | Order initial state, trigger, decisive change, response, follow-through, and endpoint. |
-| Key action is hidden | The camera cannot observe the before-state, decisive event, consequence, and endpoint. | Change blocking/framing or simplify to one primary move that can see them. |
+| Key action is hidden in the returned take | The declared coverage did not produce reviewable pixels. | Change blocking/framing or simplify the move; the observability map is a declaration, not proof of visibility. |
 | Audio lands at the wrong moment or serves the wrong purpose | Timing and semantic function were conflated. | Specify when the cue occurs separately from whether it is dialogue, SFX, ambience, music, rhythm, or silence. |
 | Event density is too high | Several beats were compiled into one prompt. | Reassign future beats to later clips. |
 | English and Chinese prompts change actor, direction, event order, or endpoint | One finished prompt was translated instead of rendering both locales from one semantic program. | Repair the hash-bound paired catalog entry, obtain human attestation, and recompile both locales together. |
 | A localized prompt changes or renumbers an `@` reference | Provider syntax was treated as natural language. | Restore the externally captured opaque handle byte-for-byte or the evidence-pinned derived binding; never translate or normalize it. |
 | Two localized entities collapse to the same name or turn into pronouns | Stable entity aliases were omitted or collided. | Give every entity one distinct reviewed label per locale and use closed entity tokens in events, audio, and invariants. |
-| Timing becomes an invented timestamp or strict second range | Locale prose added unsupported timing precision. | Keep causal phase order; remove unevidenced timestamps and strict time ranges. |
+| Timing becomes an invented timestamp or strict second range | Locale prose added timing precision not supported by the selected surface/operation. | Use ordered phases or relative beats; use exact ranges only under a current evidence-pinned timing policy. |
 | Paired compiler rejects dialogue or voiceover | Scene IR v1 lacks an exact utterance, resolved speaker, spoken-language tag, and subtitle policy. | Keep dialogue outside V7-07 or wait for the versioned dialogue contract; do not invent or translate a line. |
 | Paired compiler rejects multiple shots | Scene IR v1 has no typed transition or evidenced surface timeline grammar. | Compile one shot/clip at a time; do not infer a cut or timestamp from array order. |
 | Surface binding order differs from selected asset order | The binding set was reordered during prompt assembly or locale handling. | Restore the manifest `selection_order`; a locale change may alter prose, not binding identity or order. |
@@ -51,7 +52,7 @@ The offline language tools return stable codes and JSON pointers without echoing
 | `PRM001_EVENT_COVERAGE_INVALID`, `PRM002_CAUSAL_ORDER_INVALID` | Rebuild event coverage and order from the causal graph. |
 | `PRM003_ALIAS_COLLISION`, `PRM004_ENTITY_AMBIGUOUS` | Use distinct labels, exact entity tokens, and an explicit screen/subject/world direction frame. |
 | `PRM007_CAMERA_AUDIO_CONFLATED` | Move camera and audio meaning back to their separately owned units. |
-| `PRM008_TIME_RANGE_UNEVIDENCED` | Remove exact seconds, frames, or timestamps; retain causal phase order. |
+| `PRM008_TIME_RANGE_UNEVIDENCED` | V7-07 cannot carry an evidenced exact-range policy. Keep ordered phases for compiled output or return a `compile_required` blocker; do not hand-edit a compiled pair. |
 | `PRM009_BINDING_CORE_MISMATCH`, `REF001_BINDING_ORDER_MISMATCH` | Rebuild binding identity, media, profile, operation, and order from the manifest. |
 | `PRM010_SURFACE_SEMANTIC_DRIFT` | Rerun all passes from one unchanged profile/evidence snapshot. |
 | `PRM011_META_INSTRUCTION` | Remove instruction-override prose from catalog text or opaque-handle composition. |
@@ -59,7 +60,7 @@ The offline language tools return stable codes and JSON pointers without echoing
 | `PRM013_UNICODE_UNSAFE` | Normalize authored catalog text to NFC and remove unsafe controls, default-ignorables, or visually blank mask characters; opaque handles are rejected without rewriting their bytes. |
 | `PRM014_PROGRAM_HASH_MISMATCH` | Rebuild from the exact manifest, scene, catalog, and compiler lineage. |
 | `PRM015_BUDGET_EXCEEDED` | Reduce semantic density or split the shot; output is never truncated. |
-| `PRM017_ENDPOINT_NOT_FINAL` | State an observable completed endpoint, make zero/absent/dissipated dynamics explicit, and keep unrelated ambient motion out of the subject's endpoint row. |
+| `PRM017_ENDPOINT_NOT_FINAL` | V7-07's byte-stable compatibility lint accepts only its existing static/resolved endpoint wording. Do not reinterpret this as a universal rule that every owner must stop. A v2 endpoint such as `completed_with_motion`, `frame_exit`, `cyclic_phase_boundary`, or `open_handoff` requires a later compatible compiler; when compilation is required, return the blocker. |
 | `PRM021_DIALOGUE_TEXT_REQUIRED` | Defer dialogue/voiceover until an exact speaker/language/utterance contract exists. |
 | `PRM022_MULTI_SHOT_DEFERRED` | Compile one shot at a time until transitions are typed. |
 | `PRM023_EVENT_TEXT_DUPLICATE` | Give each event a distinct observable localized state change. |

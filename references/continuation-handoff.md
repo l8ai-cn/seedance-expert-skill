@@ -24,8 +24,8 @@ If the source is missing, ask for the clip, final frame, or an exact visible-end
 
 The user should never be the state sensor. The moment a final frame or the accepted clip is attached, the AGENT fills the observation record from what is visible and asks only about what the attachment cannot show:
 
-- **Final frame attached:** the agent reads pose, screen position, wardrobe and props, environment, lighting phase, and framing directly off the still, then asks at most three targeted questions - open motion at the cut, camera movement phase, and audio phase - because a still can never show them.
-- **Full clip attached:** the agent reads everything including motion, camera phase, and (when audible) audio phase; usually nothing is left to ask.
+- **Final frame attached:** the agent reads pose, screen position, wardrobe and props, environment, visible lighting state, and framing directly off the still. Motion direction, speed/trend, camera movement phase, and audio phase remain unknown unless another source supplies them; ask only targeted questions about those gaps.
+- **Full clip attached:** the agent records observable subject, prop, environment, and camera motion separately, plus audible phase when present. State confidence and uncertainty; a clip observation does not reveal hidden force, momentum, or model state.
 - **Nothing attached:** only then fall back to asking the user to describe the visible end - and offer the extraction tool first.
 
 For users working with this repository locally, `python scripts/extract_last_frame.py <take>` extracts the final frame of an accepted take (`--first-frame` for the opening; `--emit-record` prints this observation skeleton with the frame-readable and frame-blind categories marked). The extracted frame doubles as the continuation image reference, so one attachment pays for both the observation record and the next generation's anchor.
@@ -38,7 +38,7 @@ Record:
 
 - observed start state;
 - observed end state;
-- open motion vector;
+- owner-scoped open motion: owner ID, coordinate frame, direction, qualitative speed/trend, action phase, observation source, confidence, and uncertainty;
 - camera phase;
 - screen direction;
 - character pose and gaze;
@@ -50,7 +50,7 @@ Record:
 
 ## Seamless Versus Next Shot
 
-Use `seamless_continuation` only when the next generation continues the same shot, geography, and open motion from accepted footage.
+Use `seamless_continuation` only when the next generation is intended to continue the same shot, geography, and owner-scoped open motion from accepted footage. This is the requested handoff contract, not a guarantee that the returned take will preserve it.
 
 A scene boundary defaults to `intentional_next_shot`: open from canonical references and reset `extension_depth` to 0. Do not promise seamless continuation across a scene boundary.
 
@@ -60,7 +60,15 @@ Use `bridge_between_known_states` when a known start state must reach a known fi
 
 Use `repair_tail` when the final seconds of the parent clip failed.
 
-Use `reanchor_after_drift` when extension depth or visible drift makes the chain unstable.
+Use `reanchor_after_drift` when a named continuity check fails. Keep extension depth as context, but do not infer a universal failure threshold from the count.
+
+## Motion And Endpoint Handoff
+
+Keep each moving owner separate. A subject may stop while rain continues; a camera may remain open while the subject reaches its mark. Do not let unrelated ambient or camera motion make a completed subject endpoint look unfinished.
+
+Classify the current clip endpoint as `held_static`, `dissipated_or_resolved`, `completed_with_motion`, `frame_exit`, `cyclic_phase_boundary`, or `open_handoff`, then record `carry_forward` separately. `open_handoff` always carries; a completed moving/exit/cyclic owner may carry only when explicitly marked and backed by an open vector. For an intentional next shot, declare the reset instead of pretending the vectors remained continuous.
+
+Timing is also surface-scoped. Preserve observed order and relative phase by default. Carry exact timestamps only when the selected surface and operation have current evidence for that syntax; never invent them from a still or translate them into a different surface contract.
 
 ## Completed And Reserved Beats
 

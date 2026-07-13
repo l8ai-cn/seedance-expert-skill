@@ -27,6 +27,8 @@ jobs:
         run: python scripts/validate_skills.py --strict
       - name: Audit stale and risky active wording
         run: python scripts/content_audit.py
+      - name: Audit unsupported model-mechanics claims
+        run: python scripts/mechanics_claim_audit.py
       - name: Validate eval schema
         run: python scripts/eval_schema_check.py
       - name: Execute JSON Schemas against declared fixtures
@@ -52,6 +54,21 @@ jobs:
         run: python scripts/vocab_schema_check.py --strict
       - name: Validate sequence project state
         run: python scripts/project_state_check.py
+      - name: Check V7-08 project-state-v2 wiring (offline)
+        run: python scripts/project_state_v2_check.py --self-test
+      - name: Check non-destructive project-state migration (offline)
+        run: python scripts/project_state_migrate.py --self-test
+      - name: Check V7-08 take-review and prompt-spec semantics (offline)
+        run: python scripts/v2_aux_check.py --self-test
+      - name: Exercise V7-08 state, migration, and motion failure boundaries
+        run: >-
+          python -m unittest
+          tests.test_project_state_v2
+          tests.test_project_state_migration
+          tests.test_v2_aux_contracts
+          tests.test_physics_motion_failures
+          tests.test_mechanics_claim_audit
+          -v
       - name: Validate continuity chains
         run: python scripts/continuity_chain_check.py --strict
       - name: Validate behavior contracts
@@ -116,5 +133,18 @@ jobs:
         run: python -S -B -m unittest tests.test_runtime_package -v
       - name: Exercise dependency-free eval harness
         run: python -S -B -m unittest tests.test_eval_harness -v
+      - name: Exercise dependency-free V7-08 state and migration
+        run: >-
+          python -S -B -m unittest
+          tests.test_project_state_migration
+          tests.test_physics_motion_failures
+          tests.test_mechanics_claim_audit
+          -v
+      - name: Check dependency-free project-state-v2 runtime tool
+        run: python -S -B scripts/project_state_v2_check.py --self-test
+      - name: Check dependency-free project-state migration tool
+        run: python -S -B scripts/project_state_migrate.py --self-test
+      - name: Check dependency-free V7-08 auxiliary contract tool
+        run: python -S -B scripts/v2_aux_check.py --self-test
       - name: Stress dependency-free eval self-test 10x
         run: python -S -B -c "import subprocess, sys; [subprocess.run([sys.executable, '-S', '-B', 'scripts/eval_run.py', '--self-test'], check=True) for _ in range(10)]"

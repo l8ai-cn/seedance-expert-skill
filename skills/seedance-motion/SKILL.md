@@ -21,17 +21,17 @@ metadata:
 
 # seedance-motion
 
-Use physical verbs and consequences. Motion should be observable on screen, timed within the clip, and assigned to a subject or object. Prefer one strong action with a visible endpoint over several vague actions competing for attention.
+Use observable verbs and consequences. Assign every motion state to a subject, object, camera, or environmental owner. Prefer one clear action with a reviewable clip endpoint over several vague actions competing for attention.
 
 Load `[ref:reference-workflow]` for video-motion references, `[ref:shot-list-continuity]` for action handoffs across shots, `[ref:examples-by-mode]` for safe edit, extend, and R2V patterns, and `[ref:directing-engine]` when motion is performance: translate the scene's emotion into one true visible gesture per beat - a playable action with an objective and subtext - instead of an emotion word that gives no observable acceptance condition.
 
 ## Intent
 
-Motion is the verb of the user's story - the thing they came to see HAPPEN. The soul here is consequence: motion that begins, lands, and changes something feels lived; motion that loops feels generated. Every action carries the story one beat forward, or it doesn't belong in the clip.
+Motion is the verb of the user's story, the thing they came to see happen. The useful unit is an authored before-state, change, and consequence that a reviewer can identify. Cyclic or continuing motion is valid when it is the intended endpoint; completion does not require every owner to stop.
 
 ## Motion Contract
 
-State: actor/object, action, force level, timing, physical consequence, continuity requirement, and endpoint.
+State: owner, coordinate frame, action, direction, qualitative speed/trend, timing policy, visible consequence, continuity requirement, endpoint mode, source observation, and confidence. Keep subject, prop, camera, and environment motion separate.
 
 | Motion type | Strong phrase | Weak phrase |
 |---|---|---|
@@ -41,15 +41,17 @@ State: actor/object, action, force level, timing, physical consequence, continui
 | Object physics | `paper receipt lifts in the fan breeze, flips once, and lands face-up` | `papers move dynamically` |
 | Environmental motion | `rain streaks diagonally across the backlight while puddle ripples spread from footsteps` | `stormy weather atmosphere` |
 
-## Physics-Forward Pattern
+## Observable Interaction Pattern
 
-Use causal language as a planning and evaluation heuristic, not as proof of Seedance's internal physics architecture. For material interaction, state mass, force, material, and one consequence the camera can see: `the heavy oak door swings shut and the candle flames bend toward it` is more testable than `the door closes dramatically`. Weight can be staged through landing compression, momentum through overshoot and recovery, friction through skid length, and wind through what it displaces. For a performance, reveal, or lighting beat, use a visible non-material state change instead of inventing contact physics. Test before promising results.
+Use causal language as a planning and evaluation heuristic, not as proof of Seedance's internal physics architecture or physical accuracy. For material interaction, name the contact participants and visible before/after states: `the oak door swings shut; the nearby candle flames bend toward the doorway` is more reviewable than `the door closes dramatically`. Request visible cues such as landing compression, overshoot and recovery, skid distance, or displaced cloth, but do not claim they measure mass, force, momentum, or friction. Keep a material response and a performer's reaction as separate owner-scoped consequences. For a performance, reveal, or lighting beat, use a visible non-material state change instead of inventing contact physics.
+
+Choose one endpoint mode: `held_static`, `dissipated_or_resolved`, `completed_with_motion`, `frame_exit`, `cyclic_phase_boundary`, or `open_handoff`. The endpoint completes the current clip's job. Unrelated rain, cloth, crowd, or camera motion does not invalidate a stopped subject endpoint.
 
 ## Timing Pattern
 
-Use a three-beat structure for short clips: setup, action, changed end state. Example: `0-2s: candle flame steady; 2-4s: door opens and flame bends; 4-6s: smoke trail curls toward the hallway`. Time segmentation is useful for action, VFX, lip-sync, and product demonstrations, but avoid frame-perfect overload unless the user truly needs it.
+Use setup, action, and changed endpoint as an ordered planning shape. Timing syntax is surface- and operation-scoped: choose ordered phases or relative beats by default, and use exact ranges only when current evidence for the selected operation permits them. V7-07 rejects exact ranges and remains byte-stable; if `compile_required` is true, do not hand-edit its output to add timestamps.
 
-When sound drives the motion, pair each visible change with one beat or SFX: `door click at 2s, light pulse on the downbeat, hand releases the cup on the final chime`. Do not ask for many cuts, locations, and micro-actions inside one short clip.
+When sound drives the motion, pair each important visible change with one relative beat or SFX, such as `light pulses on the downbeat; the hand releases the cup on the final chime`. Use exact seconds only under the selected surface timing policy. Do not ask for many cuts, locations, and micro-actions inside one short clip.
 
 ## Reference Motion Rules
 
@@ -57,12 +59,12 @@ For reference footage, use only owned, licensed, public-domain, stock, mocap, re
 
 ## Stability Rules
 
-Hands, faces, logos, and product geometry drift when too many actions occur. Reduce motion around fragile details: lock the camera for lip-sync, keep hands in simple poses, ask product parts to remain rigid, and move light or environment instead of the core identity anchor.
+Treat hands, faces, logos, and product geometry as fragile review targets when several actions are combined. Simplify motion around a required detail, test a stable camera for lip-sync, keep hand action readable, and separate product motion from environmental motion. These are conservative staging tests, not hidden-capacity rules.
 
 ## Sequence State
 
-When sequence state is present, inherit the observed action phase, open motion vector, current clip scope, continuity locks, typed bindings and surface policies, and reserved future beats. Do not replay actions marked already happened or completed. Do not perform a reserved beat early; carry unfinished motion from the accepted end state into the next clip.
+When sequence state is present, inherit each observed motion owner's coordinate frame, direction, speed/trend, action phase, source kind, confidence, uncertainty, current clip scope, continuity locks, typed bindings and surface policies, and reserved future beats. Do not infer motion from a still. Do not replay completed actions or perform a reserved beat early; a seamless continuation carries exactly the owners marked `carry_forward`, each backed by a matching open vector. `open_handoff` always carries; other moving/exit/cyclic completion modes carry only when explicitly marked.
 
 ## Output Contract
 
-Return the motion phrase, causal/observable event chain when needed, timing pattern, target/dimension reference authority if any, and repaired prompt language.
+Return the owner-scoped motion phrase, causal event chain when needed, endpoint mode, declared camera coverage, selected timing policy, target/dimension reference authority if any, and repaired prompt language. Label the result as an authored request and review contract, not a physical prediction.

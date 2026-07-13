@@ -97,7 +97,9 @@ For a Korean-language workflow, separate subject lock, camera movement, lighting
 
 **Three-beat story**
 
-`0-5s: plano general de una estación vacía al amanecer, Character A entra desde la izquierda. 5-10s: slow dolly-in as she finds a folded map. 10-15s: she closes the map and looks toward the train lights. Constraints: original character, no logos, no text overlays, one continuous mood.`
+`Primero: plano general de una estación vacía al amanecer, Character A entra desde la izquierda. Después: slow dolly-in as she finds a folded map. Al final: she closes the map and looks toward the train lights. Constraints: original character, no logos, no text overlays, one continuous mood.`
+
+Use exact second ranges only when the selected surface and operation have current evidence for that syntax; otherwise preserve ordered phases as above.
 
 **False-positive repair**
 

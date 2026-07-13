@@ -1,6 +1,6 @@
 # Operational Reasoning Model — workflow hypotheses, not hidden mechanics
 
-Use this reference to choose the next test when a prompt or generated take fails. The eight sections below are production hypotheses assembled from scoped documentation, field observations, and general filmmaking practice. They do not describe Seedance's unpublished architecture, training data, attention, denoising process, spatial representation, or internal audio pipeline. A hypothesis earns continued use only when it predicts an observable result on the selected model, surface, operation, and version.
+Use this reference to choose the next test when a prompt or generated take fails. The eight sections below are production hypotheses assembled from scoped documentation, field observations, and general filmmaking practice. They do not describe Seedance's unpublished architecture, training data, attention, denoising process, spatial representation, sampling, or internal audio pipeline. A hypothesis earns continued use only when it predicts an observable result on the selected model, surface, operation, and version. Repetition alone does not identify a cause; record the changed variable and returned evidence.
 
 ## The eight operational hypotheses
 
@@ -26,13 +26,13 @@ A long list of possible defects does not clearly describe the desired frame. Som
 
 Motion is easier to stage and evaluate when the brief names an initial state, trigger, visible state change, response, follow-through, and endpoint. A disconnected list of micro-instructions gives the director and reviewer no stable event chain.
 
-**Workflow consequence:** prefer one trigger with observable consequences; distinguish material contact from a performance, lighting, or other non-material change; give the event an endpoint the selected camera can see. This does not establish how Seedance represents time or computes physics internally.
+**Workflow consequence:** prefer one trigger with observable consequences; distinguish material contact from a performance, lighting, or other non-material change; give the event an authored clip endpoint. An endpoint completes the current job but need not stop every moving owner. Record subject, camera, and environmental motion separately so a stopped object can coexist with moving rain or an open camera move. This does not establish any internal temporal or physical representation.
 
 ### 5. Chained workflows can accumulate visible deviation
 
 Repeated continuation or edit passes may diverge from an approved identity, layout, motion phase, or endpoint. This is an observed workflow risk, not proof of a frame-generation mechanism or a universal chain-depth threshold.
 
-**Workflow consequence:** compare each accepted take with canonical authorized references and recorded project state; re-anchor when measured drift appears; keep clips small enough to review. Never promise that a specific generation number will fail.
+**Workflow consequence:** compare each accepted take with canonical authorized references and recorded project state; re-anchor when a named continuity check fails or a project owner chooses a documented conservative policy. Keep `extension_depth` as context, not a failure predictor. Never promise that a specific generation number will fail.
 
 ### 6. Overlapping references and prose can conflict
 
@@ -44,13 +44,13 @@ Image, video, audio, and text inputs can request incompatible attributes. Field-
 
 Distant faces, hands, logos, text, and brief contact points provide fewer visible pixels to inspect and are often obscured by motion or framing. This is an observability problem even before considering model behavior.
 
-**Workflow consequence:** make a critical detail large and unobstructed enough to review, or give it a dedicated shot. Do not convert screen-area percentages into claims about internal representation.
+**Workflow consequence:** declare how the chosen framing is intended to expose the before-state, change, response, and endpoint, then verify the returned pixels. Make a critical detail large and unobstructed enough to review, or give it a dedicated shot. A declared observability map is not proof that an event is visible, and screen-area percentages do not reveal internal representation.
 
 ### 8. Audio and picture require coordinated direction
 
 Supported Seedance surfaces may produce picture and audio in the same requested result, but retained public evidence does not expose the internal generation process. Dialogue, sound effects, camera motion, and performance still compete for limited clip time and review attention.
 
-**Workflow consequence:** assign each spoken line to a named speaker; keep important dialogue short; use readable face framing; link each important sound to one visible event; verify lip-sync and mix behavior on the active surface. Do not claim that timing is locked by construction or that audio and video use a particular joint architecture.
+**Workflow consequence:** assign each spoken line to a named speaker; keep important dialogue short; use readable face framing; link each important sound to one visible event; verify lip-sync and mix behavior on the active surface. Exact timestamps are surface- and operation-scoped syntax, not a universal control. Do not claim that timing is locked by construction or that audio and video use a particular joint architecture.
 
 ## Deriving guidance for a novel case
 
@@ -60,7 +60,7 @@ When no existing rule covers the request:
 2. Select the smallest operational hypothesis that could explain it without asserting hidden internals.
 3. Change one variable.
 4. Compare the result against the same acceptance test.
-5. Record the observation as surface-scoped evidence, not a universal mechanism.
+5. Record the observation as surface-scoped evidence, not a universal mechanism. A repeated result narrows the next test; it does not reveal the mechanism by itself.
 
 **Worked example: a mirror reflection should move differently from the subject.** This asks one region to preserve a mirror relationship while violating it. The observable risks are merging, unintended synchronization, or an unreadable transition. Test a simplified shot in which the mirror is the only important region, or split subject and reflection into separate shots. This recommendation follows staging and observability, not a claim about training data or sampling.
 

@@ -1,0 +1,225 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Emily2040/seedance-2.0/schemas/project-state-v2.schema.json",
+  "title": "Seedance surface-independent project state v2",
+  "$comment": "Canonical hashes use sorted, compact, UTF-8 JSON with one trailing LF. Semantic state contains no surface handles or compiler claims.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["$schema", "schema_version", "project_id", "project_mode", "state_revision", "canon_revision", "semantic_state", "semantic_state_sha256", "migration_provenance", "updated_at"],
+  "properties": {
+    "$schema": {"const": "https://github.com/Emily2040/seedance-2.0/schemas/project-state-v2.schema.json"},
+    "schema_version": {"const": 2},
+    "project_id": {"$ref": "#/$defs/id"},
+    "project_mode": {"enum": ["standalone_clip", "sequence_project"]},
+    "state_revision": {"type": "integer", "minimum": 1},
+    "canon_revision": {"type": "integer", "minimum": 1},
+    "semantic_state": {"$ref": "#/$defs/semantic_state"},
+    "semantic_state_sha256": {"$ref": "#/$defs/sha256"},
+    "migration_provenance": {"$ref": "#/$defs/migration_provenance"},
+    "updated_at": {"type": "string", "format": "date"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"project_mode": {"const": "standalone_clip"}}},
+      "then": {"properties": {"semantic_state": {"properties": {"clips": {"maxItems": 1, "items": {"properties": {"parent_clip_id": {"type": "null"}, "sequence_relation": {"const": "standalone"}}}}}}}},
+      "else": {"properties": {"semantic_state": {"properties": {"clips": {"contains": {"properties": {"parent_clip_id": {"type": "null"}, "sequence_relation": {"const": "sequence_first_clip"}}, "required": ["parent_clip_id", "sequence_relation"]}, "minContains": 1, "maxContains": 1, "items": {"not": {"properties": {"sequence_relation": {"const": "standalone"}}, "required": ["sequence_relation"]}}}}}}}
+    }
+  ],
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[a-z][a-z0-9._-]{0,63}$"},
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "nullable_sha256": {"oneOf": [{"$ref": "#/$defs/sha256"}, {"type": "null"}]},
+    "text": {"type": "string", "minLength": 1, "maxLength": 20000},
+    "id_array": {"type": "array", "maxItems": 4096, "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+    "semantic_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["clip_budget_sec", "prompt_budget", "story", "world_bible", "reanchor_policy", "timing_policy", "reference_assets", "scenes", "beats", "clips", "current_clip_id"],
+      "properties": {
+        "clip_budget_sec": {"type": ["number", "null"], "exclusiveMinimum": 0},
+        "prompt_budget": {"type": ["integer", "null"], "minimum": 1},
+        "story": {"type": "object"},
+        "world_bible": {"type": "object"},
+        "reanchor_policy": {"$ref": "#/$defs/reanchor_policy"},
+        "timing_policy": {"$ref": "#/$defs/timing_policy"},
+        "reference_assets": {"type": "array", "maxItems": 64, "items": {"$ref": "#/$defs/reference_asset"}},
+        "scenes": {"type": "array", "maxItems": 256, "items": {"$ref": "#/$defs/scene"}},
+        "beats": {"type": "array", "maxItems": 4096, "items": {"$ref": "#/$defs/beat"}},
+        "clips": {"type": "array", "minItems": 1, "maxItems": 1024, "items": {"$ref": "#/$defs/clip"}},
+        "current_clip_id": {"$ref": "#/$defs/id"}
+      },
+      "$comment": "JSON Schema cannot join binding IDs across arrays. Conservatively, once any clip is planned, all project reference assets must be available and hash-backed; the checker additionally verifies exact proof-to-binding equality.",
+      "allOf": [
+        {"if": {"properties": {"clips": {"contains": {"type": "object", "required": ["planning_link"], "properties": {"planning_link": {"type": "object", "required": ["status"], "properties": {"status": {"const": "planned"}}}}}}}}, "then": {"properties": {"reference_assets": {"items": {"properties": {"status": {"const": "available"}, "media_sha256": {"$ref": "#/$defs/sha256"}}}}}}}
+      ]
+    },
+    "reference_asset": {
+      "type": "object", "additionalProperties": false,
+      "required": ["binding_id", "media_type", "source_kind", "source_take_id", "media_sha256", "description", "status", "authority_status"],
+      "properties": {
+        "binding_id": {"$ref": "#/$defs/id"},
+        "media_type": {"enum": ["image", "video", "audio"]},
+        "source_kind": {"enum": ["user_asset", "accepted_take", "extracted_frame"]},
+        "source_take_id": {"oneOf": [{"$ref": "#/$defs/id"}, {"type": "null"}]},
+        "media_sha256": {"$ref": "#/$defs/nullable_sha256"},
+        "description": {"$ref": "#/$defs/text"},
+        "status": {"enum": ["available", "pending", "retired"]},
+        "authority_status": {"const": "unresolved"}
+      },
+      "allOf": [
+        {"if": {"properties": {"source_kind": {"enum": ["accepted_take", "extracted_frame"]}}}, "then": {"properties": {"source_take_id": {"$ref": "#/$defs/id"}, "media_sha256": {"$ref": "#/$defs/sha256"}}}},
+        {"if": {"properties": {"source_kind": {"const": "user_asset"}}}, "then": {"properties": {"source_take_id": {"type": "null"}}}},
+        {"if": {"properties": {"status": {"const": "available"}}}, "then": {"properties": {"media_sha256": {"$ref": "#/$defs/sha256"}}}}
+      ]
+    },
+    "scene": {
+      "type": "object", "additionalProperties": false,
+      "required": ["scene_id", "scene_index", "anchor_binding_ids", "assigned_clip_ids", "status"],
+      "properties": {
+        "scene_id": {"$ref": "#/$defs/id"}, "scene_index": {"type": "integer", "minimum": 1},
+        "anchor_binding_ids": {"type": "array", "maxItems": 64, "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+        "assigned_clip_ids": {"$ref": "#/$defs/id_array"},
+        "status": {"enum": ["planned", "current", "completed", "omitted", "replaced"]}
+      }
+    },
+    "beat": {
+      "type": "object", "additionalProperties": false,
+      "required": ["beat_id", "description", "status", "assigned_clip_id", "dependencies"],
+      "properties": {
+        "beat_id": {"$ref": "#/$defs/id"}, "description": {"$ref": "#/$defs/text"},
+        "status": {"enum": ["planned", "current", "completed", "omitted", "replaced"]},
+        "assigned_clip_id": {"oneOf": [{"$ref": "#/$defs/id"}, {"type": "null"}]},
+        "dependencies": {"$ref": "#/$defs/id_array"}
+      }
+    },
+    "clip": {
+      "type": "object", "additionalProperties": false,
+      "required": ["clip_id", "parent_clip_id", "scene_id", "sequence_index", "status", "accepted_deviation_ids", "sequence_relation", "felt_intent", "already_happened", "this_clip_only", "reserved_for_later", "planned_start_snapshot", "planned_end_snapshot", "observed_start_snapshot", "observed_end_snapshot", "continuity_rules", "planning_link", "execution_readiness", "compile_required", "extension_depth"],
+      "properties": {
+        "clip_id": {"$ref": "#/$defs/id"}, "parent_clip_id": {"oneOf": [{"$ref": "#/$defs/id"}, {"type": "null"}]},
+        "scene_id": {"$ref": "#/$defs/id"}, "sequence_index": {"type": "integer", "minimum": 1},
+        "status": {"enum": ["planned", "generated", "reviewed", "accepted", "accepted_with_deviation", "repair", "rejected"]},
+        "accepted_deviation_ids": {"type": "array", "maxItems": 512, "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+        "sequence_relation": {"enum": ["standalone", "sequence_first_clip", "seamless_continuation", "intentional_next_shot", "bridge_between_known_states", "repair_tail", "reanchor_after_drift"]},
+        "felt_intent": {"$ref": "#/$defs/text"},
+        "already_happened": {"$ref": "#/$defs/id_array"}, "this_clip_only": {"$ref": "#/$defs/id_array"}, "reserved_for_later": {"$ref": "#/$defs/id_array"},
+        "planned_start_snapshot": {"$ref": "#/$defs/snapshot"}, "planned_end_snapshot": {"$ref": "#/$defs/snapshot"},
+        "observed_start_snapshot": {"oneOf": [{"$ref": "#/$defs/snapshot"}, {"type": "null"}]},
+        "observed_end_snapshot": {"oneOf": [{"$ref": "#/$defs/snapshot"}, {"type": "null"}]},
+        "continuity_rules": {"type": "array", "maxItems": 512, "items": {"$ref": "#/$defs/continuity_rule"}},
+        "planning_link": {"$ref": "#/$defs/planning_link"},
+        "execution_readiness": {"enum": ["migration_review", "planning_required", "compile_required", "blocked"]},
+        "compile_required": {"const": true},
+        "extension_depth": {"type": "integer", "minimum": 0}
+      },
+      "allOf": [
+        {"if": {"properties": {"parent_clip_id": {"type": "null"}}}, "then": {"properties": {"sequence_relation": {"enum": ["standalone", "sequence_first_clip"]}}}, "else": {"properties": {"sequence_relation": {"not": {"enum": ["standalone", "sequence_first_clip"]}}}}},
+        {"if": {"properties": {"planning_link": {"properties": {"status": {"const": "planning_required"}}}}}, "then": {"properties": {"execution_readiness": {"enum": ["migration_review", "planning_required", "blocked"]}}}, "else": {"properties": {"execution_readiness": {"not": {"const": "planning_required"}}}}},
+        {"if": {"properties": {"status": {"const": "accepted_with_deviation"}}}, "then": {"properties": {"accepted_deviation_ids": {"minItems": 1}}}, "else": {"properties": {"accepted_deviation_ids": {"maxItems": 0}}}},
+        {"if": {"properties": {"status": {"enum": ["accepted", "accepted_with_deviation"]}}}, "then": {"properties": {"observed_start_snapshot": {"oneOf": [{"type": "null"}, {"type": "object", "properties": {"source": {"properties": {"kind": {"const": "accepted_video"}}}, "requires_confirmation": {"const": false}}}]}, "observed_end_snapshot": {"type": "object", "properties": {"source": {"properties": {"kind": {"enum": ["accepted_video", "accepted_final_frame"]}}}, "requires_confirmation": {"const": false}, "endpoint_states": {"not": {"contains": {"required": ["completion_mode"], "properties": {"completion_mode": {"enum": ["incomplete", "unknown"]}}}}}}}}}},
+        {"if": {"properties": {"observed_end_snapshot": {"type": "object", "properties": {"source": {"properties": {"kind": {"const": "accepted_final_frame"}}}}}}}, "then": {"properties": {"observed_end_snapshot": {"properties": {"endpoint_states": {"items": {"properties": {"completion_mode": {"const": "held_static"}}}}}}}}}
+      ]
+    },
+    "snapshot": {
+      "type": "object", "additionalProperties": false,
+      "required": ["snapshot_id", "basis", "source", "binding_ids", "state_atoms", "motion_handoff", "endpoint_states", "uncertainties", "requires_confirmation", "snapshot_sha256"],
+      "properties": {
+        "snapshot_id": {"$ref": "#/$defs/id"}, "basis": {"enum": ["planned", "observed"]},
+        "source": {"$ref": "#/$defs/snapshot_source"},
+        "binding_ids": {"type": "array", "maxItems": 64, "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+        "state_atoms": {"type": "array", "maxItems": 512, "items": {"$ref": "#/$defs/state_atom"}},
+        "motion_handoff": {"$ref": "#/$defs/motion_handoff"},
+        "endpoint_states": {"type": "array", "maxItems": 512, "items": {"$ref": "#/$defs/endpoint_state"}},
+        "uncertainties": {"type": "array", "maxItems": 128, "items": {"type": "string", "minLength": 1, "maxLength": 2000}},
+        "requires_confirmation": {"type": "boolean"}, "snapshot_sha256": {"$ref": "#/$defs/sha256"}
+      },
+      "allOf": [
+        {"if": {"properties": {"source": {"properties": {"kind": {"enum": ["user_description", "legacy_state_description"]}}}}}, "then": {"properties": {"requires_confirmation": {"const": true}}}},
+        {"if": {"properties": {"source": {"properties": {"kind": {"not": {"const": "accepted_video"}}}}}}, "then": {"properties": {"motion_handoff": {"properties": {"vectors": {"items": {"properties": {"source_kind": {"not": {"const": "accepted_video"}}}}}}}}}},
+        {"if": {"properties": {"source": {"properties": {"kind": {"not": {"const": "accepted_final_frame"}}}}}}, "then": {"properties": {"motion_handoff": {"properties": {"vectors": {"items": {"properties": {"source_kind": {"not": {"const": "accepted_final_frame"}}}}}}}}}}
+      ]
+    },
+    "snapshot_source": {
+      "type": "object", "additionalProperties": false, "required": ["kind", "take_id", "media_sha256"],
+      "properties": {
+        "kind": {"enum": ["project_plan", "accepted_video", "accepted_final_frame", "user_description", "legacy_state_description"]},
+        "take_id": {"oneOf": [{"$ref": "#/$defs/id"}, {"type": "null"}]}, "media_sha256": {"$ref": "#/$defs/nullable_sha256"}
+      },
+      "allOf": [
+        {"if": {"properties": {"kind": {"enum": ["accepted_video", "accepted_final_frame"]}}}, "then": {"properties": {"take_id": {"$ref": "#/$defs/id"}, "media_sha256": {"$ref": "#/$defs/sha256"}}}},
+        {"if": {"properties": {"kind": {"enum": ["project_plan", "user_description", "legacy_state_description"]}}}, "then": {"properties": {"take_id": {"type": "null"}, "media_sha256": {"type": "null"}}}}
+      ]
+    },
+    "state_atom": {
+      "type": "object", "additionalProperties": false, "required": ["atom_id", "owner_kind", "owner_id", "dimension", "value", "value_sha256", "confidence"],
+      "properties": {
+        "atom_id": {"$ref": "#/$defs/id"}, "owner_kind": {"enum": ["character", "product", "object", "environment", "camera", "lighting", "audio", "shot"]},
+        "owner_id": {"$ref": "#/$defs/id"}, "dimension": {"$ref": "#/$defs/id"}, "value": {"$ref": "#/$defs/text"},
+        "value_sha256": {"$ref": "#/$defs/sha256"}, "confidence": {"enum": ["low", "medium", "high", "unknown"]}
+      }
+    },
+    "motion_handoff": {
+      "type": "object", "additionalProperties": false, "required": ["basis", "vectors"],
+      "properties": {
+        "basis": {"enum": ["planned", "observed"]},
+        "vectors": {"type": "array", "maxItems": 128, "items": {"$ref": "#/$defs/motion_vector"}}
+      }
+    },
+    "motion_vector": {
+      "type": "object", "additionalProperties": false,
+      "required": ["motion_id", "owner_kind", "owner_id", "domain", "coordinate_frame", "description", "phase", "direction", "speed", "speed_trend", "continuity", "observability", "source_kind", "confidence", "uncertainty"],
+      "properties": {
+        "motion_id": {"$ref": "#/$defs/id"}, "owner_kind": {"enum": ["character", "product", "object", "environment", "camera", "lighting", "audio", "shot"]}, "owner_id": {"$ref": "#/$defs/id"},
+        "domain": {"enum": ["subject", "camera", "prop", "environment", "cloth_hair", "vehicle", "material", "audio"]}, "coordinate_frame": {"enum": ["screen", "camera", "subject", "world", "unknown"]}, "description": {"$ref": "#/$defs/text"},
+        "phase": {"enum": ["stationary", "starting", "continuing", "accelerating", "decelerating", "settling", "complete", "unknown"]},
+        "direction": {"type": ["string", "null"], "maxLength": 500}, "speed": {"type": ["string", "null"], "maxLength": 500}, "speed_trend": {"enum": ["accelerating", "decelerating", "constant", "stopping", "unknown"]},
+        "continuity": {"enum": ["open", "settled", "unknown"]}, "observability": {"enum": ["observed_in_video", "inferred_from_frame", "user_attested", "planned", "unknown"]},
+        "source_kind": {"enum": ["project_plan", "accepted_video", "accepted_final_frame", "user_description", "legacy_state_description"]}, "confidence": {"enum": ["low", "medium", "high", "unknown"]}, "uncertainty": {"type": ["string", "null"], "maxLength": 2000}
+      }
+    },
+    "endpoint_state": {
+      "type": "object", "additionalProperties": false, "required": ["endpoint_id", "owner_kind", "owner_id", "completion_mode", "carry_forward", "description"],
+      "properties": {
+        "endpoint_id": {"$ref": "#/$defs/id"}, "owner_kind": {"enum": ["character", "product", "object", "environment", "camera", "lighting", "audio", "shot"]}, "owner_id": {"$ref": "#/$defs/id"},
+        "completion_mode": {"enum": ["held_static", "dissipated_or_resolved", "completed_with_motion", "frame_exit", "cyclic_phase_boundary", "open_handoff", "incomplete", "unknown"]},
+        "carry_forward": {"type": "boolean"}, "description": {"$ref": "#/$defs/text"}
+      }
+    },
+    "reanchor_policy": {
+      "type": "object", "additionalProperties": false, "required": ["status", "trigger_extension_depth", "reason"],
+      "properties": {"status": {"enum": ["not_selected", "selected"]}, "trigger_extension_depth": {"type": ["integer", "null"], "minimum": 1}, "reason": {"type": ["string", "null"], "maxLength": 2000}}
+    },
+    "timing_policy": {
+      "type": "object", "additionalProperties": false, "required": ["mode", "status", "evidence_claim_ids", "evidence_expires_at", "block_reason"],
+      "properties": {"mode": {"enum": ["ordered_phases", "relative_beats", "surface_exact_ranges"]}, "status": {"enum": ["selected", "blocked"]}, "evidence_claim_ids": {"type": "array", "maxItems": 32, "uniqueItems": true, "items": {"type": "string", "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)+$"}}, "evidence_expires_at": {"type": ["string", "null"], "format": "date"}, "block_reason": {"type": ["string", "null"], "maxLength": 2000}},
+      "allOf": [{"if": {"properties": {"mode": {"const": "surface_exact_ranges"}}}, "then": {"properties": {"status": {"const": "blocked"}, "evidence_claim_ids": {"maxItems": 0}, "evidence_expires_at": {"type": "null"}, "block_reason": {"type": "string", "minLength": 1}}}, "else": {"properties": {"status": {"const": "selected"}, "evidence_claim_ids": {"maxItems": 0}, "evidence_expires_at": {"type": "null"}, "block_reason": {"type": "null"}}}}]
+    },
+    "continuity_rule": {
+      "type": "object", "additionalProperties": false, "required": ["rule_id", "atom_id", "policy", "from_value_sha256", "to_value_sha256", "scope", "reason"],
+      "properties": {
+        "rule_id": {"$ref": "#/$defs/id"}, "atom_id": {"$ref": "#/$defs/id"}, "policy": {"enum": ["locked", "allowed_change"]},
+        "from_value_sha256": {"$ref": "#/$defs/sha256"}, "to_value_sha256": {"$ref": "#/$defs/sha256"}, "scope": {"enum": ["next_clip", "scene", "project"]}, "reason": {"$ref": "#/$defs/text"}
+      }
+    },
+    "planning_link": {
+      "$comment": "resolved_binding_proofs is the closed, hash-bound projection used by the dependency-free checker for exact cross-array lookup against reference_assets.",
+      "type": "object", "additionalProperties": false, "required": ["status", "binding_ids", "resolved_binding_proofs", "reference_manifest_sha256", "scene_ir_sha256", "planning_report_sha256"],
+      "properties": {
+        "status": {"enum": ["planning_required", "planned"]}, "binding_ids": {"type": "array", "maxItems": 64, "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
+        "resolved_binding_proofs": {"type": "array", "maxItems": 64, "uniqueItems": true, "items": {"$ref": "#/$defs/resolved_binding_proof"}},
+        "reference_manifest_sha256": {"$ref": "#/$defs/nullable_sha256"}, "scene_ir_sha256": {"$ref": "#/$defs/nullable_sha256"}, "planning_report_sha256": {"$ref": "#/$defs/nullable_sha256"}
+      },
+      "allOf": [
+        {"if": {"properties": {"status": {"const": "planning_required"}}}, "then": {"properties": {"resolved_binding_proofs": {"maxItems": 0}, "reference_manifest_sha256": {"type": "null"}, "scene_ir_sha256": {"type": "null"}, "planning_report_sha256": {"type": "null"}}}, "else": {"properties": {"reference_manifest_sha256": {"$ref": "#/$defs/sha256"}, "scene_ir_sha256": {"$ref": "#/$defs/sha256"}, "planning_report_sha256": {"$ref": "#/$defs/sha256"}}}}
+      ]
+    },
+    "resolved_binding_proof": {"type": "object", "additionalProperties": false, "required": ["binding_id", "media_sha256"], "properties": {"binding_id": {"$ref": "#/$defs/id"}, "media_sha256": {"$ref": "#/$defs/sha256"}}},
+    "migration_provenance": {
+      "type": "object", "additionalProperties": false, "required": ["status", "source_schema_version", "source_raw_sha256", "source_canonical_sha256", "migration_map_sha256", "migration_tool_sha256"],
+      "properties": {
+        "status": {"enum": ["native", "migrated"]}, "source_schema_version": {"type": ["string", "null"], "maxLength": 32},
+        "source_raw_sha256": {"$ref": "#/$defs/nullable_sha256"}, "source_canonical_sha256": {"$ref": "#/$defs/nullable_sha256"}, "migration_map_sha256": {"$ref": "#/$defs/nullable_sha256"}, "migration_tool_sha256": {"$ref": "#/$defs/nullable_sha256"}
+      }
+    }
+  }
+}

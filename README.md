@@ -15,7 +15,7 @@ An agent that directs Seedance 2.0 like a filmmaker — reading each scene befor
 [![Version](https://img.shields.io/badge/version-6.6.0-E2A75E?style=flat-square&labelColor=14110B)](#changelog)
 [![Sub-skills](https://img.shields.io/badge/sub--skills-28-4A4438?style=flat-square&labelColor=14110B)](#skill-map)
 [![References](https://img.shields.io/badge/references-60-4A4438?style=flat-square&labelColor=14110B)](#reference-library)
-[![Evals](https://img.shields.io/badge/evals-126-4A4438?style=flat-square&labelColor=14110B)](#validation)
+[![Evals](https://img.shields.io/badge/evals-138-4A4438?style=flat-square&labelColor=14110B)](#validation)
 [![License](https://img.shields.io/badge/license-MIT-4A4438?style=flat-square&labelColor=14110B)](LICENSE)
 
 [Start here](#start-here) · [Skill map](#skill-map) · [Reference library](#reference-library) · [Visual gallery](#visual-gallery) · [Install](#install)
@@ -34,7 +34,9 @@ Platform context: [ByteDance Seedance 2.0](https://seed.bytedance.com/en/seedanc
 >
 > V7-07 adds paired English/Chinese rendering from one hash-bound semantic program. It checks structural parity but leaves translation quality to a declared human attestation.
 >
-> Migration notes: [`surface profiles`](docs/V7_SURFACE_PROFILE_MIGRATION.md), [`reference and causal planning`](docs/V7_REFERENCE_CAUSAL_MIGRATION.md), and [`paired language rendering`](docs/V7_LANGUAGE_RENDERING_MIGRATION.md).
+> V7-08 adds a separate, candidate-only project-state-v2 layer for owner-scoped motion, local endpoints, explicit legacy-binding maps, non-destructive migration, and failure-focused evals. It does not change V7-07 compiler bytes, prove generated physics, or activate a provider.
+>
+> Migration notes: [`surface profiles`](docs/V7_SURFACE_PROFILE_MIGRATION.md), [`reference and causal planning`](docs/V7_REFERENCE_CAUSAL_MIGRATION.md), [`paired language rendering`](docs/V7_LANGUAGE_RENDERING_MIGRATION.md), and [`physics, motion, and state v2`](docs/V7_PHYSICS_MOTION_STATE_MIGRATION.md).
 
 Updated: **2026-07-06** · **v6.6.0 the loop closes: frame-extraction observation tooling, state lifecycle for long projects, and the worked end-to-end trace** · plus native quickstarts in six languages, a security policy, and an expanded agent-install matrix
 
@@ -87,7 +89,7 @@ This skill package turns Seedance 2.0 work into a repeatable assistant workflow:
 - Writes full or compressed prompts for T2V, I2V, V2V, R2V, FLF2V, edit, extend, audio-aware, and first/last-frame workflows.
 - Resolves each reference by target and controlled dimension, with one authority winner and explicit exclusions for identity, environment, motion, camera, timing, audio, style, endpoint, or text/logo leakage.
 - Keeps model and platform claims source-dated so API, pricing, region, quota, and model-ID details are not guessed.
-- Plans into model strengths before drafting: a capability map, a fidelity-allocation model, and a working model of the generator's mechanics that explains why every rule works.
+- Plans conservative, observable tests before drafting: a capability map, review-priority guidance, and bounded failure hypotheses that never pretend to reveal hidden model architecture.
 - Runs the shoot like a producer after generation: five-verdict take triage, one-variable retakes, attempt budgets, and cost-aware drafting.
 - Provides native-reader front-page paths plus deeper multilingual cinematic vocabulary in English, 中文, 日本語, 한국어, Spanish, and Russian, including role binding, first/last-frame phrasing, edit/extend wording, safety wording, audio cues, continuation wording, and post-production text handling.
 - Adds original community-informed examples for Chinese, Japanese, Korean, Russian-English, and Spanish-English prompt structures.
@@ -109,7 +111,7 @@ Do not blindly ask the skill to extend the original prompt. A continuation must 
 6. It writes Clip 02 from the real ending.
 7. Repeat until the planned final outcome is reached.
 
-The project state is the source of truth. The clip contract is the current production task. The prompt is a compiled instruction for only that task. Accepted generated footage determines what happens next.
+The project state is the source of truth. The clip contract is the current production task. The prompt is an instruction for only that task. Accepted generated footage determines what happens next. In project-state-v2, planned and observed snapshots remain separate, motion belongs to explicit owners, and a still cannot supply velocity or camera phase. A migrated v2 clip stays `compile_required` until a compatible compiler consumes the exact contract; V7-07 must not be used as if it had done so.
 
 ## Professional Filmmaker Scope
 
@@ -135,6 +137,7 @@ For these requests, the skill should not stop at a single prompt. It should retu
 | “I have a vague idea.” | [`seedance-interview`](skills/seedance-interview/SKILL.md) | A focused creative brief and next prompt path. |
 | “This is a longer story / make it three connected clips.” | [`seedance-sequence`](skills/seedance-sequence/SKILL.md) | Full story spine, continuity bible, sequence map, Clip 01 contract, and Clip 01 prompt only. |
 | “Continue this video / make the next part.” | [`seedance-continuation`](skills/seedance-continuation/SKILL.md) | A source-gated continuation from accepted footage or a request for the missing clip/final frame. |
+| “Migrate my saved sequence state without guessing its references or motion.” | [`V7 physics/motion/state migration`](docs/V7_PHYSICS_MOTION_STATE_MIGRATION.md), [`project_state_migrate.py`](scripts/project_state_migrate.py) | A redacted inspection report, explicit migration-map requirements, and a separate compile-blocked v2 state; the v1 source is never overwritten. |
 | “I know the scene I want.” | [`seedance-prompt`](skills/seedance-prompt/SKILL.md) | A production-ready Seedance prompt. |
 | “Give me matched English and Chinese versions without changing the references.” | [`prompt-compiler`](references/prompt-compiler.md), [`V7 language migration`](docs/V7_LANGUAGE_RENDERING_MIGRATION.md) | Paired candidate renders from one semantic program, with exact binding preservation, an unauthenticated human-attestation declaration, and separate final review. |
 | “Make it actually feel directed, not just cinematic.” | [`directing-engine`](references/directing-engine.md) | One intention per scene, a coherent camera/light/blocking/performance/sound setup, and one directorial voice across the story. |
@@ -143,7 +146,7 @@ For these requests, the skill should not stop at a single prompt. It should retu
 | “Use this as first frame and that as final frame.” | [`first-last-frame-guide`](references/first-last-frame-guide.md) | Verified structured endpoint roles and a testable continuous transition. |
 | “The take is 80% right - regenerate or keep?” | [`retake-protocol`](references/retake-protocol.md) | A triage verdict, the one-variable retake, and an attempt budget. |
 | “It failed or looks bad.” | [`seedance-troubleshoot`](skills/seedance-troubleshoot/SKILL.md) | A root-cause diagnosis and repaired prompt. |
-| “Why did that happen?” | [`model-mechanics`](references/model-mechanics.md) | The mechanism behind the failure and the lever that works with it. |
+| “Why did that happen?” | [`model-mechanics`](references/model-mechanics.md) | Observable failure hypotheses, uncertainty, and a scoped next test—without invented internal causes. |
 | “This uses a character, brand, celebrity, or real person.” | [`seedance-copyright`](skills/seedance-copyright/SKILL.md) | A safer rewrite preserving the creative function. |
 | “I need this for a film, client, campaign, or delivery.” | [`pro-filmmaking-standards`](references/pro-filmmaking-standards.md) | A professional workflow plan, role-specific artifact, and prompt path. |
 | “Turn this treatment into shots.” | [`shot-list-continuity`](references/shot-list-continuity.md) | Shot list, continuity ledger, and prompt batch structure. |
@@ -280,21 +283,22 @@ Concept art for the system, generated and curated. Every image is paired with se
 | [`capability-map.md`](references/capability-map.md) | Design into model strengths and around known limits before prompting. |
 | [`directing-engine.md`](references/directing-engine.md) | Read the scene, choose one intention, make every instrument cohere, hold one directorial voice, and shape the look across a long story. |
 | [`directing-engine-genre-library.md`](references/directing-engine-genre-library.md) | 33 fully worked genre examples (product, music video, horror, anime, action, documentary, and more), loaded on demand. |
-| [`model-mechanics.md`](references/model-mechanics.md) | Why the rules work: eight mechanisms of the generator, novel-case derivation, mechanism-indexed diagnosis. |
+| [`model-mechanics.md`](references/model-mechanics.md) | Observable failure hypotheses, claim boundaries, and scoped test design for novel cases. |
 | [`retake-protocol.md`](references/retake-protocol.md) | The iteration economy: take triage, the one-variable rule, attempt budgets, cost awareness, the shot log. |
 | [`sequence-project-state.md`](references/sequence-project-state.md) | Stateful project model, canon reconciliation, visual state fields, and Project State Capsule. |
 | [`continuation-handoff.md`](references/continuation-handoff.md) | Accepted-source continuation gate, observed state capture, continuation types, and beat exclusions. |
 | [`prompt-compiler.md`](references/prompt-compiler.md) | Compiles one validated semantic program into paired English/Chinese candidate prompts without translating provider bindings. |
 | [`V7_LANGUAGE_RENDERING_MIGRATION.md`](docs/V7_LANGUAGE_RENDERING_MIGRATION.md) | Paired-catalog contract, structural-parity boundary, deferred dialogue/multi-shot scope, and fail-closed diagnostics. |
+| [`V7_PHYSICS_MOTION_STATE_MIGRATION.md`](docs/V7_PHYSICS_MOTION_STATE_MIGRATION.md) | Observable-claim boundary, owner-scoped motion/endpoints, non-destructive v2 migration, and compiler block. |
 | [`reference-transfer-contract.md`](references/reference-transfer-contract.md) | Target/dimension authority, surface-specific binding resolution, and transfer/exclusion clauses. |
 | [`surface-prompt-profiles.md`](references/surface-prompt-profiles.md) | Candidate request transport, prompt-binding policy, allowed media, structured roles, and evidence boundaries. |
 | [`event-density.md`](references/event-density.md) | Clip-scope firewall for completed, current, reserved, and do-not-show-yet beats. |
 | [`continuity-qc.md`](references/continuity-qc.md) | Boundary checks for immutable and transient continuity across accepted clips. |
 | [`failure-atlas.md`](references/failure-atlas.md) | Sequence and continuation failure diagnoses with one primary repair variable. |
-| [`sequence-worked-trace.md`](references/sequence-worked-trace.md) | One project walked end to end: plan, deviation, reconciliation, chain cap, re-anchor, and session resume - the prose half of the machine fixtures. |
+| [`sequence-worked-trace.md`](references/sequence-worked-trace.md) | One legacy-v1 project walked end to end: plan, deviation, reconciliation, project-selected re-anchor, and session resume. |
 | [`dense-storyboard-mode.md`](references/dense-storyboard-mode.md) | Dense multishot, phased single-take, and 2D storyboard contracts. |
-| [`allocation-model.md`](references/allocation-model.md) | Where one generation spends its fidelity budget: identity vs motion vs scene density. |
-| [`multishot-grammar.md`](references/multishot-grammar.md) | Shot labels, the shots-times-seconds budget, and cut grammar inside one generation. |
+| [`allocation-model.md`](references/allocation-model.md) | Choose one primary acceptance target and simplify competing review risks without asserting hidden capacity. |
+| [`multishot-grammar.md`](references/multishot-grammar.md) | Surface-scoped timing policy, shot labels, density checks, and cut grammar inside one generation. |
 | [`2d-anime-grammar.md`](references/2d-anime-grammar.md) | Cel/anime medium grammar: layers, burst-vs-held motion, the no-lens rule. |
 | [`pro-filmmaking-standards.md`](references/pro-filmmaking-standards.md) | Professional production spine and source boundaries for film, commercial, post, localization, and delivery work. |
 | [`cinematography-shot-language.md`](references/cinematography-shot-language.md) | Shot contracts, shot size, lens feel, camera support, movement, blocking, and coverage language. |
@@ -406,6 +410,7 @@ Run these checks before every release:
 python scripts/validate_skills.py --strict
 python scripts/content_audit.py
 python scripts/eval_schema_check.py
+python scripts/mechanics_claim_audit.py
 # Reproducible release environment only: Linux x86-64, CPython 3.12.
 python -m pip install --require-hashes --requirement requirements-validation.lock
 python scripts/schema_check.py --strict
@@ -415,6 +420,9 @@ python scripts/source_registry_check.py
 python scripts/vocab_schema_check.py --strict
 python scripts/project_state_check.py
 python scripts/continuity_chain_check.py --strict
+python -B scripts/project_state_v2_check.py --self-test
+python -B scripts/project_state_migrate.py --self-test
+python -B scripts/v2_aux_check.py --self-test
 python scripts/behavior_contract_check.py
 python scripts/sequence_eval_check.py
 python scripts/generation_run_check.py
@@ -435,7 +443,7 @@ git diff --check
 The CI workflow runs these checks plus runtime install/rollback and an idempotence rerun; see [the validation workflow](.github/workflows/validate-skills.yml).
 Use `python -B` for tools inside a checksum-verified installation. Python bytecode caches are undeclared extra files and intentionally make later whole-tree verification fail; the runtime package test executes the installed compiler with bytecode writes disabled and verifies the tree again afterward.
 The schema dependency lock is deliberately limited to the release environment above. These checks are deterministic and offline after dependency installation — they prove the package is well-formed.
-Schema-contract migration notes are in [`docs/V7_VALIDATION_MIGRATION.md`](docs/V7_VALIDATION_MIGRATION.md); the claim-evidence activation boundary is in [`docs/V7_EVIDENCE_MIGRATION.md`](docs/V7_EVIDENCE_MIGRATION.md); paired language rendering is documented in [`docs/V7_LANGUAGE_RENDERING_MIGRATION.md`](docs/V7_LANGUAGE_RENDERING_MIGRATION.md).
+Schema-contract migration notes are in [`docs/V7_VALIDATION_MIGRATION.md`](docs/V7_VALIDATION_MIGRATION.md); the claim-evidence activation boundary is in [`docs/V7_EVIDENCE_MIGRATION.md`](docs/V7_EVIDENCE_MIGRATION.md); paired language rendering is documented in [`docs/V7_LANGUAGE_RENDERING_MIGRATION.md`](docs/V7_LANGUAGE_RENDERING_MIGRATION.md); physics, motion, and state-v2 boundaries are in [`docs/V7_PHYSICS_MOTION_STATE_MIGRATION.md`](docs/V7_PHYSICS_MOTION_STATE_MIGRATION.md).
 
 The model-in-the-loop harness is development tooling, not proof that the package is good. V7-03 first runs a blind route stage, loads complete allowlisted resources without silent truncation, then uses a different effective judge model. Public development and live-canary cases are never release-eligible. The public CLI refuses external held-out execution; no valid held-out run or quality release gate exists yet.
 

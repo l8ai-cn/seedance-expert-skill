@@ -29,7 +29,7 @@ Use the V7 controlled dimensions: identity, face detail, wardrobe, product/objec
 
 Record typed leakage risks and explicit exclusions. Priority, confidence, media type, filename, and upload order may explain a human decision but never resolve a conflict automatically. Every included asset must win at least one necessary target/dimension; otherwise remove it.
 
-The project-state `tag` and single-role fields are v6 compatibility input pending V7-08. Do not derive V7 authority or provider syntax from them.
+Project-state-v1 `tag`, `role`, and `source_clip_tag` fields are legacy compatibility input. A non-destructive v2 migration requires an explicit mapping for each intended binding; never infer media type, target/dimension authority, surface policy, provider syntax, or structured role from those fields, upload order, filenames, or prose. Preserve unresolved values in migration diagnostics rather than guessing.
 
 ## Rules
 
@@ -86,6 +86,6 @@ The accepted previous clip may control only the declared observed opening-state 
 
 ## Causal And Observable Shot Check
 
-For interaction-heavy or fragile shots, plan visible events before prose: initial state, trigger, optional motion path, decisive contact or non-material state change, primary response, optional secondary responses, follow-through, and settled endpoint. Dependencies point backward, and the endpoint must be reachable from the trigger through a visible consequence.
+For interaction-heavy or fragile shots, plan visible events before prose: initial state, trigger, optional motion path, decisive contact or non-material state change, primary response, optional secondary responses, follow-through, and a local endpoint. Dependencies point backward, and the endpoint must be reachable from the trigger through an authored visible consequence. Keep motion and completion per owner: a stopped subject does not require rain, a camera, or a cyclic prop to stop.
 
-Give the shot one primary camera move, including `locked`, and identify the exact events that show the before-state, decisive change, consequence, and endpoint. Keep an audio cue's timing separate from its meaning. This is a preflight heuristic for staging and diagnosis, not a description of Seedance architecture, a physics guarantee, or evidence that the provider will follow the plan.
+Give the shot one primary camera move, including `locked`, and identify the exact events it is intended to cover: before-state, decisive change, consequence, and endpoint. Record occlusion risks. Keep an audio cue's timing separate from its meaning. This is a declared preflight and review contract—not proof that the returned pixels show the events, a description of Seedance architecture, a physics guarantee, or evidence that the provider will follow the plan.
