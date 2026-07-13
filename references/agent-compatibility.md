@@ -28,14 +28,14 @@ This repository follows that pattern:
 - Keep the root `SKILL.md` small. Route to sub-skills and references instead of copying long tables into the root.
 - Keep volatile facts in dated references such as `api-status.md` and `source-registry.md`.
 - Keep generated bitmap images inside `assets/` if they are referenced by README.
-- Keep `agents/openai.yaml` aligned with the root skill name and make the default prompt invoke `$seedance-20`.
-- Use `scripts/install_codex_skill.py --force` to install or refresh the local user-level Codex copy at `$CODEX_HOME/skills/seedance-20` or `~/.codex/skills/seedance-20`.
+- Keep `agents/openai.yaml` aligned with the root skill name and make the default prompt invoke `$seedance-expert`.
+- Use `scripts/install_codex_skill.py --force` to install or refresh the local user-level Codex copy at `$CODEX_HOME/skills/seedance-expert` or `~/.codex/skills/seedance-expert`.
 - Keep scripts deterministic and local. They should validate structure, schema, design, and source metadata without requiring private credentials.
 - Do not store API keys, account cookies, or private prompt corpora in the skill package.
 
 ## Cross-Agent Matrix
 
-Verified 2026-06-12 from each agent's public docs; install paths are volatile - recheck the active client before promising behavior. Install this repository as ONE root skill (`seedance-20`); sub-skills and references load by relative path from the root.
+Verified 2026-06-12 from each agent's public docs; install paths are volatile - recheck the active client before promising behavior. Install this repository as ONE root skill (`seedance-expert`); sub-skills and references load by relative path from the root.
 
 | Agent | Skills location | Install route | Notes |
 |---|---|---|---|
@@ -48,16 +48,16 @@ Verified 2026-06-12 from each agent's public docs; install paths are volatile - 
 
 ## Chinese-ecosystem agents (verified 2026-07-06)
 
-Both clients implement the same Agent Skills open standard (`SKILL.md` folder, on-demand progressive disclosure) as the rest of this matrix, so this repository installs into them as the single `seedance-20` root skill. Verified 2026-07-06 from each project's public docs; install paths stay volatile, so recheck the active build.
+Both clients implement the same Agent Skills open standard (`SKILL.md` folder, on-demand progressive disclosure) as the rest of this matrix, so this repository installs into them as the single `seedance-expert` root skill. Verified 2026-07-06 from each project's public docs; install paths stay volatile, so recheck the active build.
 
 | Agent | What it is | Skills location | Install route |
 |---|---|---|---|
-| Trae (ByteDance) | AI IDE from ByteDance, the same company as Seedance 2.0 | `.trae/skills/` (project); managed under Settings -> Rules & Skills | Copy the folder as `seedance-20`; the SKILL.md loads on demand. A Trae MCP connector to Seedance, if used, is a separate surface from this skill package. |
-| Qwen Code (Alibaba) | Open-source terminal agent forked from the Gemini CLI line | `.qwen/skills/` (project), `~/.qwen/skills/` (personal) | Copy the folder as `seedance-20`; each skill needs a SKILL.md. The `/skills` command lists installed skills. |
+| Trae (ByteDance) | AI IDE from ByteDance, the same company as Seedance 2.0 | `.trae/skills/` (project); managed under Settings -> Rules & Skills | Copy the folder as `seedance-expert`; the SKILL.md loads on demand. A Trae MCP connector to Seedance, if used, is a separate surface from this skill package. |
+| Qwen Code (Alibaba) | Open-source terminal agent forked from the Gemini CLI line | `.qwen/skills/` (project), `~/.qwen/skills/` (personal) | Copy the folder as `seedance-expert`; each skill needs a SKILL.md. The `/skills` command lists installed skills. |
 
 ## More Agent-Skills clients (verified 2026-07-06)
 
-`.agents/skills/` is emerging as the shared cross-agent convention: Codex, Google Antigravity, OpenCode, Amp, and Goose all read it, so one install under `.agents/skills/seedance-20/` serves them together, and `.claude/skills/` is read by several as a compatibility path. Verified 2026-07-06 from each project's public docs; paths stay volatile, so recheck the active build.
+`.agents/skills/` is emerging as the shared cross-agent convention: Codex, Google Antigravity, OpenCode, Amp, and Goose all read it, so one install under `.agents/skills/seedance-expert/` serves them together, and `.claude/skills/` is read by several as a compatibility path. Verified 2026-07-06 from each project's public docs; paths stay volatile, so recheck the active build.
 
 | Agent | What it is | Skills location | Notes |
 |---|---|---|---|

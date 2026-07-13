@@ -920,7 +920,7 @@
       ],
       "failure_mode": "Seedance syntax emitted for a non-Seedance model",
       "skills_expected_to_activate": [
-        "seedance-20"
+        "seedance-expert"
       ]
     },
     {

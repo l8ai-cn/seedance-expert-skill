@@ -7,11 +7,11 @@ tags:
   - characters
   - identity
   - consistency
-  - seedance-20
+  - seedance-expert
 metadata:
   version: "6.6.0"
   updated: "2026-07-04"
-  parent: "seedance-20"
+  parent: "seedance-expert"
   author: "Iamemily2050 (@iamemily2050)"
   repository: "https://github.com/Emily2040/seedance-2.0"
   openclaw:
@@ -23,7 +23,7 @@ metadata:
 
 Use this for identity, consistency, multi-character blocking, wardrobe continuity, hand safety, expression control, and likeness-sensitive character guidance. Character prompting must remove ambiguity before adding style.
 
-Load `[ref:shot-list-continuity]` when character identity, wardrobe, props, eyeline, screen direction, or emotional state must survive across multiple shots. Load `[ref:directing-engine]` to direct performance: give each character a playable objective, show subtext through contradiction between word and action, and keep one performance register consistent with the project's directorial voice.
+Load [shot-list-continuity](../../references/shot-list-continuity.md) when character identity, wardrobe, props, eyeline, screen direction, or emotional state must survive across multiple shots. Load [directing-engine](../../references/directing-engine.md) to direct performance: give each character a playable objective, show subtext through contradiction between word and action, and keep one performance register consistent with the project's directorial voice.
 
 ## Intent
 

@@ -9,7 +9,7 @@ Seedance 2.0 Skill OS 는 형용사를 늘어놓는 대신 영화감독처럼 Se
 
 ## 1. 설치 (약 5분)
 
-이 저장소를 `seedance-20` 이라는 **하나의** 루트 스킬로 설치합니다. 하위 스킬과 references 는 상대 경로로 자동으로 불러옵니다.
+이 저장소를 `seedance-expert` 이라는 **하나의** 루트 스킬로 설치합니다. 하위 스킬과 references 는 상대 경로로 자동으로 불러옵니다.
 
 **Codex (원커맨드 설치 스크립트 제공)**
 
@@ -17,7 +17,7 @@ Seedance 2.0 Skill OS 는 형용사를 늘어놓는 대신 영화감독처럼 Se
 python scripts/install_codex_skill.py --force
 ```
 
-저장소를 `~/.codex/skills/seedance-20`(또는 `$CODEX_HOME/skills/seedance-20`)로 복사합니다. Codex 를 다시 시작한 뒤 `$seedance-20`로 불러오세요.
+저장소를 `~/.codex/skills/seedance-expert`(또는 `$CODEX_HOME/skills/seedance-expert`)로 복사합니다. Codex 를 다시 시작한 뒤 `$seedance-expert`로 불러오세요.
 
 **GitHub 에서 설치 (저장소 URL 설치를 지원하는 클라이언트)**
 
@@ -27,7 +27,7 @@ https://github.com/Emily2040/seedance-2.0
 
 **수동 복사 (그 밖의 클라이언트)**
 
-폴더를 이름 `seedance-20` 그대로 클라이언트의 스킬 디렉터리에 복사하세요. 흔한 위치는 [README 설치 표](../README.md#install)에 정리해 두었습니다(보장이 아니니 반드시 본인 클라이언트에서 확인하세요). 예: Claude Code `.claude/skills/`, Cursor `.cursor/skills/`, GitHub Copilot `.github/skills/`, Windsurf `.windsurf/skills/`.
+폴더를 이름 `seedance-expert` 그대로 클라이언트의 스킬 디렉터리에 복사하세요. 흔한 위치는 [README 설치 표](../README.md#install)에 정리해 두었습니다(보장이 아니니 반드시 본인 클라이언트에서 확인하세요). 예: Claude Code `.claude/skills/`, Cursor `.cursor/skills/`, GitHub Copilot `.github/skills/`, Windsurf `.windsurf/skills/`.
 
 > 안전이 먼저입니다. 믿을 수 있는 agent 클라이언트에만 설치하세요. 낯설거나 서드파티 agent 에서 쓰기 전에 [SECURITY.md](../SECURITY.md)를 꼭 읽어 보세요.
 

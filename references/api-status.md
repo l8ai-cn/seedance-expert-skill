@@ -38,8 +38,8 @@ Authoritative reporting (Variety and CNBC, Feb–Mar 2026) documents that after 
 
 Authoritative reporting (SCMP, CNBC, The Next Web, Feb–Apr 2026) documents safeguards ByteDance added to Seedance 2.0 in response to the dispute. These are no longer hypothetical — treat them as current platform behavior on official surfaces, and design prompts to work *with* them:
 
-- **Real-face input blocking:** generation from images or videos containing real human faces is restricted (anti-deepfake). Do not assume a real-person reference will be accepted; route likeness work through `[skill:seedance-copyright]`.
-- **Copyrighted-character blocking:** generation of recognizable protected characters (e.g. Shrek, SpongeBob, Darth Vader) is blocked. This is enforcement, not just policy — `[skill:seedance-filter]`'s original-character rewrites are the working path.
+- **Real-face input blocking:** generation from images or videos containing real human faces is restricted (anti-deepfake). Do not assume a real-person reference will be accepted; route likeness work through [seedance-copyright](../skills/seedance-copyright/SKILL.md).
+- **Copyrighted-character blocking:** generation of recognizable protected characters (e.g. Shrek, SpongeBob, Darth Vader) is blocked. This is enforcement, not just policy — [seedance-filter](../skills/seedance-filter/SKILL.md)'s original-character rewrites are the working path.
 - **Visible watermark + C2PA Content Credentials** on output, and **invisible watermarking** with proactive IP monitoring (ByteDance states it can identify and act on model output even after it is shared or altered).
 
 Implication for the skill: false-positive repair and IP-safe rewriting are not optional polish — they are how a prompt clears live guardrails. Surface-specific behavior still varies; verify on the active surface.

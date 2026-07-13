@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
   <title>Seedance 2.0 Skill OS operating diagram</title>
-  <desc>Specification diagram: seven gates feed the seedance-20 root skill, which routes to the core pipeline, governance, and multilingual vocabulary clusters, backed by the reference library and validator suite.</desc>
+  <desc>Specification diagram: seven gates feed the seedance-expert root skill, which routes to the core pipeline, governance, and multilingual vocabulary clusters, backed by the reference library and validator suite.</desc>
   <defs>
     <style>
       .h1{font:400 15px ui-monospace,'SF Mono',SFMono-Regular,Menlo,Consolas,monospace;fill:#EDE6D6;letter-spacing:6px}
@@ -37,7 +37,7 @@
 
   <!-- ROOT -->
   <rect x="430" y="216" width="340" height="108" class="boxa"/>
-  <text x="600" y="268" text-anchor="middle" class="root">seedance-20</text>
+  <text x="600" y="268" text-anchor="middle" class="root">seedance-expert</text>
   <text x="600" y="300" text-anchor="middle" class="item">OPERATING LOOP · LOAD MAP</text>
 
   <!-- connectors root -> clusters -->

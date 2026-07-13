@@ -9,7 +9,7 @@ Seedance 2.0 Skill OS is an agent skill that directs Seedance 2.0 like a filmmak
 
 ## 1. Install (about 5 minutes)
 
-Install this repository as **one** root skill named `seedance-20`; its sub-skills and references load by relative path.
+Install this repository as **one** root skill named `seedance-expert`; its sub-skills and references load by relative path.
 
 **Codex (has a one-command installer):**
 
@@ -17,7 +17,7 @@ Install this repository as **one** root skill named `seedance-20`; its sub-skill
 python scripts/install_codex_skill.py --force
 ```
 
-This copies the repo to `~/.codex/skills/seedance-20` (or `$CODEX_HOME/skills/seedance-20`). Restart Codex, then call `$seedance-20`.
+This copies the repo to `~/.codex/skills/seedance-expert` (or `$CODEX_HOME/skills/seedance-expert`). Restart Codex, then call `$seedance-expert`.
 
 **Install from GitHub (if your client supports repo-URL install):**
 
@@ -25,7 +25,7 @@ This copies the repo to `~/.codex/skills/seedance-20` (or `$CODEX_HOME/skills/se
 https://github.com/Emily2040/seedance-2.0
 ```
 
-**Manual copy (any other client):** copy this folder into your client's skills directory, keeping the name `seedance-20`. Common targets — verify in your own client, these are not a support guarantee — are in the [Install table of the README](../README.md#install): e.g. Claude Code `.claude/skills/`, Cursor `.cursor/skills/`, GitHub Copilot `.github/skills/`, Windsurf `.windsurf/skills/`.
+**Manual copy (any other client):** copy this folder into your client's skills directory, keeping the name `seedance-expert`. Common targets — verify in your own client, these are not a support guarantee — are in the [Install table of the README](../README.md#install): e.g. Claude Code `.claude/skills/`, Cursor `.cursor/skills/`, GitHub Copilot `.github/skills/`, Windsurf `.windsurf/skills/`.
 
 > Security first: only install into agent clients you trust. Read [SECURITY.md](../SECURITY.md) before using this skill inside a third-party or unfamiliar agent.
 

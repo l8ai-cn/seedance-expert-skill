@@ -9,7 +9,7 @@ Seedance 2.0 Skill OS 是一个 agent skill：它像导演一样调度 Seedance 
 
 ## 1. 安装（约 5 分钟）
 
-把整个仓库当作**一个**名为 `seedance-20` 的根技能来装；子技能和参考资料会按相对路径自动加载。
+把整个仓库当作**一个**名为 `seedance-expert` 的根技能来装；子技能和参考资料会按相对路径自动加载。
 
 **Codex（有一键脚本）**
 
@@ -17,7 +17,7 @@ Seedance 2.0 Skill OS 是一个 agent skill：它像导演一样调度 Seedance 
 python scripts/install_codex_skill.py --force
 ```
 
-脚本会把仓库复制到 `~/.codex/skills/seedance-20`（或 `$CODEX_HOME/skills/seedance-20`）。重启 Codex，再输入 `$seedance-20` 调用。
+脚本会把仓库复制到 `~/.codex/skills/seedance-expert`（或 `$CODEX_HOME/skills/seedance-expert`）。重启 Codex，再输入 `$seedance-expert` 调用。
 
 **从 GitHub 安装（客户端支持仓库地址时）**
 
@@ -27,7 +27,7 @@ https://github.com/Emily2040/seedance-2.0
 
 **手动复制（其它客户端）**
 
-把整个文件夹复制进客户端的技能目录，名字保持 `seedance-20`。常见位置见 [README 安装表](../README.md#install)（请以自己客户端为准，并非通用保证）：如 Claude Code `.claude/skills/`、Cursor `.cursor/skills/`、GitHub Copilot `.github/skills/`、Windsurf `.windsurf/skills/`。
+把整个文件夹复制进客户端的技能目录，名字保持 `seedance-expert`。常见位置见 [README 安装表](../README.md#install)（请以自己客户端为准，并非通用保证）：如 Claude Code `.claude/skills/`、Cursor `.cursor/skills/`、GitHub Copilot `.github/skills/`、Windsurf `.windsurf/skills/`。
 
 > 安全第一：只装进你信得过的 agent。在陌生或第三方 agent 里使用前，先读一遍 [SECURITY.md](../SECURITY.md)。
 

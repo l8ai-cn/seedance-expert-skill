@@ -17,12 +17,22 @@ Use this reference for Seedance 2.0 operational planning on Volcengine, BytePlus
 
 ## Async Task Lifecycle
 
-1. Create the task with source-dated model ID, prompt, duration, ratio/size, resolution, and reference files.
-2. Store task ID, provider, request date, model ID, and prompt version.
-3. Poll or use SDK wait helpers until completed or failed.
-4. Retrieve output URL(s), optional last frame, logs/errors, and moderation/failure reason when provided.
-5. Save output plus metadata for repeatability.
-6. Cancel, delete, or list tasks only through the active provider's current docs.
+1. Canonicalize the full request and obtain approval for its SHA-256 fingerprint before any billable call.
+2. Atomically store the request fingerprint and a `creating` status before task creation.
+3. Create the task with source-dated model ID, prompt, duration, ratio/size, resolution, and reference files.
+4. Immediately persist task ID, provider, request date, model ID, and prompt version after a successful creation response.
+5. If creation times out before a task ID is known, mark the creation outcome unknown and inspect the provider before retrying.
+6. If polling times out after a task ID is stored, resume that task instead of creating another one.
+7. Poll or use SDK wait helpers until completed or failed.
+8. Retrieve output URL(s), optional last frame, logs/errors, and moderation/failure reason when provided.
+9. Stream output to an adjacent temporary file, validate HTTPS redirects, Content-Type, non-empty content, and size, then atomically replace the final output.
+10. Save output plus metadata for repeatability.
+11. Cancel, delete, or list tasks only through the active provider's current docs.
+
+This repository's executor is `scripts/seedance_generate.py`. Use
+`--print-approval`, repeat the exact request with `--approval HASH`, and use
+`--resume METADATA.json` after polling timeout. Do not delete metadata merely to
+make the command create a second task.
 
 ## Request Checklist
 
@@ -30,6 +40,7 @@ Use this reference for Seedance 2.0 operational planning on Volcengine, BytePlus
 - Mode is explicit: T2V, I2V, V2V, R2V, FLF2V, edit, or extend.
 - Reference roles are explicit and legal: first frame, last frame, identity, product, motion, camera, timing, audio, or style.
 - Audio references are paired with a text prompt and a valid image/video reference when the surface requires that combination.
+- Reference URLs use HTTPS without embedded credentials; enforce 9 image, 3 video, 3 audio, and 12 total reference limits.
 - First/last-frame requests do not silently mix incompatible video/audio reference modes unless the active docs allow it.
 - Real-person, face, portrait, and voice inputs have authorization and surface support.
 - Pricing, duration, resolution, region, quotas, and model IDs have a verification date.

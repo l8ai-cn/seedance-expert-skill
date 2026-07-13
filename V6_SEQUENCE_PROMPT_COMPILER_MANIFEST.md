@@ -19,7 +19,7 @@ This section records the inspected historical baseline for the original v6 migra
 - Baseline eval cases: 61
 - Baseline validators: `validate_skills.py`, `content_audit.py`, `eval_schema_check.py`, `design_audit.py`, `source_registry_check.py`, `vocab_schema_check.py`
 - Baseline CI: six local Python validators
-- Frontmatter convention: YAML block with `name`, third-person `description`, `license`, `user-invocable`, `tags`, and `metadata.version`; sub-skills also require `metadata.parent: "seedance-20"`
+- Frontmatter convention: YAML block with `name`, third-person `description`, `license`, `user-invocable`, `tags`, and `metadata.version`; sub-skills also require `metadata.parent: "seedance-expert"`
 
 ## Files Added
 

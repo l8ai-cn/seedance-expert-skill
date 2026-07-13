@@ -9,7 +9,7 @@ Seedance 2.0 Skill OS es un agent skill que dirige Seedance 2.0 como lo haría u
 
 ## 1. Instalación (unos 5 minutos)
 
-Instala el repositorio como **una** skill raíz llamada `seedance-20`; sus sub-skills y references se cargan solas por ruta relativa.
+Instala el repositorio como **una** skill raíz llamada `seedance-expert`; sus sub-skills y references se cargan solas por ruta relativa.
 
 **Codex (trae un instalador de un solo comando)**
 
@@ -17,7 +17,7 @@ Instala el repositorio como **una** skill raíz llamada `seedance-20`; sus sub-s
 python scripts/install_codex_skill.py --force
 ```
 
-Copia el repo a `~/.codex/skills/seedance-20` (o `$CODEX_HOME/skills/seedance-20`). Reinicia Codex y luego llama a `$seedance-20`.
+Copia el repo a `~/.codex/skills/seedance-expert` (o `$CODEX_HOME/skills/seedance-expert`). Reinicia Codex y luego llama a `$seedance-expert`.
 
 **Instalar desde GitHub (si tu cliente lo permite por URL)**
 
@@ -27,7 +27,7 @@ https://github.com/Emily2040/seedance-2.0
 
 **Copia manual (otros clientes)**
 
-Copia la carpeta en el directorio de skills de tu cliente, sin cambiarle el nombre `seedance-20`. Los destinos habituales están en la [tabla de instalación del README](../README.md#install) (no es una garantía: compruébalos en tu propio cliente). Por ejemplo: Claude Code `.claude/skills/`, Cursor `.cursor/skills/`, GitHub Copilot `.github/skills/`, Windsurf `.windsurf/skills/`.
+Copia la carpeta en el directorio de skills de tu cliente, sin cambiarle el nombre `seedance-expert`. Los destinos habituales están en la [tabla de instalación del README](../README.md#install) (no es una garantía: compruébalos en tu propio cliente). Por ejemplo: Claude Code `.claude/skills/`, Cursor `.cursor/skills/`, GitHub Copilot `.github/skills/`, Windsurf `.windsurf/skills/`.
 
 > Lo primero, la seguridad: instálalo solo en clientes de agente en los que confíes. Antes de usar esta skill en un agente ajeno o desconocido, léete [SECURITY.md](../SECURITY.md).
 

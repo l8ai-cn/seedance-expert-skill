@@ -7,11 +7,11 @@ tags:
   - continuation
   - extend
   - continuity
-  - seedance-20
+  - seedance-expert
 metadata:
   version: "6.6.0"
   updated: "2026-07-04"
-  parent: "seedance-20"
+  parent: "seedance-expert"
   author: "Iamemily2050 (@iamemily2050)"
   repository: "https://github.com/Emily2040/seedance-2.0"
   openclaw:
@@ -23,7 +23,7 @@ metadata:
 
 Use this for seamless continuation, intentional next shots, bridge clips, tail repair, and re-anchoring after drift. A continuation prompt must be grounded in accepted footage, not only in the old plan.
 
-Load `[ref:continuation-handoff]`, `[ref:sequence-project-state]`, `[ref:prompt-compiler]`, `[ref:reference-transfer-contract]`, and `[ref:continuity-qc]`. Load `[ref:failure-atlas]` when the continuation failed or drift is visible. Load `[ref:directing-engine]` so the next clip inherits the project's directorial voice and its position on the long-form spine; the look never re-rolls between clips.
+Load [continuation-handoff](../../references/continuation-handoff.md), [sequence-project-state](../../references/sequence-project-state.md), [prompt-compiler](../../references/prompt-compiler.md), [reference-transfer-contract](../../references/reference-transfer-contract.md), and [continuity-qc](../../references/continuity-qc.md). Load [failure-atlas](../../references/failure-atlas.md) when the continuation failed or drift is visible. Load [directing-engine](../../references/directing-engine.md) so the next clip inherits the project's directorial voice and its position on the long-form spine; the look never re-rolls between clips.
 
 ## Intent
 
@@ -50,7 +50,7 @@ Before writing any continuation prompt, require:
 
 If the source is unavailable, say: "I have the story plan, but I do not have the actual ending of the previous generation. Upload the clip or its final frame - `python scripts/extract_last_frame.py <take>` pulls the final frame locally - or describe exactly what is visible at the end. I should not invent the continuation state."
 
-Once a frame or clip is attached, run the Observation Fast Path from `[ref:continuation-handoff]`: the agent fills the observation record from what is visible and asks only about what the attachment cannot show (for a still: open motion, camera movement phase, audio phase). Never hand the sensing work back to the user when the pixels are already in hand.
+Once a frame or clip is attached, run the Observation Fast Path from [continuation-handoff](../../references/continuation-handoff.md): the agent fills the observation record from what is visible and asks only about what the attachment cannot show (for a still: open motion, camera movement phase, audio phase). Never hand the sensing work back to the user when the pixels are already in hand.
 
 Do not hide this uncertainty by writing a speculative prompt.
 

@@ -6,11 +6,11 @@ user-invocable: true
 tags:
   - lighting
   - atmosphere
-  - seedance-20
+  - seedance-expert
 metadata:
   version: "6.6.0"
   updated: "2026-07-04"
-  parent: "seedance-20"
+  parent: "seedance-expert"
   author: "Iamemily2050 (@iamemily2050)"
   repository: "https://github.com/Emily2040/seedance-2.0"
   openclaw:
@@ -22,7 +22,7 @@ metadata:
 
 Lighting should describe physical sources and transitions, not abstract beauty. A useful lighting prompt tells the model where the light comes from, its color temperature, how shadows behave, what atmosphere catches the light, and whether the light changes during the clip.
 
-Load `[ref:color-pipeline-aces]` when the user asks for ACES, HDR/SDR, show look, grade, LUT, CDL, product color, or professional color handoff. Load `[ref:directing-engine]` for lighting as emotion - ratio, key direction, color temperature, motivation, and light that changes with the dramatic turn - so the light expresses the scene's intention rather than just illuminating it.
+Load [color-pipeline-aces](../../references/color-pipeline-aces.md) when the user asks for ACES, HDR/SDR, show look, grade, LUT, CDL, product color, or professional color handoff. Load [directing-engine](../../references/directing-engine.md) for lighting as emotion - ratio, key direction, color temperature, motivation, and light that changes with the dramatic turn - so the light expresses the scene's intention rather than just illuminating it.
 
 ## Intent
 

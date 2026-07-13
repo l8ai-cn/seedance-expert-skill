@@ -6,11 +6,11 @@ user-invocable: true
 tags:
   - content-filter
   - safe-rewrite
-  - seedance-20
+  - seedance-expert
 metadata:
   version: "6.6.0"
   updated: "2026-07-04"
-  parent: "seedance-20"
+  parent: "seedance-expert"
   author: "Iamemily2050 (@iamemily2050)"
   repository: "https://github.com/Emily2040/seedance-2.0"
   openclaw:
@@ -57,7 +57,7 @@ Do not provide filter-bypass, evasion, or hidden-word tactics. The safe path is 
 
 Face-limit or portrait-verification workarounds are not safe prompt tricks. If a surface offers sanctioned virtual portrait, trusted model-output, or authorization asset flows, route the user to those current official paths instead of evasion language.
 
-Load `[ref:filter-vocab]` for safer substitutions. Load `[ref:multilingual-community-examples]` only when the safe repair needs Chinese/Russian/Japanese/Korean/Spanish or mixed-language wording for clarity.
+Load [filter-vocab](../../references/filter-vocab.md) for safer substitutions. Load [multilingual-community-examples](../../references/multilingual-community-examples.md) only when the safe repair needs Chinese/Russian/Japanese/Korean/Spanish or mixed-language wording for clarity.
 
 ## Output Contract
 

@@ -8,7 +8,7 @@ import shutil
 from pathlib import Path
 
 
-SKILL_NAME = "seedance-20"
+SKILL_NAME = "seedance-expert"
 IGNORE_NAMES = {
     ".git",
     ".github",
@@ -63,7 +63,7 @@ def main() -> int:
         default=default_skills_dir(),
         help="Codex skills directory. Defaults to $CODEX_HOME/skills or ~/.codex/skills.",
     )
-    parser.add_argument("--force", action="store_true", help="Replace an existing seedance-20 install.")
+    parser.add_argument("--force", action="store_true", help="Replace an existing seedance-expert install.")
     args = parser.parse_args()
 
     repo_root = Path(__file__).resolve().parents[1]

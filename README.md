@@ -173,7 +173,7 @@ The v6 release line keeps a dated research layer for safer data mining, multilin
 
 ## Operating System At A Glance
 
-![Seedance 2.0 Skill OS operating diagram: seven gates feed the seedance-20 root, which routes to the core pipeline, governance, and multilingual vocabulary clusters, backed by the reference library and validators](assets/skill-map.svg)
+![Seedance 2.0 Skill OS operating diagram: seven gates feed the seedance-expert root, which routes to the core pipeline, governance, and multilingual vocabulary clusters, backed by the reference library and validators](assets/skill-map.svg)
 
 The diagram is the contract: every request passes the gates, the root routes it, and the validators hold the line. Six lanes stay separate by design:
 
@@ -334,7 +334,7 @@ This repository now includes `agents/openai.yaml` and a local Codex installer. T
 python scripts/install_codex_skill.py --force
 ```
 
-The installer copies the repository into `$CODEX_HOME/skills/seedance-20` when `CODEX_HOME` is set, otherwise into `~/.codex/skills/seedance-20`. Restart Codex after installation so `$seedance-20` appears in the available skills list.
+The installer copies the repository into `$CODEX_HOME/skills/seedance-expert` when `CODEX_HOME` is set, otherwise into `~/.codex/skills/seedance-expert`. Restart Codex after installation so `$seedance-expert` appears in the available skills list.
 
 This repository keeps dense facts in references so the active skill stays small.
 
@@ -344,27 +344,27 @@ If your client supports installing a skill directly from a GitHub repository, us
 https://github.com/Emily2040/seedance-2.0
 ```
 
-For manual installation, copy this repository into the skill directory used by your agent client. The directory name should match the root skill name, `seedance-20`. Treat the table below as common local targets to verify in your own client, not a universal support guarantee.
+For manual installation, copy this repository into the skill directory used by your agent client. The directory name should match the root skill name, `seedance-expert`. Treat the table below as common local targets to verify in your own client, not a universal support guarantee.
 
 | Platform | Typical install target (verify in your client) |
 |---|---|
-| Claude Code | `.claude/skills/seedance-20/` |
-| Codex | `.agents/skills/seedance-20/` or `~/.codex/skills/seedance-20/` via `scripts/install_codex_skill.py` |
-| Google Antigravity | `.agents/skills/seedance-20/` (workspace) or `~/.gemini/antigravity-cli/skills/seedance-20/` (global) |
-| OpenClaw | workspace `skills/seedance-20/` or `~/.openclaw/skills/seedance-20/` via `openclaw skills install` (ClawHub-compatible; skills already carry `openclaw:` metadata) |
-| Hermes Agent | project `skills/seedance-20/` or `~/.hermes/skills/seedance-20/` via `hermes skills install` |
-| Gemini CLI-style workspace | `.gemini/skills/seedance-20/` |
-| GitHub Copilot workspace | `.github/skills/seedance-20/` |
-| Cursor workspace | `.cursor/skills/seedance-20/` |
-| Windsurf workspace | `.windsurf/skills/seedance-20/` |
-| Trae (ByteDance) | `.trae/skills/seedance-20/` |
-| Qwen Code (Alibaba) | `.qwen/skills/seedance-20/` or `~/.qwen/skills/seedance-20/` |
-| OpenCode | `.opencode/skills/seedance-20/` (also reads `.claude/skills/` and `.agents/skills/`) |
-| Amp (Sourcegraph) | `.agents/skills/seedance-20/` or `~/.config/agents/skills/seedance-20/` |
-| Goose (Block) | `.agents/skills/seedance-20/` (also `.goose/skills/seedance-20/`) |
-| Junie (JetBrains) | `.junie/skills/seedance-20/` or `~/.junie/skills/seedance-20/` |
+| Claude Code | `.claude/skills/seedance-expert/` |
+| Codex | `.agents/skills/seedance-expert/` or `~/.codex/skills/seedance-expert/` via `scripts/install_codex_skill.py` |
+| Google Antigravity | `.agents/skills/seedance-expert/` (workspace) or `~/.gemini/antigravity-cli/skills/seedance-expert/` (global) |
+| OpenClaw | workspace `skills/seedance-expert/` or `~/.openclaw/skills/seedance-expert/` via `openclaw skills install` (ClawHub-compatible; skills already carry `openclaw:` metadata) |
+| Hermes Agent | project `skills/seedance-expert/` or `~/.hermes/skills/seedance-expert/` via `hermes skills install` |
+| Gemini CLI-style workspace | `.gemini/skills/seedance-expert/` |
+| GitHub Copilot workspace | `.github/skills/seedance-expert/` |
+| Cursor workspace | `.cursor/skills/seedance-expert/` |
+| Windsurf workspace | `.windsurf/skills/seedance-expert/` |
+| Trae (ByteDance) | `.trae/skills/seedance-expert/` |
+| Qwen Code (Alibaba) | `.qwen/skills/seedance-expert/` or `~/.qwen/skills/seedance-expert/` |
+| OpenCode | `.opencode/skills/seedance-expert/` (also reads `.claude/skills/` and `.agents/skills/`) |
+| Amp (Sourcegraph) | `.agents/skills/seedance-expert/` or `~/.config/agents/skills/seedance-expert/` |
+| Goose (Block) | `.agents/skills/seedance-expert/` (also `.goose/skills/seedance-expert/`) |
+| Junie (JetBrains) | `.junie/skills/seedance-expert/` or `~/.junie/skills/seedance-expert/` |
 
-Several of these clients share the `.agents/skills/` convention — Codex, Google Antigravity, OpenCode, Amp, and Goose all read it — so one install under `.agents/skills/seedance-20/` can serve them together, and `.claude/skills/` is read by many as a compatibility path. Install once as the `seedance-20` root skill; its sub-skills and references resolve by relative path.
+Several of these clients share the `.agents/skills/` convention — Codex, Google Antigravity, OpenCode, Amp, and Goose all read it — so one install under `.agents/skills/seedance-expert/` can serve them together, and `.claude/skills/` is read by many as a compatibility path. Install once as the `seedance-expert` root skill; its sub-skills and references resolve by relative path.
 
 ## Validation
 

@@ -8,11 +8,17 @@ from pathlib import Path
 REQUIRED_SNIPPETS = {
     "SKILL.md": [
         "## Sequence Gate",
-        "[skill:seedance-sequence]",
-        "[skill:seedance-continuation]",
+        "skills/seedance-sequence/SKILL.md",
+        "skills/seedance-continuation/SKILL.md",
         "accepted observed state overrides planned state",
         "rejected footage",
         "exact reference tags",
+        "--print-approval",
+        "--approval",
+        "--resume",
+        "request fingerprint",
+        "9 image",
+        "creation outcome",
     ],
     "skills/seedance-sequence/SKILL.md": [
         "Plan globally",

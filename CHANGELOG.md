@@ -1,4 +1,4 @@
-# Changelog — seedance-20
+# Changelog — seedance-expert
 
 All notable changes to this project are documented here.
 

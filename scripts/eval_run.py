@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Model-in-the-loop eval harness for the seedance-20 skill.
+"""Model-in-the-loop eval harness for the seedance-expert skill.
 
 The deterministic CI validators (eval_schema_check.py, sequence_eval_check.py, ...)
 prove the eval suite is well-formed. They do not prove the skill actually produces
@@ -25,18 +25,17 @@ from __future__ import annotations
 import argparse
 import json
 import os
-import re
 import sys
-import urllib.request
 import urllib.error
 from pathlib import Path
 
-API_URL = "https://api.anthropic.com/v1/messages"
-ANTHROPIC_VERSION = "2023-06-01"
+if __package__ in {None, ""}:
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+from scripts.seedance_eval_reporting import aggregate, write_ledger
+from scripts.seedance_eval_runtime import call_api, judge
+
 DEFAULT_MODEL = "claude-sonnet-4-6"
-# Thresholds sourced from references/eval-rubric.md.
-LEGACY_MIN, LEGACY_AVG = 2, 2.6          # 0-3 scale
-SEQUENCE_CRIT, SEQUENCE_AVG, SEQUENCE_FLOOR = 4, 3.5, 3  # 0-4 scale
 
 
 def repo_root() -> Path:
@@ -60,9 +59,9 @@ def is_sequence_case(case: dict) -> bool:
 
 
 def responder_context(root: Path, case: dict) -> str:
-    parts = ["# Skill: seedance-20 (root router)", read_text(root / "SKILL.md")]
+    parts = ["# Skill: seedance-expert (root router)", read_text(root / "SKILL.md")]
     for name in case.get("skills_expected_to_activate", []):
-        if name == "seedance-20":
+        if name == "seedance-expert":
             continue  # the root router is already included above
         body = read_text(root / "skills" / name / "SKILL.md", limit=8000)
         if body:
@@ -71,53 +70,6 @@ def responder_context(root: Path, case: dict) -> str:
     if fixture and (root / fixture).exists():
         parts.append(f"\n# Project state fixture ({fixture})\n{read_text(root / fixture, limit=6000)}")
     return "\n\n".join(parts)
-
-
-def call_api(system: str, user: str, model: str, api_key: str, max_tokens: int = 1500) -> str:
-    payload = json.dumps({
-        "model": model,
-        "max_tokens": max_tokens,
-        "system": system,
-        "messages": [{"role": "user", "content": user}],
-    }).encode("utf-8")
-    req = urllib.request.Request(API_URL, data=payload, method="POST")
-    req.add_header("x-api-key", api_key)
-    req.add_header("anthropic-version", ANTHROPIC_VERSION)
-    req.add_header("content-type", "application/json")
-    with urllib.request.urlopen(req, timeout=120) as resp:
-        body = json.loads(resp.read().decode("utf-8"))
-    return "".join(block.get("text", "") for block in body.get("content", []) if block.get("type") == "text")
-
-
-def judge(case: dict, response: str, model: str, api_key: str, rubric: str) -> dict:
-    scale = "0-4" if is_sequence_case(case) else "0-3"
-    extra = ""
-    if case.get("forbidden_behaviors"):
-        extra += "\nForbidden behaviors (any present => fail):\n- " + "\n- ".join(case["forbidden_behaviors"])
-    if case.get("required_output_sections"):
-        extra += "\nRequired output sections:\n- " + "\n- ".join(case["required_output_sections"])
-    system = (
-        "You are a strict eval judge for an AI video-prompting skill. Apply the rubric exactly and "
-        "return ONLY a JSON object, no prose. Be skeptical: reward only behavior that is actually present."
-    )
-    user = (
-        f"RUBRIC:\n{rubric}\n\n"
-        f"Use the {scale} scale for this case.\n"
-        f"CASE PROMPT:\n{case['prompt']}\n\n"
-        f"ASSERTIONS (each must be satisfied):\n- " + "\n- ".join(case["assertions"]) + extra + "\n\n"
-        f"CANDIDATE RESPONSE TO GRADE:\n{response}\n\n"
-        'Return JSON: {"assertion_scores":[{"assertion":str,"met":bool}],'
-        '"overall_score":int,"pass":bool,"notes":str}. '
-        f'overall_score is on the {scale} scale.'
-    )
-    raw = call_api(system, user, model, api_key, max_tokens=900)
-    match = re.search(r"\{.*\}", raw, re.S)
-    if not match:
-        return {"overall_score": 0, "pass": False, "notes": "judge returned no JSON", "assertion_scores": []}
-    try:
-        return json.loads(match.group(0))
-    except json.JSONDecodeError:
-        return {"overall_score": 0, "pass": False, "notes": "unparseable judge JSON", "assertion_scores": []}
 
 
 def self_test(root: Path) -> int:
@@ -134,7 +86,7 @@ def self_test(root: Path) -> int:
         if not case.get("assertions"):
             errors.append(f"{cid}: no assertions")
         for name in case.get("skills_expected_to_activate", []):
-            if name != "seedance-20" and not (root / "skills" / name).is_dir():
+            if name != "seedance-expert" and not (root / "skills" / name).is_dir():
                 errors.append(f"{cid}: skill '{name}' does not resolve")
         if not responder_context(root, case).strip():
             errors.append(f"{cid}: empty responder context")
@@ -149,51 +101,8 @@ def self_test(root: Path) -> int:
     return 0
 
 
-def aggregate(scored: list[dict]) -> int:
-    legacy = [s for s in scored if not s["sequence"]]
-    seq = [s for s in scored if s["sequence"]]
-    ok = True
-    if legacy:
-        avg = sum(s["score"] for s in legacy) / len(legacy)
-        below = [s["id"] for s in legacy if s["score"] < LEGACY_MIN]
-        print(f"\nLegacy (0-3): {len(legacy)} cases, avg {avg:.2f} (need >= {LEGACY_AVG}); {len(below)} below {LEGACY_MIN}")
-        if avg < LEGACY_AVG or below:
-            ok = False
-            if below:
-                print("  below floor:", ", ".join(below))
-    if seq:
-        avg = sum(s["score"] for s in seq) / len(seq)
-        crit_fail = [s["id"] for s in seq if s.get("critical") and s["score"] < SEQUENCE_CRIT]
-        floor_fail = [s["id"] for s in seq if s["score"] < SEQUENCE_FLOOR]
-        print(f"Sequence (0-4): {len(seq)} cases, avg {avg:.2f} (need >= {SEQUENCE_AVG}); "
-              f"{len(crit_fail)} critical below {SEQUENCE_CRIT}; {len(floor_fail)} below floor {SEQUENCE_FLOOR}")
-        if avg < SEQUENCE_AVG or crit_fail or floor_fail:
-            ok = False
-            if crit_fail:
-                print("  critical not at 4:", ", ".join(crit_fail))
-    print("\nRESULT:", "PASS" if ok else "FAIL")
-    return 0 if ok else 1
-
-
-def write_ledger(path: Path, scored: list[dict], model: str, stamp: str) -> None:
-    lines = [
-        "# Eval Run Ledger", "",
-        f"Last scored: **{stamp}** with responder+judge model `{model}` via `scripts/eval_run.py`.",
-        "This is the evidence layer for the rubric in `references/eval-rubric.md`; the deterministic",
-        "CI validators check shape, this checks output quality. Regenerate with",
-        "`python scripts/eval_run.py --run --ledger evals/eval-run-ledger.md`.", "",
-        "| id | scale | score | pass | notes |", "|---|---|---|---|---|",
-    ]
-    for s in sorted(scored, key=lambda x: (x["sequence"], x["id"])):
-        scale = "0-4" if s["sequence"] else "0-3"
-        note = (s.get("notes") or "").replace("|", "/").replace("\n", " ")[:80]
-        lines.append(f"| {s['id']} | {scale} | {s['score']} | {'yes' if s['pass'] else 'NO'} | {note} |")
-    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
-    print(f"\nLedger written to {path}")
-
-
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Model-in-the-loop eval harness for seedance-20.")
+    parser = argparse.ArgumentParser(description="Model-in-the-loop eval harness for seedance-expert.")
     parser.add_argument("repo", nargs="?", default=".")
     parser.add_argument("--self-test", action="store_true", help="offline wiring check, no network")
     parser.add_argument("--strict", action="store_true", help="accepted for parity with other validators")
@@ -229,7 +138,14 @@ def main() -> int:
         cid = case.get("id", "?")
         try:
             response = call_api(responder_context(root, case), case["prompt"], args.model, api_key)
-            verdict = judge(case, response, judge_model, api_key, rubric)
+            verdict = judge(
+                case,
+                response,
+                judge_model,
+                api_key,
+                rubric,
+                sequence=is_sequence_case(case),
+            )
         except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError) as exc:
             print(f"[{cid}] API error: {exc}")
             verdict = {"overall_score": 0, "pass": False, "notes": f"api error: {exc}"}

@@ -6,11 +6,11 @@ user-invocable: true
 tags:
   - camera
   - cinematography
-  - seedance-20
+  - seedance-expert
 metadata:
   version: "6.6.0"
   updated: "2026-07-04"
-  parent: "seedance-20"
+  parent: "seedance-expert"
   author: "Iamemily2050 (@iamemily2050)"
   repository: "https://github.com/Emily2040/seedance-2.0"
   openclaw:
@@ -22,7 +22,7 @@ metadata:
 
 Use one clear camera idea per short clip unless the user asks for a multi-shot sequence. The best camera direction has a start frame, movement, speed, subject relationship, and endpoint. Avoid stacking moves that fight each other, such as drone rise, dolly-in, handheld shake, and orbit in the same five-second shot.
 
-Load `[ref:quick-ref]` for prompt assembly, `[ref:cinematography-shot-language]` for professional shot contracts, `[ref:directing-engine]` to derive the move from the scene's one intention so it reinforces light, performance, and sound instead of competing, and `[ref:vocab/zh]` or `[ref:vocab/ru]` when camera wording must be multilingual.
+Load [quick-ref](../../references/quick-ref.md) for prompt assembly, [cinematography-shot-language](../../references/cinematography-shot-language.md) for professional shot contracts, [directing-engine](../../references/directing-engine.md) to derive the move from the scene's one intention so it reinforces light, performance, and sound instead of competing, and [vocab/zh](../../references/vocab/zh.md) or [vocab/ru](../../references/vocab/ru.md) when camera wording must be multilingual.
 
 ## Intent
 

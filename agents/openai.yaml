@@ -1,8 +1,8 @@
 interface:
-  display_name: "Seedance 2.0 Skill OS"
-  short_description: "Professional Seedance video prompting"
+  display_name: "Seedance Expert"
+  short_description: "Direct and generate Seedance 2.0 videos"
   brand_color: "#0EA5E9"
-  default_prompt: "Use $seedance-20 to turn this video idea into a professional Seedance prompt or stateful connected-clip sequence with reference roles, native zh/ja/ko support, and delivery checks."
+  default_prompt: "Use $seedance-expert to turn this idea into an approved Seedance 2.0 production prompt, generate it with the configured Ark resource, and review the resulting video."
 
 policy:
   allow_implicit_invocation: true
