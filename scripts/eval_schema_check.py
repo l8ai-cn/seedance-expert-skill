@@ -147,6 +147,13 @@ REQUIRED_IDS = {
     "felt_intent_survives_compression",
     "observed_state_from_attached_frame",
     "capsule_compaction_long_project",
+    "task_classification_baseline_first_last_frame",
+    "task_classification_ignores_style_adjectives",
+    "evaluation_expected_route_stays_blind",
+    "returned_output_review_requires_media",
+    "final_frame_not_temporal_output_evidence",
+    "all_attempts_retained_no_cherry_pick",
+    "synthetic_benchmark_not_quality_evidence",
 }
 
 

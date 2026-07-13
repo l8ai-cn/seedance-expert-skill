@@ -1,0 +1,42 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/atomic-output-annotation-v1.schema.json",
+  "schema_version": 1,
+  "annotation_id": "annotation_attempt_01_audio_sync",
+  "benchmark_id": "v710_fixture_av_condition",
+  "condition_id": "condition_01",
+  "attempt_id": "attempt_01",
+  "attempt_index": 1,
+  "benchmark_manifest_sha256": "b165e438c10806973c307edc5d8a4313ea683ee21912561538aa28cac8f499a0",
+  "condition_sha256": "596d40a4ed24c02a31b19d6e633f46f64304a672b40f793d8c6deab868beb0e2",
+  "generation_record_sha256": "5c0d30dfad32a129c259aa55323ca4500e5a6240127e699120cefbd28b7d20c2",
+  "rubric_sha256": "49672f0ef3b3a542b3b86b475936cc9adf1ddf60369e9b120ba33900294c99d8",
+  "rubric_item_sha256": "ef8c258d61c2971c018517cecc9fe1e44ab861b224e15d001261122718f705a1",
+  "output_id": "output_01",
+  "output_media_sha256": "d85a5a9ac38681b63eb0b1bd85d5564e4caa01180a9f0de0284c46863f1f5716",
+  "evidence_asset_kind": "returned_video",
+  "evidence_asset_sha256": "d85a5a9ac38681b63eb0b1bd85d5564e4caa01180a9f0de0284c46863f1f5716",
+  "evidence_parent_output_sha256": "d85a5a9ac38681b63eb0b1bd85d5564e4caa01180a9f0de0284c46863f1f5716",
+  "derivation_record_sha256": null,
+  "observable_id": "temporal_audio_sync",
+  "observable_dimension": "temporal_audio_sync",
+  "status": "pass",
+  "evidence_locus": {
+    "kind": "video_time_range",
+    "start_ms": 0,
+    "end_ms": 5000
+  },
+  "confidence": "high",
+  "reviewer": {
+    "reviewer_id": "reviewer_primary",
+    "reviewer_identity_sha256": "d81a3bd4aca6594f8a5d76ec78558844c17f124e6ae42af2e5fe744a4c2d898b",
+    "role": "primary",
+    "identity_assurance": "unauthenticated_declaration",
+    "generator_relation": "declared_separate",
+    "reviewed_on": "2026-07-13",
+    "review_method": "human_observation"
+  },
+  "claim_boundary": "observable_only_no_hidden_cause",
+  "quality_claim_status": "prohibited",
+  "release_eligible": false,
+  "is_synthetic_fixture": true
+}

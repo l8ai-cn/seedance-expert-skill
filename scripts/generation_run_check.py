@@ -11,7 +11,10 @@ REQUIRED_RUN_FIELDS = {
     "input_mode", "reference_tags", "prompt", "result_status", "is_synthetic_fixture",
 }
 REQUIRED_BENCHMARK_FIELDS = {
-    "benchmark_version", "updated", "cases",
+    "benchmark_version", "updated", "note", "cases",
+}
+REQUIRED_BENCHMARK_CASE_FIELDS = {
+    "id", "project_id", "clip_id", "expected_checks", "is_synthetic_fixture",
 }
 
 
@@ -41,8 +44,32 @@ def main() -> int:
                 missing = REQUIRED_BENCHMARK_FIELDS - set(data)
                 if missing:
                     errors.append("generation benchmark missing: " + ", ".join(sorted(missing)))
-                if len(data.get("cases", [])) < 3:
+                extra = set(data) - REQUIRED_BENCHMARK_FIELDS
+                if extra:
+                    errors.append("generation benchmark has unexpected fields: " + ", ".join(sorted(extra)))
+                cases = data.get("cases")
+                if not isinstance(cases, list) or len(cases) < 3:
                     errors.append("generation benchmark needs at least three cases")
+                else:
+                    case_ids: set[str] = set()
+                    for index, case in enumerate(cases):
+                        if not isinstance(case, dict) or set(case) != REQUIRED_BENCHMARK_CASE_FIELDS:
+                            errors.append(f"generation benchmark case {index} has invalid fields")
+                            continue
+                        case_id = case.get("id")
+                        if not isinstance(case_id, str) or not case_id:
+                            errors.append(f"generation benchmark case {index} has invalid id")
+                        elif case_id in case_ids:
+                            errors.append("generation benchmark contains duplicate case id")
+                        else:
+                            case_ids.add(case_id)
+                        if case.get("is_synthetic_fixture") is not True:
+                            errors.append(f"generation benchmark case {index} must remain synthetic")
+                        checks = case.get("expected_checks")
+                        if not isinstance(checks, list) or len(checks) < 2 or not all(
+                            isinstance(check, str) and check for check in checks
+                        ):
+                            errors.append(f"generation benchmark case {index} has invalid checks")
 
     runs = root / "data" / "generation-runs.example.jsonl"
     if not runs.exists():

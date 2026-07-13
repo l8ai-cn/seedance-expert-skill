@@ -31,6 +31,8 @@ jobs:
         run: python scripts/mechanics_claim_audit.py
       - name: Validate eval schema
         run: python scripts/eval_schema_check.py
+      - name: Check V7-10 evaluation programme (offline, non-release)
+        run: python -S -B scripts/evaluation_program_check.py --self-test
       - name: Execute JSON Schemas against declared fixtures
         run: python scripts/schema_check.py --strict
       - name: Validate claim-level evidence and freshness
@@ -110,6 +112,13 @@ jobs:
           tests.test_av_take_review
           tests.test_v709_regression
           -v
+      - name: Exercise V7-10 evaluation and returned-output review boundaries
+        run: >-
+          python -m unittest
+          tests.test_evaluation_program
+          tests.test_evaluation_metamorphic
+          tests.test_v710_regression
+          -v
       - name: Validate deterministic runtime package boundary
         run: python tools/runtime_package.py --dry-run
       - name: Exercise transactional installer and rollback
@@ -178,8 +187,18 @@ jobs:
           tests.test_av_take_review
           tests.test_v709_regression
           -v
+      - name: Exercise dependency-free V7-10 evaluation contracts
+        run: >-
+          python -S -B -m unittest
+          tests.test_evaluation_program
+          tests.test_evaluation_metamorphic
+          tests.test_v710_regression
+          -v
       - name: Stress dependency-free eval self-test 10x
         run: python -S -B -c "import subprocess, sys; [subprocess.run([sys.executable, '-S', '-B', 'scripts/eval_run.py', '--self-test'], check=True) for _ in range(10)]"
       - name: Stress V7-09 AV tools 10x in fresh processes
         run: >-
           python -S -B -c "import subprocess, sys; tools=['scene_ir_v2_check.py','semantic_lint_v2.py','prompt_compile_v2.py','av_take_review_check.py']; [subprocess.run([sys.executable, '-S', '-B', 'scripts/'+tool, '--self-test'], check=True) for _ in range(10) for tool in tools]"
+      - name: Stress V7-10 evaluation programme 10x in fresh processes
+        run: >-
+          python -S -B -c "import subprocess, sys; [subprocess.run([sys.executable, '-S', '-B', 'scripts/evaluation_program_check.py', '--self-test'], check=True) for _ in range(10)]"

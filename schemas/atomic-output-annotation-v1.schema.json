@@ -1,0 +1,343 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Emily2040/seedance-2.0/schemas/atomic-output-annotation-v1.schema.json",
+  "title": "Seedance V7-10 atomic output annotation",
+  "$comment": "One record reviews one observable on one exact output. It records observable evidence only and has no field for a hidden model, training, sampling, or architecture cause. A pass for temporal motion, audio, speech, lip-sync, or editorial-cut observables requires video evidence. Reviewer identity and generator separation remain unauthenticated declarations, and the record is never release-eligible by itself.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schema_version",
+    "annotation_id",
+    "benchmark_id",
+    "condition_id",
+    "attempt_id",
+    "attempt_index",
+    "benchmark_manifest_sha256",
+    "condition_sha256",
+    "generation_record_sha256",
+    "rubric_sha256",
+    "rubric_item_sha256",
+    "output_id",
+    "output_media_sha256",
+    "evidence_asset_kind",
+    "evidence_asset_sha256",
+    "evidence_parent_output_sha256",
+    "derivation_record_sha256",
+    "observable_id",
+    "observable_dimension",
+    "status",
+    "evidence_locus",
+    "confidence",
+    "reviewer",
+    "claim_boundary",
+    "quality_claim_status",
+    "release_eligible",
+    "is_synthetic_fixture"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "https://github.com/Emily2040/seedance-2.0/schemas/atomic-output-annotation-v1.schema.json"
+    },
+    "schema_version": {"const": 1},
+    "annotation_id": {"$ref": "#/$defs/id"},
+    "benchmark_id": {"$ref": "#/$defs/id"},
+    "condition_id": {"$ref": "#/$defs/id"},
+    "attempt_id": {"$ref": "#/$defs/id"},
+    "attempt_index": {"type": "integer", "minimum": 1, "maximum": 10},
+    "benchmark_manifest_sha256": {"$ref": "#/$defs/sha256"},
+    "condition_sha256": {"$ref": "#/$defs/sha256"},
+    "generation_record_sha256": {"$ref": "#/$defs/sha256"},
+    "rubric_sha256": {"$ref": "#/$defs/sha256"},
+    "rubric_item_sha256": {"$ref": "#/$defs/sha256"},
+    "output_id": {"$ref": "#/$defs/id"},
+    "output_media_sha256": {"$ref": "#/$defs/sha256"},
+    "evidence_asset_kind": {"enum": ["returned_video", "derived_final_frame"]},
+    "evidence_asset_sha256": {"$ref": "#/$defs/sha256"},
+    "evidence_parent_output_sha256": {"$ref": "#/$defs/sha256"},
+    "derivation_record_sha256": {"$ref": "#/$defs/nullable_sha256"},
+    "observable_id": {"$ref": "#/$defs/id"},
+    "observable_dimension": {"$ref": "#/$defs/observable_dimension"},
+    "status": {"enum": ["pass", "fail", "unknown", "not_applicable"]},
+    "evidence_locus": {"$ref": "#/$defs/evidence_locus"},
+    "confidence": {"enum": ["low", "medium", "high", "unknown"]},
+    "reviewer": {"$ref": "#/$defs/reviewer"},
+    "claim_boundary": {"const": "observable_only_no_hidden_cause"},
+    "quality_claim_status": {"const": "prohibited"},
+    "release_eligible": {"const": false},
+    "is_synthetic_fixture": {"type": "boolean"}
+  },
+  "allOf": [
+    {
+      "if": {
+        "required": ["evidence_asset_kind"],
+        "properties": {"evidence_asset_kind": {"const": "derived_final_frame"}}
+      },
+      "then": {
+        "properties": {
+          "derivation_record_sha256": {"$ref": "#/$defs/sha256"},
+          "evidence_locus": {
+            "oneOf": [
+              {"$ref": "#/$defs/single_frame_locus"},
+              {"$ref": "#/$defs/unavailable_locus"}
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": ["evidence_asset_kind"],
+        "properties": {"evidence_asset_kind": {"const": "returned_video"}}
+      },
+      "then": {
+        "properties": {"derivation_record_sha256": {"type": "null"}}
+      }
+    },
+    {
+      "if": {
+        "required": ["status"],
+        "properties": {"status": {"enum": ["pass", "fail"]}}
+      },
+      "then": {
+        "properties": {
+          "confidence": {"enum": ["low", "medium", "high"]},
+          "evidence_locus": {"not": {"$ref": "#/$defs/unavailable_locus"}}
+        }
+      }
+    },
+    {
+      "if": {
+        "required": ["status"],
+        "properties": {"status": {"const": "not_applicable"}}
+      },
+      "then": {
+        "properties": {
+          "confidence": {"const": "unknown"},
+          "evidence_locus": {"$ref": "#/$defs/unavailable_locus"}
+        }
+      }
+    },
+    {
+      "if": {
+        "required": ["status"],
+        "properties": {"status": {"const": "unknown"}}
+      },
+      "then": {
+        "properties": {
+          "confidence": {"const": "unknown"},
+          "evidence_locus": {"$ref": "#/$defs/unavailable_locus"}
+        }
+      }
+    },
+    {
+      "if": {
+        "required": ["observable_dimension", "status"],
+        "properties": {
+          "observable_dimension": {"$ref": "#/$defs/temporal_dimension"},
+          "status": {"enum": ["pass", "fail"]}
+        }
+      },
+      "then": {
+        "properties": {
+          "evidence_asset_kind": {"const": "returned_video"},
+          "evidence_locus": {
+            "oneOf": [
+              {"$ref": "#/$defs/video_time_range_locus"},
+              {"$ref": "#/$defs/video_frame_range_locus"},
+              {"$ref": "#/$defs/whole_video_locus"}
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": ["observable_dimension", "status"],
+        "properties": {
+          "observable_dimension": {"const": "unexpected_text_logo"},
+          "status": {"const": "pass"}
+        }
+      },
+      "then": {
+        "properties": {
+          "evidence_asset_kind": {"const": "returned_video"},
+          "evidence_locus": {"$ref": "#/$defs/whole_video_locus"}
+        }
+      }
+    },
+    {
+      "if": {
+        "required": ["observable_dimension", "status"],
+        "properties": {
+          "observable_dimension": {"const": "overall_usable_take"},
+          "status": {"enum": ["pass", "fail"]}
+        }
+      },
+      "then": {
+        "properties": {
+          "evidence_asset_kind": {"const": "returned_video"},
+          "evidence_locus": {"$ref": "#/$defs/whole_video_locus"}
+        }
+      }
+    },
+    {
+      "if": {
+        "required": ["observable_dimension", "status"],
+        "properties": {
+          "observable_dimension": {
+            "enum": [
+              "operation_correctness",
+              "binding_integrity",
+              "identity_adherence",
+              "composition_adherence"
+            ]
+          },
+          "status": {"const": "pass"}
+        }
+      },
+      "then": {
+        "properties": {
+          "evidence_asset_kind": {"const": "returned_video"},
+          "evidence_locus": {"$ref": "#/$defs/whole_video_locus"}
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9._-]{0,127}$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "nullable_sha256": {
+      "oneOf": [
+        {"$ref": "#/$defs/sha256"},
+        {"type": "null"}
+      ]
+    },
+    "observable_dimension": {
+      "enum": [
+        "operation_correctness",
+        "binding_integrity",
+        "identity_adherence",
+        "composition_adherence",
+        "subject_motion",
+        "camera_motion",
+        "causal_order",
+        "physical_consequence",
+        "material_response",
+        "settled_endpoint",
+        "temporal_audio_sync",
+        "semantic_audio_sync",
+        "speaker_assignment",
+        "dialogue_exactness",
+        "spoken_language",
+        "dialogue_intelligibility",
+        "lip_sync",
+        "audio_continuity",
+        "editorial_cut",
+        "multishot_continuity",
+        "unexpected_text_logo",
+        "overall_usable_take"
+      ]
+    },
+    "temporal_dimension": {
+      "enum": [
+        "operation_correctness",
+        "subject_motion",
+        "camera_motion",
+        "causal_order",
+        "physical_consequence",
+        "material_response",
+        "settled_endpoint",
+        "temporal_audio_sync",
+        "semantic_audio_sync",
+        "speaker_assignment",
+        "dialogue_exactness",
+        "spoken_language",
+        "dialogue_intelligibility",
+        "lip_sync",
+        "audio_continuity",
+        "editorial_cut",
+        "multishot_continuity",
+        "overall_usable_take"
+      ]
+    },
+    "video_time_range_locus": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "start_ms", "end_ms"],
+      "properties": {
+        "kind": {"const": "video_time_range"},
+        "start_ms": {"type": "integer", "minimum": 0},
+        "end_ms": {"type": "integer", "minimum": 1}
+      }
+    },
+    "video_frame_range_locus": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "start_frame", "end_frame"],
+      "properties": {
+        "kind": {"const": "video_frame_range"},
+        "start_frame": {"type": "integer", "minimum": 0},
+        "end_frame": {"type": "integer", "minimum": 0}
+      }
+    },
+    "whole_video_locus": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind"],
+      "properties": {"kind": {"const": "whole_video"}}
+    },
+    "single_frame_locus": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "frame_index"],
+      "properties": {
+        "kind": {"const": "single_frame"},
+        "frame_index": {"type": "integer", "minimum": 0}
+      }
+    },
+    "unavailable_locus": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind"],
+      "properties": {"kind": {"const": "unavailable"}}
+    },
+    "evidence_locus": {
+      "oneOf": [
+        {"$ref": "#/$defs/video_time_range_locus"},
+        {"$ref": "#/$defs/video_frame_range_locus"},
+        {"$ref": "#/$defs/whole_video_locus"},
+        {"$ref": "#/$defs/single_frame_locus"},
+        {"$ref": "#/$defs/unavailable_locus"}
+      ]
+    },
+    "reviewer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reviewer_id",
+        "reviewer_identity_sha256",
+        "role",
+        "identity_assurance",
+        "generator_relation",
+        "reviewed_on",
+        "review_method"
+      ],
+      "properties": {
+        "reviewer_id": {"$ref": "#/$defs/id"},
+        "reviewer_identity_sha256": {"$ref": "#/$defs/sha256"},
+        "role": {"enum": ["primary", "secondary", "adjudicator"]},
+        "identity_assurance": {"const": "unauthenticated_declaration"},
+        "generator_relation": {"const": "declared_separate"},
+        "reviewed_on": {"type": "string", "format": "date"},
+        "review_method": {"const": "human_observation"}
+      }
+    }
+  }
+}

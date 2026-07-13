@@ -1,0 +1,219 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/evaluation-program-v1.schema.json",
+  "schema_version": 1,
+  "program_id": "v7_10_evaluation_candidate",
+  "program_date": "2026-07-13",
+  "candidate_base_commit": "8c79cc6e0784d746b96216917699f057e4833e66",
+  "status": "candidate_non_release",
+  "network_policy": "forbidden",
+  "release_gate": false,
+  "quality_claims_allowed": false,
+  "public_corpora": {
+    "development_release_eligible": false,
+    "live_canary_release_eligible": false,
+    "held_out_execution": "blocked_without_protected_runner"
+  },
+  "deterministic_suites": [
+    {
+      "suite_id": "text_eval_contracts",
+      "coverage": ["blind_case_loading", "empty_selection_failure", "judge_false_failure"],
+      "entrypoints": ["scripts/eval_schema_check.py", "tests/test_eval_harness.py"]
+    },
+    {
+      "suite_id": "evidence_authority",
+      "coverage": ["claim_closure", "expiry", "authority_removal"],
+      "entrypoints": ["tests/test_evidence_registry.py"]
+    },
+    {
+      "suite_id": "surface_binding",
+      "coverage": ["operation_gate", "reference_order", "surface_transport"],
+      "entrypoints": ["tests/test_surface_bindings.py"]
+    },
+    {
+      "suite_id": "semantic_compiler",
+      "coverage": ["causal_order", "locale_parity", "surface_invariance"],
+      "entrypoints": [
+        "tests/test_semantic_lint.py",
+        "tests/test_prompt_compile.py",
+        "tests/test_evaluation_metamorphic.py"
+      ]
+    },
+    {
+      "suite_id": "project_state",
+      "coverage": ["canon_handoff", "motion_ownership", "non_destructive_migration"],
+      "entrypoints": ["tests/test_project_state_v2.py", "tests/test_project_state_migration.py"]
+    },
+    {
+      "suite_id": "av_semantics",
+      "coverage": ["exact_speech", "audio_continuity", "editorial_transitions", "temporal_evidence"],
+      "entrypoints": [
+        "tests/test_scene_ir_v2.py",
+        "tests/test_semantic_lint_v2.py",
+        "tests/test_prompt_compile_v2.py",
+        "tests/test_av_take_review.py"
+      ]
+    },
+    {
+      "suite_id": "runtime_install",
+      "coverage": ["package_boundary", "transaction_rollback", "portability"],
+      "entrypoints": ["tests/test_runtime_package.py"]
+    }
+  ],
+  "mutation_campaigns": [
+    {
+      "campaign_id": "evaluation_program_contract",
+      "target": "evals/evaluation-program-v1.json",
+      "minimum_detection_rate": 0.9,
+      "mutation_ids": [
+        "network_enable",
+        "release_enable",
+        "quality_claim_enable",
+        "held_out_enable",
+        "drop_suite",
+        "unknown_entrypoint",
+        "duplicate_suite",
+        "weaken_threshold",
+        "drop_metamorphic_relation",
+        "model_relation_as_offline",
+        "reduce_attempt_count",
+        "allow_dropped_attempts"
+      ]
+    },
+    {
+      "campaign_id": "output_review_contract",
+      "target": "validation/fixtures/atomic-output-annotation-v1.valid.json",
+      "minimum_detection_rate": 0.9,
+      "mutation_ids": [
+        "release_enable",
+        "quality_claim_enable",
+        "generator_reviewer_collision",
+        "false_independence",
+        "media_hash_mismatch",
+        "manifest_digest_mismatch",
+        "unknown_observable",
+        "rubric_item_mismatch",
+        "evidence_parent_mismatch",
+        "derived_without_record",
+        "temporal_still_pass",
+        "temporal_metadata_pass",
+        "temporal_single_frame_pass",
+        "time_range_out_of_bounds",
+        "frame_range_out_of_bounds",
+        "audio_absent_pass",
+        "whole_output_partial_pass",
+        "hidden_cause_claim",
+        "missing_evidence_locus",
+        "invalid_confidence",
+        "extra_field"
+      ]
+    }
+  ],
+  "metamorphic_relations": [
+    {
+      "relation_id": "surface_swap_preserves_semantics",
+      "execution": "offline_deterministic",
+      "oracle_path": "tests/test_evaluation_metamorphic.py",
+      "oracle_ids": ["test_surface_swap_preserves_semantics"],
+      "invariants": ["semantic_program", "causal_order", "entity_identity", "binding_identity"]
+    },
+    {
+      "relation_id": "language_swap_preserves_semantics",
+      "execution": "offline_deterministic",
+      "oracle_path": "tests/test_evaluation_metamorphic.py",
+      "oracle_ids": ["test_language_swap_preserves_semantics"],
+      "invariants": ["semantic_program", "event_order", "exact_utterance", "binding_identity"]
+    },
+    {
+      "relation_id": "reference_order_follows_profile",
+      "execution": "offline_deterministic",
+      "oracle_path": "tests/test_evaluation_metamorphic.py",
+      "oracle_ids": ["test_reference_reorder_follows_profile"],
+      "invariants": ["authority", "binding_identity", "typed_media_role"]
+    },
+    {
+      "relation_id": "authority_removal_fails_closed",
+      "execution": "offline_deterministic",
+      "oracle_path": "tests/test_evidence_registry.py",
+      "oracle_ids": ["test_missing_selected_claim_blocks_release"],
+      "invariants": ["release_blocked", "diagnostic_present"]
+    },
+    {
+      "relation_id": "irrelevant_style_preserves_operation",
+      "execution": "development_model_only",
+      "oracle_path": "evals/evals.json",
+      "oracle_ids": [
+        "task_classification_baseline_first_last_frame",
+        "task_classification_ignores_style_adjectives"
+      ],
+      "invariants": ["operation", "input_contract", "authority_requirements"]
+    },
+    {
+      "relation_id": "final_frame_weakens_temporal_evidence",
+      "execution": "offline_deterministic",
+      "oracle_path": "tests/test_evaluation_metamorphic.py",
+      "oracle_ids": ["test_final_frame_weakens_temporal_evidence"],
+      "invariants": ["temporal_unknown", "audio_unknown", "release_blocked"]
+    }
+  ],
+  "output_review_policy": {
+    "benchmark_manifest_schema": "schemas/benchmark-manifest-v1.schema.json",
+    "atomic_annotation_schema": "schemas/atomic-output-annotation-v1.schema.json",
+    "minimum_attempts_per_condition": 10,
+    "retain_all_attempts": true,
+    "distinct_generator_and_reviewer": true,
+    "required_observables": [
+      "operation_correctness",
+      "binding_integrity",
+      "identity_adherence",
+      "composition_adherence",
+      "subject_motion",
+      "camera_motion",
+      "causal_order",
+      "physical_consequence",
+      "material_response",
+      "settled_endpoint",
+      "temporal_audio_sync",
+      "semantic_audio_sync",
+      "speaker_assignment",
+      "dialogue_exactness",
+      "spoken_language",
+      "dialogue_intelligibility",
+      "lip_sync",
+      "audio_continuity",
+      "editorial_cut",
+      "multishot_continuity",
+      "unexpected_text_logo",
+      "overall_usable_take"
+    ],
+    "temporal_observables": [
+      "operation_correctness",
+      "subject_motion",
+      "camera_motion",
+      "causal_order",
+      "physical_consequence",
+      "material_response",
+      "settled_endpoint",
+      "temporal_audio_sync",
+      "semantic_audio_sync",
+      "speaker_assignment",
+      "dialogue_exactness",
+      "spoken_language",
+      "dialogue_intelligibility",
+      "lip_sync",
+      "audio_continuity",
+      "editorial_cut",
+      "multishot_continuity",
+      "overall_usable_take"
+    ]
+  },
+  "deferred_release_requirements": [
+    "protected_runner",
+    "approved_held_out_digest",
+    "private_held_out_corpus",
+    "independent_reviewer_attestation",
+    "live_provider_outputs",
+    "complete_attempt_retention",
+    "provider_adherence_review",
+    "release_authority_approval"
+  ]
+}
