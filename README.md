@@ -446,7 +446,13 @@ git diff --check
 The CI workflow runs these checks plus runtime install/rollback and an idempotence rerun; see [the validation workflow](.github/workflows/validate-skills.yml).
 Use `python -B` for tools inside a checksum-verified installation. Python bytecode caches are undeclared extra files and intentionally make later whole-tree verification fail; the runtime package test executes the installed compiler with bytecode writes disabled and verifies the tree again afterward.
 The schema dependency lock is deliberately limited to the release environment above. These checks are deterministic and offline after dependency installation — they prove the package is well-formed.
-Schema-contract migration notes are in [`docs/V7_VALIDATION_MIGRATION.md`](docs/V7_VALIDATION_MIGRATION.md); the claim-evidence activation boundary is in [`docs/V7_EVIDENCE_MIGRATION.md`](docs/V7_EVIDENCE_MIGRATION.md); paired language rendering is documented in [`docs/V7_LANGUAGE_RENDERING_MIGRATION.md`](docs/V7_LANGUAGE_RENDERING_MIGRATION.md); physics, motion, and state-v2 boundaries are in [`docs/V7_PHYSICS_MOTION_STATE_MIGRATION.md`](docs/V7_PHYSICS_MOTION_STATE_MIGRATION.md); exact speech and editorial-cut migration is in [`docs/V7_AUDIO_MULTISHOT_MIGRATION.md`](docs/V7_AUDIO_MULTISHOT_MIGRATION.md).
+Migration notes are split by contract boundary:
+
+- schema validation: [`docs/V7_VALIDATION_MIGRATION.md`](docs/V7_VALIDATION_MIGRATION.md)
+- claim evidence: [`docs/V7_EVIDENCE_MIGRATION.md`](docs/V7_EVIDENCE_MIGRATION.md)
+- paired language rendering: [`docs/V7_LANGUAGE_RENDERING_MIGRATION.md`](docs/V7_LANGUAGE_RENDERING_MIGRATION.md)
+- physics, motion, and state v2: [`docs/V7_PHYSICS_MOTION_STATE_MIGRATION.md`](docs/V7_PHYSICS_MOTION_STATE_MIGRATION.md)
+- exact speech and editorial cuts: [`docs/V7_AUDIO_MULTISHOT_MIGRATION.md`](docs/V7_AUDIO_MULTISHOT_MIGRATION.md)
 
 The model-in-the-loop harness is development tooling, not proof that the package is good. V7-03 first runs a blind route stage, loads complete allowlisted resources without silent truncation, then uses a different effective judge model. Public development and live-canary cases are never release-eligible. The public CLI refuses external held-out execution; no valid held-out run or quality release gate exists yet.
 
