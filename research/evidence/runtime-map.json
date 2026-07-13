@@ -1,7 +1,7 @@
 {
   "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/evidence-runtime-map.schema.json",
   "schema_version": 1,
-  "runtime_manifest_sha256": "94ba99a2e0b3d590da4a2ea1ddd4ec7f42814ee72786f4d20958ad276a70109a",
+  "runtime_manifest_sha256": "b5a78ee8855533993acf76fac957e26ef998b0667416376cf26415a41a8154d7",
   "files": [
     {
       "path": "LICENSE",
@@ -11,7 +11,7 @@
     },
     {
       "path": "SKILL.md",
-      "sha256": "c92faea776df99cf78544b55cbde11dfdefc7a74d1264bac2eaf8a5e36630b61",
+      "sha256": "fbc345b690f8ade2704486c37518ab840c25e5134df1d6a04353b0bde0c054bb",
       "audit_status": "legacy_blocked",
       "occurrences": []
     },
@@ -291,8 +291,8 @@
     },
     {
       "path": "references/audio-guide.md",
-      "sha256": "52ff84a2c4e652be7dc2f4b2319032a3adcf9cc2a828841792b40f1e73129f3e",
-      "audit_status": "legacy_blocked",
+      "sha256": "fcabe24e68ac63e2ede34af5a6401a0d62be1060d654a7ed76413c975b91ced3",
+      "audit_status": "no_volatile_claims",
       "occurrences": []
     },
     {
@@ -303,8 +303,8 @@
     },
     {
       "path": "references/capability-map.md",
-      "sha256": "05abf5f2a404036937071a812f0745181ef55994491a8a2f0f9ebd2ca60bdc3b",
-      "audit_status": "legacy_blocked",
+      "sha256": "b80b6ab7abf1f0545be699f3b60b189518a55170997299f7ecca5ddb37cc296e",
+      "audit_status": "no_volatile_claims",
       "occurrences": []
     },
     {
@@ -417,8 +417,8 @@
     },
     {
       "path": "references/json-schema.md",
-      "sha256": "9a1d7f2b271d3067d9cae092f09df4a2307c7deab7d35c823c50cacbdff693a0",
-      "audit_status": "legacy_blocked",
+      "sha256": "f975a6a9aead7bf19973720322bc4b583c251a71896bbbd9c626567e53463e24",
+      "audit_status": "no_volatile_claims",
       "occurrences": []
     },
     {
@@ -441,9 +441,38 @@
     },
     {
       "path": "references/multishot-grammar.md",
-      "sha256": "131cb08ed282c0fa9991d1fcdfd935d68eda9c9486e6c42bd1f1d33ae3ba976d",
-      "audit_status": "legacy_blocked",
-      "occurrences": []
+      "sha256": "d83791485a92f420d1b8b4fd6b8bf12b586a6cb0256b38eb9208a76823f3305d",
+      "audit_status": "mapped_candidate",
+      "occurrences": [
+        {
+          "claim_id": "bp.timing.exact-caution",
+          "heading": "Retained provider tension",
+          "anchor_text": "- `[claim:bp.timing.exact-caution]` records a BytePlus-scoped example/guidance pattern using ordered shot labels while cautioning against strict time ranges.",
+          "anchor_sha256": "63e1e0ae6831a7d0d380f6183f64b15ea90908e3442c411020391daaf9b6abbb",
+          "occurrence_count": 1,
+          "disposition": "supported_candidate",
+          "profile_ids": [
+            "byteplus.modelark"
+          ],
+          "test_ids": [
+            "evals/evals.json#multishot_uses_shot_labels_not_continuous_take"
+          ]
+        },
+        {
+          "claim_id": "volc.timing.exact-example",
+          "heading": "Retained provider tension",
+          "anchor_text": "- `[claim:volc.timing.exact-example]` records a Volcengine-scoped example using exact second ranges.",
+          "anchor_sha256": "59fba25ba4254407e55928ab44389de07a26ee09be8fe3701b12532ce442d50c",
+          "occurrence_count": 1,
+          "disposition": "supported_candidate",
+          "profile_ids": [
+            "volcengine.ark"
+          ],
+          "test_ids": [
+            "tests/test_evidence_registry.py#test_volcengine_claims_remain_surface_scoped"
+          ]
+        }
+      ]
     },
     {
       "path": "references/platform-constraints.md",
@@ -465,8 +494,8 @@
     },
     {
       "path": "references/prompt-compiler.md",
-      "sha256": "77c25d62ce1cb7ce3917d2bdcd8ae1be60ded832033e3fad996be32eadb2b065",
-      "audit_status": "legacy_blocked",
+      "sha256": "bcbcf6d67bd935a5c82b520a269fc5ce877f210d8378a20ede332ef80860084b",
+      "audit_status": "no_volatile_claims",
       "occurrences": []
     },
     {
@@ -477,8 +506,8 @@
     },
     {
       "path": "references/quick-ref.md",
-      "sha256": "fbda4b70ee2461a841c0b0c81325c2cc61b1a4d7da14b966b2dce7bc6cb5bc97",
-      "audit_status": "legacy_blocked",
+      "sha256": "3d6b87e6925e227ee905db0cfc73abe2923d6f7b93af3cb9e1389124ca81bcfa",
+      "audit_status": "no_volatile_claims",
       "occurrences": []
     },
     {
@@ -513,8 +542,8 @@
     },
     {
       "path": "references/shot-list-continuity.md",
-      "sha256": "84e6d61eda078b6de63b2ede84ae7a41fd15ada171c2fd3708daeda46b19afa9",
-      "audit_status": "legacy_blocked",
+      "sha256": "1f791fd33a69605d418d8d1802b1c0b6743ec0e67e6d9173f912300c8b262659",
+      "audit_status": "no_volatile_claims",
       "occurrences": []
     },
     {
@@ -531,8 +560,8 @@
     },
     {
       "path": "references/subtitles-localization.md",
-      "sha256": "6affdfab1e1454f3cad64383ecfe318c4dcf3f295a0382eab4cd2b2456002e11",
-      "audit_status": "legacy_blocked",
+      "sha256": "ef66e5a6749824a0eacd8ce880a40bc4a1955165b4710e933f694391d6fbf97c",
+      "audit_status": "no_volatile_claims",
       "occurrences": []
     },
     {
@@ -575,6 +604,12 @@
       "path": "references/vocab/zh.md",
       "sha256": "3f14aad8d055d749b06a1159299f924c1971c8df378d44200c0caca10f855cc7",
       "audit_status": "legacy_blocked",
+      "occurrences": []
+    },
+    {
+      "path": "schemas/av-take-review-v1.schema.json",
+      "sha256": "db91fcce20431c10be615051bd903be1b0910d126fac22c90ae02b5c894f9248",
+      "audit_status": "no_volatile_claims",
       "occurrences": []
     },
     {
@@ -650,14 +685,38 @@
       "occurrences": []
     },
     {
+      "path": "schemas/prompt-compile-request-v2.schema.json",
+      "sha256": "132bb9cbd2e31f0ba6347bba1262ffc156d55b48f83607c936aabb966b140770",
+      "audit_status": "no_volatile_claims",
+      "occurrences": []
+    },
+    {
+      "path": "schemas/prompt-program-v2.schema.json",
+      "sha256": "ec524463b22bf323f3c190bf18ad32ba000a3f7b5457a795547eeef9584a7d04",
+      "audit_status": "no_volatile_claims",
+      "occurrences": []
+    },
+    {
       "path": "schemas/prompt-program.schema.json",
       "sha256": "1589623a30afcda55fd68fcbe0f4e6b5dc2a0cbe2bf7af8329e2d773d966c53b",
       "audit_status": "no_volatile_claims",
       "occurrences": []
     },
     {
+      "path": "schemas/prompt-realization-catalog-v2.schema.json",
+      "sha256": "38104e23468c08600ac9ede88f81642dd9310f82f9ec96bcb3167347c599922c",
+      "audit_status": "no_volatile_claims",
+      "occurrences": []
+    },
+    {
       "path": "schemas/prompt-realization-catalog.schema.json",
       "sha256": "5b45391e2d8afdebcb1bd56354db0062f95ae9c76b805f7324e0dcf0e296642e",
+      "audit_status": "no_volatile_claims",
+      "occurrences": []
+    },
+    {
+      "path": "schemas/prompt-render-v2.schema.json",
+      "sha256": "8a9ca832d154ec08351c00463ca5cfd975324f6c19608ceb8967eb5283817276",
       "audit_status": "no_volatile_claims",
       "occurrences": []
     },
@@ -686,8 +745,26 @@
       "occurrences": []
     },
     {
+      "path": "schemas/scene-ir-v2.schema.json",
+      "sha256": "5e777eb4b5a5a7385610f219a2f2f2143e54ef9c210537b85a85c6fcb22faf27",
+      "audit_status": "no_volatile_claims",
+      "occurrences": []
+    },
+    {
       "path": "schemas/scene-ir.schema.json",
       "sha256": "eb36b1a0c06c07d75489bae694c3dac32c58364814a1d4993e642ed2438a6415",
+      "audit_status": "no_volatile_claims",
+      "occurrences": []
+    },
+    {
+      "path": "schemas/surface-av-policy.schema.json",
+      "sha256": "b29781b0ac57cb55860d926affde46b47bc6e597b43dfc58178e1c7427c99750",
+      "audit_status": "no_volatile_claims",
+      "occurrences": []
+    },
+    {
+      "path": "schemas/surface-binding-set-v2.schema.json",
+      "sha256": "b025be6b92b34ec64aef74593fca3440a5bdd69ae945e5157f1a4cbe2c502ca2",
       "audit_status": "no_volatile_claims",
       "occurrences": []
     },
@@ -712,6 +789,12 @@
     {
       "path": "schemas/take-review.schema.json",
       "sha256": "01defb0faa399f7aca665d07b5a48d41804253f9a013de1798a0bf39e714e734",
+      "audit_status": "no_volatile_claims",
+      "occurrences": []
+    },
+    {
+      "path": "scripts/av_take_review_check.py",
+      "sha256": "e706cf452e0e93327ca9dcfedc0103c39c8a6a41c9f6c5b3d0814146fa372ff1",
       "audit_status": "no_volatile_claims",
       "occurrences": []
     },
@@ -746,6 +829,12 @@
       "occurrences": []
     },
     {
+      "path": "scripts/prompt_compile_v2.py",
+      "sha256": "5eeb0dc1baf3932abd081d076e1b071b91e83827894b11e244e577d4b22c12ac",
+      "audit_status": "no_volatile_claims",
+      "occurrences": []
+    },
+    {
       "path": "scripts/reference_planner.py",
       "sha256": "b67052521bcc42e02be47855a456fe729942aed7d483a53d7ea0a69a54287138",
       "audit_status": "no_volatile_claims",
@@ -764,8 +853,20 @@
       "occurrences": []
     },
     {
+      "path": "scripts/scene_ir_v2_check.py",
+      "sha256": "f02b24518d4c3483a150864827939dac762668e81724af177c11c90be9be3556",
+      "audit_status": "no_volatile_claims",
+      "occurrences": []
+    },
+    {
       "path": "scripts/semantic_lint.py",
       "sha256": "0221e395e39d1211027dabb2ccd320f14bd75d1d295be7f70d6105330b7cabf9",
+      "audit_status": "no_volatile_claims",
+      "occurrences": []
+    },
+    {
+      "path": "scripts/semantic_lint_v2.py",
+      "sha256": "d731afd98318488b9a3aef52f2d9a0d3314de34881f77e38bca9af41ff1c45d7",
       "audit_status": "no_volatile_claims",
       "occurrences": []
     },
@@ -783,8 +884,8 @@
     },
     {
       "path": "skills/seedance-audio/SKILL.md",
-      "sha256": "d2959728f526b047abd7bfe8cd206cb803ae7a8b7ff4f3cf9e9303847892e7ae",
-      "audit_status": "legacy_blocked",
+      "sha256": "4c8771ce5b10fe157626a0d67dcd37277d72785fa7d78fb8f3e2d3ec1c60d473",
+      "audit_status": "no_volatile_claims",
       "occurrences": []
     },
     {
@@ -855,9 +956,38 @@
     },
     {
       "path": "skills/seedance-motion/SKILL.md",
-      "sha256": "4d14e5bb2472c1c28af9f577dca46e4fae68a9caac23add890eda65f40fc96c2",
-      "audit_status": "legacy_blocked",
-      "occurrences": []
+      "sha256": "5755c1dc2f996530f30e285d62552b339332a31b5b3e19a7e61a92a644ed0efb",
+      "audit_status": "mapped_candidate",
+      "occurrences": [
+        {
+          "claim_id": "bp.timing.exact-caution",
+          "heading": "Timing Pattern",
+          "anchor_text": "Current candidate evidence remains intentionally qualified: `[claim:bp.timing.exact-caution]` records BytePlus-scoped ordered-shot guidance and a caution about strict ranges; `[claim:volc.timing.exact-example]` records a Volcengine-scoped example containing explicit ranges. Neither claim proves adherence or transfers its syntax to another surface, operation, region, tier, or prompt language.",
+          "anchor_sha256": "277c3cc6ea0b2a850b195a4fef9b0451f7178e075049dfbf762e7a3e5d18198c",
+          "occurrence_count": 1,
+          "disposition": "supported_candidate",
+          "profile_ids": [
+            "byteplus.modelark"
+          ],
+          "test_ids": [
+            "evals/evals.json#multishot_uses_shot_labels_not_continuous_take"
+          ]
+        },
+        {
+          "claim_id": "volc.timing.exact-example",
+          "heading": "Timing Pattern",
+          "anchor_text": "Current candidate evidence remains intentionally qualified: `[claim:bp.timing.exact-caution]` records BytePlus-scoped ordered-shot guidance and a caution about strict ranges; `[claim:volc.timing.exact-example]` records a Volcengine-scoped example containing explicit ranges. Neither claim proves adherence or transfers its syntax to another surface, operation, region, tier, or prompt language.",
+          "anchor_sha256": "277c3cc6ea0b2a850b195a4fef9b0451f7178e075049dfbf762e7a3e5d18198c",
+          "occurrence_count": 1,
+          "disposition": "supported_candidate",
+          "profile_ids": [
+            "volcengine.ark"
+          ],
+          "test_ids": [
+            "tests/test_evidence_registry.py#test_volcengine_claims_remain_surface_scoped"
+          ]
+        }
+      ]
     },
     {
       "path": "skills/seedance-pipeline/SKILL.md",
@@ -873,8 +1003,8 @@
     },
     {
       "path": "skills/seedance-prompt/SKILL.md",
-      "sha256": "64bb89a9f33bf8408c778abb8f6fef228050794d8a8f3ed1e3155e8350e95fde",
-      "audit_status": "legacy_blocked",
+      "sha256": "9d89247d031e22d7fba2454b9cda0c0f802698a878c9220b56b73ba9a3e0683c",
+      "audit_status": "no_volatile_claims",
       "occurrences": []
     },
     {
@@ -885,8 +1015,8 @@
     },
     {
       "path": "skills/seedance-sequence/SKILL.md",
-      "sha256": "77302b90fcb67985d5c545221404abb7f4e089c0e88d34afb46988f59ef33ecc",
-      "audit_status": "legacy_blocked",
+      "sha256": "b83ffc46623c9c94903e413347e3f95b5c98d44d9c75e120d22ad82045d7ae99",
+      "audit_status": "no_volatile_claims",
       "occurrences": []
     },
     {

@@ -93,6 +93,23 @@ jobs:
         run: python scripts/semantic_lint.py --self-test
       - name: Check paired prompt compiler wiring (offline, candidate preview only)
         run: python scripts/prompt_compile.py --self-test
+      - name: Check V7-09 AV scene and policy contracts (offline)
+        run: python scripts/scene_ir_v2_check.py --self-test
+      - name: Check V7-09 AV semantic lowering (offline, candidate preview only)
+        run: python scripts/semantic_lint_v2.py --self-test
+      - name: Check V7-09 paired AV compiler (offline, candidate preview only)
+        run: python scripts/prompt_compile_v2.py --self-test
+      - name: Check V7-09 AV take-review companion (offline)
+        run: python scripts/av_take_review_check.py --self-test
+      - name: Exercise V7-09 audio, dialogue, multi-shot, and review boundaries
+        run: >-
+          python -m unittest
+          tests.test_scene_ir_v2
+          tests.test_semantic_lint_v2
+          tests.test_prompt_compile_v2
+          tests.test_av_take_review
+          tests.test_v709_regression
+          -v
       - name: Validate deterministic runtime package boundary
         run: python tools/runtime_package.py --dry-run
       - name: Exercise transactional installer and rollback
@@ -146,5 +163,23 @@ jobs:
         run: python -S -B scripts/project_state_migrate.py --self-test
       - name: Check dependency-free V7-08 auxiliary contract tool
         run: python -S -B scripts/v2_aux_check.py --self-test
+      - name: Check dependency-free V7-09 AV contract tools
+        run: |
+          python -S -B scripts/scene_ir_v2_check.py --self-test
+          python -S -B scripts/semantic_lint_v2.py --self-test
+          python -S -B scripts/prompt_compile_v2.py --self-test
+          python -S -B scripts/av_take_review_check.py --self-test
+      - name: Exercise dependency-free V7-09 contracts
+        run: >-
+          python -S -B -m unittest
+          tests.test_scene_ir_v2
+          tests.test_semantic_lint_v2
+          tests.test_prompt_compile_v2
+          tests.test_av_take_review
+          tests.test_v709_regression
+          -v
       - name: Stress dependency-free eval self-test 10x
         run: python -S -B -c "import subprocess, sys; [subprocess.run([sys.executable, '-S', '-B', 'scripts/eval_run.py', '--self-test'], check=True) for _ in range(10)]"
+      - name: Stress V7-09 AV tools 10x in fresh processes
+        run: >-
+          python -S -B -c "import subprocess, sys; tools=['scene_ir_v2_check.py','semantic_lint_v2.py','prompt_compile_v2.py','av_take_review_check.py']; [subprocess.run([sys.executable, '-S', '-B', 'scripts/'+tool, '--self-test'], check=True) for _ in range(10) for tool in tools]"

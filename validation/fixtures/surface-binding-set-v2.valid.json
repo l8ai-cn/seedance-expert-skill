@@ -1,0 +1,9 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/surface-binding-set-v2.schema.json",
+  "schema_version": 2,
+  "policy_id": "fixture.av_policy",
+  "surface_av_policy_sha256": "4add645666819c76dafb9c5e9eb0b341e23824d13fa5e8398e81d1d2330d067d",
+  "profile_id": "fixture.surface",
+  "operation": "reference_generation",
+  "bindings": []
+}

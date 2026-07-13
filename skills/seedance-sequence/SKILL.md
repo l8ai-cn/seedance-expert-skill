@@ -66,7 +66,9 @@ Plan scenes before clips. A scene is the re-anchor unit: one location and time e
 9. Compile only the first unresolved clip prompt from the current clip contract.
 10. After generation, require the clip or final frame, record observed start/end state, reconcile canon, and only then compile the next prompt.
 
-V7-07 compiles only a single-shot scene with no dialogue or voiceover. It remains byte-stable and does not consume version-2 project, motion, or endpoint state. For a legacy-compatible sequence input, pass only a supported current scene; never pass the whole scene map or infer cuts between clips. Every v2 clip is `compile_required: true`, so dialogue, voiceover, several shots, exact surface timing, or v2 owner-scoped motion returns a compiler blocker instead of invented or hand-edited prose. No v2 human-bypass path carries compiler provenance.
+V7-07 compiles only a single-shot scene with no dialogue or voiceover. It remains byte-stable and does not consume version-2 project, motion, or endpoint state. For a legacy-compatible sequence input, pass only a supported current scene; never pass the whole scene map or infer cuts between clips.
+
+V7-09 adds a separate offline AV candidate-preview path. It accepts only an exact state-bound scene-ir-v2 contract with current/completed/reserved beat sets, typed shots and adjacent editorial transitions, resolved speakers, byte-exact utterances, spoken-language tags, voice authorization, subtitle/post policy, and a fail-closed surface AV policy. It may preview the current clip but does not clear `compile_required`, provider execution, or V7-08 generation-run blockers. Unknown feature evidence, future-beat leakage, inferred cuts, or hand-edited provenance stays blocked.
 
 Use beginner-friendly language. It is valid to say: "This idea needs three connected generations. I will plan the complete story now, but finalize one prompt at a time so each new prompt matches what Seedance actually produced."
 

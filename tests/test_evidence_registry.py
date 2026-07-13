@@ -127,13 +127,13 @@ class EvidenceRegistryTests(unittest.TestCase):
         self.assertEqual(report["capture_count"], 6)
         self.assertEqual(report["verified_capture_source_count"], 6)
         self.assertEqual(report["runtime_coverage_counts"], {
-            "legacy_blocked": 93,
-            "mapped_candidate": 4,
-            "no_volatile_claims": 38,
+            "legacy_blocked": 81,
+            "mapped_candidate": 6,
+            "no_volatile_claims": 60,
         })
         self.assertEqual(report["review_counts"], {"pending": 17})
         self.assertFalse(report["release_gate_pass"])
-        self.assertIn("runtime.coverage:legacy-blocked-files=93", report["release_blockers"])
+        self.assertIn("runtime.coverage:legacy-blocked-files=81", report["release_blockers"])
 
     def test_closed_release_cli_fails_without_changing_structural_result(self) -> None:
         result = subprocess.run(
@@ -167,14 +167,26 @@ class EvidenceRegistryTests(unittest.TestCase):
             for item in runtime_map["files"]
             if item["audit_status"] == "mapped_candidate"
         }
-        self.assertEqual(set(candidates), set(registry.V705_CANDIDATE_PROFILE_PATHS))
-        self.assertEqual(sum(len(item["occurrences"]) for item in candidates.values()), 9)
+        self.assertEqual(
+            set(candidates),
+            set(registry.V705_CANDIDATE_PROFILE_PATHS) | registry.V709_CANDIDATE_GUIDANCE_PATHS,
+        )
+        self.assertEqual(sum(len(item["occurrences"]) for item in candidates.values()), 13)
         for path, item in candidates.items():
-            expected_profile = registry.V705_CANDIDATE_PROFILE_PATHS[path]
             self.assertTrue(item["occurrences"])
             for occurrence in item["occurrences"]:
                 self.assertEqual(occurrence["disposition"], "supported_candidate")
-                self.assertEqual(occurrence["profile_ids"], [expected_profile])
+                if path in registry.V705_CANDIDATE_PROFILE_PATHS:
+                    self.assertEqual(
+                        occurrence["profile_ids"],
+                        [registry.V705_CANDIDATE_PROFILE_PATHS[path]],
+                    )
+                else:
+                    expected_profile = {
+                        "bp.timing.exact-caution": "byteplus.modelark",
+                        "volc.timing.exact-example": "volcengine.ark",
+                    }[occurrence["claim_id"]]
+                    self.assertEqual(occurrence["profile_ids"], [expected_profile])
 
     def test_candidate_profile_cannot_be_relabeled_activation_ready(self) -> None:
         def activate(value: dict) -> None:

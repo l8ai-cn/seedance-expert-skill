@@ -1,0 +1,251 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Emily2040/seedance-2.0/schemas/surface-av-policy.schema.json",
+  "title": "Seedance V7-09 candidate surface audio and multi-shot policy",
+  "$comment": "Candidate/preview-only feature policy. It does not activate a provider. Runtime verifies fail-closed feature coherence, evidence-pin closure, and expiry.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schema_version",
+    "policy_id",
+    "policy_kind",
+    "attestation",
+    "status",
+    "runtime_enabled",
+    "preview_only",
+    "profile_id",
+    "operation",
+    "model_profile_id",
+    "model_variant",
+    "region",
+    "provider_locale",
+    "surface_profile_sha256",
+    "model_profile_sha256",
+    "prompt_locales",
+    "multi_shot",
+    "audio",
+    "exact_timing",
+    "evidence_pins"
+  ],
+  "properties": {
+    "$schema": {
+      "const": "https://github.com/Emily2040/seedance-2.0/schemas/surface-av-policy.schema.json"
+    },
+    "schema_version": {"const": 1},
+    "policy_id": {"$ref": "#/$defs/id"},
+    "policy_kind": {"enum": ["evidence_pinned", "unattested_fixture"]},
+    "attestation": {"$ref": "#/$defs/attestation"},
+    "status": {"const": "candidate"},
+    "runtime_enabled": {"const": false},
+    "preview_only": {"const": true},
+    "profile_id": {"$ref": "#/$defs/id"},
+    "operation": {"enum": ["reference_generation", "first_last_frame"]},
+    "model_profile_id": {"$ref": "#/$defs/id"},
+    "model_variant": {"$ref": "#/$defs/id"},
+    "region": {
+      "oneOf": [
+        {"enum": ["global", "unknown"]},
+        {"type": "string", "pattern": "^[A-Z]{2}$"}
+      ]
+    },
+    "provider_locale": {"enum": ["global", "cn", "unknown"]},
+    "surface_profile_sha256": {"$ref": "#/$defs/sha256"},
+    "model_profile_sha256": {"$ref": "#/$defs/sha256"},
+    "prompt_locales": {"const": ["en", "zh-Hans"]},
+    "multi_shot": {"$ref": "#/$defs/multi_shot"},
+    "audio": {"$ref": "#/$defs/audio"},
+    "exact_timing": {"$ref": "#/$defs/exact_timing"},
+    "evidence_pins": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 32,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/evidence_pin"}
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"policy_kind": {"const": "evidence_pinned"}}, "required": ["policy_kind"]},
+      "then": {
+        "properties": {
+          "attestation": {
+            "properties": {
+              "method": {"const": "evidence_registry"},
+              "verification_record_sha256": {"$ref": "#/$defs/sha256"}
+            }
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "attestation": {
+            "properties": {
+              "method": {"const": "unattested_fixture"},
+              "verification_record_sha256": {"type": "null"}
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9._-]{0,63}$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "claim_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)+$",
+      "maxLength": 100
+    },
+    "support_status": {
+      "enum": ["supported", "unsupported", "unknown"]
+    },
+    "attestation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["method", "verification_record_sha256"],
+      "properties": {
+        "method": {"enum": ["evidence_registry", "unattested_fixture"]},
+        "verification_record_sha256": {
+          "oneOf": [{"$ref": "#/$defs/sha256"}, {"type": "null"}]
+        }
+      }
+    },
+    "multi_shot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "grammar", "max_shots", "transition_types"],
+      "properties": {
+        "status": {"$ref": "#/$defs/support_status"},
+        "grammar": {
+          "enum": ["none", "ascii_numbered_shot_labels", "localized_numbered_shot_labels", "ordered_paragraphs"]
+        },
+        "max_shots": {"type": ["integer", "null"], "minimum": 2, "maximum": 32},
+        "transition_types": {
+          "type": "array",
+          "maxItems": 4,
+          "uniqueItems": true,
+          "items": {"enum": ["hard_cut", "match_cut", "dissolve", "fade"]}
+        }
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"status": {"const": "supported"}}, "required": ["status"]},
+          "then": {
+            "properties": {
+              "grammar": {"not": {"const": "none"}},
+              "max_shots": {"type": "integer"},
+              "transition_types": {"minItems": 1}
+            }
+          },
+          "else": {
+            "properties": {
+              "grammar": {"const": "none"},
+              "max_shots": {"type": "null"},
+              "transition_types": {"maxItems": 0}
+            }
+          }
+        }
+      ]
+    },
+    "audio": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "semantic_functions", "voice_modes", "voice_reference_status"],
+      "properties": {
+        "status": {"$ref": "#/$defs/support_status"},
+        "semantic_functions": {
+          "type": "array",
+          "maxItems": 7,
+          "uniqueItems": true,
+          "items": {"enum": ["dialogue", "voiceover", "sound_effect", "ambience", "music", "rhythm", "silence"]}
+        },
+        "voice_modes": {
+          "type": "array",
+          "maxItems": 3,
+          "uniqueItems": true,
+          "items": {"enum": ["generic_synthetic", "authorized_reference", "post_dub"]}
+        },
+        "voice_reference_status": {"$ref": "#/$defs/support_status"}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"status": {"const": "supported"}}, "required": ["status"]},
+          "then": {"properties": {"semantic_functions": {"minItems": 1}}},
+          "else": {
+            "properties": {
+              "semantic_functions": {"maxItems": 0},
+              "voice_modes": {"maxItems": 0},
+              "voice_reference_status": {"not": {"const": "supported"}}
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {"voice_reference_status": {"const": "supported"}},
+            "required": ["voice_reference_status"]
+          },
+          "then": {
+            "properties": {
+              "status": {"const": "supported"},
+              "voice_modes": {"contains": {"const": "authorized_reference"}}
+            }
+          },
+          "else": {
+            "properties": {
+              "voice_modes": {"not": {"contains": {"const": "authorized_reference"}}}
+            }
+          }
+        }
+      ]
+    },
+    "exact_timing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "range_unit", "evidence_claim_ids"],
+      "properties": {
+        "status": {"$ref": "#/$defs/support_status"},
+        "range_unit": {"enum": ["seconds", null]},
+        "evidence_claim_ids": {
+          "type": "array",
+          "maxItems": 32,
+          "uniqueItems": true,
+          "items": {"$ref": "#/$defs/claim_id"}
+        }
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"status": {"const": "supported"}}, "required": ["status"]},
+          "then": {
+            "properties": {
+              "range_unit": {"const": "seconds"},
+              "evidence_claim_ids": {"minItems": 1}
+            }
+          },
+          "else": {
+            "properties": {
+              "range_unit": {"type": "null"},
+              "evidence_claim_ids": {"maxItems": 0}
+            }
+          }
+        }
+      ]
+    },
+    "evidence_pin": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["claim_id", "claim_sha256", "expires_at"],
+      "properties": {
+        "claim_id": {"$ref": "#/$defs/claim_id"},
+        "claim_sha256": {"$ref": "#/$defs/sha256"},
+        "expires_at": {"type": "string", "format": "date"}
+      }
+    }
+  }
+}

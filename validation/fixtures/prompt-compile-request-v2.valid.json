@@ -1,0 +1,565 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/prompt-compile-request-v2.schema.json",
+  "schema_version": 2,
+  "scene_ir": {
+    "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/scene-ir-v2.schema.json",
+    "schema_version": 2,
+    "state_binding": {
+      "project_id": "migration_watch",
+      "clip_id": "clip_01",
+      "state_revision": 1,
+      "canon_revision": 1,
+      "semantic_state_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "planned_start_snapshot_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "planned_end_snapshot_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "completed_beat_ids": [
+        "beat_before"
+      ],
+      "current_beat_ids": [
+        "beat_line",
+        "beat_reaction"
+      ],
+      "reserved_future_beat_ids": [
+        "beat_after"
+      ]
+    },
+    "take_structure": "edited_multi_shot",
+    "timing_policy": "ordered_phases",
+    "entities": [
+      {
+        "entity_id": "detective",
+        "label": "the detective",
+        "kind": "character",
+        "stable_features": [
+          "dark raincoat"
+        ]
+      },
+      {
+        "entity_id": "woman",
+        "label": "the woman",
+        "kind": "character",
+        "stable_features": [
+          "red scarf"
+        ]
+      },
+      {
+        "entity_id": "station",
+        "label": "the station platform",
+        "kind": "environment",
+        "stable_features": [
+          "wet concrete and cool overhead lights"
+        ]
+      }
+    ],
+    "materials": [],
+    "speakers": [
+      {
+        "speaker_id": "detective_voice",
+        "entity_id": "detective",
+        "role": "onscreen_character",
+        "display_name": "Detective",
+        "voice": {
+          "mode": "generic_synthetic",
+          "authority_target_id": null,
+          "asset_id": null,
+          "authorization_status": "not_applicable",
+          "attestation_sha256": null
+        }
+      }
+    ],
+    "shots": [
+      {
+        "shot_id": "shot_01",
+        "shot_index": 1,
+        "opening_event_id": "shot_01_open",
+        "endpoint_event_id": "shot_01_end",
+        "events": [
+          {
+            "event_id": "shot_01_open",
+            "event_index": 1,
+            "phase": "opening_state",
+            "actor_ids": [
+              "detective"
+            ],
+            "target_ids": [
+              "woman",
+              "station"
+            ],
+            "depends_on": [],
+            "visible_state_change": "The detective faces the woman beneath the platform light.",
+            "beat_ids": [
+              "beat_line"
+            ],
+            "interaction_kind": "none",
+            "material_ids": []
+          },
+          {
+            "event_id": "shot_01_end",
+            "event_index": 2,
+            "phase": "endpoint",
+            "actor_ids": [
+              "detective"
+            ],
+            "target_ids": [
+              "woman"
+            ],
+            "depends_on": [
+              "shot_01_open"
+            ],
+            "visible_state_change": "The detective finishes the line while holding eye contact.",
+            "beat_ids": [
+              "beat_line"
+            ],
+            "interaction_kind": "non_material_state_change",
+            "material_ids": []
+          }
+        ],
+        "camera": {
+          "move_kind": "locked",
+          "start_framing": "A stable medium close-up of the detective.",
+          "path": "The camera does not translate or rotate.",
+          "speed": "static",
+          "subject_relationship": "The detective's mouth remains unobstructed.",
+          "endpoint_framing": "The same stable medium close-up.",
+          "observed_event_ids": [
+            "shot_01_open",
+            "shot_01_end"
+          ],
+          "occlusion_risks": [],
+          "mitigations": []
+        }
+      },
+      {
+        "shot_id": "shot_02",
+        "shot_index": 2,
+        "opening_event_id": "shot_02_open",
+        "endpoint_event_id": "shot_02_end",
+        "events": [
+          {
+            "event_id": "shot_02_open",
+            "event_index": 1,
+            "phase": "opening_state",
+            "actor_ids": [
+              "woman"
+            ],
+            "target_ids": [
+              "detective",
+              "station"
+            ],
+            "depends_on": [],
+            "visible_state_change": "The cut reveals the woman still facing the detective.",
+            "beat_ids": [
+              "beat_reaction"
+            ],
+            "interaction_kind": "none",
+            "material_ids": []
+          },
+          {
+            "event_id": "shot_02_end",
+            "event_index": 2,
+            "phase": "endpoint",
+            "actor_ids": [
+              "woman"
+            ],
+            "target_ids": [
+              "detective"
+            ],
+            "depends_on": [
+              "shot_02_open"
+            ],
+            "visible_state_change": "The woman answers with a restrained half-smile.",
+            "beat_ids": [
+              "beat_reaction"
+            ],
+            "interaction_kind": "non_material_state_change",
+            "material_ids": []
+          }
+        ],
+        "camera": {
+          "move_kind": "locked",
+          "start_framing": "A stable medium close-up of the woman.",
+          "path": "The camera does not translate or rotate.",
+          "speed": "static",
+          "subject_relationship": "The woman's reaction remains unobstructed.",
+          "endpoint_framing": "The same stable medium close-up.",
+          "observed_event_ids": [
+            "shot_02_open",
+            "shot_02_end"
+          ],
+          "occlusion_risks": [],
+          "mitigations": []
+        }
+      }
+    ],
+    "transitions": [
+      {
+        "transition_id": "cut_01_02",
+        "transition_index": 1,
+        "from_shot_id": "shot_01",
+        "to_shot_id": "shot_02",
+        "transition_type": "hard_cut",
+        "from_event_id": "shot_01_end",
+        "to_event_id": "shot_02_open",
+        "beat_ids": [
+          "beat_reaction"
+        ],
+        "preserved_invariant_ids": [
+          "platform_continuity"
+        ],
+        "allowed_change_event_ids": [
+          "shot_02_open",
+          "shot_02_end"
+        ],
+        "audio_bridge_event_ids": [
+          "platform_ambience"
+        ]
+      }
+    ],
+    "audio_events": [
+      {
+        "audio_event_id": "detective_line",
+        "audio_event_index": 1,
+        "semantic_function": "dialogue",
+        "shot_ids": [
+          "shot_01"
+        ],
+        "beat_ids": [
+          "beat_line"
+        ],
+        "source_entity_ids": [
+          "detective"
+        ],
+        "timing": {
+          "mode": "visual_event_window",
+          "start_event_id": "shot_01_open",
+          "end_event_id": "shot_01_end",
+          "cue_event_id": null,
+          "beat_label": null,
+          "start_seconds": null,
+          "end_seconds": null,
+          "evidence_claim_ids": []
+        },
+        "description": "The detective delivers one short line in a low, controlled voice.",
+        "speech": {
+          "speaker_id": "detective_voice",
+          "spoken_language": "en",
+          "utterance": "I found it.",
+          "utterance_sha256": "7a3610a72b4915d3cd7c0932053fd81430c57b5bfb30c02b6f887bd8d4cf3b73",
+          "turn_index": 1,
+          "overlap_policy": "no_overlap",
+          "lip_sync": "required",
+          "delivery_intent": "Low, controlled, and clearly articulated."
+        }
+      },
+      {
+        "audio_event_id": "platform_ambience",
+        "audio_event_index": 2,
+        "semantic_function": "ambience",
+        "shot_ids": [
+          "shot_01",
+          "shot_02"
+        ],
+        "beat_ids": [
+          "beat_line",
+          "beat_reaction"
+        ],
+        "source_entity_ids": [
+          "station"
+        ],
+        "timing": {
+          "mode": "continuous_sequence",
+          "start_event_id": null,
+          "end_event_id": null,
+          "cue_event_id": null,
+          "beat_label": null,
+          "start_seconds": null,
+          "end_seconds": null,
+          "evidence_claim_ids": []
+        },
+        "description": "Low platform room tone and distant rain continue across the cut.",
+        "speech": null
+      }
+    ],
+    "subtitle_policy": {
+      "mode": "post_subtitles",
+      "target_language_tags": [
+        "en"
+      ],
+      "picture_policy": "clean_picture"
+    },
+    "requested_invariants": [
+      {
+        "invariant_id": "platform_continuity",
+        "entity_ids": [
+          "detective",
+          "woman",
+          "station"
+        ],
+        "description": "Wardrobe, eyelines, platform lighting, and rain remain continuous across the cut."
+      }
+    ],
+    "known_fragilities": [
+      {
+        "fragility_id": "speech_and_cut",
+        "event_ids": [
+          "shot_01_end",
+          "shot_02_open"
+        ],
+        "audio_event_ids": [
+          "detective_line",
+          "platform_ambience"
+        ],
+        "transition_ids": [
+          "cut_01_02"
+        ],
+        "description": "Review exact speech, lip sync, ambience continuity, and the edit boundary separately."
+      }
+    ],
+    "acceptance_tests": [
+      {
+        "acceptance_id": "review_av_sequence",
+        "event_ids": [
+          "shot_01_end",
+          "shot_02_end"
+        ],
+        "audio_event_ids": [
+          "detective_line",
+          "platform_ambience"
+        ],
+        "transition_ids": [
+          "cut_01_02"
+        ],
+        "observable": "Both shot endpoints, the exact line, the ambience bridge, and the hard cut are reviewable.",
+        "pass_condition": "The line is assigned to the detective and intelligible, ambience continues across one hard cut, and both endpoints are reached."
+      }
+    ],
+    "post_fallbacks": [
+      {
+        "fallback_id": "post_dub_if_needed",
+        "trigger_acceptance_ids": [
+          "review_av_sequence"
+        ],
+        "action": "If exact speech or lip sync fails, keep the clean picture and route the line to an authorized post dub."
+      }
+    ]
+  },
+  "surface_av_policy": {
+    "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/surface-av-policy.schema.json",
+    "schema_version": 1,
+    "policy_id": "fixture.av_policy",
+    "policy_kind": "unattested_fixture",
+    "attestation": {
+      "method": "unattested_fixture",
+      "verification_record_sha256": null
+    },
+    "status": "candidate",
+    "runtime_enabled": false,
+    "preview_only": true,
+    "profile_id": "fixture.surface",
+    "operation": "reference_generation",
+    "model_profile_id": "fixture.model",
+    "model_variant": "fixture.variant",
+    "region": "global",
+    "provider_locale": "global",
+    "surface_profile_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+    "model_profile_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+    "prompt_locales": [
+      "en",
+      "zh-Hans"
+    ],
+    "multi_shot": {
+      "status": "supported",
+      "grammar": "localized_numbered_shot_labels",
+      "max_shots": 4,
+      "transition_types": [
+        "hard_cut",
+        "match_cut"
+      ]
+    },
+    "audio": {
+      "status": "supported",
+      "semantic_functions": [
+        "dialogue",
+        "voiceover",
+        "sound_effect",
+        "ambience",
+        "music",
+        "rhythm",
+        "silence"
+      ],
+      "voice_modes": [
+        "generic_synthetic",
+        "post_dub"
+      ],
+      "voice_reference_status": "unsupported"
+    },
+    "exact_timing": {
+      "status": "unsupported",
+      "range_unit": null,
+      "evidence_claim_ids": []
+    },
+    "evidence_pins": [
+      {
+        "claim_id": "fixture.av.preview",
+        "claim_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "expires_at": "2099-12-31"
+      }
+    ]
+  },
+  "surface_binding_set": {
+    "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/surface-binding-set-v2.schema.json",
+    "schema_version": 2,
+    "policy_id": "fixture.av_policy",
+    "surface_av_policy_sha256": "4add645666819c76dafb9c5e9eb0b341e23824d13fa5e8398e81d1d2330d067d",
+    "profile_id": "fixture.surface",
+    "operation": "reference_generation",
+    "bindings": []
+  },
+  "realization_catalog": {
+    "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/prompt-realization-catalog-v2.schema.json",
+    "schema_version": 2,
+    "scene_ir_sha256": "cabd62ec1ee3c0eb55839793cbd3d3ac6641e25001db690be87bc673853de39f",
+    "attestation": {
+      "method": "unattested_fixture",
+      "linguistic_equivalence": "not_attested",
+      "locales": [
+        "en",
+        "zh-Hans"
+      ]
+    },
+    "entries": [
+      {
+        "semantic_key": "entity.detective.label",
+        "source_sha256": "de6801cf74a247e28335fe980f035d6f64e28fb21c199deeff1aad3a12a657c5",
+        "en": "the detective",
+        "zh_hans": "侦探"
+      },
+      {
+        "semantic_key": "entity.woman.label",
+        "source_sha256": "aec937a0da8a745272476de1494028d3563be0a3040ed7895ac80a6a33630970",
+        "en": "the woman",
+        "zh_hans": "女子"
+      },
+      {
+        "semantic_key": "entity.station.label",
+        "source_sha256": "566a9bf85c5fcd1288eba462831319157c5f8171f1ebd9cf0c8127831f6fdaba",
+        "en": "the station platform",
+        "zh_hans": "车站站台"
+      },
+      {
+        "semantic_key": "speaker.detective_voice.display_name",
+        "source_sha256": "2653ceeec1fd951707a31d9e357218ea41a511db896747a7a41bb6528d927b09",
+        "en": "Detective",
+        "zh_hans": "侦探"
+      },
+      {
+        "semantic_key": "event.shot_01_open.visible_state_change",
+        "source_sha256": "231a01e8a67126533c2ea796e1e71e5de53eb928f0e7c735b21b3c56441712d2",
+        "en": "{entity:detective} faces {entity:woman} beneath the light at {entity:station}",
+        "zh_hans": "{entity:detective}在{entity:station}灯光下正对{entity:woman}"
+      },
+      {
+        "semantic_key": "event.shot_01_end.visible_state_change",
+        "source_sha256": "a74a49bc3d4874d3250e65899cc1175bdc8575e7c16ed949f3ffd4fbac41c3cd",
+        "en": "{entity:detective} finishes the line while holding eye contact with {entity:woman}",
+        "zh_hans": "{entity:detective}说完台词并与{entity:woman}保持对视"
+      },
+      {
+        "semantic_key": "shot.shot_01.camera.start_framing",
+        "source_sha256": "46c7dc43001e7338949b2785aaf35ef7e78c834fb265e5a39ad3c6f30ee3e0ec",
+        "en": "a stable medium close-up of the detective",
+        "zh_hans": "侦探的稳定中近景"
+      },
+      {
+        "semantic_key": "shot.shot_01.camera.path",
+        "source_sha256": "901578dc7c2005d3ae2ec6842d47ed8b636783179985b11fa9c4edf5b1d27cad",
+        "en": "the camera does not translate or rotate",
+        "zh_hans": "镜头不平移也不旋转"
+      },
+      {
+        "semantic_key": "shot.shot_01.camera.speed",
+        "source_sha256": "2053dbbf6ec7135c4e994d3464c478db6f48d3ca21052c8f44915edc96e02c39",
+        "en": "static",
+        "zh_hans": "静止"
+      },
+      {
+        "semantic_key": "shot.shot_01.camera.subject_relationship",
+        "source_sha256": "f4e3995d873ce34cc4ef359fd3a3a4176d7da94dfd6fc71c480f21798ba35c7f",
+        "en": "the detective's mouth remains unobstructed",
+        "zh_hans": "侦探的嘴部始终无遮挡"
+      },
+      {
+        "semantic_key": "shot.shot_01.camera.endpoint_framing",
+        "source_sha256": "c7a23562a9e3e635f484f77941771700c0f0a82545d023fff211275ba5720f09",
+        "en": "the same stable medium close-up",
+        "zh_hans": "保持相同的稳定中近景"
+      },
+      {
+        "semantic_key": "event.shot_02_open.visible_state_change",
+        "source_sha256": "92df4be6a187b94df62d30bfaa58d9ce646cea90d0d423de829d887ba180e231",
+        "en": "the cut reveals {entity:woman} still facing {entity:detective} at {entity:station}",
+        "zh_hans": "切镜后，{entity:woman}仍在{entity:station}面对{entity:detective}"
+      },
+      {
+        "semantic_key": "event.shot_02_end.visible_state_change",
+        "source_sha256": "78844912cc1e37ee9f0e53fe6266558cb62f776000c7cbe19da31b521cd855cd",
+        "en": "{entity:woman} answers {entity:detective} with a restrained half-smile",
+        "zh_hans": "{entity:woman}以克制的浅笑回应{entity:detective}"
+      },
+      {
+        "semantic_key": "shot.shot_02.camera.start_framing",
+        "source_sha256": "5b1b27864c090fe441012230a65ca2380ac1c4ce6432c555f972782fcbe8a67b",
+        "en": "a stable medium close-up of the woman",
+        "zh_hans": "女子的稳定中近景"
+      },
+      {
+        "semantic_key": "shot.shot_02.camera.path",
+        "source_sha256": "901578dc7c2005d3ae2ec6842d47ed8b636783179985b11fa9c4edf5b1d27cad",
+        "en": "the camera does not translate or rotate",
+        "zh_hans": "镜头不平移也不旋转"
+      },
+      {
+        "semantic_key": "shot.shot_02.camera.speed",
+        "source_sha256": "2053dbbf6ec7135c4e994d3464c478db6f48d3ca21052c8f44915edc96e02c39",
+        "en": "static",
+        "zh_hans": "静止"
+      },
+      {
+        "semantic_key": "shot.shot_02.camera.subject_relationship",
+        "source_sha256": "45e4b953f46511a271860e01e1970ef2298794196d169224a8fe7f5bce484fc0",
+        "en": "the woman's reaction remains unobstructed",
+        "zh_hans": "女子的反应始终无遮挡"
+      },
+      {
+        "semantic_key": "shot.shot_02.camera.endpoint_framing",
+        "source_sha256": "c7a23562a9e3e635f484f77941771700c0f0a82545d023fff211275ba5720f09",
+        "en": "the same stable medium close-up",
+        "zh_hans": "保持相同的稳定中近景"
+      },
+      {
+        "semantic_key": "audio.detective_line.description",
+        "source_sha256": "9bc15b3917cc258cb4c01e3c664998d0c6abcff2e55d1997f31a497942863864",
+        "en": "{entity:detective} delivers one short line in a low controlled voice",
+        "zh_hans": "{entity:detective}用低沉克制的声音说出一句短台词"
+      },
+      {
+        "semantic_key": "audio.detective_line.delivery_intent",
+        "source_sha256": "281068d29c8256d073cd896c5f543b800e32396b75ff6d011374130878438836",
+        "en": "low, controlled, and clearly articulated",
+        "zh_hans": "低沉、克制且咬字清晰"
+      },
+      {
+        "semantic_key": "audio.platform_ambience.description",
+        "source_sha256": "d7881de07b3bba69ade7c730e4a5281d7670395616e0fe103652ac3dcd0c4a74",
+        "en": "low room tone and distant rain at {entity:station} continue across the cut",
+        "zh_hans": "{entity:station}的低沉环境底噪与远处雨声贯穿切镜"
+      },
+      {
+        "semantic_key": "invariant.platform_continuity.description",
+        "source_sha256": "663e227798cf97f9e655209f39d2de6ebf3224b69037245049013bfc25b0708f",
+        "en": "{entity:detective}, {entity:woman}, and {entity:station} preserve wardrobe, eyelines, lighting, and rain across the cut",
+        "zh_hans": "切镜前后，{entity:detective}、{entity:woman}与{entity:station}的服装、视线、灯光和雨势保持连续"
+      }
+    ]
+  }
+}

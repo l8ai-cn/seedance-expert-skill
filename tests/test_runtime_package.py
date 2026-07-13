@@ -145,9 +145,9 @@ class RuntimePackageTests(unittest.TestCase):
 
     def test_repository_manifest_builds_conservative_runtime_exactly(self) -> None:
         plan = package.package_plan(ROOT)
-        self.assertEqual(plan["payload_file_count"], 135)
-        self.assertEqual(plan["payload_size_bytes"], 1191761)
-        self.assertEqual(plan["tree_sha256"], "6909a37229ef40aee24438bf43cd3b58af50801758084c23d79cc43a0f58fb80")
+        self.assertEqual(plan["payload_file_count"], 147)
+        self.assertEqual(plan["payload_size_bytes"], 1469763)
+        self.assertEqual(plan["tree_sha256"], "efb2461e0595d1f5f16253c5139dc7616fe8275fa891218f50dda206226d5bb5")
 
         first = self.base / "first"
         second = self.base / "second"
@@ -160,15 +160,23 @@ class RuntimePackageTests(unittest.TestCase):
         self.assertEqual(package.verify_package(first)["tree_sha256"], plan["tree_sha256"])
 
         found = package._scan_plain_tree(first)
-        self.assertEqual(len(found), 136)
+        self.assertEqual(len(found), 148)
         self.assertIn("references/interview-starters.md", found)
         self.assertIn("profiles/profile-index.json", found)
         self.assertIn("schemas/reference-manifest.schema.json", found)
+        self.assertIn("schemas/av-take-review-v1.schema.json", found)
         self.assertIn("schemas/scene-ir.schema.json", found)
+        self.assertIn("schemas/scene-ir-v2.schema.json", found)
+        self.assertIn("schemas/surface-av-policy.schema.json", found)
+        self.assertIn("schemas/surface-binding-set-v2.schema.json", found)
         self.assertIn("schemas/planning-report.schema.json", found)
         self.assertIn("schemas/prompt-program.schema.json", found)
+        self.assertIn("schemas/prompt-compile-request-v2.schema.json", found)
+        self.assertIn("schemas/prompt-program-v2.schema.json", found)
         self.assertIn("schemas/prompt-realization-catalog.schema.json", found)
+        self.assertIn("schemas/prompt-realization-catalog-v2.schema.json", found)
         self.assertIn("schemas/prompt-render.schema.json", found)
+        self.assertIn("schemas/prompt-render-v2.schema.json", found)
         self.assertIn("schemas/project-state-v2.schema.json", found)
         self.assertIn("schemas/project-state-v2-migration-map.schema.json", found)
         self.assertIn("schemas/project-state-v2-migration-report.schema.json", found)
@@ -177,12 +185,16 @@ class RuntimePackageTests(unittest.TestCase):
         self.assertIn("schemas/generation-run-v2.schema.json", found)
         self.assertIn("schemas/surface-binding-set.schema.json", found)
         self.assertIn("scripts/prompt_compile.py", found)
+        self.assertIn("scripts/prompt_compile_v2.py", found)
         self.assertIn("scripts/project_state_migrate.py", found)
         self.assertIn("scripts/project_state_v2_check.py", found)
         self.assertIn("scripts/reference_planner.py", found)
         self.assertIn("scripts/render_surface_bindings.py", found)
         self.assertIn("scripts/scene_ir_check.py", found)
+        self.assertIn("scripts/scene_ir_v2_check.py", found)
         self.assertIn("scripts/semantic_lint.py", found)
+        self.assertIn("scripts/semantic_lint_v2.py", found)
+        self.assertIn("scripts/av_take_review_check.py", found)
         self.assertIn("scripts/v2_aux_check.py", found)
         self.assertNotIn("README.md", found)
         self.assertFalse(any(path.startswith(("docs/", "evals/", "tests/", "data/", "research/")) for path in found))
@@ -287,6 +299,22 @@ class RuntimePackageTests(unittest.TestCase):
             capture_output=True,
         )
         self.assertEqual(compiler_tool.returncode, 0, compiler_tool.stdout + compiler_tool.stderr)
+        for script in (
+            "scene_ir_v2_check.py",
+            "semantic_lint_v2.py",
+            "prompt_compile_v2.py",
+            "av_take_review_check.py",
+        ):
+            v709_tool = subprocess.run(
+                [sys.executable, "-S", "-B", str(first / "scripts" / script), "--self-test"],
+                text=True,
+                capture_output=True,
+            )
+            self.assertEqual(
+                v709_tool.returncode,
+                0,
+                f"{script}: {v709_tool.stdout}{v709_tool.stderr}",
+            )
 
         def source_fixture(name: str) -> dict:
             return json.loads(

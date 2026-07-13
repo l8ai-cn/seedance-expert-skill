@@ -14,12 +14,20 @@ Use this reference when a Seedance project needs global release, subtitles, capt
 | Textless | picture without titles/lower thirds | generate clean background/action plates |
 | Market copy | local tagline or legal claim | add in design/edit tools after legal approval |
 
+## V7-09 exact-language boundary
+
+Prompt locale, spoken language, subtitle locale, and dub language are four separate fields. Changing the English/Chinese instruction wrapper must not change an exact spoken line. Translating that line creates a new dub semantic variant with a new event ID, speaker mapping, language tag, utterance hash, and relationship to the source line.
+
+The initial V7-09 candidate compiler accepts only `none`, `post_subtitles`, `post_sdh_captions`, or `post_forced_narrative`. Post modes require a clean picture policy. Generated/burned-in subtitles fail closed until a separately evidenced future surface policy and review contract exists.
+
+An AV take review checks unexpected in-picture text independently from speech accuracy. A final frame can show accidental text but cannot prove dialogue, audio timing, or lip sync.
+
 ## Prompting For Subtitle-Friendly Footage
 
 - Keep dialogue short and assigned to a speaker.
 - Use stable medium or medium close-up for important spoken lines.
 - Leave negative space for captions when needed.
-- Avoid generated subtitles or small moving text unless the task is explicitly a rough concept preview.
+- Avoid generated subtitles or small moving text; the V7-09 candidate path rejects generated subtitle requests.
 - Preserve clean plates for markets where copy changes.
 - For multilingual dialogue, specify which language is spoken and which language is captioned in post.
 

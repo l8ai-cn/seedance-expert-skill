@@ -25,15 +25,19 @@ TEXT_SUFFIXES = {"", ".json", ".jsonl", ".md", ".py", ".txt", ".yaml", ".yml"}
 FORBIDDEN_RUNTIME_TOP_LEVEL = {".git", ".github", "data", "docs", "evals", "runtime", "tests", "tools"}
 FORBIDDEN_RUNTIME_ROOT_FILES = {".gitignore", "CHANGELOG.md", "README.md", "SECURITY.md", "V6_SEQUENCE_PROMPT_COMPILER_MANIFEST.md"}
 RUNTIME_SCRIPT_ALLOWLIST = {
+    "scripts/av_take_review_check.py",
     "scripts/extract_last_frame.py",
     "scripts/prompt_compile.py",
+    "scripts/prompt_compile_v2.py",
     "scripts/project_state_check.py",
     "scripts/project_state_migrate.py",
     "scripts/project_state_v2_check.py",
     "scripts/reference_planner.py",
     "scripts/render_surface_bindings.py",
     "scripts/scene_ir_check.py",
+    "scripts/scene_ir_v2_check.py",
     "scripts/semantic_lint.py",
+    "scripts/semantic_lint_v2.py",
     "scripts/v2_aux_check.py",
 }
 HELDOUT_RELEASE_GATE_OPERATIONAL = False

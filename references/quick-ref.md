@@ -22,7 +22,9 @@
 | Action | One visible beat has a reviewable local endpoint; unrelated owners need not stop. |
 | Camera | One primary move has start, qualitative speed/trend, subject relationship, and its own endpoint or open handoff. |
 | Lighting | Source, direction, color, atmosphere, or transition is physical. |
-| Audio | Dialogue, ambience, SFX, music, or silence is intentional. |
+| Audio | Model capability, surface input/output, dialogue, lip-sync, voice reference, and returned adherence are resolved separately. |
+| Exact speech | Every turn has one speaker, byte-exact utterance, spoken-language tag, order, timing, subtitle policy, and voice-rights state; prompt locale never rewrites it. |
+| Multi-shot | One take structure is selected; editorial shots have exactly one typed adjacent transition per boundary, while a continuous take has one shot and no transitions. |
 | Safety | Protected identity, IP, and unsafe wording are rewritten or authorization-gated. |
 | Anti-slop | Hollow boosters are replaced by observable production language. |
 | Budget | Final prompt fits the verified active-surface prompt budget. |
@@ -32,7 +34,7 @@
 | Causal chain | Fragile action has an ordered initial state, trigger, decisive change, visible response, follow-through, and owner-scoped endpoint. |
 | Observability | The plan declares camera coverage for the before-state, decisive event, consequence, and endpoint; only returned-pixel review proves visibility. |
 | Motion ownership | Subject, prop, camera, and environment motion are separate; a still never establishes velocity, motion phase, or audio phase. |
-| V2 compile gate | Every v2 clip is `compile_required` and may be rendered only by a compiler that accepts that exact contract; V7-07 is not such a compiler. |
+| V2 compile gate | Every v2 clip is `compile_required`; V7-09 may produce an offline candidate preview but does not clear provider execution or V7-08 generation-run blockers. |
 | Paired locale source | English and Simplified Chinese forms come from the exact hash-bound scene catalog, not runtime translation. |
 | Locale parity | Both renders preserve the same semantic unit IDs, event order, entities, camera/audio links, invariants, and typed bindings; the catalog carries an unauthenticated human-attestation declaration, and a bilingual human must separately review meaning and naturalness. |
 
@@ -45,6 +47,8 @@
 | Camera chaos | `one controlled [move] from [start frame] to [end frame]` |
 | Weak action | `actor + verb + timing + consequence + final state` |
 | Lip-sync instability | `locked medium close-up, short quoted line, no head turn during dialogue` |
+| Exact line drift | repair the speaker/utterance/language/turn contract and recompile both locale wrappers; never patch one prompt |
+| Wrong cut grammar | return to semantic shots/transitions and resolve the exact surface-operation policy before rendering labels or ranges |
 | Noisy VFX | `source + material + path + interaction + dissipation endpoint` |
 | Style/IP risk | `medium + texture + palette + composition + motion rhythm` |
 | Planned ending mismatch | `begin from the observed final frame: [actual visible state]` |
@@ -64,4 +68,5 @@
 - Treat causal and observability planning as a preflight heuristic, not a Seedance architecture or physics guarantee.
 - Treat `extension_depth` as lineage context, not a universal drift predictor. Re-anchor on a named continuity failure or an explicit project policy.
 - The V7-07 paired compiler accepts one shot with no dialogue or voiceover. It fails closed instead of inventing a line, speaker, cut, timeline, translation, or provider token.
+- The separate V7-09 path carries exact speech and typed editorial cuts in candidate preview only. Unknown surface AV support, generated subtitles, unsupported exact ranges, post-dub prompt leakage, and unreviewed voice rights fail closed.
 - Do not hand-translate, renumber, normalize, or compress an opaque provider handle. A surface swap may change only the binding realization and request transport, never the semantic authority plan.

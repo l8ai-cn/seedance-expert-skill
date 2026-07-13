@@ -74,6 +74,14 @@ Track these anchors across shots:
 - If a prompt creates a good performance but bad product/logo, edit or composite the product layer rather than regenerating the whole shot.
 - If a shot fails three times, simplify the shot contract or split the action into two clips.
 
+## Cuts inside one generation
+
+Do not confuse a multi-shot generation with several connected generations. For one candidate multi-shot take, record ordered shot IDs and exactly one typed editorial transition between each adjacent pair. Initial types are hard cut, match cut, dissolve, and fade. A continuous camera path stays inside one shot and is not a transition type.
+
+Each transition declares the outgoing endpoint, incoming opening, invariants that persist, allowed changes, and audio that crosses the boundary. Array order does not imply a cut; a cut does not automatically authorize identity, wardrobe, set, screen-direction, or audio resets.
+
+Provider labels and timing ranges are rendering concerns. Resolve the exact surface, operation, region, current policy, and evidence before turning the semantic plan into provider syntax. There is no universal seconds-per-shot rule.
+
 ## Sequence-State Handoff
 
 For stateful sequences, replace a loose continuity ledger with clip lineage:

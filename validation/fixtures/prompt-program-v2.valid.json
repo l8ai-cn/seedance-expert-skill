@@ -1,0 +1,569 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/prompt-program-v2.schema.json",
+  "ordering": {
+    "audio_event_ids": [
+      "detective_line",
+      "platform_ambience"
+    ],
+    "speech_event_ids": [
+      "detective_line"
+    ],
+    "speech_turn_indices": [
+      1
+    ],
+    "transition_ids": [
+      "cut_01_02"
+    ]
+  },
+  "policy_provenance": {
+    "model_profile_id": "fixture.model",
+    "model_profile_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+    "model_variant": "fixture.variant",
+    "operation": "reference_generation",
+    "policy_id": "fixture.av_policy",
+    "policy_kind": "unattested_fixture",
+    "profile_id": "fixture.surface",
+    "provider_locale": "global",
+    "region": "global",
+    "surface_profile_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+  },
+  "realization_catalog_sha256": "dc353e06f03d9a8e54c0db424418ca51a2ee395de4a67505d39ab3339f772ebb",
+  "scene_ir_sha256": "cabd62ec1ee3c0eb55839793cbd3d3ac6641e25001db690be87bc673853de39f",
+  "schema_version": 2,
+  "state_binding": {
+    "canon_revision": 1,
+    "clip_id": "clip_01",
+    "completed_beat_ids": [
+      "beat_before"
+    ],
+    "current_beat_ids": [
+      "beat_line",
+      "beat_reaction"
+    ],
+    "planned_end_snapshot_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "planned_start_snapshot_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "project_id": "migration_watch",
+    "reserved_future_beat_ids": [
+      "beat_after"
+    ],
+    "semantic_state_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "state_revision": 1
+  },
+  "state_binding_sha256": "8d76b99cbd5a592fded96b6ee4dbef789facb31c8edb86c1e7f65d5925cbf9bb",
+  "status": "unattested_fixture_preview",
+  "surface_av_policy_sha256": "4add645666819c76dafb9c5e9eb0b341e23824d13fa5e8398e81d1d2330d067d",
+  "surface_binding_set_sha256": "41e8b019c37a3374a36b7a189480a5d0cdb1d85e5dda314534a369b20cc91a00",
+  "take_structure": "edited_multi_shot",
+  "timing_policy": "ordered_phases",
+  "units": [
+    {
+      "content_sha256": "8d76b99cbd5a592fded96b6ee4dbef789facb31c8edb86c1e7f65d5925cbf9bb",
+      "emission": "request_carried",
+      "kind": "state",
+      "semantic_key": null,
+      "shot_ids": [],
+      "source_ids": [
+        "migration_watch",
+        "clip_01"
+      ],
+      "speaker_id": null,
+      "spoken_language": null,
+      "turn_index": null,
+      "unit_id": "state.binding"
+    },
+    {
+      "content_sha256": null,
+      "emission": "prompt",
+      "kind": "take",
+      "semantic_key": null,
+      "shot_ids": [],
+      "source_ids": [],
+      "speaker_id": null,
+      "spoken_language": null,
+      "turn_index": null,
+      "unit_id": "take.structure"
+    },
+    {
+      "content_sha256": null,
+      "emission": "prompt",
+      "kind": "shot",
+      "semantic_key": null,
+      "shot_ids": [
+        "shot_01"
+      ],
+      "source_ids": [
+        "shot_01"
+      ],
+      "speaker_id": null,
+      "spoken_language": null,
+      "turn_index": null,
+      "unit_id": "shot.shot_01"
+    },
+    {
+      "content_sha256": null,
+      "emission": "prompt",
+      "kind": "event",
+      "semantic_key": "event.shot_01_open.visible_state_change",
+      "shot_ids": [
+        "shot_01"
+      ],
+      "source_ids": [
+        "shot_01_open"
+      ],
+      "speaker_id": null,
+      "spoken_language": null,
+      "turn_index": null,
+      "unit_id": "event.shot_01_open"
+    },
+    {
+      "content_sha256": null,
+      "emission": "prompt",
+      "kind": "event",
+      "semantic_key": "event.shot_01_end.visible_state_change",
+      "shot_ids": [
+        "shot_01"
+      ],
+      "source_ids": [
+        "shot_01_end"
+      ],
+      "speaker_id": null,
+      "spoken_language": null,
+      "turn_index": null,
+      "unit_id": "event.shot_01_end"
+    },
+    {
+      "content_sha256": null,
+      "emission": "prompt",
+      "kind": "camera",
+      "semantic_key": "shot.shot_01.camera.start_framing",
+      "shot_ids": [
+        "shot_01"
+      ],
+      "source_ids": [
+        "shot_01"
+      ],
+      "speaker_id": null,
+      "spoken_language": null,
+      "turn_index": null,
+      "unit_id": "camera.shot_01.start_framing"
+    },
+    {
+      "content_sha256": null,
+      "emission": "prompt",
+      "kind": "camera",
+      "semantic_key": "shot.shot_01.camera.path",
+      "shot_ids": [
+        "shot_01"
+      ],
+      "source_ids": [
+        "shot_01"
+      ],
+      "speaker_id": null,
+      "spoken_language": null,
+      "turn_index": null,
+      "unit_id": "camera.shot_01.path"
+    },
+    {
+      "content_sha256": null,
+      "emission": "prompt",
+      "kind": "camera",
+      "semantic_key": "shot.shot_01.camera.speed",
+      "shot_ids": [
+        "shot_01"
+      ],
+      "source_ids": [
+        "shot_01"
+      ],
+      "speaker_id": null,
+      "spoken_language": null,
+      "turn_index": null,
+      "unit_id": "camera.shot_01.speed"
+    },
+    {
+      "content_sha256": null,
+      "emission": "prompt",
+      "kind": "camera",
+      "semantic_key": "shot.shot_01.camera.subject_relationship",
+      "shot_ids": [
+        "shot_01"
+      ],
+      "source_ids": [
+        "shot_01"
+      ],
+      "speaker_id": null,
+      "spoken_language": null,
+      "turn_index": null,
+      "unit_id": "camera.shot_01.subject_relationship"
+    },
+    {
+      "content_sha256": null,
+      "emission": "prompt",
+      "kind": "camera",
+      "semantic_key": "shot.shot_01.camera.endpoint_framing",
+      "shot_ids": [
+        "shot_01"
+      ],
+      "source_ids": [
+        "shot_01"
+      ],
+      "speaker_id": null,
+      "spoken_language": null,
+      "turn_index": null,
+      "unit_id": "camera.shot_01.endpoint_framing"
+    },
+    {
+      "content_sha256": null,
+      "emission": "prompt",
+      "kind": "transition",
+      "semantic_key": null,
+      "shot_ids": [
+        "shot_01",
+        "shot_02"
+      ],
+      "source_ids": [
+        "cut_01_02",
+        "shot_01_end",
+        "shot_02_open"
+      ],
+      "speaker_id": null,
+      "spoken_language": null,
+      "turn_index": null,
+      "unit_id": "transition.cut_01_02"
+    },
+    {
+      "content_sha256": null,
+      "emission": "prompt",
+      "kind": "shot",
+      "semantic_key": null,
+      "shot_ids": [
+        "shot_02"
+      ],
+      "source_ids": [
+        "shot_02"
+      ],
+      "speaker_id": null,
+      "spoken_language": null,
+      "turn_index": null,
+      "unit_id": "shot.shot_02"
+    },
+    {
+      "content_sha256": null,
+      "emission": "prompt",
+      "kind": "event",
+      "semantic_key": "event.shot_02_open.visible_state_change",
+      "shot_ids": [
+        "shot_02"
+      ],
+      "source_ids": [
+        "shot_02_open"
+      ],
+      "speaker_id": null,
+      "spoken_language": null,
+      "turn_index": null,
+      "unit_id": "event.shot_02_open"
+    },
+    {
+      "content_sha256": null,
+      "emission": "prompt",
+      "kind": "event",
+      "semantic_key": "event.shot_02_end.visible_state_change",
+      "shot_ids": [
+        "shot_02"
+      ],
+      "source_ids": [
+        "shot_02_end"
+      ],
+      "speaker_id": null,
+      "spoken_language": null,
+      "turn_index": null,
+      "unit_id": "event.shot_02_end"
+    },
+    {
+      "content_sha256": null,
+      "emission": "prompt",
+      "kind": "camera",
+      "semantic_key": "shot.shot_02.camera.start_framing",
+      "shot_ids": [
+        "shot_02"
+      ],
+      "source_ids": [
+        "shot_02"
+      ],
+      "speaker_id": null,
+      "spoken_language": null,
+      "turn_index": null,
+      "unit_id": "camera.shot_02.start_framing"
+    },
+    {
+      "content_sha256": null,
+      "emission": "prompt",
+      "kind": "camera",
+      "semantic_key": "shot.shot_02.camera.path",
+      "shot_ids": [
+        "shot_02"
+      ],
+      "source_ids": [
+        "shot_02"
+      ],
+      "speaker_id": null,
+      "spoken_language": null,
+      "turn_index": null,
+      "unit_id": "camera.shot_02.path"
+    },
+    {
+      "content_sha256": null,
+      "emission": "prompt",
+      "kind": "camera",
+      "semantic_key": "shot.shot_02.camera.speed",
+      "shot_ids": [
+        "shot_02"
+      ],
+      "source_ids": [
+        "shot_02"
+      ],
+      "speaker_id": null,
+      "spoken_language": null,
+      "turn_index": null,
+      "unit_id": "camera.shot_02.speed"
+    },
+    {
+      "content_sha256": null,
+      "emission": "prompt",
+      "kind": "camera",
+      "semantic_key": "shot.shot_02.camera.subject_relationship",
+      "shot_ids": [
+        "shot_02"
+      ],
+      "source_ids": [
+        "shot_02"
+      ],
+      "speaker_id": null,
+      "spoken_language": null,
+      "turn_index": null,
+      "unit_id": "camera.shot_02.subject_relationship"
+    },
+    {
+      "content_sha256": null,
+      "emission": "prompt",
+      "kind": "camera",
+      "semantic_key": "shot.shot_02.camera.endpoint_framing",
+      "shot_ids": [
+        "shot_02"
+      ],
+      "source_ids": [
+        "shot_02"
+      ],
+      "speaker_id": null,
+      "spoken_language": null,
+      "turn_index": null,
+      "unit_id": "camera.shot_02.endpoint_framing"
+    },
+    {
+      "content_sha256": null,
+      "emission": "prompt",
+      "kind": "audio",
+      "semantic_key": "audio.detective_line.description",
+      "shot_ids": [
+        "shot_01"
+      ],
+      "source_ids": [
+        "detective_line"
+      ],
+      "speaker_id": null,
+      "spoken_language": null,
+      "turn_index": null,
+      "unit_id": "audio.detective_line"
+    },
+    {
+      "content_sha256": "83f6626c9f1decaea65ab98f0a5561dff8a98525f06002b749aebf4e0f056ba4",
+      "emission": "prompt",
+      "kind": "audio_timing",
+      "semantic_key": null,
+      "shot_ids": [
+        "shot_01"
+      ],
+      "source_ids": [
+        "detective_line",
+        "shot_01_open",
+        "shot_01_end"
+      ],
+      "speaker_id": null,
+      "spoken_language": null,
+      "turn_index": null,
+      "unit_id": "audio_timing.detective_line"
+    },
+    {
+      "content_sha256": null,
+      "emission": "prompt",
+      "kind": "speech_delivery",
+      "semantic_key": "audio.detective_line.delivery_intent",
+      "shot_ids": [
+        "shot_01"
+      ],
+      "source_ids": [
+        "detective_line",
+        "detective_voice"
+      ],
+      "speaker_id": "detective_voice",
+      "spoken_language": null,
+      "turn_index": null,
+      "unit_id": "speech_delivery.detective_line"
+    },
+    {
+      "content_sha256": "743f31b859b86402c65b8e0db3884b0411585fdf3d7717bb6b6f1b3a8cd25fcc",
+      "emission": "prompt",
+      "kind": "speech_overlap",
+      "semantic_key": null,
+      "shot_ids": [
+        "shot_01"
+      ],
+      "source_ids": [
+        "detective_line",
+        "detective_voice"
+      ],
+      "speaker_id": "detective_voice",
+      "spoken_language": null,
+      "turn_index": null,
+      "unit_id": "speech_overlap.detective_line"
+    },
+    {
+      "content_sha256": "5a2919c9df690d2c6cd5eb3c568113ab68a10f93c28f0fa4673ca524f4d2317c",
+      "emission": "prompt",
+      "kind": "speech_lip_sync",
+      "semantic_key": null,
+      "shot_ids": [
+        "shot_01"
+      ],
+      "source_ids": [
+        "detective_line",
+        "detective_voice"
+      ],
+      "speaker_id": "detective_voice",
+      "spoken_language": null,
+      "turn_index": null,
+      "unit_id": "speech_lip_sync.detective_line"
+    },
+    {
+      "content_sha256": "7a3610a72b4915d3cd7c0932053fd81430c57b5bfb30c02b6f887bd8d4cf3b73",
+      "emission": "prompt",
+      "kind": "exact_speech",
+      "semantic_key": null,
+      "shot_ids": [
+        "shot_01"
+      ],
+      "source_ids": [
+        "detective_line",
+        "detective_voice"
+      ],
+      "speaker_id": "detective_voice",
+      "spoken_language": "en",
+      "turn_index": 1,
+      "unit_id": "speech.detective_line"
+    },
+    {
+      "content_sha256": null,
+      "emission": "prompt",
+      "kind": "audio",
+      "semantic_key": "audio.platform_ambience.description",
+      "shot_ids": [
+        "shot_01",
+        "shot_02"
+      ],
+      "source_ids": [
+        "platform_ambience"
+      ],
+      "speaker_id": null,
+      "spoken_language": null,
+      "turn_index": null,
+      "unit_id": "audio.platform_ambience"
+    },
+    {
+      "content_sha256": "8e6cd26df1c10bc628358122b55251d0c92c738c78f6f637fc61e1a35c0e4724",
+      "emission": "prompt",
+      "kind": "audio_timing",
+      "semantic_key": null,
+      "shot_ids": [
+        "shot_01",
+        "shot_02"
+      ],
+      "source_ids": [
+        "platform_ambience"
+      ],
+      "speaker_id": null,
+      "spoken_language": null,
+      "turn_index": null,
+      "unit_id": "audio_timing.platform_ambience"
+    },
+    {
+      "content_sha256": null,
+      "emission": "prompt",
+      "kind": "invariant",
+      "semantic_key": "invariant.platform_continuity.description",
+      "shot_ids": [],
+      "source_ids": [
+        "platform_continuity"
+      ],
+      "speaker_id": null,
+      "spoken_language": null,
+      "turn_index": null,
+      "unit_id": "invariant.platform_continuity"
+    },
+    {
+      "content_sha256": null,
+      "emission": "post_only",
+      "kind": "subtitle",
+      "semantic_key": null,
+      "shot_ids": [],
+      "source_ids": [
+        "subtitle_policy"
+      ],
+      "speaker_id": null,
+      "spoken_language": null,
+      "turn_index": null,
+      "unit_id": "subtitle.post"
+    },
+    {
+      "content_sha256": "19f6f55d78c0fdec176ef823e21ac1956effb3794a5dfc0bad3fc32528cadc25",
+      "emission": "review_only",
+      "kind": "review",
+      "semantic_key": null,
+      "shot_ids": [],
+      "source_ids": [
+        "speech_and_cut"
+      ],
+      "speaker_id": null,
+      "spoken_language": null,
+      "turn_index": null,
+      "unit_id": "review.fragility.speech_and_cut"
+    },
+    {
+      "content_sha256": "1e5c3b2cf70fe4f2ee8491b0122409b0b06b4cb2dc78f91350b2210edc2476ad",
+      "emission": "review_only",
+      "kind": "review",
+      "semantic_key": null,
+      "shot_ids": [],
+      "source_ids": [
+        "review_av_sequence"
+      ],
+      "speaker_id": null,
+      "spoken_language": null,
+      "turn_index": null,
+      "unit_id": "review.acceptance.review_av_sequence"
+    },
+    {
+      "content_sha256": "1b7939775af7c8775f2fc7b65fb36ebb821a66e99f2cf542a75fb00c24d3403e",
+      "emission": "post_only",
+      "kind": "post_fallback",
+      "semantic_key": null,
+      "shot_ids": [],
+      "source_ids": [
+        "post_dub_if_needed"
+      ],
+      "speaker_id": null,
+      "spoken_language": null,
+      "turn_index": null,
+      "unit_id": "post.fallback.post_dub_if_needed"
+    }
+  ]
+}
+

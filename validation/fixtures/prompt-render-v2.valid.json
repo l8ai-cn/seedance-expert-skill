@@ -1,0 +1,1474 @@
+{
+  "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/prompt-render-v2.schema.json",
+  "binding_trace": [],
+  "compiler_sha256": "5eeb0dc1baf3932abd081d076e1b071b91e83827894b11e244e577d4b22c12ac",
+  "compiler_toolchain_sha256": "8d643ffcd0b7ad79821bfc5152c18288e8e737f0dda2506f83b1ec83b3e6e29e",
+  "diagnostics": [
+    "CANDIDATE_PREVIEW_ONLY",
+    "NO_PROVIDER_EXECUTION",
+    "HUMAN_LANGUAGE_REVIEW_REQUIRED",
+    "UNATTESTED_POLICY_FIXTURE"
+  ],
+  "operation": "reference_generation",
+  "ordering": {
+    "audio_event_ids": [
+      "detective_line",
+      "platform_ambience"
+    ],
+    "speech_event_ids": [
+      "detective_line"
+    ],
+    "speech_turn_indices": [
+      1
+    ],
+    "transition_ids": [
+      "cut_01_02"
+    ]
+  },
+  "policy_id": "fixture.av_policy",
+  "policy_provenance": {
+    "model_profile_id": "fixture.model",
+    "model_profile_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+    "model_variant": "fixture.variant",
+    "operation": "reference_generation",
+    "policy_id": "fixture.av_policy",
+    "policy_kind": "unattested_fixture",
+    "profile_id": "fixture.surface",
+    "provider_locale": "global",
+    "region": "global",
+    "surface_profile_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+  },
+  "post_only": [
+    {
+      "content_sha256": "50be0cd22a7c1d9913416ebaed630bec7c049b722465ed1f89c0b80b3a127788",
+      "kind": "post_subtitles",
+      "source_id": "subtitle_policy"
+    },
+    {
+      "content_sha256": "1b7939775af7c8775f2fc7b65fb36ebb821a66e99f2cf542a75fb00c24d3403e",
+      "kind": "post_fallback",
+      "source_id": "post_dub_if_needed"
+    }
+  ],
+  "preview": true,
+  "profile_id": "fixture.surface",
+  "prompt_program": {
+    "$schema": "https://github.com/Emily2040/seedance-2.0/schemas/prompt-program-v2.schema.json",
+    "ordering": {
+      "audio_event_ids": [
+        "detective_line",
+        "platform_ambience"
+      ],
+      "speech_event_ids": [
+        "detective_line"
+      ],
+      "speech_turn_indices": [
+        1
+      ],
+      "transition_ids": [
+        "cut_01_02"
+      ]
+    },
+    "policy_provenance": {
+      "model_profile_id": "fixture.model",
+      "model_profile_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "model_variant": "fixture.variant",
+      "operation": "reference_generation",
+      "policy_id": "fixture.av_policy",
+      "policy_kind": "unattested_fixture",
+      "profile_id": "fixture.surface",
+      "provider_locale": "global",
+      "region": "global",
+      "surface_profile_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+    },
+    "realization_catalog_sha256": "dc353e06f03d9a8e54c0db424418ca51a2ee395de4a67505d39ab3339f772ebb",
+    "scene_ir_sha256": "cabd62ec1ee3c0eb55839793cbd3d3ac6641e25001db690be87bc673853de39f",
+    "schema_version": 2,
+    "state_binding": {
+      "canon_revision": 1,
+      "clip_id": "clip_01",
+      "completed_beat_ids": [
+        "beat_before"
+      ],
+      "current_beat_ids": [
+        "beat_line",
+        "beat_reaction"
+      ],
+      "planned_end_snapshot_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+      "planned_start_snapshot_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "project_id": "migration_watch",
+      "reserved_future_beat_ids": [
+        "beat_after"
+      ],
+      "semantic_state_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "state_revision": 1
+    },
+    "state_binding_sha256": "8d76b99cbd5a592fded96b6ee4dbef789facb31c8edb86c1e7f65d5925cbf9bb",
+    "status": "unattested_fixture_preview",
+    "surface_av_policy_sha256": "4add645666819c76dafb9c5e9eb0b341e23824d13fa5e8398e81d1d2330d067d",
+    "surface_binding_set_sha256": "41e8b019c37a3374a36b7a189480a5d0cdb1d85e5dda314534a369b20cc91a00",
+    "take_structure": "edited_multi_shot",
+    "timing_policy": "ordered_phases",
+    "units": [
+      {
+        "content_sha256": "8d76b99cbd5a592fded96b6ee4dbef789facb31c8edb86c1e7f65d5925cbf9bb",
+        "emission": "request_carried",
+        "kind": "state",
+        "semantic_key": null,
+        "shot_ids": [],
+        "source_ids": [
+          "migration_watch",
+          "clip_01"
+        ],
+        "speaker_id": null,
+        "spoken_language": null,
+        "turn_index": null,
+        "unit_id": "state.binding"
+      },
+      {
+        "content_sha256": null,
+        "emission": "prompt",
+        "kind": "take",
+        "semantic_key": null,
+        "shot_ids": [],
+        "source_ids": [],
+        "speaker_id": null,
+        "spoken_language": null,
+        "turn_index": null,
+        "unit_id": "take.structure"
+      },
+      {
+        "content_sha256": null,
+        "emission": "prompt",
+        "kind": "shot",
+        "semantic_key": null,
+        "shot_ids": [
+          "shot_01"
+        ],
+        "source_ids": [
+          "shot_01"
+        ],
+        "speaker_id": null,
+        "spoken_language": null,
+        "turn_index": null,
+        "unit_id": "shot.shot_01"
+      },
+      {
+        "content_sha256": null,
+        "emission": "prompt",
+        "kind": "event",
+        "semantic_key": "event.shot_01_open.visible_state_change",
+        "shot_ids": [
+          "shot_01"
+        ],
+        "source_ids": [
+          "shot_01_open"
+        ],
+        "speaker_id": null,
+        "spoken_language": null,
+        "turn_index": null,
+        "unit_id": "event.shot_01_open"
+      },
+      {
+        "content_sha256": null,
+        "emission": "prompt",
+        "kind": "event",
+        "semantic_key": "event.shot_01_end.visible_state_change",
+        "shot_ids": [
+          "shot_01"
+        ],
+        "source_ids": [
+          "shot_01_end"
+        ],
+        "speaker_id": null,
+        "spoken_language": null,
+        "turn_index": null,
+        "unit_id": "event.shot_01_end"
+      },
+      {
+        "content_sha256": null,
+        "emission": "prompt",
+        "kind": "camera",
+        "semantic_key": "shot.shot_01.camera.start_framing",
+        "shot_ids": [
+          "shot_01"
+        ],
+        "source_ids": [
+          "shot_01"
+        ],
+        "speaker_id": null,
+        "spoken_language": null,
+        "turn_index": null,
+        "unit_id": "camera.shot_01.start_framing"
+      },
+      {
+        "content_sha256": null,
+        "emission": "prompt",
+        "kind": "camera",
+        "semantic_key": "shot.shot_01.camera.path",
+        "shot_ids": [
+          "shot_01"
+        ],
+        "source_ids": [
+          "shot_01"
+        ],
+        "speaker_id": null,
+        "spoken_language": null,
+        "turn_index": null,
+        "unit_id": "camera.shot_01.path"
+      },
+      {
+        "content_sha256": null,
+        "emission": "prompt",
+        "kind": "camera",
+        "semantic_key": "shot.shot_01.camera.speed",
+        "shot_ids": [
+          "shot_01"
+        ],
+        "source_ids": [
+          "shot_01"
+        ],
+        "speaker_id": null,
+        "spoken_language": null,
+        "turn_index": null,
+        "unit_id": "camera.shot_01.speed"
+      },
+      {
+        "content_sha256": null,
+        "emission": "prompt",
+        "kind": "camera",
+        "semantic_key": "shot.shot_01.camera.subject_relationship",
+        "shot_ids": [
+          "shot_01"
+        ],
+        "source_ids": [
+          "shot_01"
+        ],
+        "speaker_id": null,
+        "spoken_language": null,
+        "turn_index": null,
+        "unit_id": "camera.shot_01.subject_relationship"
+      },
+      {
+        "content_sha256": null,
+        "emission": "prompt",
+        "kind": "camera",
+        "semantic_key": "shot.shot_01.camera.endpoint_framing",
+        "shot_ids": [
+          "shot_01"
+        ],
+        "source_ids": [
+          "shot_01"
+        ],
+        "speaker_id": null,
+        "spoken_language": null,
+        "turn_index": null,
+        "unit_id": "camera.shot_01.endpoint_framing"
+      },
+      {
+        "content_sha256": null,
+        "emission": "prompt",
+        "kind": "transition",
+        "semantic_key": null,
+        "shot_ids": [
+          "shot_01",
+          "shot_02"
+        ],
+        "source_ids": [
+          "cut_01_02",
+          "shot_01_end",
+          "shot_02_open"
+        ],
+        "speaker_id": null,
+        "spoken_language": null,
+        "turn_index": null,
+        "unit_id": "transition.cut_01_02"
+      },
+      {
+        "content_sha256": null,
+        "emission": "prompt",
+        "kind": "shot",
+        "semantic_key": null,
+        "shot_ids": [
+          "shot_02"
+        ],
+        "source_ids": [
+          "shot_02"
+        ],
+        "speaker_id": null,
+        "spoken_language": null,
+        "turn_index": null,
+        "unit_id": "shot.shot_02"
+      },
+      {
+        "content_sha256": null,
+        "emission": "prompt",
+        "kind": "event",
+        "semantic_key": "event.shot_02_open.visible_state_change",
+        "shot_ids": [
+          "shot_02"
+        ],
+        "source_ids": [
+          "shot_02_open"
+        ],
+        "speaker_id": null,
+        "spoken_language": null,
+        "turn_index": null,
+        "unit_id": "event.shot_02_open"
+      },
+      {
+        "content_sha256": null,
+        "emission": "prompt",
+        "kind": "event",
+        "semantic_key": "event.shot_02_end.visible_state_change",
+        "shot_ids": [
+          "shot_02"
+        ],
+        "source_ids": [
+          "shot_02_end"
+        ],
+        "speaker_id": null,
+        "spoken_language": null,
+        "turn_index": null,
+        "unit_id": "event.shot_02_end"
+      },
+      {
+        "content_sha256": null,
+        "emission": "prompt",
+        "kind": "camera",
+        "semantic_key": "shot.shot_02.camera.start_framing",
+        "shot_ids": [
+          "shot_02"
+        ],
+        "source_ids": [
+          "shot_02"
+        ],
+        "speaker_id": null,
+        "spoken_language": null,
+        "turn_index": null,
+        "unit_id": "camera.shot_02.start_framing"
+      },
+      {
+        "content_sha256": null,
+        "emission": "prompt",
+        "kind": "camera",
+        "semantic_key": "shot.shot_02.camera.path",
+        "shot_ids": [
+          "shot_02"
+        ],
+        "source_ids": [
+          "shot_02"
+        ],
+        "speaker_id": null,
+        "spoken_language": null,
+        "turn_index": null,
+        "unit_id": "camera.shot_02.path"
+      },
+      {
+        "content_sha256": null,
+        "emission": "prompt",
+        "kind": "camera",
+        "semantic_key": "shot.shot_02.camera.speed",
+        "shot_ids": [
+          "shot_02"
+        ],
+        "source_ids": [
+          "shot_02"
+        ],
+        "speaker_id": null,
+        "spoken_language": null,
+        "turn_index": null,
+        "unit_id": "camera.shot_02.speed"
+      },
+      {
+        "content_sha256": null,
+        "emission": "prompt",
+        "kind": "camera",
+        "semantic_key": "shot.shot_02.camera.subject_relationship",
+        "shot_ids": [
+          "shot_02"
+        ],
+        "source_ids": [
+          "shot_02"
+        ],
+        "speaker_id": null,
+        "spoken_language": null,
+        "turn_index": null,
+        "unit_id": "camera.shot_02.subject_relationship"
+      },
+      {
+        "content_sha256": null,
+        "emission": "prompt",
+        "kind": "camera",
+        "semantic_key": "shot.shot_02.camera.endpoint_framing",
+        "shot_ids": [
+          "shot_02"
+        ],
+        "source_ids": [
+          "shot_02"
+        ],
+        "speaker_id": null,
+        "spoken_language": null,
+        "turn_index": null,
+        "unit_id": "camera.shot_02.endpoint_framing"
+      },
+      {
+        "content_sha256": null,
+        "emission": "prompt",
+        "kind": "audio",
+        "semantic_key": "audio.detective_line.description",
+        "shot_ids": [
+          "shot_01"
+        ],
+        "source_ids": [
+          "detective_line"
+        ],
+        "speaker_id": null,
+        "spoken_language": null,
+        "turn_index": null,
+        "unit_id": "audio.detective_line"
+      },
+      {
+        "content_sha256": "83f6626c9f1decaea65ab98f0a5561dff8a98525f06002b749aebf4e0f056ba4",
+        "emission": "prompt",
+        "kind": "audio_timing",
+        "semantic_key": null,
+        "shot_ids": [
+          "shot_01"
+        ],
+        "source_ids": [
+          "detective_line",
+          "shot_01_open",
+          "shot_01_end"
+        ],
+        "speaker_id": null,
+        "spoken_language": null,
+        "turn_index": null,
+        "unit_id": "audio_timing.detective_line"
+      },
+      {
+        "content_sha256": null,
+        "emission": "prompt",
+        "kind": "speech_delivery",
+        "semantic_key": "audio.detective_line.delivery_intent",
+        "shot_ids": [
+          "shot_01"
+        ],
+        "source_ids": [
+          "detective_line",
+          "detective_voice"
+        ],
+        "speaker_id": "detective_voice",
+        "spoken_language": null,
+        "turn_index": null,
+        "unit_id": "speech_delivery.detective_line"
+      },
+      {
+        "content_sha256": "743f31b859b86402c65b8e0db3884b0411585fdf3d7717bb6b6f1b3a8cd25fcc",
+        "emission": "prompt",
+        "kind": "speech_overlap",
+        "semantic_key": null,
+        "shot_ids": [
+          "shot_01"
+        ],
+        "source_ids": [
+          "detective_line",
+          "detective_voice"
+        ],
+        "speaker_id": "detective_voice",
+        "spoken_language": null,
+        "turn_index": null,
+        "unit_id": "speech_overlap.detective_line"
+      },
+      {
+        "content_sha256": "5a2919c9df690d2c6cd5eb3c568113ab68a10f93c28f0fa4673ca524f4d2317c",
+        "emission": "prompt",
+        "kind": "speech_lip_sync",
+        "semantic_key": null,
+        "shot_ids": [
+          "shot_01"
+        ],
+        "source_ids": [
+          "detective_line",
+          "detective_voice"
+        ],
+        "speaker_id": "detective_voice",
+        "spoken_language": null,
+        "turn_index": null,
+        "unit_id": "speech_lip_sync.detective_line"
+      },
+      {
+        "content_sha256": "7a3610a72b4915d3cd7c0932053fd81430c57b5bfb30c02b6f887bd8d4cf3b73",
+        "emission": "prompt",
+        "kind": "exact_speech",
+        "semantic_key": null,
+        "shot_ids": [
+          "shot_01"
+        ],
+        "source_ids": [
+          "detective_line",
+          "detective_voice"
+        ],
+        "speaker_id": "detective_voice",
+        "spoken_language": "en",
+        "turn_index": 1,
+        "unit_id": "speech.detective_line"
+      },
+      {
+        "content_sha256": null,
+        "emission": "prompt",
+        "kind": "audio",
+        "semantic_key": "audio.platform_ambience.description",
+        "shot_ids": [
+          "shot_01",
+          "shot_02"
+        ],
+        "source_ids": [
+          "platform_ambience"
+        ],
+        "speaker_id": null,
+        "spoken_language": null,
+        "turn_index": null,
+        "unit_id": "audio.platform_ambience"
+      },
+      {
+        "content_sha256": "8e6cd26df1c10bc628358122b55251d0c92c738c78f6f637fc61e1a35c0e4724",
+        "emission": "prompt",
+        "kind": "audio_timing",
+        "semantic_key": null,
+        "shot_ids": [
+          "shot_01",
+          "shot_02"
+        ],
+        "source_ids": [
+          "platform_ambience"
+        ],
+        "speaker_id": null,
+        "spoken_language": null,
+        "turn_index": null,
+        "unit_id": "audio_timing.platform_ambience"
+      },
+      {
+        "content_sha256": null,
+        "emission": "prompt",
+        "kind": "invariant",
+        "semantic_key": "invariant.platform_continuity.description",
+        "shot_ids": [],
+        "source_ids": [
+          "platform_continuity"
+        ],
+        "speaker_id": null,
+        "spoken_language": null,
+        "turn_index": null,
+        "unit_id": "invariant.platform_continuity"
+      },
+      {
+        "content_sha256": null,
+        "emission": "post_only",
+        "kind": "subtitle",
+        "semantic_key": null,
+        "shot_ids": [],
+        "source_ids": [
+          "subtitle_policy"
+        ],
+        "speaker_id": null,
+        "spoken_language": null,
+        "turn_index": null,
+        "unit_id": "subtitle.post"
+      },
+      {
+        "content_sha256": "19f6f55d78c0fdec176ef823e21ac1956effb3794a5dfc0bad3fc32528cadc25",
+        "emission": "review_only",
+        "kind": "review",
+        "semantic_key": null,
+        "shot_ids": [],
+        "source_ids": [
+          "speech_and_cut"
+        ],
+        "speaker_id": null,
+        "spoken_language": null,
+        "turn_index": null,
+        "unit_id": "review.fragility.speech_and_cut"
+      },
+      {
+        "content_sha256": "1e5c3b2cf70fe4f2ee8491b0122409b0b06b4cb2dc78f91350b2210edc2476ad",
+        "emission": "review_only",
+        "kind": "review",
+        "semantic_key": null,
+        "shot_ids": [],
+        "source_ids": [
+          "review_av_sequence"
+        ],
+        "speaker_id": null,
+        "spoken_language": null,
+        "turn_index": null,
+        "unit_id": "review.acceptance.review_av_sequence"
+      },
+      {
+        "content_sha256": "1b7939775af7c8775f2fc7b65fb36ebb821a66e99f2cf542a75fb00c24d3403e",
+        "emission": "post_only",
+        "kind": "post_fallback",
+        "semantic_key": null,
+        "shot_ids": [],
+        "source_ids": [
+          "post_dub_if_needed"
+        ],
+        "speaker_id": null,
+        "spoken_language": null,
+        "turn_index": null,
+        "unit_id": "post.fallback.post_dub_if_needed"
+      }
+    ]
+  },
+  "prompt_program_sha256": "47c67bd5866a9b327844b6f2e8ae12b752d194e95c47c5bace5414843f610c94",
+  "realization_catalog_sha256": "dc353e06f03d9a8e54c0db424418ca51a2ee395de4a67505d39ab3339f772ebb",
+  "renders": [
+    {
+      "locale": "en",
+      "semantic_trace": [
+        {
+          "content_sha256": "8d76b99cbd5a592fded96b6ee4dbef789facb31c8edb86c1e7f65d5925cbf9bb",
+          "emission": "request_carried",
+          "end_byte": null,
+          "kind": "state",
+          "semantic_key": null,
+          "source_ids": [
+            "migration_watch",
+            "clip_01"
+          ],
+          "start_byte": null,
+          "unit_id": "state.binding"
+        },
+        {
+          "content_sha256": "1f2de1135b9261ea8a1da060cb941071cfa6b41607ad9c85420ca8d381769290",
+          "emission": "prompt",
+          "end_byte": 28,
+          "kind": "take",
+          "semantic_key": null,
+          "source_ids": [],
+          "start_byte": 0,
+          "unit_id": "take.structure"
+        },
+        {
+          "content_sha256": "bafb5e83da5d1318fc55be63d59195e7d0033dbeeb61ac850406ecaac3843757",
+          "emission": "prompt",
+          "end_byte": 36,
+          "kind": "shot",
+          "semantic_key": null,
+          "source_ids": [
+            "shot_01"
+          ],
+          "start_byte": 28,
+          "unit_id": "shot.shot_01"
+        },
+        {
+          "content_sha256": "d798bbd63d2d302e6de814baea032cfc1bd32de3b8a6de55996713968217e08e",
+          "emission": "prompt",
+          "end_byte": 109,
+          "kind": "event",
+          "semantic_key": "event.shot_01_open.visible_state_change",
+          "source_ids": [
+            "shot_01_open"
+          ],
+          "start_byte": 36,
+          "unit_id": "event.shot_01_open"
+        },
+        {
+          "content_sha256": "42ed67bb5d8fe5ef563d172b8d0ca9b4adf5b99a0d0aace8cae0bc9daeedb977",
+          "emission": "prompt",
+          "end_byte": 183,
+          "kind": "event",
+          "semantic_key": "event.shot_01_end.visible_state_change",
+          "source_ids": [
+            "shot_01_end"
+          ],
+          "start_byte": 109,
+          "unit_id": "event.shot_01_end"
+        },
+        {
+          "content_sha256": "38c7033add2cd775b083ee708aa72f315af7a4e44d964cc826ae1b88634c57ec",
+          "emission": "prompt",
+          "end_byte": 242,
+          "kind": "camera",
+          "semantic_key": "shot.shot_01.camera.start_framing",
+          "source_ids": [
+            "shot_01"
+          ],
+          "start_byte": 183,
+          "unit_id": "camera.shot_01.start_framing"
+        },
+        {
+          "content_sha256": "71a0c097564cde462f8b48ca0333dfaa49904c4b3842c85bfadb6ebfd59dfa1c",
+          "emission": "prompt",
+          "end_byte": 296,
+          "kind": "camera",
+          "semantic_key": "shot.shot_01.camera.path",
+          "source_ids": [
+            "shot_01"
+          ],
+          "start_byte": 242,
+          "unit_id": "camera.shot_01.path"
+        },
+        {
+          "content_sha256": "506b3cc13ae467df9c1fe215914240625c90aea380bfa69f9fa93e3006e3fdc0",
+          "emission": "prompt",
+          "end_byte": 318,
+          "kind": "camera",
+          "semantic_key": "shot.shot_01.camera.speed",
+          "source_ids": [
+            "shot_01"
+          ],
+          "start_byte": 296,
+          "unit_id": "camera.shot_01.speed"
+        },
+        {
+          "content_sha256": "b5020d8f6f7ff3c084d86c2718cbf0a60314963d06a3677ead71f7d00df3de9b",
+          "emission": "prompt",
+          "end_byte": 384,
+          "kind": "camera",
+          "semantic_key": "shot.shot_01.camera.subject_relationship",
+          "source_ids": [
+            "shot_01"
+          ],
+          "start_byte": 318,
+          "unit_id": "camera.shot_01.subject_relationship"
+        },
+        {
+          "content_sha256": "2aaa3ce376c308e9f3bb9ae4cde697d971e5064eaa4a7b0c643f9727e47f24bd",
+          "emission": "prompt",
+          "end_byte": 434,
+          "kind": "camera",
+          "semantic_key": "shot.shot_01.camera.endpoint_framing",
+          "source_ids": [
+            "shot_01"
+          ],
+          "start_byte": 384,
+          "unit_id": "camera.shot_01.endpoint_framing"
+        },
+        {
+          "content_sha256": "b995681408167be34e6c3d396a439c6a380f224f955fb567b484cefcc463f831",
+          "emission": "prompt",
+          "end_byte": 444,
+          "kind": "transition",
+          "semantic_key": null,
+          "source_ids": [
+            "cut_01_02",
+            "shot_01_end",
+            "shot_02_open"
+          ],
+          "start_byte": 434,
+          "unit_id": "transition.cut_01_02"
+        },
+        {
+          "content_sha256": "c8ca16fa0b9cb452ad3dde27e3b9d76d9020110bc1188b2f0f6035d20d93185e",
+          "emission": "prompt",
+          "end_byte": 452,
+          "kind": "shot",
+          "semantic_key": null,
+          "source_ids": [
+            "shot_02"
+          ],
+          "start_byte": 444,
+          "unit_id": "shot.shot_02"
+        },
+        {
+          "content_sha256": "596b38a028a7f0ed4dfc88ca2bf0ad98d23d325700b21569aee24857e3ca5300",
+          "emission": "prompt",
+          "end_byte": 530,
+          "kind": "event",
+          "semantic_key": "event.shot_02_open.visible_state_change",
+          "source_ids": [
+            "shot_02_open"
+          ],
+          "start_byte": 452,
+          "unit_id": "event.shot_02_open"
+        },
+        {
+          "content_sha256": "d6abd6650320bd761aa1d064cc43b4df30b3df7ae3be893ef9fd48d8b567fdce",
+          "emission": "prompt",
+          "end_byte": 592,
+          "kind": "event",
+          "semantic_key": "event.shot_02_end.visible_state_change",
+          "source_ids": [
+            "shot_02_end"
+          ],
+          "start_byte": 530,
+          "unit_id": "event.shot_02_end"
+        },
+        {
+          "content_sha256": "110a327ecffe73a112ffa8bced40a3004325881eb7d26e04f03c5ebb844e6dc3",
+          "emission": "prompt",
+          "end_byte": 647,
+          "kind": "camera",
+          "semantic_key": "shot.shot_02.camera.start_framing",
+          "source_ids": [
+            "shot_02"
+          ],
+          "start_byte": 592,
+          "unit_id": "camera.shot_02.start_framing"
+        },
+        {
+          "content_sha256": "71a0c097564cde462f8b48ca0333dfaa49904c4b3842c85bfadb6ebfd59dfa1c",
+          "emission": "prompt",
+          "end_byte": 701,
+          "kind": "camera",
+          "semantic_key": "shot.shot_02.camera.path",
+          "source_ids": [
+            "shot_02"
+          ],
+          "start_byte": 647,
+          "unit_id": "camera.shot_02.path"
+        },
+        {
+          "content_sha256": "506b3cc13ae467df9c1fe215914240625c90aea380bfa69f9fa93e3006e3fdc0",
+          "emission": "prompt",
+          "end_byte": 723,
+          "kind": "camera",
+          "semantic_key": "shot.shot_02.camera.speed",
+          "source_ids": [
+            "shot_02"
+          ],
+          "start_byte": 701,
+          "unit_id": "camera.shot_02.speed"
+        },
+        {
+          "content_sha256": "a5b86b38213ba4f471fec444829bff4c993210c10627d003eb37f4440542591d",
+          "emission": "prompt",
+          "end_byte": 788,
+          "kind": "camera",
+          "semantic_key": "shot.shot_02.camera.subject_relationship",
+          "source_ids": [
+            "shot_02"
+          ],
+          "start_byte": 723,
+          "unit_id": "camera.shot_02.subject_relationship"
+        },
+        {
+          "content_sha256": "2aaa3ce376c308e9f3bb9ae4cde697d971e5064eaa4a7b0c643f9727e47f24bd",
+          "emission": "prompt",
+          "end_byte": 838,
+          "kind": "camera",
+          "semantic_key": "shot.shot_02.camera.endpoint_framing",
+          "source_ids": [
+            "shot_02"
+          ],
+          "start_byte": 788,
+          "unit_id": "camera.shot_02.endpoint_framing"
+        },
+        {
+          "content_sha256": "f09adbf716124172a23bf774f66b7b0d2336d4d8ed4f880343042e47e2e34ff5",
+          "emission": "prompt",
+          "end_byte": 1091,
+          "kind": "audio",
+          "semantic_key": "audio.detective_line.description",
+          "source_ids": [
+            "detective_line"
+          ],
+          "start_byte": 1028,
+          "unit_id": "audio.detective_line"
+        },
+        {
+          "content_sha256": "63e33d9767b4787d70013479e21b3f67d39b45e85d90fc8d00ff8ee3ae6afeee",
+          "emission": "prompt",
+          "end_byte": 1026,
+          "kind": "audio_timing",
+          "semantic_key": null,
+          "source_ids": [
+            "detective_line",
+            "shot_01_open",
+            "shot_01_end"
+          ],
+          "start_byte": 846,
+          "unit_id": "audio_timing.detective_line"
+        },
+        {
+          "content_sha256": "ece07c7628c7f7c0ada4fbf84efc00c05bd1e055dd27214f39967cbc275ed6f0",
+          "emission": "prompt",
+          "end_byte": 1145,
+          "kind": "speech_delivery",
+          "semantic_key": "audio.detective_line.delivery_intent",
+          "source_ids": [
+            "detective_line",
+            "detective_voice"
+          ],
+          "start_byte": 1093,
+          "unit_id": "speech_delivery.detective_line"
+        },
+        {
+          "content_sha256": "b39f76039e068e598472e5eaa21a1548eecf4b34bd4a9e7cae9dbcbb641b7b4a",
+          "emission": "prompt",
+          "end_byte": 1177,
+          "kind": "speech_overlap",
+          "semantic_key": null,
+          "source_ids": [
+            "detective_line",
+            "detective_voice"
+          ],
+          "start_byte": 1145,
+          "unit_id": "speech_overlap.detective_line"
+        },
+        {
+          "content_sha256": "308c313a4afd1dbd86d992b0c12ad10eb1ca59aafc93973baf860fa8124eb7ea",
+          "emission": "prompt",
+          "end_byte": 1214,
+          "kind": "speech_lip_sync",
+          "semantic_key": null,
+          "source_ids": [
+            "detective_line",
+            "detective_voice"
+          ],
+          "start_byte": 1177,
+          "unit_id": "speech_lip_sync.detective_line"
+        },
+        {
+          "content_sha256": "7a3610a72b4915d3cd7c0932053fd81430c57b5bfb30c02b6f887bd8d4cf3b73",
+          "emission": "prompt",
+          "end_byte": 1256,
+          "kind": "exact_speech",
+          "semantic_key": null,
+          "source_ids": [
+            "detective_line",
+            "detective_voice"
+          ],
+          "start_byte": 1245,
+          "unit_id": "speech.detective_line"
+        },
+        {
+          "content_sha256": "5ff440c8d215cc9912d5d3ea4dd25a9828bcc6bda5539e2b70fd5d7e212ecc63",
+          "emission": "prompt",
+          "end_byte": 1371,
+          "kind": "audio",
+          "semantic_key": "audio.platform_ambience.description",
+          "source_ids": [
+            "platform_ambience"
+          ],
+          "start_byte": 1293,
+          "unit_id": "audio.platform_ambience"
+        },
+        {
+          "content_sha256": "1a40f6a13b3e0d9095179441daccd54caa3ae91050f2e0d6175720eff799e38a",
+          "emission": "prompt",
+          "end_byte": 1291,
+          "kind": "audio_timing",
+          "semantic_key": null,
+          "source_ids": [
+            "platform_ambience"
+          ],
+          "start_byte": 1267,
+          "unit_id": "audio_timing.platform_ambience"
+        },
+        {
+          "content_sha256": "9544bf2f9e2ab35a2a4b54aecc7388bb69b3fe39cd75dffe5058b3d87f46b4db",
+          "emission": "prompt",
+          "end_byte": 1500,
+          "kind": "invariant",
+          "semantic_key": "invariant.platform_continuity.description",
+          "source_ids": [
+            "platform_continuity"
+          ],
+          "start_byte": 1373,
+          "unit_id": "invariant.platform_continuity"
+        },
+        {
+          "content_sha256": null,
+          "emission": "post_only",
+          "end_byte": null,
+          "kind": "subtitle",
+          "semantic_key": null,
+          "source_ids": [
+            "subtitle_policy"
+          ],
+          "start_byte": null,
+          "unit_id": "subtitle.post"
+        },
+        {
+          "content_sha256": "19f6f55d78c0fdec176ef823e21ac1956effb3794a5dfc0bad3fc32528cadc25",
+          "emission": "review_only",
+          "end_byte": null,
+          "kind": "review",
+          "semantic_key": null,
+          "source_ids": [
+            "speech_and_cut"
+          ],
+          "start_byte": null,
+          "unit_id": "review.fragility.speech_and_cut"
+        },
+        {
+          "content_sha256": "1e5c3b2cf70fe4f2ee8491b0122409b0b06b4cb2dc78f91350b2210edc2476ad",
+          "emission": "review_only",
+          "end_byte": null,
+          "kind": "review",
+          "semantic_key": null,
+          "source_ids": [
+            "review_av_sequence"
+          ],
+          "start_byte": null,
+          "unit_id": "review.acceptance.review_av_sequence"
+        },
+        {
+          "content_sha256": "1b7939775af7c8775f2fc7b65fb36ebb821a66e99f2cf542a75fb00c24d3403e",
+          "emission": "post_only",
+          "end_byte": null,
+          "kind": "post_fallback",
+          "semantic_key": null,
+          "source_ids": [
+            "post_dub_if_needed"
+          ],
+          "start_byte": null,
+          "unit_id": "post.fallback.post_dub_if_needed"
+        }
+      ],
+      "text": "Edited multi-shot sequence.\nShot 1:\nthe detective faces the woman beneath the light at the station platform.\nthe detective finishes the line while holding eye contact with the woman.\nCamera opening: a stable medium close-up of the detective.\nCamera path: the camera does not translate or rotate.\nCamera speed: static.\nSubject relationship: the detective's mouth remains unobstructed.\nCamera endpoint: the same stable medium close-up.\nHard cut.\nShot 2:\nthe cut reveals the woman still facing the detective at the station platform.\nthe woman answers the detective with a restrained half-smile.\nCamera opening: a stable medium close-up of the woman.\nCamera path: the camera does not translate or rotate.\nCamera speed: static.\nSubject relationship: the woman's reaction remains unobstructed.\nCamera endpoint: the same stable medium close-up.\nDialogue from the visible event 'the detective faces the woman beneath the light at the station platform' through 'the detective finishes the line while holding eye contact with the woman': the detective delivers one short line in a low controlled voice.\nDelivery: low, controlled, and clearly articulated.\nOverlap: no overlapping speech.\nLip sync: visible lip sync required.\nDetective says exactly in en: \"I found it.\".\nAmbience throughout the sequence: low room tone and distant rain at the station platform continue across the cut.\nConstraint: the detective, the woman, and the station platform preserve wardrobe, eyelines, lighting, and rain across the cut.\n",
+      "text_sha256": "5c00140a5742feff0bb52ea673b30aacd2e67b231a3a1104d9a7611cd16487d4",
+      "utterance_spans": [
+        {
+          "audio_event_id": "detective_line",
+          "end_byte": 1256,
+          "speaker_id": "detective_voice",
+          "spoken_language": "en",
+          "start_byte": 1245,
+          "turn_index": 1,
+          "utterance_sha256": "7a3610a72b4915d3cd7c0932053fd81430c57b5bfb30c02b6f887bd8d4cf3b73"
+        }
+      ]
+    },
+    {
+      "locale": "zh-Hans",
+      "semantic_trace": [
+        {
+          "content_sha256": "8d76b99cbd5a592fded96b6ee4dbef789facb31c8edb86c1e7f65d5925cbf9bb",
+          "emission": "request_carried",
+          "end_byte": null,
+          "kind": "state",
+          "semantic_key": null,
+          "source_ids": [
+            "migration_watch",
+            "clip_01"
+          ],
+          "start_byte": null,
+          "unit_id": "state.binding"
+        },
+        {
+          "content_sha256": "3f94717b482dbe3bb844642f36c18caf4e805cd264ea77f5b6f26805f0a00150",
+          "emission": "prompt",
+          "end_byte": 28,
+          "kind": "take",
+          "semantic_key": null,
+          "source_ids": [],
+          "start_byte": 0,
+          "unit_id": "take.structure"
+        },
+        {
+          "content_sha256": "9a9b1355ad2abf066cca26c7e967598be066ad7ddbdf8687288aec985d898371",
+          "emission": "prompt",
+          "end_byte": 40,
+          "kind": "shot",
+          "semantic_key": null,
+          "source_ids": [
+            "shot_01"
+          ],
+          "start_byte": 28,
+          "unit_id": "shot.shot_01"
+        },
+        {
+          "content_sha256": "234a2549f7900fcd0b6db6771c19e7bfe1042f46de0a644f6082147b1b81c734",
+          "emission": "prompt",
+          "end_byte": 86,
+          "kind": "event",
+          "semantic_key": "event.shot_01_open.visible_state_change",
+          "source_ids": [
+            "shot_01_open"
+          ],
+          "start_byte": 40,
+          "unit_id": "event.shot_01_open"
+        },
+        {
+          "content_sha256": "ead1f5089789e270301a19e6f7b911a0100a38287854464275b725b1cb5b779b",
+          "emission": "prompt",
+          "end_byte": 132,
+          "kind": "event",
+          "semantic_key": "event.shot_01_end.visible_state_change",
+          "source_ids": [
+            "shot_01_end"
+          ],
+          "start_byte": 86,
+          "unit_id": "event.shot_01_end"
+        },
+        {
+          "content_sha256": "67ad675210053c56af6b88ff0de738717ee7fefc251beed91ac02f99a1d6a99d",
+          "emission": "prompt",
+          "end_byte": 181,
+          "kind": "camera",
+          "semantic_key": "shot.shot_01.camera.start_framing",
+          "source_ids": [
+            "shot_01"
+          ],
+          "start_byte": 132,
+          "unit_id": "camera.shot_01.start_framing"
+        },
+        {
+          "content_sha256": "a00c4642bd129c81d09e2d71a51e49afc5038b79f14832436e38906599066857",
+          "emission": "prompt",
+          "end_byte": 227,
+          "kind": "camera",
+          "semantic_key": "shot.shot_01.camera.path",
+          "source_ids": [
+            "shot_01"
+          ],
+          "start_byte": 181,
+          "unit_id": "camera.shot_01.path"
+        },
+        {
+          "content_sha256": "0ff07322c2e018bfd53a6540e82c75597c6abd849133dfcc8d4eb27e61a6d6e3",
+          "emission": "prompt",
+          "end_byte": 252,
+          "kind": "camera",
+          "semantic_key": "shot.shot_01.camera.speed",
+          "source_ids": [
+            "shot_01"
+          ],
+          "start_byte": 227,
+          "unit_id": "camera.shot_01.speed"
+        },
+        {
+          "content_sha256": "58327410e8a3e08e990e3c7053e3c24a42c5f5cd2876e145f633e24c3356e46e",
+          "emission": "prompt",
+          "end_byte": 301,
+          "kind": "camera",
+          "semantic_key": "shot.shot_01.camera.subject_relationship",
+          "source_ids": [
+            "shot_01"
+          ],
+          "start_byte": 252,
+          "unit_id": "camera.shot_01.subject_relationship"
+        },
+        {
+          "content_sha256": "6488b38f6918cbc68e2d7f02765de2362c854da854d889c9011690b0af2a5f04",
+          "emission": "prompt",
+          "end_byte": 356,
+          "kind": "camera",
+          "semantic_key": "shot.shot_01.camera.endpoint_framing",
+          "source_ids": [
+            "shot_01"
+          ],
+          "start_byte": 301,
+          "unit_id": "camera.shot_01.endpoint_framing"
+        },
+        {
+          "content_sha256": "1376cae95f1250a9710a33674d6ad7d82cffa9531ea71d10fb850c86326ccc8b",
+          "emission": "prompt",
+          "end_byte": 366,
+          "kind": "transition",
+          "semantic_key": null,
+          "source_ids": [
+            "cut_01_02",
+            "shot_01_end",
+            "shot_02_open"
+          ],
+          "start_byte": 356,
+          "unit_id": "transition.cut_01_02"
+        },
+        {
+          "content_sha256": "effb210938b0e9c3eea8cc15368671fec8d6079a551c299ef6ca7285f7b51ac4",
+          "emission": "prompt",
+          "end_byte": 378,
+          "kind": "shot",
+          "semantic_key": null,
+          "source_ids": [
+            "shot_02"
+          ],
+          "start_byte": 366,
+          "unit_id": "shot.shot_02"
+        },
+        {
+          "content_sha256": "c7289241e09ae0068127c195fce503993fc23276131bd397025133b27698c8ab",
+          "emission": "prompt",
+          "end_byte": 430,
+          "kind": "event",
+          "semantic_key": "event.shot_02_open.visible_state_change",
+          "source_ids": [
+            "shot_02_open"
+          ],
+          "start_byte": 378,
+          "unit_id": "event.shot_02_open"
+        },
+        {
+          "content_sha256": "4a0fb37b8bccb66b513fa80060bce1fde42c224623947834e7623698a37c8298",
+          "emission": "prompt",
+          "end_byte": 470,
+          "kind": "event",
+          "semantic_key": "event.shot_02_end.visible_state_change",
+          "source_ids": [
+            "shot_02_end"
+          ],
+          "start_byte": 430,
+          "unit_id": "event.shot_02_end"
+        },
+        {
+          "content_sha256": "508fa00535dc203dc8b5d0084dcbd8472067c0245622237e7074b24d9963e4a5",
+          "emission": "prompt",
+          "end_byte": 519,
+          "kind": "camera",
+          "semantic_key": "shot.shot_02.camera.start_framing",
+          "source_ids": [
+            "shot_02"
+          ],
+          "start_byte": 470,
+          "unit_id": "camera.shot_02.start_framing"
+        },
+        {
+          "content_sha256": "a00c4642bd129c81d09e2d71a51e49afc5038b79f14832436e38906599066857",
+          "emission": "prompt",
+          "end_byte": 565,
+          "kind": "camera",
+          "semantic_key": "shot.shot_02.camera.path",
+          "source_ids": [
+            "shot_02"
+          ],
+          "start_byte": 519,
+          "unit_id": "camera.shot_02.path"
+        },
+        {
+          "content_sha256": "0ff07322c2e018bfd53a6540e82c75597c6abd849133dfcc8d4eb27e61a6d6e3",
+          "emission": "prompt",
+          "end_byte": 590,
+          "kind": "camera",
+          "semantic_key": "shot.shot_02.camera.speed",
+          "source_ids": [
+            "shot_02"
+          ],
+          "start_byte": 565,
+          "unit_id": "camera.shot_02.speed"
+        },
+        {
+          "content_sha256": "3f97dcfa0e837254003f37b739caf35d24ad0883a7aa52855e6b89141f1847c3",
+          "emission": "prompt",
+          "end_byte": 639,
+          "kind": "camera",
+          "semantic_key": "shot.shot_02.camera.subject_relationship",
+          "source_ids": [
+            "shot_02"
+          ],
+          "start_byte": 590,
+          "unit_id": "camera.shot_02.subject_relationship"
+        },
+        {
+          "content_sha256": "6488b38f6918cbc68e2d7f02765de2362c854da854d889c9011690b0af2a5f04",
+          "emission": "prompt",
+          "end_byte": 694,
+          "kind": "camera",
+          "semantic_key": "shot.shot_02.camera.endpoint_framing",
+          "source_ids": [
+            "shot_02"
+          ],
+          "start_byte": 639,
+          "unit_id": "camera.shot_02.endpoint_framing"
+        },
+        {
+          "content_sha256": "3dc96326961562b30422c194c0da036ecdccff513f950b2aa91e09ebf88e0c37",
+          "emission": "prompt",
+          "end_byte": 877,
+          "kind": "audio",
+          "semantic_key": "audio.detective_line.description",
+          "source_ids": [
+            "detective_line"
+          ],
+          "start_byte": 826,
+          "unit_id": "audio.detective_line"
+        },
+        {
+          "content_sha256": "dcc7a46c3b261949c54e896b95013eeb52b39b6fd12c13b4897e7de9db87e8fc",
+          "emission": "prompt",
+          "end_byte": 823,
+          "kind": "audio_timing",
+          "semantic_key": null,
+          "source_ids": [
+            "detective_line",
+            "shot_01_open",
+            "shot_01_end"
+          ],
+          "start_byte": 700,
+          "unit_id": "audio_timing.detective_line"
+        },
+        {
+          "content_sha256": "81522ccdbf70f72c884a9e8c46812589f22425df9547ea4cd19d7d794b0d1931",
+          "emission": "prompt",
+          "end_byte": 930,
+          "kind": "speech_delivery",
+          "semantic_key": "audio.detective_line.delivery_intent",
+          "source_ids": [
+            "detective_line",
+            "detective_voice"
+          ],
+          "start_byte": 881,
+          "unit_id": "speech_delivery.detective_line"
+        },
+        {
+          "content_sha256": "388ab6be4b62e5274834524a4d79809884717c2c923f87cc36b57f7a7fed361b",
+          "emission": "prompt",
+          "end_byte": 973,
+          "kind": "speech_overlap",
+          "semantic_key": null,
+          "source_ids": [
+            "detective_line",
+            "detective_voice"
+          ],
+          "start_byte": 930,
+          "unit_id": "speech_overlap.detective_line"
+        },
+        {
+          "content_sha256": "eed910f851e20bc08bf64f4e2518fd6146ffd61b4b24cdc27528eb419b51541f",
+          "emission": "prompt",
+          "end_byte": 1016,
+          "kind": "speech_lip_sync",
+          "semantic_key": null,
+          "source_ids": [
+            "detective_line",
+            "detective_voice"
+          ],
+          "start_byte": 973,
+          "unit_id": "speech_lip_sync.detective_line"
+        },
+        {
+          "content_sha256": "7a3610a72b4915d3cd7c0932053fd81430c57b5bfb30c02b6f887bd8d4cf3b73",
+          "emission": "prompt",
+          "end_byte": 1056,
+          "kind": "exact_speech",
+          "semantic_key": null,
+          "source_ids": [
+            "detective_line",
+            "detective_voice"
+          ],
+          "start_byte": 1045,
+          "unit_id": "speech.detective_line"
+        },
+        {
+          "content_sha256": "31c54cd379346aa648d90d8bf47c111c75cf47ff2f2d6cb634fac696e87246ca",
+          "emission": "prompt",
+          "end_byte": 1154,
+          "kind": "audio",
+          "semantic_key": "audio.platform_ambience.description",
+          "source_ids": [
+            "platform_ambience"
+          ],
+          "start_byte": 1094,
+          "unit_id": "audio.platform_ambience"
+        },
+        {
+          "content_sha256": "4d918fd6bcd675bdcebafb097ae4bdfcb1b06f81f042eaeef3ab28a48acffab0",
+          "emission": "prompt",
+          "end_byte": 1091,
+          "kind": "audio_timing",
+          "semantic_key": null,
+          "source_ids": [
+            "platform_ambience"
+          ],
+          "start_byte": 1070,
+          "unit_id": "audio_timing.platform_ambience"
+        },
+        {
+          "content_sha256": "4a6aaa6af4a9476d1c050eebfc4838b681d3894d17bff709fff7e57cf2d63a77",
+          "emission": "prompt",
+          "end_byte": 1264,
+          "kind": "invariant",
+          "semantic_key": "invariant.platform_continuity.description",
+          "source_ids": [
+            "platform_continuity"
+          ],
+          "start_byte": 1158,
+          "unit_id": "invariant.platform_continuity"
+        },
+        {
+          "content_sha256": null,
+          "emission": "post_only",
+          "end_byte": null,
+          "kind": "subtitle",
+          "semantic_key": null,
+          "source_ids": [
+            "subtitle_policy"
+          ],
+          "start_byte": null,
+          "unit_id": "subtitle.post"
+        },
+        {
+          "content_sha256": "19f6f55d78c0fdec176ef823e21ac1956effb3794a5dfc0bad3fc32528cadc25",
+          "emission": "review_only",
+          "end_byte": null,
+          "kind": "review",
+          "semantic_key": null,
+          "source_ids": [
+            "speech_and_cut"
+          ],
+          "start_byte": null,
+          "unit_id": "review.fragility.speech_and_cut"
+        },
+        {
+          "content_sha256": "1e5c3b2cf70fe4f2ee8491b0122409b0b06b4cb2dc78f91350b2210edc2476ad",
+          "emission": "review_only",
+          "end_byte": null,
+          "kind": "review",
+          "semantic_key": null,
+          "source_ids": [
+            "review_av_sequence"
+          ],
+          "start_byte": null,
+          "unit_id": "review.acceptance.review_av_sequence"
+        },
+        {
+          "content_sha256": "1b7939775af7c8775f2fc7b65fb36ebb821a66e99f2cf542a75fb00c24d3403e",
+          "emission": "post_only",
+          "end_byte": null,
+          "kind": "post_fallback",
+          "semantic_key": null,
+          "source_ids": [
+            "post_dub_if_needed"
+          ],
+          "start_byte": null,
+          "unit_id": "post.fallback.post_dub_if_needed"
+        }
+      ],
+      "text": "剪辑式多镜头序列。\n镜头 1：\n侦探在车站站台灯光下正对女子。\n侦探说完台词并与女子保持对视。\n镜头起始构图：侦探的稳定中近景。\n镜头路径：镜头不平移也不旋转。\n镜头速度：静止。\n主体关系：侦探的嘴部始终无遮挡。\n镜头结束构图：保持相同的稳定中近景。\n硬切。\n镜头 2：\n切镜后，女子仍在车站站台面对侦探。\n女子以克制的浅笑回应侦探。\n镜头起始构图：女子的稳定中近景。\n镜头路径：镜头不平移也不旋转。\n镜头速度：静止。\n主体关系：女子的反应始终无遮挡。\n镜头结束构图：保持相同的稳定中近景。\n对白，从可见事件“侦探在车站站台灯光下正对女子”持续到“侦探说完台词并与女子保持对视”：侦探用低沉克制的声音说出一句短台词。\n台词表达：低沉、克制且咬字清晰。\n台词重叠：不与其他台词重叠。\n口型同步：需要可见口型同步。\n侦探使用 en 原样说：\"I found it.\"。\n环境声，贯穿整个序列：车站站台的低沉环境底噪与远处雨声贯穿切镜。\n约束：切镜前后，侦探、女子与车站站台的服装、视线、灯光和雨势保持连续。\n",
+      "text_sha256": "c6fcaa2864e38ca5b69f77b3baf954ee4a44f18b89d2956eca82a303ad7f91dd",
+      "utterance_spans": [
+        {
+          "audio_event_id": "detective_line",
+          "end_byte": 1056,
+          "speaker_id": "detective_voice",
+          "spoken_language": "en",
+          "start_byte": 1045,
+          "turn_index": 1,
+          "utterance_sha256": "7a3610a72b4915d3cd7c0932053fd81430c57b5bfb30c02b6f887bd8d4cf3b73"
+        }
+      ]
+    }
+  ],
+  "request_bindings": [],
+  "request_bindings_sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+  "runtime_enabled": false,
+  "scene_ir_sha256": "cabd62ec1ee3c0eb55839793cbd3d3ac6641e25001db690be87bc673853de39f",
+  "schema_version": 2,
+  "state_binding": {
+    "canon_revision": 1,
+    "clip_id": "clip_01",
+    "completed_beat_ids": [
+      "beat_before"
+    ],
+    "current_beat_ids": [
+      "beat_line",
+      "beat_reaction"
+    ],
+    "planned_end_snapshot_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "planned_start_snapshot_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "project_id": "migration_watch",
+    "reserved_future_beat_ids": [
+      "beat_after"
+    ],
+    "semantic_state_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "state_revision": 1
+  },
+  "state_binding_sha256": "8d76b99cbd5a592fded96b6ee4dbef789facb31c8edb86c1e7f65d5925cbf9bb",
+  "status": "unattested_fixture_preview",
+  "surface_av_policy_sha256": "4add645666819c76dafb9c5e9eb0b341e23824d13fa5e8398e81d1d2330d067d",
+  "surface_binding_set_sha256": "41e8b019c37a3374a36b7a189480a5d0cdb1d85e5dda314534a369b20cc91a00"
+}
+

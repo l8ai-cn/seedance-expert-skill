@@ -22,7 +22,7 @@ metadata:
 
 Build production-ready Seedance prompts from clear concepts or supplied reference assets. Treat the prompt as a short shooting brief: it must say what changes on screen, what the camera does, what the light and sound contribute, and what must stay stable. Keep final prompts under the platform prompt budget and remove filler before delivery.
 
-Load `[ref:quick-ref]` for the checklist, `[ref:reference-workflow]` for multimodal references, `[ref:i2v-guide]` for image-to-video, `[ref:first-last-frame-guide]` for first/last-frame work, `[ref:examples-by-mode]` when examples are useful, `[ref:shot-list-continuity]` for multi-shot professional plans, `[ref:multishot-grammar]` for shot-label grammar, the shots-times-seconds budget, and cut placement inside one generation, and `[ref:multilingual-community-examples]` for Chinese/Russian/Japanese/Korean/Spanish or mixed-language prompts. When sequence state is present, load `[ref:prompt-compiler]` and compile only the current clip contract.
+Load `[ref:quick-ref]` for the checklist, `[ref:reference-workflow]` for multimodal references, `[ref:i2v-guide]` for image-to-video, `[ref:first-last-frame-guide]` for first/last-frame work, `[ref:examples-by-mode]` when examples are useful, `[ref:shot-list-continuity]` for multi-shot professional plans, `[ref:multishot-grammar]` for typed cut planning and surface-evidenced rendering inside one generation, and `[ref:multilingual-community-examples]` for Chinese/Russian/Japanese/Korean/Spanish or mixed-language prompts. When sequence state is present, load `[ref:prompt-compiler]` and compile only the current clip contract.
 
 ## Intent
 

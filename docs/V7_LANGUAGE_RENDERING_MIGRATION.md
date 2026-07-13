@@ -145,7 +145,7 @@ Audio timing and audio meaning remain independent. An event can be linked to `on
 
 The retained evidence does not establish that English, Mandarin, or another language is universally superior for prompting or lip-sync. Any comparison must identify the exact prompt, spoken line, surface, operation, model version, voice path, region, and date.
 
-## Exact dialogue is deferred
+## Exact dialogue is deferred in V7-07
 
 Scene-IR version 1 provides an audio `description`, source entity IDs, timing, and semantic function. It does not provide an exact utterance, a single authoritative speaker, spoken-language tag, delivery contract, or subtitle policy. A renderer must not convert that description into invented dialogue or translate it into a new line.
 
@@ -158,13 +158,13 @@ V7-07 therefore fails closed when an audio event is `dialogue` or `voiceover`. L
 - an authorized voice path where relevant; and
 - an explicit subtitle or post-production policy.
 
-When dialogue support is added, the same spoken line must remain byte-exact between English and Chinese instruction variants. Translating the line for a localized dub creates a different semantic variant. Subtitles, captions, legal copy, and market text remain post-production deliverables unless a separately verified workflow explicitly supports them.
+The separate V7-09 candidate-preview path now supplies those fields without changing V7-07 bytes. The same spoken line remains byte-exact between English and Chinese instruction variants. Translating the line for a localized dub creates a different semantic variant. Subtitles, captions, legal copy, and market text remain post-production deliverables unless a separately verified workflow explicitly supports them.
 
-## Multi-shot rendering is deferred
+## Multi-shot rendering is deferred in V7-07
 
 The scene IR can order several shots and require cross-shot endpoint continuity, but version 1 does not state whether the transition is a hard cut, match cut, dissolve, or continuous camera move. It also does not choose between portable `Shot N` labels and a surface-specific Chinese timeline convention.
 
-V7-07 compiles one shot only. A scene with more than one shot fails with a stable deferred-capability diagnostic. Later support requires a typed transition contract plus active-surface evidence. The compiler must not infer a cut from array order or invent timestamps.
+V7-07 compiles one shot only. A scene with more than one shot fails with a stable deferred-capability diagnostic. V7-09 adds a separate typed-transition candidate-preview path, but no trusted AV surface policy ships and provider execution remains blocked. Neither compiler infers a cut from array order or invents timestamps.
 
 ## Surface and locale evidence boundary
 
@@ -244,7 +244,7 @@ V7-07 does not:
 - prove translation quality from matching IDs or placeholders;
 - guarantee prompt adherence, physical accuracy, lip-sync, endpoint fidelity, or reference transfer;
 - activate a provider profile or submit generation requests;
-- add exact dialogue or multi-shot compilation; or
+- add exact dialogue or multi-shot compilation to V7-07; the separate V7-09 path remains candidate preview only; or
 - extend evidence beyond its recorded model, surface, operation, region, or expiry.
 
 The result is a reviewable language-rendering boundary: one semantic plan, two catalog-driven natural-language realizations, a machine-checked resolved-key trace, an explicit catalog-attestation status, and no hidden translation step. Human approval of the final prompt pair remains a release task.

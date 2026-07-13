@@ -51,6 +51,8 @@ Choose one endpoint mode: `held_static`, `dissipated_or_resolved`, `completed_wi
 
 Use setup, action, and changed endpoint as an ordered planning shape. Timing syntax is surface- and operation-scoped: choose ordered phases or relative beats by default, and use exact ranges only when current evidence for the selected operation permits them. V7-07 rejects exact ranges and remains byte-stable; if `compile_required` is true, do not hand-edit its output to add timestamps.
 
+Current candidate evidence remains intentionally qualified: `[claim:bp.timing.exact-caution]` records BytePlus-scoped ordered-shot guidance and a caution about strict ranges; `[claim:volc.timing.exact-example]` records a Volcengine-scoped example containing explicit ranges. Neither claim proves adherence or transfers its syntax to another surface, operation, region, tier, or prompt language.
+
 When sound drives the motion, pair each important visible change with one relative beat or SFX, such as `light pulses on the downbeat; the hand releases the cup on the final chime`. Use exact seconds only under the selected surface timing policy. Do not ask for many cuts, locations, and micro-actions inside one short clip.
 
 ## Reference Motion Rules

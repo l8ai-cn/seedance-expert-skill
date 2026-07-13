@@ -10,7 +10,7 @@
 
 **Direct the model. Don't micro-manage the frame.**
 
-An agent that directs Seedance 2.0 like a filmmaker — reading each scene before it writes the prompt.<br>Text, image, video, and reference to video with native audio, IP-safe rewrites, source-dated platform facts, and native reader paths for English, 中文, 日本語, and 한국어.
+An agent that directs Seedance 2.0 like a filmmaker — reading each scene before it writes the prompt.<br>Text, image, video, reference-to-video, evidence-scoped audio planning, IP-safe rewrites, source-dated platform facts, and native reader paths for English, 中文, 日本語, and 한국어.
 
 [![Version](https://img.shields.io/badge/version-6.6.0-E2A75E?style=flat-square&labelColor=14110B)](#changelog)
 [![Sub-skills](https://img.shields.io/badge/sub--skills-28-4A4438?style=flat-square&labelColor=14110B)](#skill-map)
@@ -36,7 +36,9 @@ Platform context: [ByteDance Seedance 2.0](https://seed.bytedance.com/en/seedanc
 >
 > V7-08 adds a separate, candidate-only project-state-v2 layer for owner-scoped motion, local endpoints, explicit legacy-binding maps, non-destructive migration, and failure-focused evals. It does not change V7-07 compiler bytes, prove generated physics, or activate a provider.
 >
-> Migration notes: [`surface profiles`](docs/V7_SURFACE_PROFILE_MIGRATION.md), [`reference and causal planning`](docs/V7_REFERENCE_CAUSAL_MIGRATION.md), [`paired language rendering`](docs/V7_LANGUAGE_RENDERING_MIGRATION.md), and [`physics, motion, and state v2`](docs/V7_PHYSICS_MOTION_STATE_MIGRATION.md).
+> V7-09 adds a parallel, offline candidate-preview contract for exact speech and explicit editorial cuts. It keeps prompt locale separate from spoken language, preserves utterance bytes across English/Chinese wrappers, rejects inferred provider grammar, and adds AV review without clearing V7-08 execution blockers or activating a provider. No trusted AV surface policy ships in this stage; the supported fixture is default-closed and visibly marked.
+>
+> Migration notes: [`surface profiles`](docs/V7_SURFACE_PROFILE_MIGRATION.md), [`reference and causal planning`](docs/V7_REFERENCE_CAUSAL_MIGRATION.md), [`paired language rendering`](docs/V7_LANGUAGE_RENDERING_MIGRATION.md), [`physics, motion, and state v2`](docs/V7_PHYSICS_MOTION_STATE_MIGRATION.md), and [`audio/dialogue/multi-shot v2`](docs/V7_AUDIO_MULTISHOT_MIGRATION.md).
 
 Updated: **2026-07-06** · **v6.6.0 the loop closes: frame-extraction observation tooling, state lifecycle for long projects, and the worked end-to-end trace** · plus native quickstarts in six languages, a security policy, and an expanded agent-install matrix
 
@@ -61,7 +63,7 @@ It then holds one directorial voice across every short clip of a long story, and
 Seedance 2.0 Skill OS is English-readable, but the v6 line gives Chinese, Japanese, and Korean readers first-class entry points, active example skills, and native prompt guidance. In every language, resolve typed bindings through the selected surface profile: preserve an externally captured opaque handle byte-for-byte, derive only an evidence-pinned API ordinal, and add no text token for structured media roles.
 
 The V7-07 candidate compiler does not translate a finished English prompt into Chinese. It renders both `en` and `zh-Hans` from one validated scene and a closed catalog carrying a human-attestation declaration, then verifies that event order, entities, camera semantics, audio links, constraints, and typed bindings stay aligned.
-The declaration is not authenticated; catalog forms, compiler grammar, and final prompts still require publishing review. Exact dialogue/voiceover and multi-shot rendering remain deferred and fail closed.
+The declaration is not authenticated; catalog forms, compiler grammar, and final prompts still require publishing review. V7-07 continues to reject exact dialogue/voiceover and multi-shot input. V7-09 handles those meanings only through a separate exact-version, candidate-preview path; unknown surface support and provider execution remain blocked.
 
 | Language | Start path | Native reader note |
 |---|---|---|
@@ -288,7 +290,8 @@ Concept art for the system, generated and curated. Every image is paired with se
 | [`sequence-project-state.md`](references/sequence-project-state.md) | Stateful project model, canon reconciliation, visual state fields, and Project State Capsule. |
 | [`continuation-handoff.md`](references/continuation-handoff.md) | Accepted-source continuation gate, observed state capture, continuation types, and beat exclusions. |
 | [`prompt-compiler.md`](references/prompt-compiler.md) | Compiles one validated semantic program into paired English/Chinese candidate prompts without translating provider bindings. |
-| [`V7_LANGUAGE_RENDERING_MIGRATION.md`](docs/V7_LANGUAGE_RENDERING_MIGRATION.md) | Paired-catalog contract, structural-parity boundary, deferred dialogue/multi-shot scope, and fail-closed diagnostics. |
+| [`V7_LANGUAGE_RENDERING_MIGRATION.md`](docs/V7_LANGUAGE_RENDERING_MIGRATION.md) | V7-07 paired-catalog contract, structural-parity boundary, and fail-closed diagnostics. |
+| [`V7_AUDIO_MULTISHOT_MIGRATION.md`](docs/V7_AUDIO_MULTISHOT_MIGRATION.md) | V7-09 exact speech, typed cuts, surface AV policy, candidate preview, and returned-media review boundary. |
 | [`V7_PHYSICS_MOTION_STATE_MIGRATION.md`](docs/V7_PHYSICS_MOTION_STATE_MIGRATION.md) | Observable-claim boundary, owner-scoped motion/endpoints, non-destructive v2 migration, and compiler block. |
 | [`reference-transfer-contract.md`](references/reference-transfer-contract.md) | Target/dimension authority, surface-specific binding resolution, and transfer/exclusion clauses. |
 | [`surface-prompt-profiles.md`](references/surface-prompt-profiles.md) | Candidate request transport, prompt-binding policy, allowed media, structured roles, and evidence boundaries. |
@@ -443,7 +446,13 @@ git diff --check
 The CI workflow runs these checks plus runtime install/rollback and an idempotence rerun; see [the validation workflow](.github/workflows/validate-skills.yml).
 Use `python -B` for tools inside a checksum-verified installation. Python bytecode caches are undeclared extra files and intentionally make later whole-tree verification fail; the runtime package test executes the installed compiler with bytecode writes disabled and verifies the tree again afterward.
 The schema dependency lock is deliberately limited to the release environment above. These checks are deterministic and offline after dependency installation — they prove the package is well-formed.
-Schema-contract migration notes are in [`docs/V7_VALIDATION_MIGRATION.md`](docs/V7_VALIDATION_MIGRATION.md); the claim-evidence activation boundary is in [`docs/V7_EVIDENCE_MIGRATION.md`](docs/V7_EVIDENCE_MIGRATION.md); paired language rendering is documented in [`docs/V7_LANGUAGE_RENDERING_MIGRATION.md`](docs/V7_LANGUAGE_RENDERING_MIGRATION.md); physics, motion, and state-v2 boundaries are in [`docs/V7_PHYSICS_MOTION_STATE_MIGRATION.md`](docs/V7_PHYSICS_MOTION_STATE_MIGRATION.md).
+Migration notes are split by contract boundary:
+
+- schema validation: [`docs/V7_VALIDATION_MIGRATION.md`](docs/V7_VALIDATION_MIGRATION.md)
+- claim evidence: [`docs/V7_EVIDENCE_MIGRATION.md`](docs/V7_EVIDENCE_MIGRATION.md)
+- paired language rendering: [`docs/V7_LANGUAGE_RENDERING_MIGRATION.md`](docs/V7_LANGUAGE_RENDERING_MIGRATION.md)
+- physics, motion, and state v2: [`docs/V7_PHYSICS_MOTION_STATE_MIGRATION.md`](docs/V7_PHYSICS_MOTION_STATE_MIGRATION.md)
+- exact speech and editorial cuts: [`docs/V7_AUDIO_MULTISHOT_MIGRATION.md`](docs/V7_AUDIO_MULTISHOT_MIGRATION.md)
 
 The model-in-the-loop harness is development tooling, not proof that the package is good. V7-03 first runs a blind route stage, loads complete allowlisted resources without silent truncation, then uses a different effective judge model. Public development and live-canary cases are never release-eligible. The public CLI refuses external held-out execution; no valid held-out run or quality release gate exists yet.
 
