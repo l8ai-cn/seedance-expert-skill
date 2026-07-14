@@ -34,6 +34,10 @@ class RecordingClient:
         raise AssertionError("download is not expected")
 
 
+class DeterministicHTTPError(RuntimeError):
+    status_code = 404
+
+
 class TaskRecoveryTests(unittest.TestCase):
     def test_initial_metadata_creation_is_exclusive(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -90,6 +94,20 @@ class TaskRecoveryTests(unittest.TestCase):
 
             with self.assertRaisesRegex(FileExistsError, "creation outcome is unknown"):
                 generate(RecordingClient(), request, output)
+
+    def test_client_rejection_is_not_marked_as_creation_unknown(self) -> None:
+        request = GenerationRequest("A lamp turns on.", TEST_MODEL)
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / "result.mp4"
+            metadata = output.with_suffix(".json")
+            client = RecordingClient(create_error=DeterministicHTTPError("model not open"))
+
+            with self.assertRaisesRegex(DeterministicHTTPError, "model not open"):
+                generate(client, request, output)
+
+            saved = json.loads(metadata.read_text(encoding="utf-8"))
+            self.assertEqual("creation_rejected", saved["status"])
+            self.assertEqual("model not open", saved["error"])
 
     def test_resume_rejects_tampered_request_fingerprint_without_network(self) -> None:
         request = GenerationRequest("A lamp turns on.", TEST_MODEL)

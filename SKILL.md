@@ -133,8 +133,10 @@ Before the billable create request, the command atomically writes
 `output/seedance-video.json` with status `creating` and the request fingerprint.
 After a successful creation response, it immediately persists the task id,
 polls `queued` and `running`, and never creates another task while that metadata
-file exists. If the creation outcome is unknown, inspect the provider before
-removing the metadata; do not rerun the original create command.
+file exists. Provider HTTP 4xx responses are persisted as `creation_rejected`;
+timeouts, transport failures, and HTTP 5xx responses are persisted as
+`creation_unknown`. Inspect any unknown creation outcome before removing the
+metadata; do not rerun the original create command.
 
 If polling times out, resume the persisted task with
 `python3 scripts/seedance_generate.py --resume output/seedance-video.json`.

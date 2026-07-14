@@ -16,6 +16,12 @@ class RejectRedirects(urllib.request.HTTPRedirectHandler):
         return None
 
 
+class ArkHTTPError(RuntimeError):
+    def __init__(self, status_code: int, message: str) -> None:
+        super().__init__(message)
+        self.status_code = status_code
+
+
 class ArkSeedanceClient:
     def __init__(
         self,
@@ -108,7 +114,10 @@ class ArkSeedanceClient:
             if 300 <= error.code < 400:
                 raise RuntimeError(f"{label} redirect was rejected") from error
             detail = error.read(65536).decode("utf-8", errors="replace")
-            raise RuntimeError(f"{label} failed with HTTP {error.code}: {detail}") from error
+            raise ArkHTTPError(
+                error.code,
+                f"{label} failed with HTTP {error.code}: {detail}",
+            ) from error
 
 
 def _reject_redirect(response, requested_url: str) -> None:

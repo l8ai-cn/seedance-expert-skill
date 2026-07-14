@@ -21,7 +21,7 @@ Use this reference for Seedance 2.0 operational planning on Volcengine, BytePlus
 2. Atomically store the request fingerprint and a `creating` status before task creation.
 3. Create the task with source-dated model ID, prompt, duration, ratio/size, resolution, and reference files.
 4. Immediately persist task ID, provider, request date, model ID, and prompt version after a successful creation response.
-5. If creation times out before a task ID is known, mark the creation outcome unknown and inspect the provider before retrying.
+5. Persist provider HTTP 4xx responses as `creation_rejected`; if creation times out, loses transport, or returns HTTP 5xx before a task ID is known, mark it `creation_unknown` and inspect the provider before retrying.
 6. If polling times out after a task ID is stored, resume that task instead of creating another one.
 7. Poll or use SDK wait helpers until completed or failed.
 8. Retrieve output URL(s), optional last frame, logs/errors, and moderation/failure reason when provided.

@@ -49,8 +49,13 @@ def generate(
     try:
         task_id = client.create_task(request)
         _validate_task_id(task_id)
-    except Exception:
-        document["status"] = "creation_unknown"
+    except Exception as error:
+        status_code = getattr(error, "status_code", None)
+        if isinstance(status_code, int) and 400 <= status_code < 500:
+            document["status"] = "creation_rejected"
+            document["error"] = str(error)
+        else:
+            document["status"] = "creation_unknown"
         write_metadata(metadata, document)
         raise
     document["task_id"] = task_id
