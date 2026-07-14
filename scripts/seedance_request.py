@@ -107,14 +107,7 @@ def validate_reference(reference: ReferenceInput) -> None:
 def validate_generation_request(request: GenerationRequest) -> None:
     if not request.prompt.strip():
         raise ValueError("prompt is required")
-    model = request.model.strip()
-    if not model:
-        raise ValueError("model is required")
-    if not model.startswith(ARK_SEEDANCE_MODEL_PREFIX):
-        raise ValueError(
-            "model must be a Volcengine Ark Seedance video model "
-            f"starting with {ARK_SEEDANCE_MODEL_PREFIX!r}"
-        )
+    validate_ark_seedance_model(request.model)
     if not 4 <= request.duration <= 15:
         raise ValueError("duration must be an integer from 4 to 15 seconds")
     if request.ratio not in RATIOS:
@@ -137,6 +130,18 @@ def validate_generation_request(request: GenerationRequest) -> None:
         item.kind in {"image_url", "video_url"} for item in request.references
     ):
         raise ValueError("audio_url requires at least one image_url or video_url reference")
+
+
+def validate_ark_seedance_model(value: str) -> str:
+    model = value.strip()
+    if not model:
+        raise ValueError("model is required")
+    if not model.startswith(ARK_SEEDANCE_MODEL_PREFIX):
+        raise ValueError(
+            "model must be a Volcengine Ark Seedance video model "
+            f"starting with {ARK_SEEDANCE_MODEL_PREFIX!r}"
+        )
+    return model
 
 
 def approval_fingerprint(

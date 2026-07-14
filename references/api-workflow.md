@@ -30,6 +30,9 @@ Use this reference for Seedance 2.0 operational planning on Volcengine, BytePlus
 11. Cancel, delete, or list tasks only through the active provider's current docs.
 
 This repository's executor is `scripts/seedance_generate.py`. Use
+`--check-credentials` to call the official task-list API without creating a
+task. This proves credential and route access only, not model entitlement.
+Use
 `--print-approval`, repeat the exact request with `--approval HASH`, and use
 `--resume METADATA.json` after polling timeout. Do not delete metadata merely to
 make the command create a second task.

@@ -85,6 +85,15 @@ The Worker injects these credential-backed variables:
 `doubao-seedance-`. A `doubao-seed-*` ID is a language model and must be
 rejected before approval or network access.
 
+Before a billable request, verify the credential and official video-task route:
+
+```bash
+python3 scripts/seedance_generate.py --check-credentials
+```
+
+This non-billing check does not prove model entitlement, quota, moderation
+acceptance, or generation success.
+
 Every reference must be an HTTPS URL without embedded credentials. One request
 may contain at most 9 image references, 3 video references, 3 audio references,
 and 12 references total. Audio references require at least one image or video.

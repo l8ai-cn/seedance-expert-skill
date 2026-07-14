@@ -31,6 +31,7 @@ class SeedanceCliTests(unittest.TestCase):
         result = run_cli("--help")
 
         self.assertEqual(0, result.returncode, result.stderr)
+        self.assertIn("--check-credentials", result.stdout)
         self.assertIn("--print-approval", result.stdout)
         self.assertIn("--resume", result.stdout)
         self.assertNotIn("--allow-api-host", result.stdout)

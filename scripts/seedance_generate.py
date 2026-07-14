@@ -18,6 +18,7 @@ from scripts.seedance_request import (
     ReferenceInput,
     approval_fingerprint,
     parse_reference,
+    validate_ark_seedance_model,
     validate_generation_request,
 )
 from scripts.seedance_task import generate, resume
@@ -28,6 +29,11 @@ def parser_for_cli() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Generate a video with Volcengine Ark Seedance.")
     parser.add_argument("prompt", nargs="?")
     parser.add_argument("--resume", type=Path, help="Resume an existing task metadata file.")
+    parser.add_argument(
+        "--check-credentials",
+        action="store_true",
+        help="Check Ark credentials through the non-billing task-list API.",
+    )
     parser.add_argument("--output", type=Path)
     parser.add_argument("--duration", type=int, default=5)
     parser.add_argument("--ratio", choices=RATIOS, default="16:9")
@@ -104,6 +110,17 @@ def main() -> int:
     parser = parser_for_cli()
     args = parser.parse_args()
     base_url = _base_url(parser)
+    if args.check_credentials:
+        if args.prompt or args.resume or args.output or args.print_approval or args.approval:
+            parser.error("--check-credentials cannot be combined with generation arguments")
+        try:
+            model = validate_ark_seedance_model(os.environ.get("SEEDANCE_MODEL", ""))
+            _client(parser, base_url).check_credentials(model)
+        except (OSError, RuntimeError, ValueError) as error:
+            print(f"error: {error}", file=sys.stderr)
+            return 1
+        print("credentials verified; generation entitlement not verified")
+        return 0
     if args.resume:
         if args.prompt or args.output or args.print_approval or args.approval:
             parser.error("--resume cannot be combined with generation or approval arguments")

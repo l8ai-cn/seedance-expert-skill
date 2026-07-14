@@ -165,6 +165,23 @@ class SeedanceRequestTests(unittest.TestCase):
 
 
 class ArkClientSecurityTests(unittest.TestCase):
+    def test_credential_probe_uses_official_task_list_without_creation(self) -> None:
+        opener = FakeOpener([FakeResponse(b'{"items":[]}')])
+        client = generation.ArkSeedanceClient(
+            "secret",
+            "https://ark.cn-beijing.volces.com/api/v3",
+            api_opener=opener,
+        )
+
+        client.check_credentials(TEST_MODEL)
+
+        self.assertEqual(1, len(opener.requests))
+        request, _timeout = opener.requests[0]
+        self.assertEqual("GET", request.get_method())
+        self.assertEqual("/api/v3/contents/generations/tasks", request.selector.split("?")[0])
+        self.assertIn("page_size=1", request.selector)
+        self.assertIn("filter.model=doubao-seedance-2-0-260128", request.selector)
+
     def test_api_base_requires_https_and_an_allowed_host(self) -> None:
         with self.assertRaisesRegex(ValueError, "HTTPS"):
             generation.ArkSeedanceClient("secret", "http://ark.cn-beijing.volces.com/api/v3")

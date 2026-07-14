@@ -2,11 +2,12 @@ from __future__ import annotations
 
 import json
 import urllib.error
+import urllib.parse
 import urllib.request
 from pathlib import Path
 
 from scripts.seedance_download import HttpsOnlyRedirectHandler, download_video
-from scripts.seedance_request import GenerationRequest
+from scripts.seedance_request import GenerationRequest, validate_ark_seedance_model
 from scripts.seedance_url_policy import DEFAULT_API_HOST, validate_api_base_url
 
 
@@ -53,6 +54,13 @@ class ArkSeedanceClient:
         if not isinstance(task_id, str) or not task_id:
             raise RuntimeError("Ark create response is missing task id")
         return task_id
+
+    def check_credentials(self, model: str) -> None:
+        query = urllib.parse.urlencode({
+            "page_size": 1,
+            "filter.model": validate_ark_seedance_model(model),
+        })
+        self._json_request(f"{self.base_url}/contents/generations/tasks?{query}")
 
     def get_task(self, task_id: str) -> dict:
         return self._json_request(f"{self.base_url}/contents/generations/tasks/{task_id}")
