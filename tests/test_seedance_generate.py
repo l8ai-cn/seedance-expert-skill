@@ -9,6 +9,10 @@ from pathlib import Path
 import scripts.seedance_generate as generation
 
 
+TEST_MODEL = "doubao-seedance-2-0-260128"
+OTHER_TEST_MODEL = "doubao-seedance-2-0-fast-260128"
+
+
 class FakeResponse:
     def __init__(
         self,
@@ -108,17 +112,28 @@ class SeedanceRequestTests(unittest.TestCase):
 
         for duration in (3, 16):
             with self.assertRaisesRegex(ValueError, "duration"):
-                validate(generation.GenerationRequest("prompt", "model", duration=duration))
+                validate(generation.GenerationRequest("prompt", TEST_MODEL, duration=duration))
         with self.assertRaisesRegex(ValueError, "ratio"):
-            validate(generation.GenerationRequest("prompt", "model", ratio="2:1"))
+            validate(generation.GenerationRequest("prompt", TEST_MODEL, ratio="2:1"))
         with self.assertRaisesRegex(ValueError, "resolution"):
-            validate(generation.GenerationRequest("prompt", "model", resolution="2k"))
+            validate(generation.GenerationRequest("prompt", TEST_MODEL, resolution="2k"))
         with self.assertRaisesRegex(ValueError, "role"):
             validate(
                 generation.GenerationRequest(
                     "prompt",
-                    "model",
+                    TEST_MODEL,
                     references=(reference("video_url", "https://assets.example/a.mp4", "first_frame"),),
+                )
+            )
+
+    def test_rejects_doubao_seed_language_model_before_generation(self) -> None:
+        validate = require("validate_generation_request")
+
+        with self.assertRaisesRegex(ValueError, "Seedance video model"):
+            validate(
+                generation.GenerationRequest(
+                    "A lamp turns on.",
+                    "doubao-seed-1-8-251228",
                 )
             )
 
@@ -135,7 +150,7 @@ class SeedanceRequestTests(unittest.TestCase):
 
         self.assertRegex(approved, r"^[0-9a-f]{64}$")
         self.assertNotEqual(approved, fingerprint(generation.GenerationRequest("A lamp turns off.", base.model)))
-        self.assertNotEqual(approved, fingerprint(generation.GenerationRequest(base.prompt, "other-model")))
+        self.assertNotEqual(approved, fingerprint(generation.GenerationRequest(base.prompt, OTHER_TEST_MODEL)))
         self.assertNotEqual(
             approved,
             fingerprint(
@@ -226,7 +241,7 @@ class TaskLifecycleTests(unittest.TestCase):
             with self.assertRaisesRegex(TimeoutError, "task-3"):
                 generation.generate(
                     client,
-                    generation.GenerationRequest("A curtain moves.", "model"),
+                    generation.GenerationRequest("A curtain moves.", TEST_MODEL),
                     output,
                     poll_interval=0,
                     max_wait=0,
@@ -260,7 +275,7 @@ class TaskLifecycleTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             output = Path(directory) / "result.mp4"
             metadata = output.with_suffix(".json")
-            request = generation.GenerationRequest("A lamp turns on.", "model")
+            request = generation.GenerationRequest("A lamp turns on.", TEST_MODEL)
             metadata.write_text(
                 json.dumps(
                     {
@@ -295,7 +310,7 @@ class TaskLifecycleTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "JSON"):
             generation.generate(
                 client,
-                generation.GenerationRequest("A lamp turns on.", "model"),
+                generation.GenerationRequest("A lamp turns on.", TEST_MODEL),
                 Path("result.json"),
             )
         self.assertEqual([], opener.requests)

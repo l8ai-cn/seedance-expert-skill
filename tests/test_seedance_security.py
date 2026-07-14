@@ -12,6 +12,9 @@ from scripts.seedance_request import GenerationRequest, ReferenceInput, validate
 from tests.test_seedance_generate import FakeOpener, FakeResponse
 
 
+TEST_MODEL = "doubao-seedance-2-0-260128"
+
+
 class ReferenceSecurityTests(unittest.TestCase):
     def test_reference_urls_require_https_without_embedded_credentials(self) -> None:
         for url in (
@@ -23,7 +26,7 @@ class ReferenceSecurityTests(unittest.TestCase):
                 validate_generation_request(
                     GenerationRequest(
                         "A lamp turns on.",
-                        "model",
+                        TEST_MODEL,
                         references=(ReferenceInput("image_url", url, "reference_image"),),
                     )
                 )
@@ -75,7 +78,9 @@ class ReferenceSecurityTests(unittest.TestCase):
 
         for references, message in cases:
             with self.subTest(message=message), self.assertRaisesRegex(ValueError, message):
-                validate_generation_request(GenerationRequest("A lamp turns on.", "model", references=references))
+                validate_generation_request(
+                    GenerationRequest("A lamp turns on.", TEST_MODEL, references=references)
+                )
 
 
 class DownloadSecurityTests(unittest.TestCase):

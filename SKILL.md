@@ -81,6 +81,10 @@ The Worker injects these credential-backed variables:
 - `SEEDANCE_BASE_URL`
 - `SEEDANCE_MODEL`
 
+`SEEDANCE_MODEL` must be an Ark video model ID beginning with
+`doubao-seedance-`. A `doubao-seed-*` ID is a language model and must be
+rejected before approval or network access.
+
 Every reference must be an HTTPS URL without embedded credentials. One request
 may contain at most 9 image references, 3 video references, 3 audio references,
 and 12 references total. Audio references require at least one image or video.

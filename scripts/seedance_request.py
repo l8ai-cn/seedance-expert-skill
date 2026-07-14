@@ -25,6 +25,7 @@ REFERENCE_LIMITS = {
     "audio_url": 3,
 }
 MAX_REFERENCES = 12
+ARK_SEEDANCE_MODEL_PREFIX = "doubao-seedance-"
 
 
 @dataclass(frozen=True)
@@ -106,8 +107,14 @@ def validate_reference(reference: ReferenceInput) -> None:
 def validate_generation_request(request: GenerationRequest) -> None:
     if not request.prompt.strip():
         raise ValueError("prompt is required")
-    if not request.model.strip():
+    model = request.model.strip()
+    if not model:
         raise ValueError("model is required")
+    if not model.startswith(ARK_SEEDANCE_MODEL_PREFIX):
+        raise ValueError(
+            "model must be a Volcengine Ark Seedance video model "
+            f"starting with {ARK_SEEDANCE_MODEL_PREFIX!r}"
+        )
     if not 4 <= request.duration <= 15:
         raise ValueError("duration must be an integer from 4 to 15 seconds")
     if request.ratio not in RATIOS:

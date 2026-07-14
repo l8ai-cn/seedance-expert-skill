@@ -10,6 +10,9 @@ from scripts.seedance_request import GenerationRequest, approval_fingerprint
 from scripts.seedance_task import generate, resume
 
 
+TEST_MODEL = "doubao-seedance-2-0-260128"
+
+
 class RecordingClient:
     def __init__(self, *, create_error: Exception | None = None) -> None:
         self.base_url = "https://ark.cn-beijing.volces.com/api/v3"
@@ -46,7 +49,7 @@ class TaskRecoveryTests(unittest.TestCase):
             )
 
     def test_existing_metadata_blocks_duplicate_task_creation(self) -> None:
-        request = GenerationRequest("A lamp turns on.", "model")
+        request = GenerationRequest("A lamp turns on.", TEST_MODEL)
         with tempfile.TemporaryDirectory() as directory:
             output = Path(directory) / "result.mp4"
             metadata = output.with_suffix(".json")
@@ -71,7 +74,7 @@ class TaskRecoveryTests(unittest.TestCase):
             self.assertEqual(0, client.created)
 
     def test_ambiguous_create_failure_is_persisted_and_blocks_retry(self) -> None:
-        request = GenerationRequest("A lamp turns on.", "model")
+        request = GenerationRequest("A lamp turns on.", TEST_MODEL)
         with tempfile.TemporaryDirectory() as directory:
             output = Path(directory) / "result.mp4"
             metadata = output.with_suffix(".json")
@@ -89,7 +92,7 @@ class TaskRecoveryTests(unittest.TestCase):
                 generate(RecordingClient(), request, output)
 
     def test_resume_rejects_tampered_request_fingerprint_without_network(self) -> None:
-        request = GenerationRequest("A lamp turns on.", "model")
+        request = GenerationRequest("A lamp turns on.", TEST_MODEL)
         with tempfile.TemporaryDirectory() as directory:
             output = Path(directory) / "result.mp4"
             metadata = output.with_suffix(".json")
@@ -114,7 +117,7 @@ class TaskRecoveryTests(unittest.TestCase):
             self.assertEqual(0, client.queried)
 
     def test_resume_rejects_output_metadata_path_collision(self) -> None:
-        request = GenerationRequest("A lamp turns on.", "model")
+        request = GenerationRequest("A lamp turns on.", TEST_MODEL)
         with tempfile.TemporaryDirectory() as directory:
             metadata = Path(directory) / "result.json"
             metadata.write_text(
@@ -135,7 +138,7 @@ class TaskRecoveryTests(unittest.TestCase):
                 resume(RecordingClient(), metadata)
 
     def test_resume_requires_metadata_to_remain_adjacent_to_output(self) -> None:
-        request = GenerationRequest("A lamp turns on.", "model")
+        request = GenerationRequest("A lamp turns on.", TEST_MODEL)
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             output = root / "result.mp4"
