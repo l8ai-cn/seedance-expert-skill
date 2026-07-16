@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import tempfile
 import unittest
 from pathlib import Path
@@ -11,6 +12,13 @@ import scripts.seedance_generate as generation
 
 TEST_MODEL = "doubao-seedance-2-0-260128"
 OTHER_TEST_MODEL = "doubao-seedance-2-0-fast-260128"
+
+
+def restore_environment(name: str, value: str | None) -> None:
+    if value is None:
+        os.environ.pop(name, None)
+    else:
+        os.environ[name] = value
 
 
 class FakeResponse:
@@ -194,6 +202,22 @@ class ArkClientSecurityTests(unittest.TestCase):
             allowed_api_hosts={"private-ark.example"},
         )
         self.assertEqual("https://private-ark.example/api/v3", client.base_url)
+
+    def test_explicit_host_allowlist_enables_a_third_party_provider(self) -> None:
+        original_api_key = os.environ.get("SEEDANCE_API_KEY")
+        original_hosts = os.environ.get("SEEDANCE_ALLOWED_API_HOSTS")
+        try:
+            os.environ["SEEDANCE_API_KEY"] = "secret"
+            os.environ["SEEDANCE_ALLOWED_API_HOSTS"] = "token.aiedulab.cn"
+            client = generation._client(
+                generation.argparse.ArgumentParser(),
+                "https://token.aiedulab.cn/api/v3",
+            )
+        finally:
+            restore_environment("SEEDANCE_API_KEY", original_api_key)
+            restore_environment("SEEDANCE_ALLOWED_API_HOSTS", original_hosts)
+
+        self.assertEqual("https://token.aiedulab.cn/api/v3", client.base_url)
 
     def test_api_redirect_is_rejected_before_bearer_can_reach_another_host(self) -> None:
         opener = FakeOpener(

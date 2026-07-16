@@ -80,10 +80,15 @@ The Worker injects these credential-backed variables:
 - `SEEDANCE_API_KEY`
 - `SEEDANCE_BASE_URL`
 - `SEEDANCE_MODEL`
+- `SEEDANCE_ALLOWED_API_HOSTS` (optional, comma-separated hostnames)
 
 `SEEDANCE_MODEL` must be an Ark video model ID beginning with
 `doubao-seedance-`. A `doubao-seed-*` ID is a language model and must be
 rejected before approval or network access.
+
+`SEEDANCE_ALLOWED_API_HOSTS` is required only for an explicitly approved
+third-party Ark-compatible provider. It accepts hostnames only, never URLs or
+wildcards. Leave it unset for the official Ark endpoint.
 
 Before a billable request, verify the credential and official video-task route:
 

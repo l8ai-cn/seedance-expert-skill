@@ -5,6 +5,7 @@ import argparse
 import os
 import sys
 from pathlib import Path
+from urllib.parse import urlsplit
 
 if __package__ in {None, ""}:
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -101,9 +102,34 @@ def _client(parser: argparse.ArgumentParser, base_url: str) -> ArkSeedanceClient
         return ArkSeedanceClient(
             os.environ.get("SEEDANCE_API_KEY", ""),
             base_url,
+            allowed_api_hosts=_allowed_api_hosts(),
         )
     except ValueError as error:
         parser.error(str(error))
+
+
+def _allowed_api_hosts() -> set[str]:
+    raw = os.environ.get("SEEDANCE_ALLOWED_API_HOSTS", "")
+    hosts = set()
+    for value in raw.split(","):
+        host = value.strip().lower()
+        if not host:
+            continue
+        parsed = urlsplit("//" + host)
+        if (
+            parsed.hostname != host
+            or parsed.path
+            or parsed.query
+            or parsed.fragment
+            or parsed.username is not None
+            or parsed.password is not None
+            or parsed.port is not None
+        ):
+            raise ValueError(
+                "SEEDANCE_ALLOWED_API_HOSTS must contain comma-separated hostnames only"
+            )
+        hosts.add(host)
+    return hosts
 
 
 def main() -> int:
