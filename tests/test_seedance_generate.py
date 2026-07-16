@@ -223,17 +223,17 @@ class ArkClientSecurityTests(unittest.TestCase):
                 client.download("file:///etc/hosts", output)
 
             client.download_opener = FakeOpener(
-                [FakeResponse(b"", content_type="video/mp4", url="https://files.example/a.mp4")]
+                [FakeResponse(b"", content_type="video/mp4", url="https://ark-acg-cn-beijing.tos-cn-beijing.volces.com/a.mp4")]
             )
             with self.assertRaisesRegex(RuntimeError, "empty"):
-                client.download("https://files.example/a.mp4", output)
+                client.download("https://ark-acg-cn-beijing.tos-cn-beijing.volces.com/a.mp4", output)
             self.assertEqual(b"old", output.read_bytes())
 
             client.download_opener = FakeOpener(
-                [FakeResponse(b"12345", content_type="video/mp4", url="https://files.example/a.mp4")]
+                [FakeResponse(b"12345", content_type="video/mp4", url="https://ark-acg-cn-beijing.tos-cn-beijing.volces.com/a.mp4")]
             )
             with self.assertRaisesRegex(RuntimeError, "size limit"):
-                client.download("https://files.example/a.mp4", output)
+                client.download("https://ark-acg-cn-beijing.tos-cn-beijing.volces.com/a.mp4", output)
             self.assertEqual(b"old", output.read_bytes())
             self.assertEqual([], list(output.parent.glob("*.part")))
 
@@ -274,12 +274,12 @@ class TaskLifecycleTests(unittest.TestCase):
             [
                 FakeResponse(
                     b'{"id":"task-4","status":"succeeded","content":'
-                    b'{"video_url":"https://files.example/video.mp4"}}'
+                    b'{"video_url":"https://ark-acg-cn-beijing.tos-cn-beijing.volces.com/video.mp4"}}'
                 ),
                 FakeResponse(
                     b"video",
                     content_type="video/mp4",
-                    url="https://files.example/video.mp4",
+                    url="https://ark-acg-cn-beijing.tos-cn-beijing.volces.com/video.mp4",
                 ),
             ]
         )

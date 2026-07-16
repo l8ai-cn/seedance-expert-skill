@@ -13,9 +13,17 @@ ALLOWED_VIDEO_TYPES = {"application/octet-stream"}
 
 
 class HttpsOnlyRedirectHandler(urllib.request.HTTPRedirectHandler):
+    def __init__(self, allowed_hosts: set[str] | None = None) -> None:
+        super().__init__()
+        self.allowed_hosts = allowed_hosts
+
     def redirect_request(self, req, fp, code, msg, headers, newurl):
         try:
-            validate_https_url(newurl, label="download redirect URL")
+            validate_https_url(
+                newurl,
+                label="download redirect URL",
+                allowed_hosts=self.allowed_hosts,
+            )
         except ValueError as error:
             raise RuntimeError(str(error)) from error
         return super().redirect_request(req, fp, code, msg, headers, newurl)
@@ -28,8 +36,9 @@ def download_video(
     *,
     timeout: float,
     max_bytes: int,
+    allowed_hosts: set[str] | None = None,
 ) -> None:
-    source_url = validate_https_url(url, label="download URL")
+    source_url = validate_https_url(url, label="download URL", allowed_hosts=allowed_hosts)
     request = urllib.request.Request(source_url, method="GET")
     output.parent.mkdir(parents=True, exist_ok=True)
     temporary: Path | None = None
@@ -37,7 +46,11 @@ def download_video(
         with opener.open(request, timeout=timeout) as response:
             final_url = response.geturl() if hasattr(response, "geturl") else source_url
             try:
-                validate_https_url(final_url, label="download redirect URL")
+                validate_https_url(
+                    final_url,
+                    label="download redirect URL",
+                    allowed_hosts=allowed_hosts,
+                )
             except ValueError as error:
                 raise RuntimeError(str(error)) from error
             content_type = response.headers.get("Content-Type", "").split(";", 1)[0].strip().lower()

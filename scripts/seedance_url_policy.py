@@ -5,6 +5,13 @@ from urllib.parse import urlsplit
 
 DEFAULT_API_BASE_URL = "https://ark.cn-beijing.volces.com/api/v3"
 DEFAULT_API_HOST = "ark.cn-beijing.volces.com"
+SUB2API_API_HOST = "token.aiedulab.cn"
+APPROVED_API_HOSTS = {DEFAULT_API_HOST, SUB2API_API_HOST}
+ARK_DOWNLOAD_HOSTS = {
+    "ark-acg-cn-beijing.tos-cn-beijing.volces.com",
+    "ark-content-generation-cn-beijing.tos-cn-beijing.volces.com",
+}
+SUB2API_DOWNLOAD_HOSTS = {"a.lovart.ai", "assets-persist.lovart.ai"}
 
 
 def validate_https_url(
@@ -40,7 +47,7 @@ def validate_api_base_url(url: str, allowed_hosts: set[str] | None = None) -> st
     validated = validate_https_url(
         normalized,
         label="API base URL",
-        allowed_hosts=allowed_hosts or {DEFAULT_API_HOST},
+        allowed_hosts=allowed_hosts or APPROVED_API_HOSTS,
     )
     parsed = urlsplit(validated)
     if parsed.query:

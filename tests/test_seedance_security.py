@@ -86,7 +86,7 @@ class ReferenceSecurityTests(unittest.TestCase):
 class DownloadSecurityTests(unittest.TestCase):
     def test_redirect_handler_rejects_a_non_https_intermediate_target(self) -> None:
         handler = HttpsOnlyRedirectHandler()
-        request = urllib.request.Request("https://files.example/start.mp4")
+        request = urllib.request.Request("https://ark-acg-cn-beijing.tos-cn-beijing.volces.com/start.mp4")
 
         with self.assertRaisesRegex(RuntimeError, "HTTPS"):
             handler.redirect_request(
@@ -95,7 +95,7 @@ class DownloadSecurityTests(unittest.TestCase):
                 302,
                 "Found",
                 {},
-                "http://cdn.example/final.mp4",
+                "http://ark-acg-cn-beijing.tos-cn-beijing.volces.com/final.mp4",
             )
 
     def test_https_redirect_is_accepted_after_validation(self) -> None:
@@ -104,7 +104,7 @@ class DownloadSecurityTests(unittest.TestCase):
                 FakeResponse(
                     b"video",
                     content_type="video/mp4",
-                    url="https://cdn.example/final.mp4",
+                    url="https://ark-acg-cn-beijing.tos-cn-beijing.volces.com/final.mp4",
                 )
             ]
         )
@@ -116,7 +116,7 @@ class DownloadSecurityTests(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as directory:
             output = Path(directory) / "result.mp4"
-            client.download("https://files.example/start.mp4", output)
+            client.download("https://ark-acg-cn-beijing.tos-cn-beijing.volces.com/start.mp4", output)
 
             self.assertEqual(b"video", output.read_bytes())
 
@@ -125,22 +125,53 @@ class DownloadSecurityTests(unittest.TestCase):
             "secret",
             "https://ark.cn-beijing.volces.com/api/v3",
             download_opener=FakeOpener(
-                [FakeResponse(b"video", content_type="video/mp4", url="http://cdn.example/final.mp4")]
+                [FakeResponse(b"video", content_type="video/mp4", url="http://ark-acg-cn-beijing.tos-cn-beijing.volces.com/final.mp4")]
             ),
         )
 
         with tempfile.TemporaryDirectory() as directory:
             output = Path(directory) / "result.mp4"
             with self.assertRaisesRegex(RuntimeError, "HTTPS"):
-                client.download("https://files.example/start.mp4", output)
+                client.download("https://ark-acg-cn-beijing.tos-cn-beijing.volces.com/start.mp4", output)
 
             client.download_opener = FakeOpener(
-                [FakeResponse(b"video", content_type="", url="https://files.example/start.mp4")]
+                [FakeResponse(b"video", content_type="", url="https://ark-acg-cn-beijing.tos-cn-beijing.volces.com/start.mp4")]
             )
             with self.assertRaisesRegex(RuntimeError, "Content-Type"):
-                client.download("https://files.example/start.mp4", output)
+                client.download("https://ark-acg-cn-beijing.tos-cn-beijing.volces.com/start.mp4", output)
 
             self.assertFalse(output.exists())
+
+    def test_sub2api_downloads_only_from_lovart_hosts(self) -> None:
+        client = ArkSeedanceClient(
+            "secret",
+            "https://token.aiedulab.cn/api/v3",
+            download_opener=FakeOpener(
+                [FakeResponse(b"internal", content_type="video/mp4", url="https://127.0.0.1/video.mp4")]
+            ),
+        )
+
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / "result.mp4"
+            with self.assertRaisesRegex(ValueError, "not allowed"):
+                client.download("https://127.0.0.1/video.mp4", output)
+
+            client.download_opener = FakeOpener(
+                [FakeResponse(b"video", content_type="video/mp4", url="https://a.lovart.ai/video.mp4")]
+            )
+            client.download("https://a.lovart.ai/video.mp4", output)
+            self.assertEqual(b"video", output.read_bytes())
+
+    def test_official_ark_downloads_only_from_ark_storage_hosts(self) -> None:
+        client = ArkSeedanceClient(
+            "secret",
+            "https://ark.cn-beijing.volces.com/api/v3",
+            download_opener=FakeOpener([]),
+        )
+
+        with tempfile.TemporaryDirectory() as directory:
+            with self.assertRaisesRegex(ValueError, "not allowed"):
+                client.download("https://127.0.0.1/internal.mp4", Path(directory) / "result.mp4")
 
 
 if __name__ == "__main__":

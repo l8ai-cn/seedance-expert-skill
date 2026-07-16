@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import os
 import re
 import subprocess
@@ -11,6 +12,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = ROOT / "scripts" / "seedance_generate.py"
+CLI_NETWORK_FIXTURE = ROOT / "tests" / "fixtures" / "cli_network"
 
 
 def run_cli(*args: str, env: dict[str, str] | None = None) -> subprocess.CompletedProcess[str]:
@@ -142,6 +144,52 @@ class SeedanceCliTests(unittest.TestCase):
         self.assertEqual(0, first.returncode, first.stderr)
         self.assertEqual(0, second.returncode, second.stderr)
         self.assertNotEqual(first.stdout.strip(), second.stdout.strip())
+
+    def test_sub2api_seedance_cli_creates_polls_and_downloads(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            output = root / "result.mp4"
+            trace = root / "trace.jsonl"
+            env = {
+                "PYTHONPATH": str(CLI_NETWORK_FIXTURE),
+                "PYTHONDONTWRITEBYTECODE": "1",
+                "SEEDANCE_API_KEY": "test-key",
+                "SEEDANCE_MODEL": "doubao-seedance-2-0-260128",
+                "SEEDANCE_BASE_URL": "https://token.aiedulab.cn/api/v3",
+                "SEEDANCE_TEST_TRACE": str(trace),
+            }
+            approval = run_cli(
+                "A lamp turns on.",
+                "--output",
+                str(output),
+                "--print-approval",
+                env=env,
+            )
+            result = run_cli(
+                "A lamp turns on.",
+                "--output",
+                str(output),
+                "--approval",
+                approval.stdout.strip(),
+                "--poll-interval",
+                "0.01",
+                env=env,
+            )
+
+            self.assertEqual(0, approval.returncode, approval.stderr)
+            self.assertEqual(0, result.returncode, result.stderr)
+            self.assertEqual(b"sub2api-video", output.read_bytes())
+            metadata = json.loads(output.with_suffix(".json").read_text(encoding="utf-8"))
+            self.assertEqual("succeeded", metadata["status"])
+            requests = [json.loads(line) for line in trace.read_text(encoding="utf-8").splitlines()]
+            self.assertEqual(
+                ["POST", "GET", "GET"],
+                [request["method"] for request in requests],
+            )
+            self.assertEqual(
+                "https://token.aiedulab.cn/api/v3/contents/generations/tasks",
+                requests[0]["url"],
+            )
 
 
 if __name__ == "__main__":

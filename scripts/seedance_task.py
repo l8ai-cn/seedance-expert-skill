@@ -51,7 +51,10 @@ def generate(
         _validate_task_id(task_id)
     except Exception as error:
         status_code = getattr(error, "status_code", None)
-        if isinstance(status_code, int) and 400 <= status_code < 500:
+        if status_code == 404:
+            document["status"] = "endpoint_unavailable"
+            document["error"] = str(error)
+        elif isinstance(status_code, int) and 400 <= status_code < 500:
             document["status"] = "creation_rejected"
             document["error"] = str(error)
         else:

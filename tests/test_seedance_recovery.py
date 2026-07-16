@@ -34,8 +34,12 @@ class RecordingClient:
         raise AssertionError("download is not expected")
 
 
-class DeterministicHTTPError(RuntimeError):
+class EndpointUnavailableError(RuntimeError):
     status_code = 404
+
+
+class DeterministicHTTPError(RuntimeError):
+    status_code = 400
 
 
 class TaskRecoveryTests(unittest.TestCase):
@@ -108,6 +112,22 @@ class TaskRecoveryTests(unittest.TestCase):
             saved = json.loads(metadata.read_text(encoding="utf-8"))
             self.assertEqual("creation_rejected", saved["status"])
             self.assertEqual("model not open", saved["error"])
+
+    def test_missing_compatibility_route_is_recorded_as_endpoint_unavailable(self) -> None:
+        request = GenerationRequest("A lamp turns on.", TEST_MODEL)
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / "result.mp4"
+            metadata = output.with_suffix(".json")
+            client = RecordingClient(
+                create_error=EndpointUnavailableError("compatibility endpoint is not deployed")
+            )
+
+            with self.assertRaisesRegex(EndpointUnavailableError, "not deployed"):
+                generate(client, request, output)
+
+            saved = json.loads(metadata.read_text(encoding="utf-8"))
+            self.assertEqual("endpoint_unavailable", saved["status"])
+            self.assertIn("not deployed", saved["error"])
 
     def test_resume_rejects_tampered_request_fingerprint_without_network(self) -> None:
         request = GenerationRequest("A lamp turns on.", TEST_MODEL)

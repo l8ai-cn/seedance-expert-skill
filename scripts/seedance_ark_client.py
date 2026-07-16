@@ -8,7 +8,14 @@ from pathlib import Path
 
 from scripts.seedance_download import HttpsOnlyRedirectHandler, download_video
 from scripts.seedance_request import GenerationRequest, validate_ark_seedance_model
-from scripts.seedance_url_policy import DEFAULT_API_HOST, validate_api_base_url
+from scripts.seedance_url_policy import (
+    APPROVED_API_HOSTS,
+    ARK_DOWNLOAD_HOSTS,
+    DEFAULT_API_HOST,
+    SUB2API_API_HOST,
+    SUB2API_DOWNLOAD_HOSTS,
+    validate_api_base_url,
+)
 
 
 class RejectRedirects(urllib.request.HTTPRedirectHandler):
@@ -29,6 +36,7 @@ class ArkSeedanceClient:
         base_url: str,
         *,
         allowed_api_hosts: set[str] | None = None,
+        allowed_download_hosts: set[str] | None = None,
         api_opener: urllib.request.OpenerDirector | None = None,
         download_opener: urllib.request.OpenerDirector | None = None,
         timeout: float = 60,
@@ -41,11 +49,21 @@ class ArkSeedanceClient:
             raise ValueError("timeout must be positive")
         if max_download_bytes <= 0:
             raise ValueError("max_download_bytes must be positive")
-        self.allowed_api_hosts = {DEFAULT_API_HOST, *(allowed_api_hosts or set())}
+        self.allowed_api_hosts = {*APPROVED_API_HOSTS, *(allowed_api_hosts or set())}
         self.base_url = validate_api_base_url(base_url, self.allowed_api_hosts)
+        api_host = urllib.parse.urlsplit(self.base_url).hostname
+        default_download_hosts = {
+            DEFAULT_API_HOST: ARK_DOWNLOAD_HOSTS,
+            SUB2API_API_HOST: SUB2API_DOWNLOAD_HOSTS,
+        }.get(api_host, set())
+        self.allowed_download_hosts = (
+            set(allowed_download_hosts)
+            if allowed_download_hosts is not None
+            else set(default_download_hosts)
+        )
         self.api_opener = api_opener or urllib.request.build_opener(RejectRedirects())
         self.download_opener = download_opener or urllib.request.build_opener(
-            HttpsOnlyRedirectHandler()
+            HttpsOnlyRedirectHandler(self.allowed_download_hosts)
         )
         self.timeout = timeout
         self.max_download_bytes = max_download_bytes
@@ -78,6 +96,7 @@ class ArkSeedanceClient:
             output,
             timeout=self.timeout,
             max_bytes=self.max_download_bytes,
+            allowed_hosts=self.allowed_download_hosts,
         )
 
     def _json_request(
@@ -114,6 +133,8 @@ class ArkSeedanceClient:
             if 300 <= error.code < 400:
                 raise RuntimeError(f"{label} redirect was rejected") from error
             detail = error.read(65536).decode("utf-8", errors="replace")
+            if error.code == 404:
+                detail = f"Seedance compatibility endpoint is not deployed: {detail}"
             raise ArkHTTPError(
                 error.code,
                 f"{label} failed with HTTP {error.code}: {detail}",

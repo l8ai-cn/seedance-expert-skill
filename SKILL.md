@@ -4,7 +4,7 @@ description: This skill should be used when creating, directing, generating, rev
 license: MIT
 metadata:
   version: "6.6.0"
-  adaptation_version: "1.0.0"
+  adaptation_version: "1.1.0"
   upstream: "Emily2040/seedance-2.0@57d01dc66f93ecb03c2475be5f22dc416d9b701d"
 ---
 
@@ -81,6 +81,10 @@ The Worker injects these credential-backed variables:
 - `SEEDANCE_BASE_URL`
 - `SEEDANCE_MODEL`
 
+The supported endpoints are official Volcengine Ark and the approved Sub2API
+Seedance compatibility endpoint at `https://token.aiedulab.cn/api/v3`. Both use
+the same Ark task contract. Do not switch endpoints after approval.
+
 `SEEDANCE_MODEL` must be an Ark video model ID beginning with
 `doubao-seedance-`. A `doubao-seed-*` ID is a language model and must be
 rejected before approval or network access.
@@ -133,18 +137,21 @@ Before the billable create request, the command atomically writes
 `output/seedance-video.json` with status `creating` and the request fingerprint.
 After a successful creation response, it immediately persists the task id,
 polls `queued` and `running`, and never creates another task while that metadata
-file exists. Provider HTTP 4xx responses are persisted as `creation_rejected`;
-timeouts, transport failures, and HTTP 5xx responses are persisted as
-`creation_unknown`. Inspect any unknown creation outcome before removing the
-metadata; do not rerun the original create command.
+file exists. A missing HTTP 404 compatibility route is persisted as
+`endpoint_unavailable`; other provider HTTP 4xx responses are persisted as
+`creation_rejected`. Timeouts, transport failures, and HTTP 5xx responses are
+persisted as `creation_unknown`. Inspect any unknown creation outcome before
+removing the metadata; do not rerun the original create command.
 
 If polling times out, resume the persisted task with
 `python3 scripts/seedance_generate.py --resume output/seedance-video.json`.
 The downloader follows only validated HTTPS redirects, streams into a temporary
 file, requires a video or binary Content-Type, rejects empty or oversized
-content, and atomically replaces the output. The output and metadata paths must
-remain distinct. Credentials must never appear in prompts, metadata, logs, or
-committed files.
+content, and atomically replaces the output. Official Ark downloads are
+restricted to the documented Ark TOS hosts, and Sub2API downloads are restricted
+to the approved Lovart artifact hosts. The output and metadata paths must remain
+distinct. Credentials must never appear in prompts, metadata, logs, or committed
+files.
 
 ## Review
 
